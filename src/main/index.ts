@@ -2,7 +2,6 @@ import { app, BrowserWindow, ipcMain, dialog, shell } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import * as path from 'path';
 import * as fs from 'fs';
-import squirrelStartup from 'electron-squirrel-startup';
 
 /// <reference path="./vite-env.d.ts" />
 
@@ -169,10 +168,8 @@ console.log(`📍 Script location: ${__filename}`);
 console.log(`📁 Working directory: ${process.cwd()}`);
 timingLog('Main process startup complete');
 
-// Handle creating/removing shortcuts on Windows when installing/uninstalling
-if (squirrelStartup) {
-  app.quit();
-}
+// Note: electron-squirrel-startup removed during migration to electron-vite
+// Squirrel startup handling will be configured in electron-builder if needed
 
 // Security: Disable GPU acceleration if needed for security (uncomment if required)
 // app.disableHardwareAcceleration();
