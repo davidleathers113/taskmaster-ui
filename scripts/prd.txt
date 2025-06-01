@@ -1,0 +1,87 @@
+# TaskMaster UI: Migration from Electron Forge to electron-vite
+
+## Project Overview
+Migrate the existing TaskMaster UI application from Electron Forge + Vite plugin to electron-vite for improved reliability, performance, and developer experience.
+
+## Current State Analysis
+The existing TaskMaster UI uses Electron Forge with an experimental Vite plugin that suffers from:
+- Magic variable injection failures (MAIN_WINDOW_VITE_DEV_SERVER_URL undefined)
+- Port management issues when default ports are occupied
+- Complex configuration across multiple files
+- Unreliable development server integration requiring workarounds
+- Experimental status with breaking changes expected
+
+## Migration Goals
+1. **Eliminate Development Issues**: Remove all workarounds for magic variable failures
+2. **Improve Developer Experience**: Faster HMR, reliable hot reloading for main/preload
+3. **Simplify Configuration**: Consolidate to single electron.vite.config.js
+4. **Enhance Stability**: Move from experimental to production-ready tooling
+5. **Future-Proof Architecture**: Align with 2025 best practices for Electron + Vite
+
+## Technical Requirements
+
+### Build System Migration
+- Replace @electron-forge/plugin-vite with electron-vite
+- Remove Electron Forge configuration files (forge.config.js)
+- Create new electron.vite.config.js with proper ESM support
+- Update package.json scripts for electron-vite commands
+- Migrate maker configurations for packaging/distribution
+
+### Development Workflow
+- Ensure hot module replacement works for renderer process
+- Implement hot reloading for main process and preload scripts
+- Configure proper TypeScript support across all processes
+- Set up proper source maps for debugging
+- Maintain existing security configurations (CSP, context isolation)
+
+### File Structure Optimization
+- Reorganize source files to follow electron-vite conventions
+- Update import paths and resolve configurations
+- Ensure proper build output structure
+- Maintain existing asset handling and static file serving
+
+### Security & Performance
+- Preserve existing security fuses and configurations
+- Maintain Content Security Policy settings
+- Ensure preload script security with context isolation
+- Optimize build performance and bundle sizes
+- Implement proper dependency externalization
+
+### Testing & Validation
+- Verify all existing functionality works post-migration
+- Test development and production builds
+- Validate packaging and distribution processes
+- Ensure auto-updater integration remains functional
+- Test WebSocket file watcher connectivity
+
+## Success Criteria
+1. **Development Server**: Reliable startup without magic variable workarounds
+2. **Hot Reloading**: Working HMR for all processes (main, preload, renderer)
+3. **Build Process**: Faster and more reliable builds
+4. **Configuration**: Single, maintainable config file
+5. **Feature Parity**: All existing features working identically
+6. **Performance**: Improved development and build performance
+7. **Packaging**: Successful creation of distributables for all platforms
+
+## Risk Mitigation
+- Create backup branch before migration
+- Implement migration in phases with rollback points
+- Test thoroughly on all target platforms
+- Document configuration changes for team knowledge
+- Maintain compatibility with existing CI/CD processes
+
+## Timeline
+Target completion: 2-3 days for full migration including testing and validation.
+
+## Dependencies
+- Node.js 18+ (already satisfied)
+- electron-vite package and dependencies
+- Updated TypeScript configurations
+- Potential adjustments to CI/CD processes
+
+## Post-Migration Benefits
+- Eliminated development friction and workarounds
+- Improved build performance and reliability
+- Simplified maintenance and onboarding
+- Better alignment with Electron community best practices
+- Foundation for future Electron/Vite ecosystem updates

@@ -1,0 +1,51 @@
+{
+  "$schema": "https://repomix.com/schema/repomix.config.schema.json",
+  "input": {
+    "maxFileSize": 50000000,
+    "include": [
+      "src/**/*.ts",
+      "src/**/*.tsx",
+      "test/**/*.ts",
+      "test/**/*.tsx",
+      "package.json",
+      "tsconfig.json",
+      "README.md",
+      ".eslintrc.json",
+      "prettier.config.js",
+      "jest.config.js",
+      "vite.config.ts",
+      "webpack.config.js"
+    ],
+    "ignore": {
+      "useGitignore": true,
+      "customPatterns": [
+        "**/node_modules/**",
+        "**/dist/**",
+        "**/build/**",
+        "**/*.log",
+        "**/*.lock",
+        "**/.DS_Store",
+        "**/.env*",
+        "**/coverage/**"
+      ]
+    }
+  },
+  "output": {
+    "filePath": "repomix-output.md",
+    "style": "markdown",
+    "compress": false,
+    "headerText": "This is a Repomix export of the [Your Project Name] TypeScript project. \nKey files and configurations are included to provide context for AI analysis.",
+    "fileSummary": true,
+    "directoryStructure": true,
+    "removeComments": false,
+    "showLineNumbers": true,
+    "parsableStyle": false
+  },
+  "security": {
+    "enableChecks": true,
+    "excludeSuspiciousFiles": true
+  },
+  "tokens": {
+    "enableCounting": true
+  }
+}

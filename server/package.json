@@ -1,0 +1,48 @@
+{
+  "name": "taskmaster-file-watcher",
+  "version": "2.0.0",
+  "type": "module",
+  "description": "Secure file watcher server for TaskMaster UI with TypeScript support",
+  "main": "dist/file-watcher.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/file-watcher.js",
+    "dev": "nodemon --exec \"tsc && node dist/file-watcher.js\"",
+    "dev:ts": "nodemon --exec \"tsc && node dist/file-watcher.js\"",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint . --ext .ts,.js",
+    "audit": "npm audit --audit-level moderate",
+    "security-check": "npm audit && npm outdated"
+  },
+  "dependencies": {
+    "express": "^4.18.3",
+    "cors": "^2.8.5",
+    "ws": "^8.16.0",
+    "zod": "^3.22.4",
+    "helmet": "^7.1.0",
+    "express-rate-limit": "^7.1.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.3",
+    "typescript": "^5.3.3",
+    "@types/node": "^20.11.5",
+    "@types/express": "^4.17.21",
+    "@types/cors": "^2.8.17",
+    "@types/ws": "^8.5.10",
+    "eslint": "^8.57.0",
+    "@typescript-eslint/eslint-plugin": "^6.19.1",
+    "@typescript-eslint/parser": "^6.19.1",
+    "ts-node": "^10.9.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "taskmaster",
+    "file-watcher",
+    "websocket",
+    "typescript",
+    "security",
+    "api"
+  ]
+}

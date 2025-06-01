@@ -1,0 +1,109 @@
+{
+  "meta": {
+    "generatedAt": "2025-06-01T22:09:01.245Z",
+    "tasksAnalyzed": 12,
+    "totalTasks": 12,
+    "analysisCount": 12,
+    "thresholdScore": 5,
+    "projectName": "Taskmaster",
+    "usedResearch": true
+  },
+  "complexityAnalysis": [
+    {
+      "taskId": 1,
+      "taskTitle": "Create Project Backup and Setup Migration Environment",
+      "complexityScore": 4,
+      "recommendedSubtasks": 6,
+      "expansionPrompt": "Break down the backup and migration environment setup into subtasks such as creating backup branches, pushing to remote, creating migration branches, installing dependencies, documenting the current state, and setting up a test plan.",
+      "reasoning": "This task is procedural and involves standard git and npm operations, documentation, and initial planning. While important, it is not technically complex but should be broken down for clarity and traceability."
+    },
+    {
+      "taskId": 2,
+      "taskTitle": "Remove Electron Forge Configuration",
+      "complexityScore": 5,
+      "recommendedSubtasks": 7,
+      "expansionPrompt": "List subtasks for uninstalling Electron Forge packages, removing configuration files, updating scripts, documenting custom configs, cleaning environment variables, and checking codebase references.",
+      "reasoning": "Removing legacy configuration requires careful identification and cleanup of dependencies, scripts, and code references. Each step is straightforward but must be thorough to avoid migration issues."
+    },
+    {
+      "taskId": 3,
+      "taskTitle": "Create electron-vite Configuration",
+      "complexityScore": 6,
+      "recommendedSubtasks": 8,
+      "expansionPrompt": "Expand into subtasks for creating the config file, configuring main/preload/renderer, setting up TypeScript, path aliases, CSP, dependency externalization, source maps, and port configuration.",
+      "reasoning": "Setting up a new build configuration involves multiple moving parts and requires understanding both Electron and Vite. Each process (main, preload, renderer) has unique requirements."
+    },
+    {
+      "taskId": 4,
+      "taskTitle": "Reorganize Project Structure for electron-vite",
+      "complexityScore": 7,
+      "recommendedSubtasks": 8,
+      "expansionPrompt": "Break down into subtasks for reviewing structure, creating directories, moving files, updating imports, adjusting configs, handling assets, updating file watchers, and documenting changes.",
+      "reasoning": "Reorganizing a codebase is error-prone and impacts all developers. It requires careful planning, updating imports, and ensuring nothing breaks, making it moderately complex."
+    },
+    {
+      "taskId": 5,
+      "taskTitle": "Update Package.json Scripts for electron-vite",
+      "complexityScore": 6,
+      "recommendedSubtasks": 7,
+      "expansionPrompt": "List subtasks for replacing scripts, installing electron-builder, updating configuration files, setting build targets, configuring outputs, updating auto-updater, and revising CI/CD scripts.",
+      "reasoning": "Updating scripts and build tools is essential for workflow continuity. It involves multiple config changes and must be validated across platforms."
+    },
+    {
+      "taskId": 6,
+      "taskTitle": "Migrate Main Process Code",
+      "complexityScore": 7,
+      "recommendedSubtasks": 6,
+      "expansionPrompt": "Expand into subtasks for updating entry points, refactoring imports, removing workarounds, updating paths, improving error handling, and implementing hot reloading.",
+      "reasoning": "Main process migration is critical and can introduce subtle bugs. It requires code refactoring, error handling, and integration with new tooling."
+    },
+    {
+      "taskId": 7,
+      "taskTitle": "Migrate Preload Scripts",
+      "complexityScore": 7,
+      "recommendedSubtasks": 7,
+      "expansionPrompt": "Break down into subtasks for updating imports, maintaining contextBridge and IPC, updating paths, verifying security, implementing TypeScript interfaces, enabling hot reloading, and checking CSP.",
+      "reasoning": "Preload scripts are security-sensitive and must be carefully migrated to maintain isolation and correct API exposure."
+    },
+    {
+      "taskId": 8,
+      "taskTitle": "Migrate Renderer Process Code",
+      "complexityScore": 7,
+      "recommendedSubtasks": 8,
+      "expansionPrompt": "List subtasks for updating entry points, configuring HMR, updating imports, verifying API access, updating asset imports, configuring CSS/SCSS, updating env usage, and ensuring TypeScript support.",
+      "reasoning": "Renderer migration involves frontend build tooling, HMR, asset handling, and integration with preload APIs, making it moderately complex."
+    },
+    {
+      "taskId": 9,
+      "taskTitle": "Configure Electron Builder for Packaging",
+      "complexityScore": 6,
+      "recommendedSubtasks": 7,
+      "expansionPrompt": "Expand into subtasks for creating config files, migrating custom configs, setting up code signing, configuring auto-updater, setting icons, updating metadata, and configuring artifact naming.",
+      "reasoning": "Packaging configuration is detailed and must be correct for cross-platform distribution, but follows established patterns."
+    },
+    {
+      "taskId": 10,
+      "taskTitle": "Implement and Test Hot Reloading for All Processes",
+      "complexityScore": 8,
+      "recommendedSubtasks": 8,
+      "expansionPrompt": "Break down into subtasks for renderer HMR, main process hot reloading, preload hot reloading, adding dev utilities, configuring error handling, setting up logging, testing state preservation, and verifying error overlays.",
+      "reasoning": "Coordinating hot reloading across all Electron processes is technically challenging and requires deep integration with the build system and runtime."
+    },
+    {
+      "taskId": 11,
+      "taskTitle": "Optimize Build Performance and Bundle Sizes",
+      "complexityScore": 7,
+      "recommendedSubtasks": 8,
+      "expansionPrompt": "List subtasks for dependency externalization, code splitting, tree-shaking, asset optimization, env handling, bundle analysis, minification, and source map configuration.",
+      "reasoning": "Build optimization involves advanced configuration and analysis, requiring knowledge of both Electron and Vite internals."
+    },
+    {
+      "taskId": 12,
+      "taskTitle": "Comprehensive Testing and Documentation",
+      "complexityScore": 9,
+      "recommendedSubtasks": 10,
+      "expansionPrompt": "Expand into subtasks for creating a test plan, testing dev workflow, testing production builds, feature regression testing, documenting migration, updating README, creating MIGRATION.md, updating CI/CD, performance comparison, and documenting known issues.",
+      "reasoning": "Comprehensive testing and documentation is the most complex task, requiring coordination across all previous tasks, thorough validation, and clear communication for future maintainers."
+    }
+  ]
+}
