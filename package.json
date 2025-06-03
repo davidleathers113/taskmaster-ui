@@ -51,7 +51,7 @@
     "test:watch": "vitest --watch",
     "test:debug": "vitest --inspect-brk --no-coverage",
     "test:main": "vitest run --project main",
-    "test:renderer": "vitest run --project renderer", 
+    "test:renderer": "vitest run --project renderer",
     "test:preload": "vitest run --project preload",
     "test:integration": "vitest run --project integration",
     "test:e2e": "playwright test tests/e2e",
@@ -83,16 +83,7 @@
     "cleanup:windows": "./cleanup-electron.sh",
     "cleanup:test": "pkill -f electron || true && pkill -f vitest || true",
     "benchmark:start": "NODE_ENV=test npm run start:dev",
-    "benchmark:full": "npm run benchmark:start & sleep 10 && npm run test:benchmark && npm run memlab:all",
-    "prepare": "husky"
-  },
-  "lint-staged": {
-    "**/*.{js,mjs,cjs,ts,tsx}": [
-      "eslint --max-warnings 0 --no-warn-ignored --fix"
-    ],
-    "**/*.{json,md,yml,yaml,css,scss}": [
-      "prettier --write"
-    ]
+    "benchmark:full": "npm run benchmark:start & sleep 10 && npm run test:benchmark && npm run memlab:all"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -127,6 +118,7 @@
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.6.1",
     "@types/chokidar": "^1.7.5",
+    "@types/express": "^5.0.2",
     "@types/node": "^22.15.29",
     "@types/react": "^18.3.17",
     "@types/react-dom": "^18.3.5",
@@ -142,6 +134,7 @@
     "electron-builder": "^26.0.12",
     "electron-updater": "^6.6.2",
     "electron-vite": "^3.1.0",
+    "es-module-lexer": "^1.7.0",
     "eslint": "^9.28.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.16",
@@ -158,6 +151,7 @@
     "rollup-plugin-visualizer": "^6.0.1",
     "tailwindcss": "^3.4.17",
     "terser": "^5.40.0",
+    "ts-morph": "^26.0.0",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.33.1",
     "vite": "^6.0.5",

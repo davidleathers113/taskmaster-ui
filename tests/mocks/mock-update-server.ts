@@ -6,7 +6,7 @@
  * and failure scenarios following 2025 best practices.
  */
 
-import express, { Express, Request, Response } from 'express'
+import express, { Express, Request } from 'express'
 import { createServer as createHttpsServer, Server as HttpsServer } from 'https'
 import { createServer as createHttpServer, Server as HttpServer } from 'http'
 import { readFileSync, existsSync, mkdirSync, writeFileSync } from 'fs'

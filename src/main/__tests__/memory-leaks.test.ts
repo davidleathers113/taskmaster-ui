@@ -9,7 +9,7 @@
 import { describe, test, expect, beforeEach, afterEach, vi } from 'vitest'
 import { app, BrowserWindow, ipcMain, webContents, session } from 'electron'
 import { EventEmitter } from 'events'
-import { TestWindowManager, createTestWindow, cleanupTestWindows } from '../../../tests/utils/window-manager'
+import { TestWindowManager, cleanupTestWindows } from '../../../tests/utils/window-manager'
 
 // Mock electron modules
 vi.mock('electron', () => ({
@@ -543,12 +543,6 @@ describe('Memory Leak Detection Tests (2025)', () => {
   describe('Memory Profiling Integration', () => {
     test('should support heap snapshot analysis', async () => {
       // Mock heap snapshot functionality
-      const takeHeapSnapshot = async (): Promise<any> => {
-        const window = new BrowserWindow()
-        const snapshot = await window.webContents.debugger.sendCommand('HeapProfiler.takeHeapSnapshot')
-        window.destroy()
-        return snapshot
-      }
       
       // Mock debugger command
       const mockWindow = windowManager.createWindow()

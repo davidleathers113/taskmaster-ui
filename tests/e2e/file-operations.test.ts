@@ -184,7 +184,7 @@ class FileOperationsPage {
     console.log(`👁️ Testing file watcher functionality for: ${testProjectPath}`);
     
     // Set up WebSocket message listener
-    let updateCount = 0;
+    const updateCount = 0;
     await this.page.evaluate(() => {
       (window as any).__FILE_WATCHER_UPDATES__ = 0;
       

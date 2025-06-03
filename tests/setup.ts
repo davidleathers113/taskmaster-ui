@@ -10,8 +10,8 @@ import { afterEach, beforeAll, beforeEach, vi } from 'vitest';
 import { cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom/vitest';
 
-// Import Zustand mock to ensure it's loaded for DOM environment tests
-import '../__mocks__/zustand';
+// Import Zustand mock and resetAllStores directly
+import { resetAllStores } from '../__mocks__/zustand';
 
 // Check if we're in a DOM environment before accessing window
 const isDOMEnvironment = typeof window !== 'undefined';
@@ -104,11 +104,10 @@ beforeEach(() => {
   
   // Reset all Zustand stores (2025 best practice)
   try {
-    const { resetAllStores } = require('../__mocks__/zustand');
     resetAllStores();
   } catch (error) {
     // Fail silently if Zustand mock not available
-    console.warn('Zustand mock not found at ../__mocks__/zustand:', error.message);
+    console.warn('Zustand mock not available for store reset:', error.message);
   }
 });
 

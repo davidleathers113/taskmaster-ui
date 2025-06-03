@@ -691,17 +691,6 @@ async function globalSetup(config?: FullConfig): Promise<void> {
 
 // Export as default for Playwright globalSetup
 export default globalSetup;
- * 
- * This setup file configures the testing environment for end-to-end Electron tests
- * using Playwright. It provides utilities for full application testing including
- * real user interactions, file system operations, and cross-platform testing.
- * 
- * Research-based implementation following 2025 best practices for:
- * - Playwright + Electron E2E testing patterns
- * - Cross-platform testing strategies
- * - Real file system interaction testing
- * - Performance monitoring and visual regression testing
- */
 
 import { vi, beforeEach, afterEach, beforeAll, afterAll } from 'vitest'
 import { type ElectronApplication, type Page, _electron as electron } from 'playwright'

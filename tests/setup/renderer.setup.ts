@@ -17,9 +17,8 @@ import { cleanup } from '@testing-library/react'
 import { configure } from '@testing-library/react'
 import '@testing-library/jest-dom'
 
-// Import Zustand mock to ensure it's loaded for renderer tests
-// This must be imported before any components that use Zustand stores
-import '../../__mocks__/zustand'
+// Import Zustand mock and resetAllStores directly
+import { resetAllStores } from '../../__mocks__/zustand'
 
 // Configure React Testing Library for optimal performance and debugging
 configure({
@@ -240,6 +239,7 @@ Object.defineProperty(URL, 'revokeObjectURL', {
 // Mock clipboard API
 Object.defineProperty(navigator, 'clipboard', {
   writable: true,
+  configurable: true,
   value: {
     writeText: vi.fn().mockResolvedValue(undefined),
     readText: vi.fn().mockResolvedValue('mock clipboard text'),
@@ -282,7 +282,6 @@ beforeEach(() => {
   
   // Reset Zustand stores for test isolation
   try {
-    const { resetAllStores } = require('../../__mocks__/zustand')
     resetAllStores()
   } catch (error) {
     // Fail silently if Zustand mock not available

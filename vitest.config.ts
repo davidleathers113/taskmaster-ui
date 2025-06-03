@@ -206,7 +206,7 @@ export default defineConfig({
     
     // Global test configuration
     globals: true,
-    setupFiles: ['./tests/setup.ts'],
+    setupFiles: ['./vitest-setup.ts', './tests/setup.ts'],
     
     // Mock directory configuration
     deps: {

@@ -411,7 +411,7 @@ test.describe('Accessibility Tests - Keyboard Navigation', () => {
     await page.keyboard.press('Meta+k');
     await page.waitForTimeout(300);
     
-    let commandPalette = page.locator('[data-testid="command-palette"], [role="dialog"]');
+    const commandPalette = page.locator('[data-testid="command-palette"], [role="dialog"]');
     await expect(commandPalette).toBeVisible();
     
     // Close with Escape
@@ -480,7 +480,7 @@ test.describe('Accessibility Tests - Keyboard Navigation', () => {
       await page.keyboard.press('ArrowDown');
       await page.waitForTimeout(100);
       
-      let activeIndex = await page.evaluate(() => {
+      const activeIndex = await page.evaluate(() => {
         const active = document.activeElement;
         const items = Array.from(document.querySelectorAll('[role="listitem"], [data-testid*="task-card"]'));
         return items.indexOf(active as HTMLElement);

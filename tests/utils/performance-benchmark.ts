@@ -294,7 +294,7 @@ export class PerformanceBenchmark {
       
       let totalBytes = 0;
       let totalLatency = 0;
-      let requestCount = entries.length;
+      const requestCount = entries.length;
       
       entries.forEach(entry => {
         // Estimate bytes based on timing (rough approximation)

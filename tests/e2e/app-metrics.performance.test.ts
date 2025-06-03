@@ -102,7 +102,7 @@ async function collectPerformanceMetrics(page: Page): Promise<any> {
 async function measureFrameRate(page: Page, duration: number = 1000): Promise<number> {
   return await page.evaluate(async (duration) => {
     let frameCount = 0;
-    let lastTime = performance.now();
+    const lastTime = performance.now();
     
     return new Promise<number>((resolve) => {
       const countFrames = (currentTime: number) => {

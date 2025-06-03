@@ -1,0 +1,1037 @@
+{
+  "timestamp": "2025-06-03T11:52:38.057Z",
+  "totalErrors": 514,
+  "errorsByCode": [
+    {
+      "code": "TS6133",
+      "name": "Unused Variables",
+      "strategy": "Remove or use the variable",
+      "count": 83,
+      "files": [
+        "src/main/__tests__/auto-updater-differential.test.ts",
+        "src/main/__tests__/auto-updater-integration.test.ts",
+        "src/main/__tests__/auto-updater-security.test.ts",
+        "src/main/__tests__/cross-process-communication.test.ts",
+        "src/main/__tests__/ipc-security.test.ts",
+        "src/main/__tests__/lifecycle.test.ts",
+        "src/main/__tests__/memory-leak-detection.test.ts",
+        "src/main/__tests__/memory-leaks.test.ts",
+        "src/main/__tests__/mocked-apis.test.ts",
+        "src/main/__tests__/mocked-electron-apis.test.ts",
+        "src/main/security/secure-ipc-handler.ts",
+        "src/preload/__tests__/preload-security.test.ts",
+        "src/renderer/src/components/error/IPCStatusNotification.tsx",
+        "src/renderer/src/components/error/MUIErrorBoundary.tsx",
+        "src/renderer/src/components/recovery/RecoveryDashboard.tsx",
+        "src/renderer/src/components/recovery/RecoveryNotification.tsx",
+        "src/renderer/src/components/task/TaskCard.tsx",
+        "src/renderer/src/components/task/__tests__/TaskCard.test.tsx",
+        "src/renderer/src/components/views/PerformanceDashboard.tsx",
+        "src/renderer/src/examples/IPCErrorBoundaryExample.tsx",
+        "src/renderer/src/hooks/useErrorBoundary.ts",
+        "src/renderer/src/lib/ipcRetry.ts",
+        "src/renderer/src/lib/services/crashRecovery.ts",
+        "src/renderer/src/lib/services/monitoring.ts",
+        "src/renderer/src/services/ErrorReportingService.ts",
+        "src/renderer/src/store/errorStore.ts",
+        "src/renderer/src/store/rehydration.ts",
+        "src/renderer/src/store/stateBackup.ts",
+        "tests/mocks/mock-update-server.ts",
+        "tests/setup/preload.setup.ts"
+      ],
+      "examples": [
+        {
+          "file": "main/__tests__/auto-updater-differential.test.ts",
+          "line": 20,
+          "message": "'oldFile' is declared but its value is never read."
+        },
+        {
+          "file": "main/__tests__/auto-updater-differential.test.ts",
+          "line": 133,
+          "message": "'version' is declared but its value is never read."
+        },
+        {
+          "file": "main/__tests__/auto-updater-differential.test.ts",
+          "line": 551,
+          "message": "'filePath' is declared but its value is never read."
+        }
+      ]
+    },
+    {
+      "code": "TS2339",
+      "name": "Property Does Not Exist",
+      "strategy": "Add type definitions or fix mock types",
+      "count": 75,
+      "files": [
+        "src/main/__tests__/auto-updater-differential.test.ts",
+        "src/main/__tests__/auto-updater-integration.test.ts",
+        "src/main/__tests__/auto-updater.test.ts",
+        "src/main/__tests__/cross-process-communication.test.ts",
+        "src/main/__tests__/ipc-security.test.ts",
+        "src/main/__tests__/lifecycle.test.ts",
+        "src/main/__tests__/memory-leaks.test.ts",
+        "src/main/__tests__/mocked-electron-apis.test.ts",
+        "src/main/security/secure-ipc-handler.ts",
+        "src/preload/__tests__/baseline.test.ts",
+        "src/renderer/src/__tests__/baseline.test.tsx",
+        "src/renderer/src/hooks/useAppState.ts",
+        "src/renderer/src/lib/services/telemetry.ts",
+        "src/renderer/src/store/backupService.ts"
+      ],
+      "examples": [
+        {
+          "file": "main/__tests__/auto-updater-differential.test.ts",
+          "line": 139,
+          "message": "Property 'size' does not exist on type 'UpdateInfo'."
+        },
+        {
+          "file": "main/__tests__/auto-updater-differential.test.ts",
+          "line": 148,
+          "message": "Property 'mockResolvedValue' does not exist on type '() => Promise<UpdateCheckResult | null>'."
+        },
+        {
+          "file": "main/__tests__/auto-updater-differential.test.ts",
+          "line": 376,
+          "message": "Property 'mockReturnValue' does not exist on type '() => string'."
+        }
+      ]
+    },
+    {
+      "code": "TS2532",
+      "name": "Object Possibly Undefined",
+      "strategy": "Add undefined checks (from noUncheckedIndexedAccess)",
+      "count": 58,
+      "files": [
+        "src/lib/performance-database.ts",
+        "src/main/__tests__/auto-updater-differential.test.ts",
+        "src/main/__tests__/auto-updater-security.test.ts",
+        "src/main/__tests__/ipc-security.test.ts",
+        "src/main/index.ts",
+        "src/main/security/security-monitor.ts",
+        "src/main/utils/heap-snapshot-analyzer.ts",
+        "src/renderer/src/components/recovery/RecoveryDashboard.tsx",
+        "src/renderer/src/components/task/TaskCard.tsx",
+        "src/renderer/src/components/ui/CommandPalette.tsx",
+        "src/renderer/src/components/views/PerformanceDashboard.tsx",
+        "src/renderer/src/hooks/useAppState.ts",
+        "src/renderer/src/store/__tests__/errorHandling.test.ts",
+        "src/renderer/src/store/__tests__/useTaskStore.test.ts",
+        "src/renderer/src/store/errorStore.ts"
+      ],
+      "examples": [
+        {
+          "file": "lib/performance-database.ts",
+          "line": 407,
+          "message": "Object is possibly 'undefined'."
+        },
+        {
+          "file": "lib/performance-database.ts",
+          "line": 408,
+          "message": "Object is possibly 'undefined'."
+        },
+        {
+          "file": "main/__tests__/auto-updater-differential.test.ts",
+          "line": 408,
+          "message": "Object is possibly 'undefined'."
+        }
+      ]
+    },
+    {
+      "code": "TS18048",
+      "name": "Possibly Undefined",
+      "strategy": "Add undefined checks",
+      "count": 47,
+      "files": [
+        "src/lib/performance-database.ts",
+        "src/main/__tests__/auto-updater-security.test.ts",
+        "src/main/__tests__/cross-process-communication.test.ts",
+        "src/main/__tests__/mocked-electron-apis.test.ts",
+        "src/main/utils/memory-monitor.ts",
+        "src/preload/__tests__/preload-security.test.ts",
+        "src/renderer/src/hooks/useAppState.ts",
+        "src/renderer/src/store/__tests__/errorHandling.test.ts",
+        "src/renderer/src/store/stateBackup.ts",
+        "src/renderer/src/store/storeErrorWrapper.ts"
+      ],
+      "examples": [
+        {
+          "file": "lib/performance-database.ts",
+          "line": 729,
+          "message": "'lastValue' is possibly 'undefined'."
+        },
+        {
+          "file": "lib/performance-database.ts",
+          "line": 729,
+          "message": "'firstValue' is possibly 'undefined'."
+        },
+        {
+          "file": "lib/performance-database.ts",
+          "line": 729,
+          "message": "'firstValue' is possibly 'undefined'."
+        }
+      ]
+    },
+    {
+      "code": "TS2484",
+      "name": "Unknown",
+      "strategy": "Manual review needed",
+      "count": 38,
+      "files": [
+        "src/renderer/src/hooks/useAppState.ts",
+        "src/renderer/src/hooks/useErrorBoundary.ts",
+        "src/renderer/src/lib/config/monitoring.ts",
+        "src/renderer/src/lib/config/performance-dashboard.ts",
+        "src/renderer/src/lib/services/crashRecovery.ts",
+        "src/renderer/src/lib/services/errorReporting.ts",
+        "src/renderer/src/lib/services/globalErrorHandler.ts",
+        "src/renderer/src/lib/services/monitoring.ts",
+        "src/renderer/src/lib/services/telemetry.ts",
+        "src/renderer/src/services/ErrorReportingService.ts"
+      ],
+      "examples": [
+        {
+          "file": "renderer/src/hooks/useAppState.ts",
+          "line": 572,
+          "message": "Export declaration conflicts with exported declaration of 'AppState'."
+        },
+        {
+          "file": "renderer/src/hooks/useAppState.ts",
+          "line": 573,
+          "message": "Export declaration conflicts with exported declaration of 'StatePreservationResult'."
+        },
+        {
+          "file": "renderer/src/hooks/useAppState.ts",
+          "line": 574,
+          "message": "Export declaration conflicts with exported declaration of 'StateRestorationResult'."
+        }
+      ]
+    },
+    {
+      "code": "TS7006",
+      "name": "Implicit Any",
+      "strategy": "Add explicit type annotations",
+      "count": 33,
+      "files": [
+        "src/main/__tests__/auto-updater-integration.test.ts",
+        "src/main/__tests__/auto-updater.test.ts",
+        "src/main/__tests__/lifecycle.test.ts",
+        "src/main/__tests__/mocked-electron-apis.test.ts",
+        "src/renderer/src/components/task/__tests__/TaskCard.test.tsx",
+        "tests/mocks/mock-update-server.ts"
+      ],
+      "examples": [
+        {
+          "file": "main/__tests__/auto-updater-integration.test.ts",
+          "line": 175,
+          "message": "Parameter 'c' implicitly has an 'any' type."
+        },
+        {
+          "file": "main/__tests__/auto-updater-integration.test.ts",
+          "line": 176,
+          "message": "Parameter 'c' implicitly has an 'any' type."
+        },
+        {
+          "file": "main/__tests__/auto-updater-integration.test.ts",
+          "line": 189,
+          "message": "Parameter 'c' implicitly has an 'any' type."
+        }
+      ]
+    },
+    {
+      "code": "TS2345",
+      "name": "Argument Type Mismatch",
+      "strategy": "Fix argument types",
+      "count": 28,
+      "files": [
+        "src/main/__tests__/auto-updater.test.ts",
+        "src/main/__tests__/ipc-security.test.ts",
+        "src/main/__tests__/memory-leaks.test.ts",
+        "src/main/__tests__/mocked-electron-apis.test.ts",
+        "src/main/security/secure-ipc-handler.ts",
+        "src/preload/__tests__/baseline.test.ts",
+        "src/renderer/src/contexts/IPCContext.tsx",
+        "src/renderer/src/examples/StoreErrorHandlingExample.tsx",
+        "src/renderer/src/lib/ipcRetry.ts",
+        "src/renderer/src/lib/services/crashRecovery.ts",
+        "src/renderer/src/lib/services/telemetry.ts",
+        "src/renderer/src/services/ErrorReportingService.ts",
+        "src/renderer/src/store/__tests__/errorHandling.test.ts",
+        "src/renderer/src/store/__tests__/useTaskStore.test.ts",
+        "src/renderer/src/store/errorStore.ts",
+        "src/renderer/src/store/rehydration.ts",
+        "src/renderer/src/utils/sessionPreservation.ts",
+        "tests/mocks/mock-update-server.ts"
+      ],
+      "examples": [
+        {
+          "file": "main/__tests__/auto-updater.test.ts",
+          "line": 325,
+          "message": "Argument of type '{ id: number; }' is not assignable to parameter of type 'BaseWindow'."
+        },
+        {
+          "file": "main/__tests__/auto-updater.test.ts",
+          "line": 355,
+          "message": "Argument of type '{}' is not assignable to parameter of type 'BaseWindow'."
+        },
+        {
+          "file": "main/__tests__/auto-updater.test.ts",
+          "line": 375,
+          "message": "Argument of type '{}' is not assignable to parameter of type 'BaseWindow'."
+        }
+      ]
+    },
+    {
+      "code": "TS2322",
+      "name": "Type Not Assignable",
+      "strategy": "Fix type mismatch",
+      "count": 20,
+      "files": [
+        "src/lib/performance-database.ts",
+        "src/main/utils/heap-snapshot-analyzer.ts",
+        "src/main/utils/memory-monitor.ts",
+        "src/preload/__tests__/preload-security.test.ts",
+        "src/renderer/src/components/error/__tests__/ErrorBoundary.test.tsx",
+        "src/renderer/src/components/views/KanbanView.tsx",
+        "src/renderer/src/hooks/useAppState.ts",
+        "src/renderer/src/lib/services/globalErrorHandler.ts",
+        "src/renderer/src/lib/utils.ts",
+        "src/renderer/src/services/ErrorReportingService.ts",
+        "src/renderer/src/store/errorStore.ts"
+      ],
+      "examples": [
+        {
+          "file": "lib/performance-database.ts",
+          "line": 432,
+          "message": "Type 'string | undefined' is not assignable to type 'string'."
+        },
+        {
+          "file": "main/utils/heap-snapshot-analyzer.ts",
+          "line": 259,
+          "message": "Type '{ type: any; name: any; size: number | undefined; id: number; }[]' is not assignable to type 'SnapshotObject[]'."
+        },
+        {
+          "file": "main/utils/memory-monitor.ts",
+          "line": 261,
+          "message": "Type 'MemorySnapshot | undefined' is not assignable to type 'MemorySnapshot'."
+        }
+      ]
+    },
+    {
+      "code": "TS2304",
+      "name": "Cannot Find Name",
+      "strategy": "Import or declare the name",
+      "count": 19,
+      "files": [
+        "src/main/__tests__/auto-updater-security.test.ts",
+        "src/main/__tests__/baseline.test.ts",
+        "src/main/__tests__/lifecycle.test.ts",
+        "src/main/__tests__/memory-leak-detection.test.ts",
+        "src/preload/__tests__/baseline.test.ts",
+        "src/renderer/src/__tests__/baseline.test.tsx",
+        "src/renderer/src/components/error/__tests__/ErrorBoundary.test.tsx"
+      ],
+      "examples": [
+        {
+          "file": "main/__tests__/auto-updater-security.test.ts",
+          "line": 66,
+          "message": "Cannot find name 'serverUrl'."
+        },
+        {
+          "file": "main/__tests__/baseline.test.ts",
+          "line": 115,
+          "message": "Cannot find name 'vi'."
+        },
+        {
+          "file": "main/__tests__/lifecycle.test.ts",
+          "line": 115,
+          "message": "Cannot find name 'createWindow'."
+        }
+      ]
+    },
+    {
+      "code": "TS18047",
+      "name": "Possibly Null",
+      "strategy": "Add null checks",
+      "count": 18,
+      "files": [
+        "src/main/__tests__/auto-updater-differential.test.ts",
+        "src/main/__tests__/auto-updater-integration.test.ts",
+        "src/main/__tests__/auto-updater.test.ts"
+      ],
+      "examples": [
+        {
+          "file": "main/__tests__/auto-updater-differential.test.ts",
+          "line": 382,
+          "message": "'result' is possibly 'null'."
+        },
+        {
+          "file": "main/__tests__/auto-updater-differential.test.ts",
+          "line": 383,
+          "message": "'result' is possibly 'null'."
+        },
+        {
+          "file": "main/__tests__/auto-updater-differential.test.ts",
+          "line": 435,
+          "message": "'autoUpdater.logger' is possibly 'null'."
+        }
+      ]
+    },
+    {
+      "code": "TS2349",
+      "name": "Not Callable",
+      "strategy": "Fix function type",
+      "count": 10,
+      "files": [
+        "src/main/__tests__/cross-process-communication.test.ts",
+        "src/preload/__tests__/preload-security.test.ts",
+        "src/renderer/src/store/__tests__/errorHandling.test.ts"
+      ],
+      "examples": [
+        {
+          "file": "main/__tests__/cross-process-communication.test.ts",
+          "line": 13,
+          "message": "This expression is not callable."
+        },
+        {
+          "file": "preload/__tests__/preload-security.test.ts",
+          "line": 13,
+          "message": "This expression is not callable."
+        },
+        {
+          "file": "preload/__tests__/preload-security.test.ts",
+          "line": 27,
+          "message": "This expression is not callable."
+        }
+      ]
+    },
+    {
+      "code": "TS2769",
+      "name": "No Overload Matches",
+      "strategy": "Fix function arguments",
+      "count": 9,
+      "files": [
+        "src/main/__tests__/memory-leak-detection.test.ts",
+        "src/main/__tests__/memory-leaks.test.ts",
+        "src/renderer/src/components/views/PerformanceDashboard.tsx",
+        "tests/mocks/mock-update-server.ts"
+      ],
+      "examples": [
+        {
+          "file": "main/__tests__/memory-leak-detection.test.ts",
+          "line": 287,
+          "message": "No overload matches this call."
+        },
+        {
+          "file": "main/__tests__/memory-leak-detection.test.ts",
+          "line": 288,
+          "message": "No overload matches this call."
+        },
+        {
+          "file": "main/__tests__/memory-leaks.test.ts",
+          "line": 484,
+          "message": "No overload matches this call."
+        }
+      ]
+    },
+    {
+      "code": "TS2451",
+      "name": "Unknown",
+      "strategy": "Manual review needed",
+      "count": 8,
+      "files": [
+        "src/main/__tests__/memory-leak-detection.test.ts"
+      ],
+      "examples": [
+        {
+          "file": "main/__tests__/memory-leak-detection.test.ts",
+          "line": 216,
+          "message": "Cannot redeclare block-scoped variable 'createWindow'."
+        },
+        {
+          "file": "main/__tests__/memory-leak-detection.test.ts",
+          "line": 216,
+          "message": "Cannot redeclare block-scoped variable 'destroyWindow'."
+        },
+        {
+          "file": "main/__tests__/memory-leak-detection.test.ts",
+          "line": 219,
+          "message": "Cannot redeclare block-scoped variable 'createWindow'."
+        }
+      ]
+    },
+    {
+      "code": "TS2540",
+      "name": "Cannot Assign to Readonly",
+      "strategy": "Avoid assigning to readonly properties",
+      "count": 7,
+      "files": [
+        "src/main/__tests__/auto-updater.test.ts",
+        "src/main/__tests__/lifecycle.test.ts",
+        "src/renderer/src/components/error/__tests__/ErrorBoundary.test.tsx"
+      ],
+      "examples": [
+        {
+          "file": "main/__tests__/auto-updater.test.ts",
+          "line": 94,
+          "message": "Cannot assign to 'isPackaged' because it is a read-only property."
+        },
+        {
+          "file": "main/__tests__/auto-updater.test.ts",
+          "line": 110,
+          "message": "Cannot assign to 'isPackaged' because it is a read-only property."
+        },
+        {
+          "file": "main/__tests__/lifecycle.test.ts",
+          "line": 322,
+          "message": "Cannot assign to 'isPackaged' because it is a read-only property."
+        }
+      ]
+    },
+    {
+      "code": "TS7017",
+      "name": "No Index Signature",
+      "strategy": "Add index signature or use proper type",
+      "count": 7,
+      "files": [
+        "src/main/__tests__/baseline.test.ts"
+      ],
+      "examples": [
+        {
+          "file": "main/__tests__/baseline.test.ts",
+          "line": 16,
+          "message": "Element implicitly has an 'any' type because type 'typeof globalThis' has no index signature."
+        },
+        {
+          "file": "main/__tests__/baseline.test.ts",
+          "line": 17,
+          "message": "Element implicitly has an 'any' type because type 'typeof globalThis' has no index signature."
+        },
+        {
+          "file": "main/__tests__/baseline.test.ts",
+          "line": 93,
+          "message": "Element implicitly has an 'any' type because type 'typeof globalThis' has no index signature."
+        }
+      ]
+    },
+    {
+      "code": "TS7030",
+      "name": "Not All Paths Return",
+      "strategy": "Add return statements",
+      "count": 7,
+      "files": [
+        "src/renderer/src/components/recovery/RecoveryNotification.tsx",
+        "src/renderer/src/components/task/TaskCard.tsx",
+        "tests/mocks/mock-update-server.ts"
+      ],
+      "examples": [
+        {
+          "file": "renderer/src/components/recovery/RecoveryNotification.tsx",
+          "line": 84,
+          "message": "Not all code paths return a value."
+        },
+        {
+          "file": "renderer/src/components/task/TaskCard.tsx",
+          "line": 96,
+          "message": "Not all code paths return a value."
+        },
+        {
+          "file": "tests/mocks/mock-update-server.ts",
+          "line": 137,
+          "message": "Not all code paths return a value."
+        }
+      ]
+    },
+    {
+      "code": "TS2551",
+      "name": "Property Typo",
+      "strategy": "Fix property name",
+      "count": 6,
+      "files": [
+        "src/main/__tests__/cross-process-communication.test.ts",
+        "src/main/__tests__/ipc-security.test.ts",
+        "src/renderer/src/hooks/useAppState.ts",
+        "src/renderer/src/lib/services/errorReporting.ts"
+      ],
+      "examples": [
+        {
+          "file": "main/__tests__/cross-process-communication.test.ts",
+          "line": 67,
+          "message": "Property '_handlers' does not exist on type 'IpcMain'. Did you mean 'handle'?"
+        },
+        {
+          "file": "main/__tests__/cross-process-communication.test.ts",
+          "line": 68,
+          "message": "Property '_listeners' does not exist on type 'IpcMain'. Did you mean 'listeners'?"
+        },
+        {
+          "file": "main/__tests__/ipc-security.test.ts",
+          "line": 64,
+          "message": "Property '_handlers' does not exist on type 'IpcMain'. Did you mean 'handle'?"
+        }
+      ]
+    },
+    {
+      "code": "TS2307",
+      "name": "Cannot Find Module",
+      "strategy": "Fix import paths or add type declarations",
+      "count": 6,
+      "files": [
+        "src/main/__tests__/memory-leak-detection.test.ts",
+        "src/renderer/src/components/error/__tests__/ErrorBoundary.test.tsx",
+        "src/renderer/src/components/task/__tests__/TaskCard.test.tsx",
+        "src/renderer/src/components/views/PerformanceDashboard.tsx",
+        "src/renderer/src/store/__tests__/useTaskStore.test.ts"
+      ],
+      "examples": [
+        {
+          "file": "main/__tests__/memory-leak-detection.test.ts",
+          "line": 216,
+          "message": "Cannot find module '../window-manager' or its corresponding type declarations."
+        },
+        {
+          "file": "main/__tests__/memory-leak-detection.test.ts",
+          "line": 305,
+          "message": "Cannot find module '../ipc-handlers' or its corresponding type declarations."
+        },
+        {
+          "file": "renderer/src/components/error/__tests__/ErrorBoundary.test.tsx",
+          "line": 14,
+          "message": "Cannot find module '@tests/setup' or its corresponding type declarations."
+        }
+      ]
+    },
+    {
+      "code": "TS2554",
+      "name": "Wrong Argument Count",
+      "strategy": "Fix function calls",
+      "count": 5,
+      "files": [
+        "src/main/__tests__/auto-updater-differential.test.ts",
+        "src/main/__tests__/auto-updater-integration.test.ts",
+        "src/main/__tests__/auto-updater.test.ts",
+        "src/main/__tests__/memory-leaks.test.ts"
+      ],
+      "examples": [
+        {
+          "file": "main/__tests__/auto-updater-differential.test.ts",
+          "line": 637,
+          "message": "Expected 0-1 arguments, but got 2."
+        },
+        {
+          "file": "main/__tests__/auto-updater-integration.test.ts",
+          "line": 166,
+          "message": "Expected 0-1 arguments, but got 2."
+        },
+        {
+          "file": "main/__tests__/auto-updater.test.ts",
+          "line": 265,
+          "message": "Expected 0-1 arguments, but got 2."
+        }
+      ]
+    },
+    {
+      "code": "TS6192",
+      "name": "Unknown",
+      "strategy": "Manual review needed",
+      "count": 4,
+      "files": [
+        "src/main/__tests__/auto-updater-security.test.ts",
+        "src/renderer/src/components/error/withIPCErrorHandling.tsx",
+        "src/renderer/src/components/recovery/RecoveryDashboard.tsx",
+        "src/renderer/src/store/__tests__/errorHandling.test.ts"
+      ],
+      "examples": [
+        {
+          "file": "main/__tests__/auto-updater-security.test.ts",
+          "line": 14,
+          "message": "All imports in import declaration are unused."
+        },
+        {
+          "file": "renderer/src/components/error/withIPCErrorHandling.tsx",
+          "line": 14,
+          "message": "All imports in import declaration are unused."
+        },
+        {
+          "file": "renderer/src/components/recovery/RecoveryDashboard.tsx",
+          "line": 41,
+          "message": "All imports in import declaration are unused."
+        }
+      ]
+    },
+    {
+      "code": "TS2683",
+      "name": "Cannot Assign to This",
+      "strategy": "Refactor to avoid this assignment",
+      "count": 3,
+      "files": [
+        "src/renderer/src/store/storeErrorWrapper.ts",
+        "tests/mocks/mock-update-server.ts"
+      ],
+      "examples": [
+        {
+          "file": "renderer/src/store/storeErrorWrapper.ts",
+          "line": 391,
+          "message": "'this' implicitly has type 'any' because it does not have a type annotation."
+        },
+        {
+          "file": "tests/mocks/mock-update-server.ts",
+          "line": 123,
+          "message": "'this' implicitly has type 'any' because it does not have a type annotation."
+        },
+        {
+          "file": "tests/mocks/mock-update-server.ts",
+          "line": 129,
+          "message": "'this' implicitly has type 'any' because it does not have a type annotation."
+        }
+      ]
+    },
+    {
+      "code": "TS7031",
+      "name": "Unknown",
+      "strategy": "Manual review needed",
+      "count": 2,
+      "files": [
+        "src/main/__tests__/memory-leaks.test.ts"
+      ],
+      "examples": [
+        {
+          "file": "main/__tests__/memory-leaks.test.ts",
+          "line": 306,
+          "message": "Binding element 'channel' implicitly has an 'any' type."
+        },
+        {
+          "file": "main/__tests__/memory-leaks.test.ts",
+          "line": 306,
+          "message": "Binding element 'handler' implicitly has an 'any' type."
+        }
+      ]
+    },
+    {
+      "code": "TS18046",
+      "name": "Unknown",
+      "strategy": "Manual review needed",
+      "count": 2,
+      "files": [
+        "src/main/utils/heap-snapshot-analyzer.ts",
+        "src/renderer/src/hooks/useAppState.ts"
+      ],
+      "examples": [
+        {
+          "file": "main/utils/heap-snapshot-analyzer.ts",
+          "line": 145,
+          "message": "'error' is of type 'unknown'."
+        },
+        {
+          "file": "renderer/src/hooks/useAppState.ts",
+          "line": 356,
+          "message": "'error' is of type 'unknown'."
+        }
+      ]
+    },
+    {
+      "code": "TS2538",
+      "name": "Unknown",
+      "strategy": "Manual review needed",
+      "count": 2,
+      "files": [
+        "src/main/utils/heap-snapshot-analyzer.ts"
+      ],
+      "examples": [
+        {
+          "file": "main/utils/heap-snapshot-analyzer.ts",
+          "line": 248,
+          "message": "Type 'undefined' cannot be used as an index type."
+        },
+        {
+          "file": "main/utils/heap-snapshot-analyzer.ts",
+          "line": 252,
+          "message": "Type 'undefined' cannot be used as an index type."
+        }
+      ]
+    },
+    {
+      "code": "TS2686",
+      "name": "Unknown",
+      "strategy": "Manual review needed",
+      "count": 2,
+      "files": [
+        "src/renderer/src/lib/services/monitoring.ts"
+      ],
+      "examples": [
+        {
+          "file": "renderer/src/lib/services/monitoring.ts",
+          "line": 321,
+          "message": "'React' refers to a UMD global, but the current file is a module. Consider adding an import instead."
+        },
+        {
+          "file": "renderer/src/lib/services/monitoring.ts",
+          "line": 323,
+          "message": "'React' refers to a UMD global, but the current file is a module. Consider adding an import instead."
+        }
+      ]
+    },
+    {
+      "code": "TS6196",
+      "name": "Unknown",
+      "strategy": "Manual review needed",
+      "count": 2,
+      "files": [
+        "src/renderer/src/store/__tests__/useTaskStore.test.ts"
+      ],
+      "examples": [
+        {
+          "file": "renderer/src/store/__tests__/useTaskStore.test.ts",
+          "line": 14,
+          "message": "'Task' is declared but never used."
+        },
+        {
+          "file": "renderer/src/store/__tests__/useTaskStore.test.ts",
+          "line": 14,
+          "message": "'UserSettings' is declared but never used."
+        }
+      ]
+    },
+    {
+      "code": "TS2353",
+      "name": "Unknown",
+      "strategy": "Manual review needed",
+      "count": 2,
+      "files": [
+        "src/renderer/src/store/__tests__/useTaskStore.test.ts"
+      ],
+      "examples": [
+        {
+          "file": "renderer/src/store/__tests__/useTaskStore.test.ts",
+          "line": 199,
+          "message": "Object literal may only specify known properties, and 'priority' does not exist in type 'Omit<Subtask, \"id\" | \"taskId\">'."
+        },
+        {
+          "file": "renderer/src/store/__tests__/useTaskStore.test.ts",
+          "line": 232,
+          "message": "Object literal may only specify known properties, and 'priority' does not exist in type 'Omit<Subtask, \"id\" | \"taskId\">'."
+        }
+      ]
+    },
+    {
+      "code": "TS2552",
+      "name": "Unknown",
+      "strategy": "Manual review needed",
+      "count": 1,
+      "files": [
+        "src/main/__tests__/ipc-security.test.ts"
+      ],
+      "examples": [
+        {
+          "file": "main/__tests__/ipc-security.test.ts",
+          "line": 58,
+          "message": "Cannot find name 'securityMonitor'. Did you mean 'SecurityMonitor'?"
+        }
+      ]
+    },
+    {
+      "code": "TS2741",
+      "name": "Unknown",
+      "strategy": "Manual review needed",
+      "count": 1,
+      "files": [
+        "src/main/__tests__/memory-leak-detection.test.ts"
+      ],
+      "examples": [
+        {
+          "file": "main/__tests__/memory-leak-detection.test.ts",
+          "line": 426,
+          "message": "Property '__promisify__' is missing in type 'Mock<Procedure>' but required in type 'typeof setTimeout'."
+        }
+      ]
+    },
+    {
+      "code": "TS7034",
+      "name": "Unknown",
+      "strategy": "Manual review needed",
+      "count": 1,
+      "files": [
+        "src/main/__tests__/memory-leaks.test.ts"
+      ],
+      "examples": [
+        {
+          "file": "main/__tests__/memory-leaks.test.ts",
+          "line": 477,
+          "message": "Variable 'listeners' implicitly has type 'any[]' in some locations where its type cannot be determined."
+        }
+      ]
+    },
+    {
+      "code": "TS7005",
+      "name": "Unknown",
+      "strategy": "Manual review needed",
+      "count": 1,
+      "files": [
+        "src/main/__tests__/memory-leaks.test.ts"
+      ],
+      "examples": [
+        {
+          "file": "main/__tests__/memory-leaks.test.ts",
+          "line": 490,
+          "message": "Variable 'listeners' implicitly has an 'any[]' type."
+        }
+      ]
+    },
+    {
+      "code": "TS7053",
+      "name": "Unknown",
+      "strategy": "Manual review needed",
+      "count": 1,
+      "files": [
+        "src/main/__tests__/mocked-electron-apis.test.ts"
+      ],
+      "examples": [
+        {
+          "file": "main/__tests__/mocked-electron-apis.test.ts",
+          "line": 42,
+          "message": "Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{ home: string; appData: string; userData: string; temp: string; desktop: string; documents: string; downloads: string; music: string; pictures: string; videos: string; logs: string; pepperFlashSystemPlugin: string; }'."
+        }
+      ]
+    },
+    {
+      "code": "TS2347",
+      "name": "Unknown",
+      "strategy": "Manual review needed",
+      "count": 1,
+      "files": [
+        "src/renderer/src/components/task/__tests__/TaskCard.test.tsx"
+      ],
+      "examples": [
+        {
+          "file": "renderer/src/components/task/__tests__/TaskCard.test.tsx",
+          "line": 40,
+          "message": "Untyped function calls may not accept type arguments."
+        }
+      ]
+    },
+    {
+      "code": "TS2678",
+      "name": "Unknown",
+      "strategy": "Manual review needed",
+      "count": 1,
+      "files": [
+        "src/renderer/src/config/errorHandling.ts"
+      ],
+      "examples": [
+        {
+          "file": "renderer/src/config/errorHandling.ts",
+          "line": 320,
+          "message": "Type '\"staging\"' is not comparable to type '\"development\" | \"production\" | \"test\"'."
+        }
+      ]
+    },
+    {
+      "code": "TS2305",
+      "name": "Unknown",
+      "strategy": "Manual review needed",
+      "count": 1,
+      "files": [
+        "src/renderer/src/hooks/useErrorBoundary.ts"
+      ],
+      "examples": [
+        {
+          "file": "renderer/src/hooks/useErrorBoundary.ts",
+          "line": 17,
+          "message": "Module '\"react-error-boundary\"' has no exported member 'useErrorHandler'."
+        }
+      ]
+    },
+    {
+      "code": "TS2367",
+      "name": "Unknown",
+      "strategy": "Manual review needed",
+      "count": 1,
+      "files": [
+        "src/renderer/src/lib/services/globalErrorHandler.ts"
+      ],
+      "examples": [
+        {
+          "file": "renderer/src/lib/services/globalErrorHandler.ts",
+          "line": 300,
+          "message": "This comparison appears to be unintentional because the types 'HTMLElement' and 'Window & typeof globalThis' have no overlap."
+        }
+      ]
+    },
+    {
+      "code": "TS2550",
+      "name": "Unknown",
+      "strategy": "Manual review needed",
+      "count": 1,
+      "files": [
+        "src/renderer/src/services/ErrorReportingService.ts"
+      ],
+      "examples": [
+        {
+          "file": "renderer/src/services/ErrorReportingService.ts",
+          "line": 266,
+          "message": "Property 'cause' does not exist on type 'Error'. Do you need to change your target library? Try changing the 'lib' compiler option to 'es2022' or later."
+        }
+      ]
+    },
+    {
+      "code": "TS2739",
+      "name": "Unknown",
+      "strategy": "Manual review needed",
+      "count": 1,
+      "files": [
+        "src/renderer/src/store/__tests__/errorHandling.test.ts"
+      ],
+      "examples": [
+        {
+          "file": "renderer/src/store/__tests__/errorHandling.test.ts",
+          "line": 492,
+          "message": "Type '{ title: string; description: string; status: \"pending\"; priority: \"medium\"; dependencies: never[]; subtasks: never[]; }' is missing the following properties from type 'Omit<Task, \"id\" | \"createdAt\" | \"updatedAt\">': details, testStrategy"
+        }
+      ]
+    }
+  ],
+  "fixStrategies": {
+    "Mock Type Fixes": {
+      "errorCount": 75,
+      "errorCodes": [
+        "TS2339"
+      ]
+    },
+    "Null/Undefined Checks": {
+      "errorCount": 123,
+      "errorCodes": [
+        "TS18047",
+        "TS18048",
+        "TS2532"
+      ]
+    },
+    "Type Annotations": {
+      "errorCount": 81,
+      "errorCodes": [
+        "TS7006",
+        "TS2322",
+        "TS2345"
+      ]
+    },
+    "Import/Module Fixes": {
+      "errorCount": 25,
+      "errorCodes": [
+        "TS2307",
+        "TS2304"
+      ]
+    },
+    "Other Fixes": {
+      "errorCount": 137,
+      "errorCodes": [
+        "TS2554",
+        "TS2540",
+        "TS2551",
+        "TS7017",
+        "TS2349",
+        "TS2769",
+        "TS2683",
+        "TS7030",
+        "TS6133"
+      ]
+    }
+  }
+}

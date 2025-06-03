@@ -187,3 +187,29 @@ The project uses **electron-vite** for unified development across all Electron p
 - Single instance lock may require killing processes between runs
 - File watcher requires Node.js 18+ for optimal performance
 - Use shell scripts (`./run-dev.sh`, `./run-app.sh`) for reliable Electron startup
+
+## CRITICAL CODE MODIFICATION STANDARDS
+
+**ABSOLUTELY FORBIDDEN**: Using regex (regular expressions) to modify any code files. This is a HUGE violation of coding standards.
+
+**REQUIRED APPROACH**: When modifying TypeScript/JavaScript code:
+- Use AST-based tools like ts-morph, babel, or TypeScript compiler API
+- Use proper parsing and manipulation libraries
+- For simple text processing, use string methods but NEVER regex replacements on code
+
+**PARSING vs MODIFICATION**:
+- Regex is acceptable for PARSING error messages or log output
+- Regex is NEVER acceptable for MODIFYING source code files
+- Always use proper AST manipulation for code changes
+
+**EXAMPLES**:
+- ✅ GOOD: Using ts-morph to remove unused imports
+- ✅ GOOD: Using regex to parse TypeScript error messages  
+- ❌ BAD: Using regex to remove code lines or modify imports
+- ❌ BAD: String replacement on source code files
+
+# important-instruction-reminders
+Do what has been asked; nothing more, nothing less.
+NEVER create files unless they're absolutely necessary for achieving your goal.
+ALWAYS prefer editing an existing file to creating a new one.
+NEVER proactively create documentation files (*.md) or README files. Only create documentation files if explicitly requested by the User.

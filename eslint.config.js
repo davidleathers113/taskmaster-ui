@@ -1,8 +1,7 @@
 // eslint.config.js - ESLint Flat Config for TaskMaster UI (2025)
 // Electron + TypeScript + React project with multi-process architecture
 
-// Using 2025 best practices with defineConfig() and tseslint.config()
-import { defineConfig } from 'eslint/config';
+// Using 2025 best practices with tseslint.config()
 import eslint from '@eslint/js';
 import tseslint from 'typescript-eslint';
 import globals from 'globals';
@@ -11,7 +10,7 @@ import globals from 'globals';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 
-export default defineConfig([
+export default tseslint.config(
   // Global ignores for build artifacts and dependencies
   {
     ignores: [
@@ -33,36 +32,34 @@ export default defineConfig([
   // Base ESLint recommended configuration
   eslint.configs.recommended,
 
-  // TypeScript configuration using tseslint.config() pattern
-  ...tseslint.config(
-    // TypeScript recommended configuration
-    tseslint.configs.recommended,
-    {
-      // TypeScript-specific settings for main source files
-      files: ['src/**/*.{ts,tsx}'],
-      languageOptions: {
-        parser: tseslint.parser,
-        parserOptions: {
-          project: './tsconfig.json',
-          ecmaVersion: 'latest',
-          sourceType: 'module',
-        },
+  // TypeScript recommended configuration
+  ...tseslint.configs.recommended,
+  
+  // TypeScript-specific settings for main source files
+  {
+    files: ['src/**/*.{ts,tsx}'],
+    languageOptions: {
+      parser: tseslint.parser,
+      parserOptions: {
+        project: './tsconfig.json',
+        ecmaVersion: 'latest',
+        sourceType: 'module',
       },
-      plugins: {
-        '@typescript-eslint': tseslint.plugin,
-      },
-      rules: {
-        // Migrated TypeScript rules from .eslintrc.cjs
-        '@typescript-eslint/no-explicit-any': 'warn',
-        // '@typescript-eslint/ban-types': deprecated in newer versions 
-        '@typescript-eslint/no-unused-vars': 'warn',
-        '@typescript-eslint/ban-ts-comment': 'warn',
-        // Core ESLint rules handled by TypeScript
-        'no-undef': 'off', // TypeScript handles this
-        'no-unused-vars': 'off', // Use TypeScript version instead
-      },
-    }
-  ),
+    },
+    plugins: {
+      '@typescript-eslint': tseslint.plugin,
+    },
+    rules: {
+      // Migrated TypeScript rules from .eslintrc.cjs
+      '@typescript-eslint/no-explicit-any': 'warn',
+      // '@typescript-eslint/ban-types': deprecated in newer versions 
+      '@typescript-eslint/no-unused-vars': 'warn',
+      '@typescript-eslint/ban-ts-comment': 'warn',
+      // Core ESLint rules handled by TypeScript
+      'no-undef': 'off', // TypeScript handles this
+      'no-unused-vars': 'off', // Use TypeScript version instead
+    },
+  },
 
   // TypeScript files not in main tsconfig.json (root level configs, etc.)
   {
@@ -249,4 +246,4 @@ export default defineConfig([
       'no-console': 'off',
     },
   },
-]);
+);

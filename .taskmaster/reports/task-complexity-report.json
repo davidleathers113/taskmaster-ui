@@ -1,10 +1,10 @@
 {
   "meta": {
-    "generatedAt": "2025-06-02T23:12:29.556Z",
+    "generatedAt": "2025-06-03T11:23:22.270Z",
     "tasksAnalyzed": 4,
-    "totalTasks": 33,
-    "analysisCount": 16,
-    "thresholdScore": 7,
+    "totalTasks": 37,
+    "analysisCount": 20,
+    "thresholdScore": 5,
     "projectName": "Taskmaster",
     "usedResearch": true
   },
@@ -136,6 +136,38 @@
       "recommendedSubtasks": 6,
       "expansionPrompt": "Expand this task into subtasks for memory leak detection setup, performance benchmarking suite, security audit integration, cross-platform CI/CD matrix configuration, performance monitoring/reporting, and integration of all test types into a unified pipeline.",
       "reasoning": "Performance and memory testing in Electron is complex due to the need for specialized tools (memwatch-next, Electronegativity), cross-platform CI, and the integration of performance metrics into the development workflow. Each aspect (memory, performance, security, CI, reporting) is distinct and requires focused attention to ensure reliability and actionable results[2][3][5]."
+    },
+    {
+      "taskId": 34,
+      "taskTitle": "Fix Zustand Mock Path Resolution in Vitest",
+      "complexityScore": 6,
+      "recommendedSubtasks": 7,
+      "expansionPrompt": "Break down the task into subtasks covering: researching Vitest mocking best practices, updating Vitest configuration, implementing the Zustand mock, updating test files to use the new approach, running and verifying the test suite, updating documentation, and refactoring existing tests to use the new mocking strategy.",
+      "reasoning": "This task requires understanding Vitest's mocking system, updating configuration, implementing and integrating mocks, and ensuring all tests use the new approach. While not trivial, it is well-scoped and follows established patterns, but involves several moving parts and coordination across configuration, code, and documentation[1][2]."
+    },
+    {
+      "taskId": 35,
+      "taskTitle": "Resolve TypeScript Compilation Errors",
+      "complexityScore": 9,
+      "recommendedSubtasks": 13,
+      "expansionPrompt": "Expand this task into subtasks for each error category (TS6133, TS2339, TS18047, TS7006, TS2307, TS2683), setting up error tracking, implementing fixes, updating type safety patterns, optimizing React and Zustand typings, automating type checks, documenting best practices, and conducting final verification.",
+      "reasoning": "Fixing 200+ TypeScript errors across multiple categories in a large codebase is highly complex. It requires systematic tracking, deep understanding of TypeScript, coordinated refactoring, and ensuring no regressions. Each error type may require a different approach, and the work spans code, configuration, and documentation."
+    },
+    {
+      "taskId": 36,
+      "taskTitle": "Stabilize Test Suite and Fix Failing Tests",
+      "complexityScore": 8,
+      "recommendedSubtasks": 8,
+      "expansionPrompt": "Decompose the task into subtasks for analyzing failure patterns, implementing fixes by category, refactoring tests using best practices, improving coverage, optimizing the test suite, setting up CI, documenting the testing strategy, and reviewing/refactoring the final suite.",
+      "reasoning": "With 40 out of 51 tests failing, this task involves significant debugging, root cause analysis, and broad test refactoring. It also requires improving coverage, optimizing performance, and updating documentation and CI, making it a complex and multi-faceted effort."
+    },
+    {
+      "taskId": 37,
+      "taskTitle": "Systematically Clean ESLint Warnings and Improve Code Quality",
+      "complexityScore": 7,
+      "recommendedSubtasks": 9,
+      "expansionPrompt": "Expand into subtasks for analyzing and categorizing warnings, researching ESLint best practices, implementing automated and manual fixes, updating configuration, establishing code quality standards, optimizing performance, conducting developer training, monitoring/reporting, and reviewing documentation.",
+      "reasoning": "Addressing over 1400 ESLint warnings is a large-scale code quality initiative. It involves both automated and manual work, configuration changes, team coordination, and ongoing process improvements. While not as technically deep as TypeScript error resolution, the breadth and organizational impact make it moderately complex."
     }
   ]
 }
