@@ -208,8 +208,203 @@ The project uses **electron-vite** for unified development across all Electron p
 - ❌ BAD: Using regex to remove code lines or modify imports
 - ❌ BAD: String replacement on source code files
 
+## MANDATORY GIT WORKFLOW PRACTICES
+
+**CRITICAL**: You MUST follow these Git workflow practices without exception. These are NOT optional guidelines - they are strict requirements for all development work.
+
+### 1. BRANCH MANAGEMENT (MANDATORY)
+
+**NEVER work directly on main/master branch**. You MUST:
+1. Always create a feature branch BEFORE making any changes
+2. Use descriptive branch names following this pattern:
+   - `feature/<description>` for new features (e.g., `feature/add-user-authentication`)
+   - `fix/<issue-or-description>` for bug fixes (e.g., `fix/memory-leak-in-renderer`)
+   - `refactor/<description>` for code refactoring
+   - `docs/<description>` for documentation updates
+   - `test/<description>` for test additions/updates
+   - `chore/<description>` for maintenance tasks
+
+**Branch Creation Commands**:
+```bash
+# Always check current branch first
+git branch --show-current
+
+# Create and switch to new feature branch
+git checkout -b feature/descriptive-feature-name
+
+# For fixes
+git checkout -b fix/issue-description
+```
+
+### 2. COMMIT FREQUENCY AND STANDARDS (MANDATORY)
+
+**You MUST commit changes regularly**:
+- Commit after each logical unit of work (e.g., implementing a function, fixing a bug, adding a test)
+- NEVER accumulate more than 50-100 lines of changes without committing
+- Each commit should be atomic and focused on a single change
+
+**Conventional Commit Format (REQUIRED)**:
+```
+<type>(<scope>): <subject>
+
+[optional body]
+
+[optional footer(s)]
+```
+
+**Allowed Types**:
+- `feat`: New feature (correlates with MINOR in semantic versioning)
+- `fix`: Bug fix (correlates with PATCH in semantic versioning)
+- `docs`: Documentation only changes
+- `style`: Code style changes (formatting, missing semi-colons, etc)
+- `refactor`: Code change that neither fixes a bug nor adds a feature
+- `perf`: Performance improvement
+- `test`: Adding missing tests or correcting existing tests
+- `build`: Changes to build system or dependencies
+- `ci`: Changes to CI configuration files and scripts
+- `chore`: Other changes that don't modify src or test files
+- `revert`: Reverts a previous commit
+
+**Breaking Changes**:
+- Add `!` after type/scope for breaking changes: `feat!: remove deprecated API`
+- OR include `BREAKING CHANGE:` in the footer
+
+**Examples**:
+```bash
+git commit -m "feat(renderer): add dark mode toggle to settings"
+git commit -m "fix(main): resolve memory leak in window management"
+git commit -m "docs: update README with new build instructions"
+git commit -m "feat!: migrate to new config format
+
+BREAKING CHANGE: config files must be updated to v2 format"
+```
+
+### 3. COMMIT WORKFLOW (MANDATORY STEPS)
+
+**Before EVERY commit, you MUST**:
+1. Check git status: `git status`
+2. Review changes: `git diff`
+3. Stage specific files (avoid `git add .`): `git add <specific-files>`
+4. Run linting: `npm run lint`
+5. Run type checking: `npm run typecheck`
+6. Run relevant tests
+7. Make the commit with conventional format
+
+**Commit Checklist Script**:
+```bash
+# Run this before committing
+git status
+npm run lint
+npm run typecheck
+git diff --staged
+# Then commit with conventional format
+```
+
+### 4. PULL REQUEST WORKFLOW (MANDATORY)
+
+**You MUST create a Pull Request for ALL changes**:
+1. Push your feature branch: `git push -u origin feature/your-feature`
+2. Create PR immediately using GitHub CLI:
+```bash
+gh pr create --title "feat: add new feature" --body "$(cat <<'EOF'
+## Summary
+- Added new feature X
+- Improved performance of Y
+- Fixed bug in Z
+
+## Test Plan
+- [ ] Unit tests pass
+- [ ] E2E tests pass
+- [ ] Manual testing completed
+- [ ] No console errors
+
+## Screenshots
+[If applicable]
+
+🤖 Generated with Claude Code
+EOF
+)"
+```
+
+### 5. AUTOMATED COMMIT SCHEDULE
+
+**You MUST commit at these checkpoints**:
+1. After implementing each function/method
+2. After fixing each bug
+3. After adding/updating tests
+4. After refactoring a component/module
+5. Before switching context to a different feature/file
+6. At least every 30 minutes during active development
+7. Before running any destructive commands (rebases, merges, etc.)
+
+### 6. GIT WORKFLOW COMMANDS REFERENCE
+
+```bash
+# Start new work
+git checkout main
+git pull origin main
+git checkout -b feature/new-feature
+
+# Regular commit workflow
+git status
+git add src/specific/file.ts
+npm run lint && npm run typecheck
+git commit -m "feat(component): add new functionality"
+
+# Push and create PR
+git push -u origin feature/new-feature
+gh pr create --title "feat: new feature" --body "..."
+
+# After PR approval
+git checkout main
+git pull origin main
+git branch -d feature/new-feature
+```
+
+### 7. ERROR RECOVERY
+
+If you forget to create a branch before making changes:
+```bash
+# Stash your changes
+git stash
+# Create and switch to new branch
+git checkout -b feature/forgot-to-branch
+# Apply your changes
+git stash pop
+# Continue with normal workflow
+```
+
+### 8. MERGE CONFLICT RESOLUTION
+
+When encountering merge conflicts:
+1. NEVER force push unless explicitly instructed
+2. Always communicate about conflicts
+3. Preserve both changes when unclear
+4. Re-run tests after resolving conflicts
+
+### 9. FORBIDDEN PRACTICES
+
+**You MUST NEVER**:
+- Commit directly to main/master branch
+- Use `git add .` without reviewing changes
+- Make commits without running lint/typecheck
+- Create commits larger than 200 lines without justification
+- Use generic commit messages like "update", "fix", "changes"
+- Force push to shared branches
+- Commit sensitive information (keys, passwords, tokens)
+
+### 10. CONTINUOUS INTEGRATION
+
+**Every commit MUST**:
+- Pass all linting rules
+- Pass all type checks
+- Not break existing tests
+- Include tests for new functionality
+- Update documentation if changing APIs
+
 # important-instruction-reminders
 Do what has been asked; nothing more, nothing less.
 NEVER create files unless they're absolutely necessary for achieving your goal.
 ALWAYS prefer editing an existing file to creating a new one.
 NEVER proactively create documentation files (*.md) or README files. Only create documentation files if explicitly requested by the User.
+ALWAYS follow the MANDATORY GIT WORKFLOW PRACTICES without exception.
