@@ -361,6 +361,29 @@ WORKTREE_ID=$TASK_ID
 WORKTREE_PHASE=$PHASE
 EOF
     
+    # Generate worktree-specific tasks.json
+    log_info "Generating TaskMaster tasks.json for $TASK_ID..."
+    TASK_CONFIG_TEMP=$(mktemp)
+    echo "$TASK" > "$TASK_CONFIG_TEMP"
+    
+    if [ -f "$BASE_DIR/.taskmaster/tasks/tasks.json" ]; then
+        MAIN_TASKS_PATH="$BASE_DIR/.taskmaster/tasks/tasks.json"
+    else
+        log_warning "Main tasks.json not found, creating minimal structure"
+        MAIN_TASKS_PATH=$(mktemp)
+        echo '{"tasks":[],"metadata":{"version":"1.0"}}' > "$MAIN_TASKS_PATH"
+    fi
+    
+    if node "$BASE_DIR/wt_tasks/generate-tasks.mjs" "$TASK_CONFIG_TEMP" "$MAIN_TASKS_PATH" "$WORKTREE_PATH"; then
+        log_success "Generated tasks.json for $TASK_ID"
+    else
+        log_warning "Failed to generate tasks.json for $TASK_ID"
+    fi
+    
+    # Cleanup temporary files
+    rm -f "$TASK_CONFIG_TEMP"
+    [ "$MAIN_TASKS_PATH" != "$BASE_DIR/.taskmaster/tasks/tasks.json" ] && rm -f "$MAIN_TASKS_PATH"
+    
     # Install dependencies if package.json exists
     if [ -f "$WORKTREE_PATH/package.json" ]; then
         log_info "Installing dependencies for $TASK_ID..."
