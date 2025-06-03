@@ -47,7 +47,7 @@ export interface FilterOptions {
 }
 
 export interface ViewMode {
-  type: 'list' | 'kanban' | 'calendar' | 'timeline' | 'analytics' | 'claude-config';
+  type: 'list' | 'kanban' | 'calendar' | 'timeline' | 'analytics' | 'claude-config' | 'performance';
   density: 'compact' | 'comfortable' | 'spacious';
   groupBy?: 'status' | 'priority' | 'assignee' | 'tags' | 'none';
   sortBy?: 'id' | 'title' | 'priority' | 'status' | 'createdAt' | 'updatedAt' | 'dueDate';

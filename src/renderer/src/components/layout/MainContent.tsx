@@ -5,6 +5,7 @@ import { KanbanView } from '@/components/views/KanbanView'
 import { CalendarView } from '@/components/views/CalendarView'
 import { TimelineView } from '@/components/views/TimelineView'
 import { AnalyticsView } from '@/components/views/AnalyticsView'
+import { PerformanceDashboard } from '@/components/views/PerformanceDashboard'
 import { ClaudeConfigPage } from '@/components/claude/ClaudeConfigPage'
 import { EmptyState } from '@/components/ui/EmptyState'
 
@@ -14,6 +15,7 @@ const viewComponents = {
   calendar: CalendarView,
   timeline: TimelineView,
   analytics: AnalyticsView,
+  performance: PerformanceDashboard,
   'claude-config': ClaudeConfigPage
 }
 
@@ -45,7 +47,7 @@ export function MainContent() {
           }}
           className="h-full"
         >
-          {tasks.length === 0 && viewMode.type !== 'analytics' && viewMode.type !== 'claude-config' ? (
+          {tasks.length === 0 && viewMode.type !== 'analytics' && viewMode.type !== 'claude-config' && viewMode.type !== 'performance' ? (
             <EmptyState />
           ) : (
             <ViewComponent />

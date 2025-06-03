@@ -29,9 +29,9 @@ export default defineConfig({
     plugins: [externalizeDepsPlugin()],
     build: {
       lib: {
-        entry: resolve(__dirname, 'electron/main.ts'),
+        entry: resolve(__dirname, 'src/main/index.ts'),
         formats: ['cjs'],
-        fileName: () => 'main.cjs',
+        fileName: 'main',
       },
       outDir: 'dist/electron',
       emptyOutDir: false, // Don't clean the directory to preserve preload script
@@ -94,9 +94,9 @@ export default defineConfig({
     plugins: [externalizeDepsPlugin()],
     build: {
       lib: {
-        entry: resolve(__dirname, 'electron/preload.ts'),
+        entry: resolve(__dirname, 'src/preload/index.ts'),
         formats: ['cjs'],
-        fileName: () => 'preload.cjs',
+        fileName: 'preload',
       },
       outDir: 'dist/electron',
       emptyOutDir: false, // Don't clean the directory to preserve main script
@@ -139,13 +139,13 @@ export default defineConfig({
    */
   renderer: {
     plugins: [react()],
-    root: resolve(__dirname, '.'), // Use current directory as root
+    root: resolve(__dirname, 'src/renderer'), // Use renderer directory as root
     base: './', // Important for Electron - use relative paths
     build: {
       rollupOptions: {
         input: {
           // Use named input to specify the HTML entry point
-          index: resolve(__dirname, 'index.html')
+          index: resolve(__dirname, 'src/renderer/index.html')
         },
         output: {
           // Prevent information leakage through build output
@@ -165,13 +165,13 @@ export default defineConfig({
     },
     resolve: {
       alias: {
-        '@': resolve(__dirname, './src'),
-        '@components': resolve(__dirname, './src/components'),
-        '@lib': resolve(__dirname, './src/lib'),
-        '@hooks': resolve(__dirname, './src/hooks'),
-        '@types': resolve(__dirname, './src/types'),
-        '@store': resolve(__dirname, './src/store'),
-        '@utils': resolve(__dirname, './src/utils'),
+        '@': resolve(__dirname, './src/renderer/src'),
+        '@components': resolve(__dirname, './src/renderer/src/components'),
+        '@lib': resolve(__dirname, './src/renderer/src/lib'),
+        '@hooks': resolve(__dirname, './src/renderer/src/hooks'),
+        '@types': resolve(__dirname, './src/renderer/src/types'),
+        '@store': resolve(__dirname, './src/renderer/src/store'),
+        '@utils': resolve(__dirname, './src/renderer/src/utils'),
       },
     },
     server: {

@@ -22,17 +22,43 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Start server dev: `npm run server:dev`
 - Start server prod: `npm run server:start`
 
+### Testing Commands
+- All tests: `npm test` or `npm run test` (Playwright E2E)
+- E2E tests: `npm run test:e2e`
+- Visual tests: `npm run test:visual`
+- Performance tests: `npm run test:performance`
+- Accessibility tests: `npm run test:accessibility`
+- Interactive test UI: `npm run test:ui`
+- Debug mode: `npm run test:debug`
+- Headed mode: `npm run test:headed`
+- Test report: `npm run test:report`
+
+### Memory & Performance Testing
+- Memory leak tests: `npm run test:memory`
+- Detailed memory tests: `npm run test:memory:detailed`
+- Performance benchmarks: `npm run test:benchmark`
+- MemLab scenarios: `npm run memlab:all`
+- Individual scenarios: `npm run memlab:task-operations`, `npm run memlab:view-switching`, `npm run memlab:extended-usage`
+
+### Security Testing
+- Security audit: `npm run test:security:full`
+- Dependency vulnerabilities: `npm run test:security:deps`
+- CSP validation: `npm run test:security:csp`
+- Electron security: `npm run test:security:electron`
+- Security baseline: `npm run test:security:baseline`
+
 ### Setup Commands
 - Full setup: `npm run setup` (installs UI + server dependencies)
 - Security audit: `npm run security:audit`
 - CI validation: `npm run ci:validate`
+- Complete CI test suite: `npm run test:ci`
 
 ## Architecture Overview
 
 ### Multi-Process Electron Application
-- **Main Process**: `electron/main.ts` - Handles app lifecycle, window management
-- **Renderer Process**: React app in `src/` - The UI that users interact with
-- **Preload Script**: `electron/preload.ts` - Secure IPC bridge between main and renderer
+- **Main Process**: `src/main/index.ts` - Handles app lifecycle, window management
+- **Renderer Process**: React app in `src/renderer/` - The UI that users interact with
+- **Preload Script**: `src/preload/index.ts` - Secure IPC bridge between main and renderer
 - **File Watcher Server**: Separate Node.js server in `server/` for real-time file monitoring
 
 ### Core Technologies
@@ -40,11 +66,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **TypeScript** with strict configuration
 - **Zustand** for state management (not Redux)
 - **Tailwind CSS** with custom design system
-- **Electron Forge** for packaging/distribution
+- **electron-vite** for unified Electron development
 - **WebSockets** for real-time file watching
+- **Playwright** for comprehensive E2E testing
+- **ApexCharts** for analytics visualization
 
 ### State Management (Zustand)
-The main store is `src/store/useTaskStore.ts`:
+The main store is `src/renderer/src/store/useTaskStore.ts`:
 - Manages all task data, filters, view modes, user settings
 - Uses computed getters for filtered data
 - Generates analytics automatically when tasks change
@@ -52,17 +80,21 @@ The main store is `src/store/useTaskStore.ts`:
 
 ### Component Architecture
 ```
-src/
+src/renderer/src/
 ├── components/
 │   ├── layout/           # Sidebar, Header, MainContent
 │   ├── task/            # TaskCard, TaskDetailPanel
-│   ├── views/           # TaskListView, KanbanView, AnalyticsView
-│   ├── ui/              # CommandPalette, VirtualizedList
+│   ├── views/           # TaskListView, KanbanView, AnalyticsView, CalendarView, TimelineView
+│   ├── ui/              # CommandPalette, VirtualizedList, EmptyState
 │   ├── project/         # ProjectManager, ProjectDiscovery
-│   └── claude/          # Claude configuration components
+│   ├── claude/          # Claude configuration components
+│   ├── error/           # ErrorBoundary components
+│   └── examples/        # AdvancedTypesExample
 ├── hooks/               # Custom React hooks for reusable logic
-├── lib/                 # Utilities and advanced types
-└── types/              # TypeScript type definitions
+├── lib/                 # Utilities, services, and advanced types
+├── store/               # Zustand state management
+├── types/               # TypeScript type definitions
+└── styles/              # Global CSS and styling
 ```
 
 ### File Watching System
@@ -81,12 +113,12 @@ src/
 
 ### Import Aliases
 Use configured path aliases in `vite.config.ts`:
-- `@/` → `./src/`
-- `@components/` → `./src/components/`
-- `@lib/` → `./src/lib/`
-- `@hooks/` → `./src/hooks/`
-- `@types/` → `./src/types/`
-- `@store/` → `./src/store/`
+- `@/` → `./src/renderer/src/`
+- `@components/` → `./src/renderer/src/components/`
+- `@lib/` → `./src/renderer/src/lib/`
+- `@hooks/` → `./src/renderer/src/hooks/`
+- `@types/` → `./src/renderer/src/types/`
+- `@store/` → `./src/renderer/src/store/`
 
 ### Animation Philosophy
 - All animations use Framer Motion with spring physics
@@ -110,7 +142,7 @@ Use configured path aliases in `vite.config.ts`:
 ## Development Workflow
 
 ### Adding New Features
-1. Create types in `src/types/`
+1. Create types in `src/renderer/src/types/`
 2. Add store actions if needed in `useTaskStore.ts`
 3. Build components in appropriate `components/` subdirectory
 4. Use existing design system classes and animations
@@ -144,7 +176,14 @@ Tasks follow the TaskMaster format with:
 - Dependencies for task relationships
 - Automatic timestamps for created/updated dates
 
+### Build System (electron-vite)
+The project uses **electron-vite** for unified development across all Electron processes:
+- **Configuration**: `electron.vite.config.js` - Main configuration file
+- **Development**: `npm run dev` - Starts all processes with hot reload
+- **Building**: `npm run build` - Builds all processes for production
+- **Preview**: `npm run preview` - Preview built application
+
 ### Known Issues
-- Electron Forge Vite plugin has experimental issues - use shell scripts instead
 - Single instance lock may require killing processes between runs
 - File watcher requires Node.js 18+ for optimal performance
+- Use shell scripts (`./run-dev.sh`, `./run-app.sh`) for reliable Electron startup

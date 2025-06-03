@@ -11,6 +11,7 @@ import {
   Zap,
   Target,
   Clock,
+  Activity,
 } from 'lucide-react'
 import { useTaskStore } from '@/store/useTaskStore'
 import { cn } from '@/lib/utils'
@@ -72,10 +73,17 @@ export function Sidebar() {
       action: () => setViewMode({ type: 'timeline' })
     },
     {
+      id: 'performance',
+      label: 'Performance',
+      icon: Activity,
+      shortcut: '⌘6',
+      action: () => setViewMode({ type: 'performance' })
+    },
+    {
       id: 'claude-config',
       label: 'Claude Config',
       icon: Settings,
-      shortcut: '⌘6',
+      shortcut: '⌘7',
       action: () => setViewMode({ type: 'claude-config' })
     }
   ]
