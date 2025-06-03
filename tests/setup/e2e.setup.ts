@@ -691,3 +691,440 @@ async function globalSetup(config?: FullConfig): Promise<void> {
 
 // Export as default for Playwright globalSetup
 export default globalSetup;
+ * 
+ * This setup file configures the testing environment for end-to-end Electron tests
+ * using Playwright. It provides utilities for full application testing including
+ * real user interactions, file system operations, and cross-platform testing.
+ * 
+ * Research-based implementation following 2025 best practices for:
+ * - Playwright + Electron E2E testing patterns
+ * - Cross-platform testing strategies
+ * - Real file system interaction testing
+ * - Performance monitoring and visual regression testing
+ */
+
+import { vi, beforeEach, afterEach, beforeAll, afterAll } from 'vitest'
+import { type ElectronApplication, type Page, _electron as electron } from 'playwright'
+import { join, resolve } from 'path'
+import { mkdir, writeFile, readFile, unlink } from 'fs/promises'
+import { existsSync } from 'fs'
+
+// E2E test configuration following 2025 best practices
+const E2E_CONFIG = {
+  APP_TIMEOUT: 45000, // Extended timeout for E2E app startup
+  PAGE_TIMEOUT: 30000, // Page operation timeout
+  SCREENSHOT_ON_FAILURE: true,
+  RECORD_VIDEO: process.env.CI === 'true', // Record videos in CI
+  HEADLESS: process.env.CI === 'true', // Headless in CI, headed locally
+  SLOW_MO: process.env.CI ? 0 : 100, // Slow down for local debugging
+  PARALLEL_WORKERS: process.env.CI ? 2 : 1 // Parallel execution in CI
+}
+
+interface E2ETestContext {
+  electronApp?: ElectronApplication
+  page?: Page
+  testDataDir: string
+  screenshotsDir: string
+  videosDir: string
+  tempFiles: string[]
+  testStartTime: number
+  performanceMetrics: {
+    startupTime?: number
+    memoryUsage?: NodeJS.MemoryUsage
+    renderTime?: number
+  }
+}
+
+const e2eContext: E2ETestContext = {
+  testDataDir: join(__dirname, '../fixtures/e2e-data'),
+  screenshotsDir: join(__dirname, '../screenshots'),
+  videosDir: join(__dirname, '../videos'),
+  tempFiles: [],
+  testStartTime: 0,
+  performanceMetrics: {}
+}
+
+// Utility functions for E2E testing
+export const launchElectronForE2E = async (options: {
+  args?: string[]
+  env?: Record<string, string>
+  recordVideo?: boolean
+  slowMo?: number
+} = {}): Promise<ElectronApplication> => {
+  const {
+    args = [],
+    env = {},
+    recordVideo = E2E_CONFIG.RECORD_VIDEO,
+    slowMo = E2E_CONFIG.SLOW_MO
+  } = options
+
+  console.log('🚀 Launching Electron app for E2E testing...')
+  const startTime = Date.now()
+
+  const appPath = join(__dirname, '../../dist/main/index.js')
+  
+  if (!existsSync(appPath)) {
+    throw new Error(`Electron app not found at ${appPath}. Please build the app first.`)
+  }
+
+  const launchOptions: any = {
+    args: [appPath, ...args],
+    timeout: E2E_CONFIG.APP_TIMEOUT,
+    env: {
+      NODE_ENV: 'test',
+      ELECTRON_IS_DEV: '0',
+      ...env
+    }
+  }
+
+  if (recordVideo) {
+    launchOptions.recordVideo = {
+      dir: e2eContext.videosDir,
+      size: { width: 1280, height: 720 }
+    }
+  }
+
+  if (slowMo > 0) {
+    launchOptions.slowMo = slowMo
+  }
+
+  try {
+    const electronApp = await electron.launch(launchOptions)
+    
+    // Wait for app to be ready and measure startup time
+    await electronApp.evaluate(async ({ app }) => {
+      await app.whenReady()
+    })
+    
+    const startupTime = Date.now() - startTime
+    e2eContext.performanceMetrics.startupTime = startupTime
+    
+    e2eContext.electronApp = electronApp
+    
+    console.log(`✅ Electron app launched successfully in ${startupTime}ms`)
+    return electronApp
+  } catch (error) {
+    console.error('❌ Failed to launch Electron app:', error)
+    throw error
+  }
+}
+
+export const getMainWindow = async (): Promise<Page> => {
+  if (!e2eContext.electronApp) {
+    throw new Error('Electron app not launched. Call launchElectronForE2E() first.')
+  }
+
+  console.log('🔍 Getting main window...')
+  const renderStartTime = Date.now()
+  
+  const page = await e2eContext.electronApp.firstWindow()
+  e2eContext.page = page
+  
+  // Configure page for E2E testing
+  await page.setViewportSize({ width: 1280, height: 720 })
+  
+  // Wait for app to be fully loaded
+  await page.waitForLoadState('domcontentloaded', { timeout: E2E_CONFIG.PAGE_TIMEOUT })
+  await page.waitForLoadState('networkidle', { timeout: E2E_CONFIG.PAGE_TIMEOUT })
+  
+  // Wait for React app to hydrate
+  await page.waitForSelector('[data-testid="app-root"], #root', { 
+    timeout: 15000,
+    state: 'visible'
+  })
+  
+  const renderTime = Date.now() - renderStartTime
+  e2eContext.performanceMetrics.renderTime = renderTime
+  
+  // Set up error and console logging
+  page.on('pageerror', (error) => {
+    console.error('💥 Page error during E2E test:', error.message)
+  })
+  
+  page.on('console', (msg) => {
+    const type = msg.type()
+    if (type === 'error') {
+      console.error('🔴 Console error:', msg.text())
+    } else if (type === 'warning') {
+      console.warn('🟡 Console warning:', msg.text())
+    }
+  })
+  
+  // Set up request/response monitoring
+  page.on('request', (request) => {
+    if (request.url().includes('file://') && !request.url().includes('index.html')) {
+      console.debug('📤 File request:', request.url())
+    }
+  })
+  
+  page.on('response', (response) => {
+    if (!response.ok() && response.url().includes('file://')) {
+      console.warn('🟡 Failed file response:', response.url(), response.status())
+    }
+  })
+  
+  console.log(`✅ Main window ready in ${renderTime}ms`)
+  return page
+}
+
+export const closeElectronE2E = async (): Promise<void> => {
+  if (e2eContext.electronApp) {
+    console.log('🔄 Closing Electron app...')
+    
+    try {
+      // Take final screenshot if requested
+      if (e2eContext.page && E2E_CONFIG.SCREENSHOT_ON_FAILURE) {
+        await takeE2EScreenshot('final-state')
+      }
+      
+      // Measure memory usage before closing
+      const memoryUsage = await e2eContext.electronApp.evaluate(() => {
+        return process.memoryUsage()
+      })
+      e2eContext.performanceMetrics.memoryUsage = memoryUsage
+      
+      // Close all windows gracefully
+      const windows = e2eContext.electronApp.windows()
+      await Promise.all(windows.map(window => 
+        window.close().catch(() => {})
+      ))
+      
+      // Close the app
+      await e2eContext.electronApp.close()
+      
+      console.log('✅ Electron app closed successfully')
+    } catch (error) {
+      console.error('❌ Error closing Electron app:', error)
+    } finally {
+      e2eContext.electronApp = undefined
+      e2eContext.page = undefined
+    }
+  }
+}
+
+export const takeE2EScreenshot = async (
+  name: string,
+  options: {
+    fullPage?: boolean
+    path?: string
+    clip?: { x: number; y: number; width: number; height: number }
+  } = {}
+): Promise<Buffer | null> => {
+  if (!e2eContext.page) {
+    console.warn('⚠️ No page available for screenshot')
+    return null
+  }
+
+  try {
+    const timestamp = new Date().toISOString().replace(/[:.]/g, '-')
+    const filename = `${name}-${timestamp}.png`
+    const screenshotPath = options.path || join(e2eContext.screenshotsDir, filename)
+    
+    const screenshot = await e2eContext.page.screenshot({
+      path: screenshotPath,
+      fullPage: options.fullPage ?? true,
+      clip: options.clip
+    })
+    
+    console.log(`📸 Screenshot saved: ${screenshotPath}`)
+    return screenshot
+  } catch (error) {
+    console.error('❌ Failed to take screenshot:', error)
+    return null
+  }
+}
+
+export const createTestTasksFile = async (tasks: any[]): Promise<string> => {
+  const fileName = `test-tasks-${Date.now()}.json`
+  const filePath = join(e2eContext.testDataDir, fileName)
+  
+  await writeFile(filePath, JSON.stringify({ tasks }, null, 2), 'utf-8')
+  e2eContext.tempFiles.push(filePath)
+  
+  console.log(`📄 Created test tasks file: ${filePath}`)
+  return filePath
+}
+
+export const simulateUserActions = {
+  async clickAndWait(page: Page, selector: string, waitFor?: string): Promise<void> {
+    await page.click(selector)
+    if (waitFor) {
+      await page.waitForSelector(waitFor, { timeout: 10000 })
+    }
+    // Add small delay for UI animations
+    await page.waitForTimeout(300)
+  },
+
+  async typeAndWait(page: Page, selector: string, text: string): Promise<void> {
+    await page.fill(selector, text)
+    await page.press(selector, 'Tab') // Trigger blur/change events
+    await page.waitForTimeout(300)
+  },
+
+  async dragAndDrop(page: Page, sourceSelector: string, targetSelector: string): Promise<void> {
+    const source = await page.locator(sourceSelector)
+    const target = await page.locator(targetSelector)
+    await source.dragTo(target)
+    await page.waitForTimeout(500) // Wait for drag animation
+  },
+
+  async selectFromDropdown(page: Page, dropdownSelector: string, optionText: string): Promise<void> {
+    await page.click(dropdownSelector)
+    await page.click(`text=${optionText}`)
+    await page.waitForTimeout(200)
+  },
+
+  async uploadFile(page: Page, inputSelector: string, filePath: string): Promise<void> {
+    const fileInput = await page.locator(inputSelector)
+    await fileInput.setInputFiles(filePath)
+    await page.waitForTimeout(500)
+  }
+}
+
+export const waitForE2ECondition = async (
+  condition: () => Promise<boolean>,
+  timeout: number = 10000,
+  interval: number = 500
+): Promise<void> => {
+  const startTime = Date.now()
+  
+  while (Date.now() - startTime < timeout) {
+    if (await condition()) {
+      return
+    }
+    await new Promise(resolve => setTimeout(resolve, interval))
+  }
+  
+  throw new Error(`Condition not met within ${timeout}ms`)
+}
+
+export const measureE2EPerformance = async (): Promise<typeof e2eContext.performanceMetrics> => {
+  if (e2eContext.electronApp) {
+    try {
+      const memory = await e2eContext.electronApp.evaluate(() => {
+        return process.memoryUsage()
+      })
+      e2eContext.performanceMetrics.memoryUsage = memory
+    } catch (error) {
+      console.warn('⚠️ Could not measure memory usage:', error)
+    }
+  }
+  
+  return { ...e2eContext.performanceMetrics }
+}
+
+export const validateAccessibility = async (page: Page): Promise<{
+  violations: any[]
+  passes: any[]
+}> => {
+  // Inject axe-core for accessibility testing
+  await page.addScriptTag({
+    url: 'https://cdn.jsdelivr.net/npm/axe-core@4.7.0/axe.min.js'
+  })
+  
+  const results = await page.evaluate(() => {
+    return (window as any).axe.run()
+  })
+  
+  if (results.violations.length > 0) {
+    console.warn(`⚠️ ${results.violations.length} accessibility violations found`)
+    results.violations.forEach((violation: any) => {
+      console.warn(`- ${violation.id}: ${violation.description}`)
+    })
+  }
+  
+  return {
+    violations: results.violations,
+    passes: results.passes
+  }
+}
+
+// Cleanup utilities
+const cleanupTempFiles = async (): Promise<void> => {
+  for (const filePath of e2eContext.tempFiles) {
+    try {
+      await unlink(filePath)
+    } catch (error) {
+      // File might already be deleted
+    }
+  }
+  e2eContext.tempFiles = []
+}
+
+// Global E2E test setup
+beforeAll(async () => {
+  console.log('🔧 Setting up E2E test environment...')
+  
+  // Create necessary directories
+  for (const dir of [e2eContext.testDataDir, e2eContext.screenshotsDir, e2eContext.videosDir]) {
+    try {
+      await mkdir(dir, { recursive: true })
+    } catch (error) {
+      // Directory might already exist
+    }
+  }
+  
+  console.log('✅ E2E test environment ready')
+}, 60000)
+
+beforeEach(async () => {
+  e2eContext.testStartTime = Date.now()
+  e2eContext.performanceMetrics = {}
+  
+  // Set longer timeout for E2E tests
+  vi.setConfig({ testTimeout: E2E_CONFIG.APP_TIMEOUT })
+})
+
+afterEach(async () => {
+  const testDuration = Date.now() - e2eContext.testStartTime
+  
+  // Take screenshot on failure if page is available
+  if (E2E_CONFIG.SCREENSHOT_ON_FAILURE && e2eContext.page) {
+    const testName = expect.getState().currentTestName || 'unknown-test'
+    await takeE2EScreenshot(`failure-${testName.replace(/[^a-zA-Z0-9]/g, '-')}`)
+  }
+  
+  // Log performance metrics
+  const metrics = await measureE2EPerformance()
+  if (Object.keys(metrics).length > 0) {
+    console.log('📊 Performance metrics:', {
+      testDuration: `${testDuration}ms`,
+      ...metrics
+    })
+  }
+  
+  // Warn about slow tests
+  if (testDuration > E2E_CONFIG.APP_TIMEOUT * 0.8) {
+    console.warn(`🐌 Slow E2E test: ${testDuration}ms`)
+  }
+  
+  // Clean up app and temp files
+  await closeElectronE2E()
+  await cleanupTempFiles()
+})
+
+afterAll(async () => {
+  console.log('🧹 Cleaning up E2E test environment...')
+  
+  // Final cleanup
+  await closeElectronE2E()
+  await cleanupTempFiles()
+  
+  console.log('✅ E2E test cleanup complete')
+}, 30000)
+
+// Export context and configuration for advanced test scenarios
+export { e2eContext, E2E_CONFIG }
+
+// Type declarations for E2E testing
+declare global {
+  interface Window {
+    axe: {
+      run: () => Promise<{
+        violations: any[]
+        passes: any[]
+      }>
+    }
+  }
+}
+>>>>>>> Stashed changes

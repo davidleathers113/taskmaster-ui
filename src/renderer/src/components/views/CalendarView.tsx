@@ -1,7 +1,51 @@
 import { motion } from 'framer-motion'
+import { useState, useEffect } from 'react'
 import { Calendar, ChevronLeft, ChevronRight } from 'lucide-react'
+import { useViewStatePreservation } from '@/hooks/useViewStatePreservation'
 
 export function CalendarView() {
+  // State preservation for CalendarView - ready for future implementation
+  const [viewState, setViewState] = useState(() => ({
+    currentMonth: new Date().getMonth(),
+    currentYear: new Date().getFullYear(),
+    selectedDate: null as Date | null,
+    viewType: 'month' as 'month' | 'week' | 'day',
+    showWeekends: true,
+    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
+  }))
+
+  const { loadSavedState } = useViewStatePreservation(
+    'calendar',
+    viewState,
+    [viewState] // Auto-save when viewState changes
+  )
+
+  // Load saved state on mount
+  useEffect(() => {
+    const savedState = loadSavedState()
+    if (savedState) {
+      setViewState(prev => ({ ...prev, ...savedState }))
+    }
+  }, [loadSavedState])
+
+  const handlePreviousMonth = () => {
+    setViewState(prev => ({
+      ...prev,
+      currentMonth: prev.currentMonth === 0 ? 11 : prev.currentMonth - 1,
+      currentYear: prev.currentMonth === 0 ? prev.currentYear - 1 : prev.currentYear
+    }))
+  }
+
+  const handleNextMonth = () => {
+    setViewState(prev => ({
+      ...prev,
+      currentMonth: prev.currentMonth === 11 ? 0 : prev.currentMonth + 1,
+      currentYear: prev.currentMonth === 11 ? prev.currentYear + 1 : prev.currentYear
+    }))
+  }
+
+  const currentMonthName = new Date(viewState.currentYear, viewState.currentMonth).toLocaleString('default', { month: 'long' })
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -21,18 +65,22 @@ export function CalendarView() {
             className="p-2 rounded-lg hover:bg-accent/50 transition-colors"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            onClick={handlePreviousMonth}
+            title="Previous month"
           >
             <ChevronLeft className="w-4 h-4" />
           </motion.button>
           
           <div className="px-4 py-2 font-semibold">
-            January 2024
+            {currentMonthName} {viewState.currentYear}
           </div>
           
           <motion.button
             className="p-2 rounded-lg hover:bg-accent/50 transition-colors"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            onClick={handleNextMonth}
+            title="Next month"
           >
             <ChevronRight className="w-4 h-4" />
           </motion.button>

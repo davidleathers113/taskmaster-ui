@@ -215,4 +215,15 @@ jspm_packages/
 *.tgz
 
 # Yarn Integrity file
-.yarn-integrity 
+.yarn-integrity
+
+# Added by Task Master AI
+# Logs
+logs
+# Environment variables
+# Editor directories and files
+.idea
+.vscode
+*.sw?
+# OS specific
+# Task files

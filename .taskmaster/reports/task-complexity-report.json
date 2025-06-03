@@ -1,10 +1,10 @@
 {
   "meta": {
-    "generatedAt": "2025-06-01T22:09:01.245Z",
-    "tasksAnalyzed": 12,
-    "totalTasks": 12,
-    "analysisCount": 12,
-    "thresholdScore": 5,
+    "generatedAt": "2025-06-02T23:12:29.556Z",
+    "tasksAnalyzed": 4,
+    "totalTasks": 33,
+    "analysisCount": 16,
+    "thresholdScore": 7,
     "projectName": "Taskmaster",
     "usedResearch": true
   },
@@ -104,6 +104,38 @@
       "recommendedSubtasks": 10,
       "expansionPrompt": "Expand into subtasks for creating a test plan, testing dev workflow, testing production builds, feature regression testing, documenting migration, updating README, creating MIGRATION.md, updating CI/CD, performance comparison, and documenting known issues.",
       "reasoning": "Comprehensive testing and documentation is the most complex task, requiring coordination across all previous tasks, thorough validation, and clear communication for future maintainers."
+    },
+    {
+      "taskId": 30,
+      "taskTitle": "Install and Configure Testing Dependencies for Electron",
+      "complexityScore": 6,
+      "recommendedSubtasks": 7,
+      "expansionPrompt": "Break down the setup of Electron testing dependencies into granular steps: include separate subtasks for dependency installation, directory structure creation, Jest multi-project configuration, process-specific setup files, package.json script updates, baseline test creation, and verification of the overall setup.",
+      "reasoning": "Setting up a robust Electron testing foundation is moderately complex due to the need for multi-environment configuration (main, renderer, preload, integration), mocking Electron APIs, and integrating multiple tools. Each step is distinct and can fail independently, so clear separation into at least 7 subtasks is recommended for clarity and maintainability[2][3][5]."
+    },
+    {
+      "taskId": 31,
+      "taskTitle": "Implement Main Process & IPC Testing for Electron",
+      "complexityScore": 8,
+      "recommendedSubtasks": 8,
+      "expansionPrompt": "Expand this task into subtasks for main process lifecycle tests, auto-updater tests, IPC security validation, IPC rate limiting, preload script security, mocked Electron API tests, cross-process communication security, and memory leak detection.",
+      "reasoning": "This task is highly complex, involving comprehensive security, lifecycle, and memory testing across multiple Electron processes. It requires deep knowledge of Electron internals, advanced mocking, and security best practices. Each area (lifecycle, updater, IPC, preload, memory) is substantial and should be a separate subtask to ensure thorough coverage and test reliability[2][3][5]."
+    },
+    {
+      "taskId": 32,
+      "taskTitle": "Implement E2E Testing with Playwright for Electron",
+      "complexityScore": 9,
+      "recommendedSubtasks": 7,
+      "expansionPrompt": "Decompose this task into subtasks for Playwright configuration, task management workflow tests, view switching/navigation tests, file operations tests, cross-platform compatibility tests, CI/CD pipeline setup, and visual/performance regression testing.",
+      "reasoning": "End-to-end testing for Electron with Playwright is very complex due to the need for cross-platform support, UI automation, file system operations, and integration with CI/CD. Each workflow (task management, navigation, file ops, platform checks) is non-trivial and should be handled as a dedicated subtask for maintainability and parallelization[2][3][4]."
+    },
+    {
+      "taskId": 33,
+      "taskTitle": "Implement Performance & Memory Testing for Electron",
+      "complexityScore": 8,
+      "recommendedSubtasks": 6,
+      "expansionPrompt": "Expand this task into subtasks for memory leak detection setup, performance benchmarking suite, security audit integration, cross-platform CI/CD matrix configuration, performance monitoring/reporting, and integration of all test types into a unified pipeline.",
+      "reasoning": "Performance and memory testing in Electron is complex due to the need for specialized tools (memwatch-next, Electronegativity), cross-platform CI, and the integration of performance metrics into the development workflow. Each aspect (memory, performance, security, CI, reporting) is distinct and requires focused attention to ensure reliability and actionable results[2][3][5]."
     }
   ]
 }

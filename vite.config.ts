@@ -8,13 +8,13 @@ export default defineConfig({
   base: './', // Important for Electron - use relative paths
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src"),
-      "@components": path.resolve(__dirname, "./src/components"),
-      "@lib": path.resolve(__dirname, "./src/lib"),
-      "@hooks": path.resolve(__dirname, "./src/hooks"),
-      "@types": path.resolve(__dirname, "./src/types"),
-      "@store": path.resolve(__dirname, "./src/store"),
-      "@utils": path.resolve(__dirname, "./src/utils"),
+      "@": path.resolve(__dirname, "./src/renderer/src"),
+      "@components": path.resolve(__dirname, "./src/renderer/src/components"),
+      "@lib": path.resolve(__dirname, "./src/renderer/src/lib"),
+      "@hooks": path.resolve(__dirname, "./src/renderer/src/hooks"),
+      "@types": path.resolve(__dirname, "./src/renderer/src/types"),
+      "@store": path.resolve(__dirname, "./src/renderer/src/store"),
+      "@utils": path.resolve(__dirname, "./src/renderer/src/utils"),
     },
   },
   server: {

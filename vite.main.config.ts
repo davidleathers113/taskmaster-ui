@@ -6,11 +6,11 @@ import packageJson from './package.json';
 export default defineConfig({
   build: {
     lib: {
-      entry: path.resolve(__dirname, 'electron/main.ts'),
+      entry: path.resolve(__dirname, 'src/main/index.ts'),
       formats: ['cjs'],
       fileName: () => 'main.cjs',
     },
-    outDir: 'dist/electron',
+    outDir: 'dist/main',
     emptyOutDir: false, // Don't clean the directory
     rollupOptions: {
       external: [

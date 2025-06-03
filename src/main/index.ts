@@ -1,13 +1,33 @@
 import { app, BrowserWindow, ipcMain, dialog, shell } from 'electron';
 import { autoUpdater } from 'electron-updater';
+import log from 'electron-log';
 import * as path from 'path';
 import * as fs from 'fs';
+import { fileURLToPath } from 'url';
 
 /// <reference path="./vite-env.d.ts" />
+
+// ESM compatibility: Replace __dirname with import.meta.url
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // ============================================
 // 🚨 AGGRESSIVE DEBUG LOGGING - 2025 EDITION 🚨
 // ============================================
+
+// Configure electron-log for comprehensive logging
+log.transports.file.level = 'info';
+log.transports.console.level = 'info';
+log.transports.file.maxSize = 5 * 1024 * 1024; // 5MB
+// Use the new API to avoid deprecation warning
+log.transports.file.archiveLogFn = (oldLogFile) => {
+  // Use process.stdout to avoid infinite recursion since console is overridden below
+  process.stdout.write(`[TASKMASTER] Archived log: ${oldLogFile.toString()}\n`);
+};
+
+// Override console methods to also log to file
+Object.assign(console, log.functions);
+
 const DEBUG_MODE = true;
 const DEBUG_PREFIX = '🔍 [TASKMASTER DEBUG]';
 const ERROR_PREFIX = '❌ [TASKMASTER ERROR]';
@@ -69,7 +89,7 @@ debugLog('ENVIRONMENT', 'Initial Environment Check', {
   arch: process.arch,
   cwd: process.cwd(),
   __dirname,
-  __filename: import.meta.url,
+  __filename,
   execPath: process.execPath,
   resourcesPath: process.resourcesPath,
   isPackaged: app.isPackaged,
@@ -79,12 +99,7 @@ debugLog('ENVIRONMENT', 'Initial Environment Check', {
   ELECTRON_IS_DEV: process.env.ELECTRON_IS_DEV,
 });
 
-// Log Vite magic variables
-debugLog('VITE_VARIABLES', 'Checking Vite Magic Variables', {
-  MAIN_WINDOW_VITE_DEV_SERVER_URL: typeof MAIN_WINDOW_VITE_DEV_SERVER_URL !== 'undefined' ? MAIN_WINDOW_VITE_DEV_SERVER_URL : 'UNDEFINED',
-  MAIN_WINDOW_VITE_NAME: typeof MAIN_WINDOW_VITE_NAME !== 'undefined' ? MAIN_WINDOW_VITE_NAME : 'UNDEFINED',
-  MAIN_WINDOW_PRELOAD_VITE_DEV_SERVER_URL: typeof MAIN_WINDOW_PRELOAD_VITE_DEV_SERVER_URL !== 'undefined' ? MAIN_WINDOW_PRELOAD_VITE_DEV_SERVER_URL : 'UNDEFINED',
-});
+// electron-vite handles development/production URLs automatically
 
 // File existence checker
 const checkFileExists = (filePath: string, description: string): boolean => {
@@ -110,11 +125,11 @@ const checkFileExists = (filePath: string, description: string): boolean => {
 // Check critical paths at startup
 timingLog('Checking critical file paths...');
 const criticalPaths = {
-  mainScript: path.join(__dirname, 'main.cjs'),
+  mainScript: path.join(__dirname, 'index.js'),
   preloadDev: path.join(__dirname, '../preload/index.js'),
-  preloadProd: path.join(__dirname, 'preload.cjs'),
+  preloadProd: path.join(__dirname, '../preload/index.cjs'),
   rendererDev: 'http://localhost:5173',
-  rendererProd: path.join(__dirname, '../renderer/main_window/index.html'),
+  rendererProd: path.join(__dirname, '../renderer/index.html'),
   rendererProdAlt: path.join(__dirname, '../renderer/index.html'),
 };
 
@@ -161,6 +176,105 @@ process.on('unhandledRejection', (reason, promise) => {
   console.error('Promise:', promise);
   console.error('⚡'.repeat(40) + '\n');
 });
+
+// ============================================
+// 🔥 Hot Reloading Development Utilities - 2025 Best Practices 🔥
+// ============================================
+
+// Enhanced development logging for hot reloading
+if (!app.isPackaged) {
+  console.log('\n' + '🔥'.repeat(60));
+  console.log('🔥 HOT RELOADING DEVELOPMENT MODE ACTIVE 🔥');
+  console.log('🔥'.repeat(60));
+  
+  // Add keyboard shortcuts for development
+  const addDevelopmentShortcuts = (window: BrowserWindow) => {
+    // Register global shortcuts for development
+    const { globalShortcut } = require('electron');
+    
+    try {
+      // Ctrl+R / Cmd+R: Reload renderer
+      globalShortcut.register('CmdOrCtrl+R', () => {
+        debugLog('DEV_SHORTCUT', 'Manual renderer reload triggered');
+        window.webContents.reload();
+      });
+      
+      // Ctrl+Shift+R / Cmd+Shift+R: Hard reload (clear cache)
+      globalShortcut.register('CmdOrCtrl+Shift+R', () => {
+        debugLog('DEV_SHORTCUT', 'Hard reload triggered (clearing cache)');
+        window.webContents.session.clearCache().then(() => {
+          window.webContents.reload();
+        });
+      });
+      
+      // F5: Alternative reload
+      globalShortcut.register('F5', () => {
+        debugLog('DEV_SHORTCUT', 'F5 reload triggered');
+        window.webContents.reload();
+      });
+      
+      // Ctrl+Shift+I / Cmd+Shift+I: Toggle DevTools
+      globalShortcut.register('CmdOrCtrl+Shift+I', () => {
+        debugLog('DEV_SHORTCUT', 'DevTools toggle triggered');
+        window.webContents.toggleDevTools();
+      });
+      
+      console.log(`${SUCCESS_PREFIX} Development shortcuts registered:`);
+      console.log('  🔄 Ctrl/Cmd+R: Reload renderer');
+      console.log('  🔄 Ctrl/Cmd+Shift+R: Hard reload (clear cache)');
+      console.log('  🔄 F5: Alternative reload');
+      console.log('  🔧 Ctrl/Cmd+Shift+I: Toggle DevTools');
+      
+    } catch (error) {
+      errorLog('DEV_SHORTCUTS', 'Failed to register development shortcuts', error);
+    }
+  };
+  
+  // Export the function to be used in createWindow
+  (global as any).addDevelopmentShortcuts = addDevelopmentShortcuts;
+  
+  // Hot reload monitoring
+  const setupHotReloadMonitoring = () => {
+    const chokidar = require('chokidar');
+    
+    // Watch for main process file changes (electron-vite handles this but add extra logging)
+    const mainWatcher = chokidar.watch([
+      path.join(__dirname, '../**/*.{js,ts,mjs,cjs}'),
+      path.join(__dirname, '../../src/main/**/*.{js,ts}'),
+      path.join(__dirname, '../../src/preload/**/*.{js,ts}')
+    ], {
+      ignored: [
+        '**/node_modules/**',
+        '**/dist/**',
+        '**/out/**',
+        '**/.git/**'
+      ],
+      ignoreInitial: true
+    });
+    
+    mainWatcher.on('change', (filePath: string) => {
+      console.log(`${WARNING_PREFIX} Main/Preload file changed: ${filePath}`);
+      console.log('🔥 electron-vite will handle the restart automatically');
+    });
+    
+    mainWatcher.on('error', (error: Error) => {
+      errorLog('HOT_RELOAD_WATCH', 'File watcher error', error);
+    });
+    
+    // Log renderer changes (handled by Vite HMR)
+    console.log(`${INFO_PREFIX} Hot reload monitoring active:`);
+    console.log('  🔥 Main process: Watched by electron-vite (auto-restart)');
+    console.log('  🔥 Preload scripts: Watched by electron-vite (auto-restart)');
+    console.log('  🔥 Renderer process: Handled by Vite HMR (hot updates)');
+  };
+  
+  // Initialize hot reload monitoring
+  try {
+    setupHotReloadMonitoring();
+  } catch (error) {
+    errorLog('HOT_RELOAD_INIT', 'Failed to initialize hot reload monitoring', error);
+  }
+}
 
 // Log when the app starts
 console.log(`\n${SUCCESS_PREFIX} Main process initialized`);
@@ -280,28 +394,9 @@ const createWindow = (): void => {
   debugLog('WINDOW_CREATION', 'Creating main browser window...');
   
   try {
-    // Determine preload path with workaround for Electron Forge Vite plugin issues
-    let preloadPath: string;
-    if (!app.isPackaged) {
-      // Development mode: Try magic variable first, then fallback to built file
-      if (typeof MAIN_WINDOW_PRELOAD_VITE_DEV_SERVER_URL !== 'undefined' && MAIN_WINDOW_PRELOAD_VITE_DEV_SERVER_URL) {
-        preloadPath = MAIN_WINDOW_PRELOAD_VITE_DEV_SERVER_URL;
-        debugLog('PRELOAD', 'Using Vite dev server preload path', { preloadPath });
-      } else {
-        // Fallback to built preload script in development
-        preloadPath = path.join(__dirname, 'preload.cjs');
-        debugLog('PRELOAD', 'Using built preload path (dev fallback)', { preloadPath });
-      }
-    } else {
-      // Production mode: Always use built preload script
-      preloadPath = path.join(__dirname, 'preload.cjs');
-      debugLog('PRELOAD', 'Using production preload path', { preloadPath });
-    }
-    
-    // Verify preload exists
-    if (typeof MAIN_WINDOW_PRELOAD_VITE_DEV_SERVER_URL === 'undefined' || !MAIN_WINDOW_PRELOAD_VITE_DEV_SERVER_URL) {
-      checkFileExists(preloadPath, 'Preload Script');
-    }
+    // electron-vite automatically handles preload script paths
+    const preloadPath = path.join(__dirname, '../preload/index.cjs');
+    checkFileExists(preloadPath, 'Preload Script');
     
     // Create the browser window with 2025 security best practices
     const windowConfig = {
@@ -333,10 +428,10 @@ const createWindow = (): void => {
       
       // Window appearance and behavior
       show: false, // Don't show until ready
-      titleBarStyle: process.platform === 'darwin' ? 'hiddenInset' : 'default',
+      titleBarStyle: (process.platform === 'darwin' ? 'hiddenInset' : 'default') as 'hiddenInset' | 'default',
       
-      // Security: Icon configuration
-      icon: path.join(__dirname, '../assets/icon-256.png'),
+      // Security: Icon configuration - Updated for electron-vite asset structure
+      icon: path.join(__dirname, '../../resources/icon-256.png'),
     };
     
     debugLog('WINDOW_CONFIG', 'Window configuration', windowConfig);
@@ -363,91 +458,55 @@ const createWindow = (): void => {
   mainWindow.webContents.on('will-navigate', (event, navigationUrl) => {
     const parsedUrl = new URL(navigationUrl);
     
-    // Allow navigation within the app
-    if (parsedUrl.origin !== 'http://localhost:5173' && parsedUrl.origin !== 'file://') {
+    // Allow navigation within the app (dev server or file protocol)
+    if (!parsedUrl.origin.startsWith('http://localhost') && parsedUrl.origin !== 'file://') {
       event.preventDefault();
       shell.openExternal(navigationUrl);
     }
   });
 
-  // Security: Handle new window requests
-  mainWindow.webContents.on('new-window', (event, navigationUrl) => {
-    event.preventDefault();
-    shell.openExternal(navigationUrl);
+  // Security: Handle new window requests (replaced deprecated 'new-window' event)
+  mainWindow.webContents.setWindowOpenHandler(({ url }) => {
+    shell.openExternal(url);
+    return { action: 'deny' };
   });
 
-  // Load the app
-  debugLog('URL_LOADING', 'Determining URL to load...');
+  // Load the app - electron-vite handles development/production URLs automatically
+  debugLog('URL_LOADING', 'Loading application...');
   
-  // Workaround for Electron Forge Vite plugin magic variable injection issues
-  const viteDevServerUrl = typeof MAIN_WINDOW_VITE_DEV_SERVER_URL !== 'undefined' && MAIN_WINDOW_VITE_DEV_SERVER_URL 
-    ? MAIN_WINDOW_VITE_DEV_SERVER_URL 
-    : 'http://localhost:5173'; // Fallback to standard Vite dev server URL
-  
-  if (viteDevServerUrl && !app.isPackaged) {
-    console.log(`${INFO_PREFIX} Loading from Vite dev server: ${viteDevServerUrl}`);
-    debugLog('DEV_MODE', 'Loading development URL', { url: viteDevServerUrl, magicVarDefined: typeof MAIN_WINDOW_VITE_DEV_SERVER_URL !== 'undefined' });
+  if (!app.isPackaged) {
+    // Development mode: electron-vite provides dev server URL automatically
+    console.log(`${INFO_PREFIX} Loading development server (electron-vite handles URL)`);
+    debugLog('DEV_MODE', 'Loading development URL');
     
-    mainWindow.loadURL(viteDevServerUrl).then(() => {
-      console.log(`${SUCCESS_PREFIX} Successfully loaded dev server URL`);
+    // electron-vite dev server runs on standard port 5173
+    const devServerUrl = process.env.VITE_DEV_SERVER_URL || 'http://localhost:5173';
+    mainWindow.loadURL(devServerUrl).then(() => {
+      console.log(`${SUCCESS_PREFIX} Successfully loaded dev server`);
       timingLog('Dev server loaded');
     }).catch((err) => {
-      errorLog('DEV_LOAD_ERROR', 'Failed to load dev server URL', err);
+      errorLog('DEV_LOAD_ERROR', 'Failed to load dev server', err);
       dialog.showErrorBox('Development Server Error', 
-        `Failed to connect to development server at ${viteDevServerUrl}\n\nError: ${err.message}\n\nMake sure Vite dev server is running.`);
+        `Failed to connect to development server\n\nError: ${err.message}\n\nMake sure electron-vite dev server is running.`);
     });
   } else {
-    // Production mode
-    const rendererName = typeof MAIN_WINDOW_VITE_NAME !== 'undefined' ? MAIN_WINDOW_VITE_NAME : 'main_window';
-    const indexPath = path.join(__dirname, `../renderer/${rendererName}/index.html`);
+    // Production mode: electron-vite builds to standard location
+    const indexPath = path.join(__dirname, '../renderer/index.html');
     
     console.log(`${INFO_PREFIX} Loading from file system (production mode)`);
     debugLog('PROD_MODE', 'Loading production file', { 
       indexPath,
-      rendererName,
       exists: fs.existsSync(indexPath)
     });
     
-    // Check if file exists before trying to load
-    if (!fs.existsSync(indexPath)) {
-      console.error(`${ERROR_PREFIX} Index.html not found at expected location: ${indexPath}`);
-      
-      // Try alternative path
-      const altPath = path.join(__dirname, '../renderer/index.html');
-      console.log(`${WARNING_PREFIX} Trying alternative path: ${altPath}`);
-      
-      if (fs.existsSync(altPath)) {
-        console.log(`${SUCCESS_PREFIX} Found index.html at alternative location`);
-        mainWindow.loadFile(altPath).then(() => {
-          console.log(`${SUCCESS_PREFIX} Successfully loaded alternative index.html`);
-          timingLog('Alternative production file loaded');
-        }).catch((err) => {
-          errorLog('ALT_LOAD_ERROR', 'Failed to load alternative index.html', err);
-          dialog.showErrorBox('Loading Error', 
-            `Failed to load application file from ${altPath}\n\nError: ${err.message}`);
-        });
-      } else {
-        errorLog('FILE_NOT_FOUND', 'No index.html found in any expected location', {
-          tried: [indexPath, altPath],
-          rendererDir: path.join(__dirname, '../renderer'),
-          dirContents: fs.existsSync(path.join(__dirname, '../renderer')) 
-            ? fs.readdirSync(path.join(__dirname, '../renderer')) 
-            : 'Directory does not exist'
-        });
-        
-        dialog.showErrorBox('File Not Found', 
-          `Could not find index.html in any of these locations:\n\n1. ${indexPath}\n2. ${altPath}\n\nThe application cannot start.`);
-      }
-    } else {
-      mainWindow.loadFile(indexPath).then(() => {
-        console.log(`${SUCCESS_PREFIX} Successfully loaded production index.html`);
-        timingLog('Production file loaded');
-      }).catch((err) => {
-        errorLog('PROD_LOAD_ERROR', 'Failed to load production index.html', err);
-        dialog.showErrorBox('Loading Error', 
-          `Failed to load application file from ${indexPath}\n\nError: ${err.message}`);
-      });
-    }
+    mainWindow.loadFile(indexPath).then(() => {
+      console.log(`${SUCCESS_PREFIX} Successfully loaded production build`);
+      timingLog('Production file loaded');
+    }).catch((err) => {
+      errorLog('PROD_LOAD_ERROR', 'Failed to load production build', err);
+      dialog.showErrorBox('Loading Error', 
+        `Failed to load application file\n\nError: ${err.message}`);
+    });
   }
 
   // Security: Production CSP headers will be set by Vite
@@ -457,7 +516,7 @@ const createWindow = (): void => {
     console.log(`${INFO_PREFIX} DevTools opened (development mode)`);
     
     // Add console message handler to see renderer logs in main process
-    mainWindow.webContents.on('console-message', (event, level, message, line, sourceId) => {
+    mainWindow.webContents.on('console-message', (_event, level, message, line, sourceId) => {
       const logPrefix = `🌐 [RENDERER ${level}]`;
       console.log(`${logPrefix} ${message} (${sourceId}:${line})`);
     });
@@ -473,12 +532,8 @@ const createWindow = (): void => {
     });
   });
 
-  mainWindow.webContents.on('crashed', (event, killed) => {
-    errorLog('RENDERER_CRASH', 'Renderer process crashed', { killed, event });
-  });
-
-  mainWindow.webContents.on('render-process-gone', (event, details) => {
-    errorLog('RENDERER_GONE', 'Renderer process gone', { details, event });
+  mainWindow.webContents.on('render-process-gone', (_event, details) => {
+    errorLog('RENDERER_CRASH', 'Renderer process gone', { details, reason: details.reason, exitCode: details.exitCode });
   });
 
   // Log successful page loads
@@ -512,6 +567,12 @@ const createWindow = (): void => {
     console.log(`${SUCCESS_PREFIX} Window ready to show`);
     timingLog('Window ready to show');
     mainWindow.show();
+    
+    // Initialize development shortcuts for hot reloading
+    if (!app.isPackaged && (global as any).addDevelopmentShortcuts) {
+      (global as any).addDevelopmentShortcuts(mainWindow);
+      debugLog('DEV_SHORTCUTS', 'Development shortcuts initialized for hot reloading');
+    }
     
     // Initialize auto-updater
     const autoUpdaterManager = AutoUpdaterManager.getInstance();
@@ -616,7 +677,7 @@ app.whenReady().then(() => {
   createWindow();
   
   // Security: Handle certificate errors
-  app.on('certificate-error', (event, webContents, url, error, certificate, callback) => {
+  app.on('certificate-error', (event, _webContents, url, _error, _certificate, callback) => {
     // In production, reject all certificate errors
     // In development, you might want to allow localhost
     if (!app.isPackaged && url.startsWith('http://localhost')) {
@@ -641,11 +702,11 @@ app.on('second-instance', () => {
   }
 });
 
-// Ensure single instance
-const gotTheLock = app.requestSingleInstanceLock();
-if (!gotTheLock) {
-  app.quit();
-}
+// Ensure single instance (temporarily disabled for debugging)
+// const gotTheLock = app.requestSingleInstanceLock();
+// if (!gotTheLock) {
+//   app.quit();
+// }
 
 // Export for testing purposes
 export { createWindow };

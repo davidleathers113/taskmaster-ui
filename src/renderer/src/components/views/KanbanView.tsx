@@ -1,8 +1,10 @@
 import { motion } from 'framer-motion'
-import { Grid3X3, Plus } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { Grid3X3, Plus, ChevronDown, ChevronUp } from 'lucide-react'
 import { useTaskStore } from '@/store/useTaskStore'
 import { TaskCard } from '@/components/task/TaskCard'
 import { cn } from '@/lib/utils'
+import { useViewStatePreservation } from '@/hooks/useViewStatePreservation'
 
 const statusColumns = [
   { id: 'pending', title: 'Pending', color: 'bg-gray-100 dark:bg-gray-800' },
@@ -15,10 +17,64 @@ export function KanbanView() {
   const { getFilteredTasks } = useTaskStore()
   const tasks = getFilteredTasks()
 
+  // State preservation for KanbanView
+  const [viewState, setViewState] = useState(() => ({
+    columnScrollPositions: {} as Record<string, number>,
+    collapsedColumns: [] as string[],
+    expandedTasks: [] as string[],
+    columnOrder: statusColumns.map(col => col.id),
+    filterByColumn: null as string | null
+  }))
+
+  const { loadSavedState } = useViewStatePreservation(
+    'kanban',
+    viewState,
+    [viewState] // Auto-save when viewState changes
+  )
+
+  // Load saved state on mount
+  useEffect(() => {
+    const savedState = loadSavedState()
+    if (savedState) {
+      setViewState(prev => ({ ...prev, ...savedState }))
+    }
+  }, [loadSavedState])
+
   const tasksByStatus = statusColumns.map(column => ({
     ...column,
     tasks: tasks.filter(task => task.status === column.id)
   }))
+
+  // Handle column scroll tracking
+  const handleColumnScroll = (columnId: string, scrollTop: number) => {
+    setViewState(prev => ({
+      ...prev,
+      columnScrollPositions: {
+        ...prev.columnScrollPositions,
+        [columnId]: scrollTop
+      }
+    }))
+  }
+
+  // Future handler for task selection/expansion support
+  // const handleTaskSelect = (taskId: string) => {
+  //   setViewState(prev => ({
+  //     ...prev,
+  //     expandedTasks: prev.expandedTasks.includes(taskId)
+  //       ? prev.expandedTasks.filter(id => id !== taskId)
+  //       : [...prev.expandedTasks, taskId]
+  //   }))
+  // }
+
+  // Handle column collapse/expand
+  const handleColumnToggle = (columnId: string) => {
+    setViewState(prev => ({
+      ...prev,
+      collapsedColumns: prev.collapsedColumns.includes(columnId)
+        ? prev.collapsedColumns.filter(id => id !== columnId)
+        : [...prev.collapsedColumns, columnId]
+    }))
+  }
 
   return (
     <motion.div
@@ -60,19 +116,45 @@ export function KanbanView() {
                     {column.tasks.length} tasks
                   </p>
                 </div>
-                <motion.button
-                  className="p-1 rounded hover:bg-background/50 transition-colors"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <Plus className="w-4 h-4" />
-                </motion.button>
+                <div className="flex items-center space-x-1">
+                  <motion.button
+                    className="p-1 rounded hover:bg-background/50 transition-colors"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => handleColumnToggle(column.id)}
+                    title={viewState.collapsedColumns.includes(column.id) ? "Expand column" : "Collapse column"}
+                  >
+                    {viewState.collapsedColumns.includes(column.id) ? (
+                      <ChevronDown className="w-4 h-4" />
+                    ) : (
+                      <ChevronUp className="w-4 h-4" />
+                    )}
+                  </motion.button>
+                  
+                  <motion.button
+                    className="p-1 rounded hover:bg-background/50 transition-colors"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    title="Add new task"
+                  >
+                    <Plus className="w-4 h-4" />
+                  </motion.button>
+                </div>
               </div>
             </div>
 
             {/* Column content */}
-            <div className="bg-card border border-t-0 border-border/50 rounded-b-xl p-4 h-full overflow-y-auto">
-              <div className="space-y-3">
+            <div 
+              className="bg-card border border-t-0 border-border/50 rounded-b-xl p-4 h-full overflow-y-auto"
+              onScroll={(e) => handleColumnScroll(column.id, e.currentTarget.scrollTop)}
+              ref={(el) => {
+                if (el && viewState.columnScrollPositions[column.id]) {
+                  el.scrollTop = viewState.columnScrollPositions[column.id]
+                }
+              }}
+            >
+              {!viewState.collapsedColumns.includes(column.id) && (
+                <div className="space-y-3">
                 {column.tasks.map((task, taskIndex) => (
                   <motion.div
                     key={task.id}
@@ -96,7 +178,8 @@ export function KanbanView() {
                     <p className="text-sm">No tasks in {column.title.toLowerCase()}</p>
                   </div>
                 )}
-              </div>
+                </div>
+              )}
             </div>
           </motion.div>
         ))}

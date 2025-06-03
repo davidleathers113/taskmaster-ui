@@ -1,0 +1,9 @@
+file_path,expected_context,rule_count,plugins,globals
+src/main/index.ts,main-process,90,2,79
+src/preload/index.ts,preload-script,89,2,1159
+src/renderer/src/App.tsx,renderer-react,92,4,1149
+src/renderer/src/components/task/TaskCard.tsx,react-component,92,4,1149
+vite.config.ts,config-file,89,2,79
+electron.vite.config.ts,config-file,89,2,79
+eslint.config.js,config-file,84,2,79
+server/file-watcher.ts,server-typescript,90,2,79

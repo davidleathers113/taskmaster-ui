@@ -1,7 +1,46 @@
 import { motion } from 'framer-motion'
+import { useState, useEffect } from 'react'
 import { Clock } from 'lucide-react'
+import { useViewStatePreservation } from '@/hooks/useViewStatePreservation'
 
 export function TimelineView() {
+  // State preservation for TimelineView - ready for future implementation
+  const [viewState, setViewState] = useState(() => ({
+    timeRange: 'month' as 'week' | 'month' | 'quarter' | 'year',
+    startDate: new Date(),
+    zoomLevel: 1,
+    selectedTasks: [] as string[],
+    showMilestones: true,
+    showDependencies: true,
+    groupBy: 'status' as 'status' | 'priority' | 'assignee' | 'none'
+  }))
+
+  const { loadSavedState } = useViewStatePreservation(
+    'timeline',
+    viewState,
+    [viewState] // Auto-save when viewState changes
+  )
+
+  // Load saved state on mount
+  useEffect(() => {
+    const savedState = loadSavedState()
+    if (savedState) {
+      setViewState(prev => ({ ...prev, ...savedState }))
+    }
+  }, [loadSavedState])
+
+  // Future handlers for timeline functionality
+  // const handleTimeRangeChange = (range: typeof viewState.timeRange) => {
+  //   setViewState(prev => ({ ...prev, timeRange: range }))
+  // }
+
+  // const handleZoomChange = (delta: number) => {
+  //   setViewState(prev => ({
+  //     ...prev,
+  //     zoomLevel: Math.max(0.25, Math.min(4, prev.zoomLevel + delta))
+  //   }))
+  // }
+
   return (
     <motion.div
       initial={{ opacity: 0 }}

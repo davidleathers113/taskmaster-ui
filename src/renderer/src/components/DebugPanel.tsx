@@ -1,20 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-// Type declarations for window.electronAPI
-declare global {
-  interface Window {
-    electronAPI?: {
-      getVersion: () => Promise<string>;
-      getPlatform: () => Promise<string>;
-      getAppDataPath: () => Promise<string>;
-      getDocumentsPath: () => Promise<string>;
-      showError: (title: string, content: string) => Promise<void>;
-      onDownloadProgress: (callback: (progress: any) => void) => void;
-      removeDownloadProgressListener: () => void;
-      isDev: boolean;
-    };
-  }
-}
+// Type declarations are handled in preload script
 
 interface DebugInfo {
   electronAPIAvailable: boolean;

@@ -1,85 +1,248 @@
-import fs from 'fs'
-import path from 'path'
-
-// Add Claude config API endpoint to the existing file watcher server
-export function addClaudeConfigAPI(app) {
-  // API endpoint to read Claude configuration
-  app.post('/api/claude-config', async (req, res) => {
-    try {
-      const { configPath } = req.body
-      const filePath = configPath || '/Users/davidleathers/.claude.json'
-      
-      // Check if file exists
-      if (!fs.existsSync(filePath)) {
-        return res.status(404).json({ 
-          error: 'Claude configuration file not found',
-          path: filePath 
-        })
-      }
-
-      // Get file stats
-      const stats = fs.statSync(filePath)
-      const fileSizeInBytes = stats.size
-      const fileSizeInMB = (fileSizeInBytes / (1024 * 1024)).toFixed(2)
-      
-      // Read and parse the file
-      const fileContent = fs.readFileSync(filePath, 'utf8')
-      const config = JSON.parse(fileContent)
-      
-      res.json({
-        config,
-        lastModified: stats.mtime.toISOString(),
-        fileSize: `${fileSizeInMB} MB`,
-        fileSizeBytes: fileSizeInBytes
-      })
-      
-    } catch (error) {
-      console.error('Error reading Claude config:', error)
-      
-      if (error instanceof SyntaxError) {
-        res.status(400).json({ 
-          error: 'Invalid JSON in Claude configuration file',
-          details: error.message 
-        })
-      } else {
-        res.status(500).json({ 
-          error: 'Failed to read Claude configuration',
-          details: error.message 
-        })
-      }
-    }
-  })
-
-  // API endpoint to get config file info without parsing (for large files)
-  app.get('/api/claude-config/info', async (req, res) => {
-    try {
-      const configPath = req.query.path || '/Users/davidleathers/.claude.json'
-      
-      if (!fs.existsSync(configPath)) {
-        return res.status(404).json({ 
-          error: 'Claude configuration file not found',
-          path: configPath 
-        })
-      }
-
-      const stats = fs.statSync(configPath)
-      const fileSizeInBytes = stats.size
-      const fileSizeInMB = (fileSizeInBytes / (1024 * 1024)).toFixed(2)
-      
-      res.json({
-        path: configPath,
-        lastModified: stats.mtime.toISOString(),
-        fileSize: `${fileSizeInMB} MB`,
-        fileSizeBytes: fileSizeInBytes,
-        exists: true
-      })
-      
-    } catch (error) {
-      console.error('Error getting Claude config info:', error)
-      res.status(500).json({ 
-        error: 'Failed to get Claude configuration info',
-        details: error.message 
-      })
-    }
-  })
+import { z } from 'zod';
+import fs from 'fs/promises';
+import helmet from 'helmet';
+import rateLimit from 'express-rate-limit';
+// Validation schemas using Zod
+const ConfigPathSchema = z.object({
+    configPath: z.string()
+        .min(1, 'Config path cannot be empty')
+        .max(500, 'Config path too long')
+        .refine((path) => {
+        // Allowlist validation: Only allow specific safe paths
+        const allowedPaths = [
+            '/Users/davidleathers/.claude.json',
+            // Add other explicitly allowed paths here
+        ];
+        return allowedPaths.some(allowedPath => path === allowedPath);
+    }, {
+        message: 'Access to this file path is not permitted'
+    })
+        .transform((path) => path)
+});
+const ConfigInfoQuerySchema = z.object({
+    path: z.string()
+        .optional()
+        .transform((path) => path ? ConfigPathSchema.parse({ configPath: path }).configPath : undefined)
+});
+// Security middleware configuration
+const claudeConfigRateLimit = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // Limit each IP to 100 requests per windowMs
+    message: {
+        error: 'Too many requests from this IP, please try again later.',
+        retryAfter: '15 minutes'
+    },
+    standardHeaders: true,
+    legacyHeaders: false,
+});
+// Generic validation middleware
+function validateRequest(schema) {
+    return (req, res, next) => {
+        try {
+            const validatedData = schema.parse(req.body);
+            req.body = validatedData;
+            next();
+        }
+        catch (error) {
+            if (error instanceof z.ZodError) {
+                const errorMessages = error.errors.map(issue => ({
+                    field: issue.path.join('.'),
+                    message: issue.message,
+                }));
+                res.status(400).json({
+                    error: 'Validation failed',
+                    details: errorMessages
+                });
+                return;
+            }
+            // Log the error for monitoring but don't expose details
+            console.error('Validation error:', error);
+            res.status(500).json({
+                error: 'Internal server error during validation'
+            });
+            return;
+        }
+    };
 }
+// Sanitize and validate file path
+function sanitizeFilePath(inputPath) {
+    try {
+        const result = ConfigPathSchema.parse({ configPath: inputPath });
+        return result.configPath;
+    }
+    catch (error) {
+        throw new Error('Invalid or unauthorized file path');
+    }
+}
+// Secure file operations with proper error handling
+async function readConfigFile(filePath) {
+    try {
+        // Check if file exists and get stats
+        const stats = await fs.stat(filePath);
+        const fileSizeInBytes = stats.size;
+        const fileSizeInMB = (fileSizeInBytes / (1024 * 1024)).toFixed(2);
+        // Read file content with size limit (prevent DoS)
+        const maxFileSize = 10 * 1024 * 1024; // 10MB limit
+        if (fileSizeInBytes > maxFileSize) {
+            throw new Error('File size exceeds maximum allowed limit');
+        }
+        const fileContent = await fs.readFile(filePath, 'utf8');
+        // Parse JSON with error handling
+        let config;
+        try {
+            config = JSON.parse(fileContent);
+        }
+        catch (parseError) {
+            throw new Error('Invalid JSON format in configuration file');
+        }
+        return {
+            config: config,
+            stats: {
+                lastModified: stats.mtime.toISOString(),
+                fileSize: `${fileSizeInMB} MB`,
+                fileSizeBytes: fileSizeInBytes
+            }
+        };
+    }
+    catch (error) {
+        if (error instanceof Error) {
+            // Re-throw known errors
+            throw error;
+        }
+        // Handle unknown errors
+        throw new Error('Failed to read configuration file');
+    }
+}
+// Enhanced error response without information disclosure
+function sendErrorResponse(res, statusCode, message, logError) {
+    if (logError) {
+        console.error('API Error:', logError);
+    }
+    res.status(statusCode).json({
+        error: message,
+        timestamp: new Date().toISOString()
+    });
+}
+// Add Claude config API endpoints to the existing Express app
+export function addClaudeConfigAPI(app) {
+    // Apply security middleware
+    app.use('/api/claude-config', helmet({
+        contentSecurityPolicy: {
+            directives: {
+                defaultSrc: ["'self'"],
+                scriptSrc: ["'self'"],
+                styleSrc: ["'self'", "'unsafe-inline'"],
+                imgSrc: ["'self'", "data:"],
+            },
+        },
+        hsts: {
+            maxAge: 31536000,
+            includeSubDomains: true,
+            preload: true
+        }
+    }));
+    app.use('/api/claude-config', claudeConfigRateLimit);
+    // POST /api/claude-config - Read Claude configuration with validation
+    app.post('/api/claude-config', validateRequest(ConfigPathSchema), async (req, res) => {
+        try {
+            const { configPath } = req.body;
+            const safeFilePath = sanitizeFilePath(configPath);
+            const result = await readConfigFile(safeFilePath);
+            res.json({
+                config: result.config,
+                lastModified: result.stats.lastModified,
+                fileSize: result.stats.fileSize,
+                fileSizeBytes: result.stats.fileSizeBytes,
+                success: true
+            });
+        }
+        catch (error) {
+            if (error instanceof Error) {
+                switch (error.message) {
+                    case 'Invalid or unauthorized file path':
+                        sendErrorResponse(res, 403, 'Access denied to specified file path', error);
+                        break;
+                    case 'File size exceeds maximum allowed limit':
+                        sendErrorResponse(res, 413, 'File too large to process', error);
+                        break;
+                    case 'Invalid JSON format in configuration file':
+                        sendErrorResponse(res, 400, 'Configuration file contains invalid JSON', error);
+                        break;
+                    default:
+                        if (error.message.includes('ENOENT')) {
+                            sendErrorResponse(res, 404, 'Configuration file not found', error);
+                        }
+                        else if (error.message.includes('EACCES')) {
+                            sendErrorResponse(res, 403, 'Permission denied accessing configuration file', error);
+                        }
+                        else {
+                            sendErrorResponse(res, 500, 'Failed to read configuration file', error);
+                        }
+                        break;
+                }
+            }
+            else {
+                sendErrorResponse(res, 500, 'Internal server error', error);
+            }
+        }
+    });
+    // GET /api/claude-config/info - Get file info without reading content
+    app.get('/api/claude-config/info', async (req, res) => {
+        try {
+            const queryValidation = ConfigInfoQuerySchema.parse(req.query);
+            const configPath = queryValidation.path || '/Users/davidleathers/.claude.json';
+            const safeFilePath = sanitizeFilePath(configPath);
+            const stats = await fs.stat(safeFilePath);
+            const fileSizeInBytes = stats.size;
+            const fileSizeInMB = (fileSizeInBytes / (1024 * 1024)).toFixed(2);
+            res.json({
+                path: safeFilePath,
+                lastModified: stats.mtime.toISOString(),
+                fileSize: `${fileSizeInMB} MB`,
+                fileSizeBytes: fileSizeInBytes,
+                exists: true,
+                success: true
+            });
+        }
+        catch (error) {
+            if (error instanceof z.ZodError) {
+                const errorMessages = error.errors.map(issue => ({
+                    field: issue.path.join('.'),
+                    message: issue.message,
+                }));
+                res.status(400).json({
+                    error: 'Invalid query parameters',
+                    details: errorMessages
+                });
+                return;
+            }
+            if (error instanceof Error) {
+                if (error.message.includes('ENOENT')) {
+                    sendErrorResponse(res, 404, 'Configuration file not found', error);
+                }
+                else if (error.message.includes('EACCES')) {
+                    sendErrorResponse(res, 403, 'Permission denied accessing configuration file', error);
+                }
+                else if (error.message === 'Invalid or unauthorized file path') {
+                    sendErrorResponse(res, 403, 'Access denied to specified file path', error);
+                }
+                else {
+                    sendErrorResponse(res, 500, 'Failed to get configuration file info', error);
+                }
+            }
+            else {
+                sendErrorResponse(res, 500, 'Internal server error', error);
+            }
+        }
+    });
+    // Health check endpoint
+    app.get('/api/claude-config/health', (req, res) => {
+        res.json({
+            status: 'healthy',
+            timestamp: new Date().toISOString(),
+            version: '2.0.0'
+        });
+    });
+}
+export default addClaudeConfigAPI;
+//# sourceMappingURL=claude-config-api.js.map

@@ -1,0 +1,948 @@
+
+/Users/davidleathers/taskmaster-ui/__mocks__/zustand/middleware.ts
+  27:45  error  'options' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/davidleathers/taskmaster-ui/electron.vite.config.ts
+  19:3   error  ES2015 module syntax is preferred over namespaces                 @typescript-eslint/no-namespace
+  20:15  error  An interface declaring no members is equivalent to its supertype  @typescript-eslint/no-empty-object-type
+
+/Users/davidleathers/taskmaster-ui/scripts/validate-eslint-config.js
+   51:5   error  'console' is not defined           no-undef
+   83:18  error  'error' is defined but never used  @typescript-eslint/no-unused-vars
+  477:7   error  'console' is not defined           no-undef
+  478:7   error  'process' is not defined           no-undef
+  484:35  error  'process' is not defined           no-undef
+
+/Users/davidleathers/taskmaster-ui/server/claude-config-api.js
+  2:8  error  'path' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/davidleathers/taskmaster-ui/server/claude-config-api.ts
+    4:8   error  'path' is defined but never used                                                                                         @typescript-eslint/no-unused-vars
+   59:46  error  The `Function` type accepts any function-like value.
+Prefer explicitly defining any function parameters and return type  @typescript-eslint/no-unsafe-function-type
+   93:12  error  'error' is defined but never used                                                                                        @typescript-eslint/no-unused-vars
+  125:14  error  'parseError' is defined but never used                                                                                   @typescript-eslint/no-unused-vars
+
+/Users/davidleathers/taskmaster-ui/server/discovery-engine.js
+    2:35  error  'resolve' is defined but never used                @typescript-eslint/no-unused-vars
+    7:7   error  'execAsync' is assigned a value but never used     @typescript-eslint/no-unused-vars
+  212:18  error  'error' is defined but never used                  @typescript-eslint/no-unused-vars
+  236:9   error  'totalScanned' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  294:14  error  'error' is defined but never used                  @typescript-eslint/no-unused-vars
+
+/Users/davidleathers/taskmaster-ui/server/file-watcher.ts
+   12:1   error  Use "@ts-expect-error" instead of "@ts-ignore", as "@ts-ignore" will do nothing if the following line is error-free  @typescript-eslint/ban-ts-comment
+   14:1   error  Use "@ts-expect-error" instead of "@ts-ignore", as "@ts-ignore" will do nothing if the following line is error-free  @typescript-eslint/ban-ts-comment
+   32:9   error  Unexpected any. Specify a different type                                                                             @typescript-eslint/no-explicit-any
+   38:14  error  Unexpected any. Specify a different type                                                                             @typescript-eslint/no-explicit-any
+   39:14  error  Unexpected any. Specify a different type                                                                             @typescript-eslint/no-explicit-any
+  190:47  error  Unexpected any. Specify a different type                                                                             @typescript-eslint/no-explicit-any
+  243:51  error  Unexpected any. Specify a different type                                                                             @typescript-eslint/no-explicit-any
+  470:43  error  Unexpected any. Specify a different type                                                                             @typescript-eslint/no-explicit-any
+  490:34  error  Unexpected any. Specify a different type                                                                             @typescript-eslint/no-explicit-any
+  507:22  error  Unexpected any. Specify a different type                                                                             @typescript-eslint/no-explicit-any
+  569:61  error  Unexpected any. Specify a different type                                                                             @typescript-eslint/no-explicit-any
+  609:16  error  'error' is defined but never used                                                                                    @typescript-eslint/no-unused-vars
+  640:17  error  Unexpected any. Specify a different type                                                                             @typescript-eslint/no-explicit-any
+  640:51  error  'next' is defined but never used                                                                                     @typescript-eslint/no-unused-vars
+
+/Users/davidleathers/taskmaster-ui/src/main/errorReporting.ts
+   45:20  warning  Unexpected any. Specify a different type                                                                                                                            @typescript-eslint/no-explicit-any
+   52:12  warning  Unexpected any. Specify a different type                                                                                                                            @typescript-eslint/no-explicit-any
+   75:27  warning  Unexpected any. Specify a different type                                                                                                                            @typescript-eslint/no-explicit-any
+  163:14  warning  'error' is defined but never used                                                                                                                                   @typescript-eslint/no-unused-vars
+  200:7   error    Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+  209:7   error    Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+  219:7   error    Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+  230:7   error    Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+  241:7   error    Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+  266:53  warning  '_event' is defined but never used                                                                                                                                  @typescript-eslint/no-unused-vars
+  299:39  warning  Unexpected any. Specify a different type                                                                                                                            @typescript-eslint/no-explicit-any
+  353:48  warning  Unexpected any. Specify a different type                                                                                                                            @typescript-eslint/no-explicit-any
+  383:56  warning  Unexpected any. Specify a different type                                                                                                                            @typescript-eslint/no-explicit-any
+  401:48  warning  Unexpected any. Specify a different type                                                                                                                            @typescript-eslint/no-explicit-any
+  403:21  warning  Unexpected any. Specify a different type                                                                                                                            @typescript-eslint/no-explicit-any
+  420:89  warning  Unexpected any. Specify a different type                                                                                                                            @typescript-eslint/no-explicit-any
+  472:24  warning  Unexpected any. Specify a different type                                                                                                                            @typescript-eslint/no-explicit-any
+
+/Users/davidleathers/taskmaster-ui/src/main/index.ts
+   46:61  warning  Unexpected any. Specify a different type                                                                                                                            @typescript-eslint/no-explicit-any
+   63:62  warning  Unexpected any. Specify a different type                                                                                                                            @typescript-eslint/no-explicit-any
+  193:32  error    A `require()` style import is forbidden                                                                                                                             @typescript-eslint/no-require-imports
+  205:9   error    Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+  234:14  warning  Unexpected any. Specify a different type                                                                                                                            @typescript-eslint/no-explicit-any
+  238:22  error    A `require()` style import is forbidden                                                                                                                             @typescript-eslint/no-require-imports
+  326:7   error    Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+  345:7   error    Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+  363:7   error    Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+  387:7   error    Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+  453:5   error    Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+  464:7   error    Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+  470:5   error    Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+  545:5   error    Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+  572:39  warning  Unexpected any. Specify a different type                                                                                                                            @typescript-eslint/no-explicit-any
+  573:18  warning  Unexpected any. Specify a different type                                                                                                                            @typescript-eslint/no-explicit-any
+  592:7   error    Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+  667:1   error    Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+
+/Users/davidleathers/taskmaster-ui/src/preload/errorReporting.ts
+   20:29  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   28:11  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   38:32  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   42:76  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   45:39  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   46:43  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   53:13  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   64:7   warning  Unexpected console statement              no-console
+   74:7   warning  Unexpected console statement              no-console
+   84:7   warning  Unexpected console statement              no-console
+   99:7   warning  Unexpected console statement              no-console
+  105:31  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  105:47  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  119:31  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  119:44  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  136:7   warning  Unexpected console statement              no-console
+  167:5   warning  Unexpected console statement              no-console
+  169:5   warning  Unexpected console statement              no-console
+  172:3   warning  Unexpected console statement              no-console
+  194:9   warning  Unexpected console statement              no-console
+  217:37  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  235:5   warning  Unexpected console statement              no-console
+  250:50  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  251:39  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  252:47  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  270:7   warning  Unexpected console statement              no-console
+  272:7   warning  Unexpected console statement              no-console
+  279:3   warning  Unexpected console statement              no-console
+  306:7   warning  Unexpected console statement              no-console
+
+/Users/davidleathers/taskmaster-ui/src/preload/index.ts
+   11:45  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   13:3   warning  Unexpected console statement              no-console
+   15:5   warning  Unexpected console statement              no-console
+   19:1   warning  Unexpected console statement              no-console
+   20:1   warning  Unexpected console statement              no-console
+   21:1   warning  Unexpected console statement              no-console
+   28:26  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   29:28  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   50:45  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   58:32  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   92:58  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   92:74  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  100:5   warning  Unexpected console statement              no-console
+  106:40  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  106:55  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  128:45  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  135:41  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  135:56  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  167:3   warning  Unexpected console statement              no-console
+  177:3   warning  Unexpected console statement              no-console
+  178:3   warning  Unexpected console statement              no-console
+  179:3   warning  Unexpected console statement              no-console
+  191:3   warning  Unexpected console statement              no-console
+  192:3   warning  Unexpected console statement              no-console
+
+/Users/davidleathers/taskmaster-ui/src/renderer/src/App.tsx
+  53:9  warning  Unexpected console statement                                                                                          no-console
+  74:6  warning  React Hook useEffect has a missing dependency: 'errorHandledStore'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+/Users/davidleathers/taskmaster-ui/src/renderer/src/components/error/EnhancedErrorBoundary.tsx
+   27:57   warning  Unexpected any. Specify a different type                                                                                        @typescript-eslint/no-explicit-any
+   27:92   warning  Unexpected any. Specify a different type                                                                                        @typescript-eslint/no-explicit-any
+   27:117  warning  Unexpected any. Specify a different type                                                                                        @typescript-eslint/no-explicit-any
+   44:33   warning  Unexpected any. Specify a different type                                                                                        @typescript-eslint/no-explicit-any
+   45:20   warning  Unexpected any. Specify a different type                                                                                        @typescript-eslint/no-explicit-any
+   58:29   warning  Unexpected any. Specify a different type                                                                                        @typescript-eslint/no-explicit-any
+   70:29   warning  Unexpected any. Specify a different type                                                                                        @typescript-eslint/no-explicit-any
+   81:17   warning  Unexpected any. Specify a different type                                                                                        @typescript-eslint/no-explicit-any
+   82:19   warning  Unexpected any. Specify a different type                                                                                        @typescript-eslint/no-explicit-any
+  174:42   warning  Unexpected any. Specify a different type                                                                                        @typescript-eslint/no-explicit-any
+  203:7    warning  Unexpected console statement                                                                                                    no-console
+  208:7    warning  Unexpected console statement                                                                                                    no-console
+  212:64   warning  Unexpected any. Specify a different type                                                                                        @typescript-eslint/no-explicit-any
+  213:32   warning  Unexpected any. Specify a different type                                                                                        @typescript-eslint/no-explicit-any
+  230:7    warning  Unexpected console statement                                                                                                    no-console
+  262:7    warning  Unexpected console statement                                                                                                    no-console
+  280:7    warning  Unexpected console statement                                                                                                    no-console
+  318:5    warning  Unexpected console statement                                                                                                    no-console
+  385:11   warning  Unexpected console statement                                                                                                    no-console
+  392:7    warning  Unexpected console statement                                                                                                    no-console
+  660:14   warning  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
+  663:75   warning  Unexpected any. Specify a different type                                                                                        @typescript-eslint/no-explicit-any
+  666:17   warning  Unexpected any. Specify a different type                                                                                        @typescript-eslint/no-explicit-any
+  678:14   warning  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
+
+/Users/davidleathers/taskmaster-ui/src/renderer/src/components/error/ErrorBoundary.tsx
+   12:14  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   25:17  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   82:9   warning  Unexpected console statement              no-console
+   86:7   warning  Unexpected console statement              no-console
+   87:7   warning  Unexpected console statement              no-console
+  151:5   warning  Unexpected console statement              no-console
+  181:7   warning  Unexpected console statement              no-console
+
+/Users/davidleathers/taskmaster-ui/src/renderer/src/components/error/IPCStatusNotification.tsx
+   19:3  warning  'Settings' is defined but never used                                                                                                                                        @typescript-eslint/no-unused-vars
+   20:3  warning  'Info' is defined but never used                                                                                                                                            @typescript-eslint/no-unused-vars
+   21:3  warning  'Clock' is defined but never used                                                                                                                                           @typescript-eslint/no-unused-vars
+  276:6  warning  React Hook useEffect has missing dependencies: 'addNotification', 'lastStatus.isAvailable', and 'lastStatus.isHealthy'. Either include them or remove the dependency array  react-hooks/exhaustive-deps
+  290:6  warning  React Hook useEffect has a missing dependency: 'addNotification'. Either include it or remove the dependency array                                                          react-hooks/exhaustive-deps
+  296:7  warning  Unexpected console statement                                                                                                                                                no-console
+
+/Users/davidleathers/taskmaster-ui/src/renderer/src/components/error/MUIErrorBoundary.tsx
+   51:11  warning  'HomeIcon' is defined but never used                                                                                            @typescript-eslint/no-unused-vars
+   56:14  warning  'RestoreIcon' is defined but never used                                                                                         @typescript-eslint/no-unused-vars
+  333:51  warning  Unexpected any. Specify a different type                                                                                        @typescript-eslint/no-explicit-any
+  490:7   warning  Unexpected console statement                                                                                                    no-console
+  531:7   warning  Unexpected console statement                                                                                                    no-console
+  670:14  warning  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
+  676:17  warning  Unexpected any. Specify a different type                                                                                        @typescript-eslint/no-explicit-any
+  688:14  warning  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
+
+/Users/davidleathers/taskmaster-ui/src/renderer/src/components/error/StoreErrorBoundary.tsx
+  277:40  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  418:5   warning  Unexpected console statement              no-console
+  453:7   warning  Unexpected console statement              no-console
+  478:7   warning  Unexpected console statement              no-console
+  514:7   warning  Unexpected console statement              no-console
+  532:7   warning  Unexpected console statement              no-console
+  550:7   warning  Unexpected console statement              no-console
+
+/Users/davidleathers/taskmaster-ui/src/renderer/src/components/error/ViewErrorFallbacks.tsx
+  353:17  warning  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
+
+/Users/davidleathers/taskmaster-ui/src/renderer/src/components/error/__tests__/ErrorBoundary.test.tsx
+  139:11  error  Unnecessary try/catch wrapper  no-useless-catch
+
+/Users/davidleathers/taskmaster-ui/src/renderer/src/components/error/withIPCErrorHandling.tsx
+   10:17  warning  'Component' is defined but never used                                                                                                                                                                                                                                  @typescript-eslint/no-unused-vars
+   12:36  warning  'Wifi' is defined but never used                                                                                                                                                                                                                                       @typescript-eslint/no-unused-vars
+   14:10  warning  'IPCErrorCode' is defined but never used                                                                                                                                                                                                                               @typescript-eslint/no-unused-vars
+   14:29  warning  'IPCResponse' is defined but never used                                                                                                                                                                                                                                @typescript-eslint/no-unused-vars
+   23:42  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                               @typescript-eslint/no-explicit-any
+   45:10  warning  Fast refresh only works when a file only exports components. Move your component(s) to a separate file                                                                                                                                                                 react-refresh/only-export-components
+  237:31  error    React Hook "useRequireIPC" is called conditionally. React Hooks must be called in the exact same order in every component render                                                                                                                                       react-hooks/rules-of-hooks
+  237:49  error    React Hook "useIPC" is called conditionally. React Hooks must be called in the exact same order in every component render                                                                                                                                              react-hooks/rules-of-hooks
+  251:8   warning  React Hook useEffect has unnecessary dependencies: 'gracefulDegradation' and 'requiresIPC'. Either exclude them or remove the dependency array. Outer scope values like 'requiresIPC' aren't valid dependencies because mutating them doesn't re-render the component  react-hooks/exhaustive-deps
+  258:8   warning  React Hook useEffect has an unnecessary dependency: 'requiresIPC'. Either exclude it or remove the dependency array. Outer scope values like 'requiresIPC' aren't valid dependencies because mutating them doesn't re-render the component                             react-hooks/exhaustive-deps
+  268:8   warning  React Hook useEffect has an unnecessary dependency: 'requiresIPC'. Either exclude it or remove the dependency array. Outer scope values like 'requiresIPC' aren't valid dependencies because mutating them doesn't re-render the component                             react-hooks/exhaustive-deps
+  283:16  warning  'error' is defined but never used                                                                                                                                                                                                                                      @typescript-eslint/no-unused-vars
+  375:29  error    React Hook "useRequireIPC" is called conditionally. React Hooks must be called in the exact same order in every component render                                                                                                                                       react-hooks/rules-of-hooks
+  375:47  error    React Hook "useIPC" is called conditionally. React Hooks must be called in the exact same order in every component render                                                                                                                                              react-hooks/rules-of-hooks
+  388:6   warning  React Hook useEffect has missing dependencies: 'onConnectionLost' and 'onConnectionRestored'. Either include them or remove the dependency array                                                                                                                       react-hooks/exhaustive-deps
+  398:6   warning  React Hook useEffect has a missing dependency: 'onIPCError'. Either include it or remove the dependency array                                                                                                                                                          react-hooks/exhaustive-deps
+
+/Users/davidleathers/taskmaster-ui/src/renderer/src/components/examples/AdvancedTypesExample.tsx
+   38:5  warning  Unexpected console statement  no-console
+   44:5  warning  Unexpected console statement  no-console
+   50:5  warning  Unexpected console statement  no-console
+  108:5  warning  Unexpected console statement  no-console
+  125:7  warning  Unexpected console statement  no-console
+  127:7  warning  Unexpected console statement  no-console
+
+/Users/davidleathers/taskmaster-ui/src/renderer/src/components/layout/Header.tsx
+  100:13  warning  Unexpected console statement              no-console
+  126:65  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/davidleathers/taskmaster-ui/src/renderer/src/components/layout/MainContent.tsx
+  55:28  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  68:28  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  82:7   warning  Unexpected console statement              no-console
+
+/Users/davidleathers/taskmaster-ui/src/renderer/src/components/project/ProjectDiscovery.tsx
+  186:65  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/davidleathers/taskmaster-ui/src/renderer/src/components/recovery/RecoveryDashboard.tsx
+   25:3   warning  'Download' is defined but never used                                                                                                                @typescript-eslint/no-unused-vars
+   26:3   warning  'Upload' is defined but never used                                                                                                                  @typescript-eslint/no-unused-vars
+   31:3   warning  'Info' is defined but never used                                                                                                                    @typescript-eslint/no-unused-vars
+   33:3   warning  'TrendingDown' is defined but never used                                                                                                            @typescript-eslint/no-unused-vars
+   34:3   warning  'Minus' is defined but never used                                                                                                                   @typescript-eslint/no-unused-vars
+   35:3   warning  'FileText' is defined but never used                                                                                                                @typescript-eslint/no-unused-vars
+   41:10  warning  'CrashRecoveryService' is defined but never used                                                                                                    @typescript-eslint/no-unused-vars
+   41:32  warning  'HealthStatus' is defined but never used                                                                                                            @typescript-eslint/no-unused-vars
+  102:47  warning  Unexpected any. Specify a different type                                                                                                            @typescript-eslint/no-explicit-any
+  110:49  warning  Unexpected any. Specify a different type                                                                                                            @typescript-eslint/no-explicit-any
+  132:6   warning  React Hook useEffect has missing dependencies: 'backupManagers', 'errorStore', and 'taskStore'. Either include them or remove the dependency array  react-hooks/exhaustive-deps
+  226:9   warning  Unexpected console statement                                                                                                                        no-console
+  231:7   warning  Unexpected console statement                                                                                                                        no-console
+  259:13  warning  Unexpected console statement                                                                                                                        no-console
+  266:7   warning  Unexpected console statement                                                                                                                        no-console
+  276:9   warning  Unexpected console statement                                                                                                                        no-console
+  279:7   warning  Unexpected console statement                                                                                                                        no-console
+  414:53  warning  Unexpected any. Specify a different type                                                                                                            @typescript-eslint/no-explicit-any
+
+/Users/davidleathers/taskmaster-ui/src/renderer/src/components/recovery/RecoveryNotification.tsx
+   24:3   warning  'Download' is defined but never used                                                                                            @typescript-eslint/no-unused-vars
+   25:3   warning  'Eye' is defined but never used                                                                                                 @typescript-eslint/no-unused-vars
+   26:3   warning  'Settings' is defined but never used                                                                                            @typescript-eslint/no-unused-vars
+   44:29  warning  Unexpected any. Specify a different type                                                                                        @typescript-eslint/no-explicit-any
+   92:6   warning  React Hook useEffect has a missing dependency: 'handleDismiss'. Either include it or remove the dependency array                react-hooks/exhaustive-deps
+  112:7   warning  Unexpected console statement                                                                                                    no-console
+  322:5   warning  Unexpected console statement                                                                                                    no-console
+  348:16  warning  Unexpected any. Specify a different type                                                                                        @typescript-eslint/no-explicit-any
+  375:25  warning  Unexpected any. Specify a different type                                                                                        @typescript-eslint/no-explicit-any
+  398:14  warning  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
+  399:30  warning  Unexpected any. Specify a different type                                                                                        @typescript-eslint/no-explicit-any
+  402:5   warning  Unexpected console statement                                                                                                    no-console
+  418:14  warning  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
+
+/Users/davidleathers/taskmaster-ui/src/renderer/src/components/task/TaskCard.tsx
+   15:3  warning  'Edit3' is defined but never used                                                                                                                                                                                                                 @typescript-eslint/no-unused-vars
+   16:3  warning  'Copy' is defined but never used                                                                                                                                                                                                                  @typescript-eslint/no-unused-vars
+   17:3  warning  'Trash2' is defined but never used                                                                                                                                                                                                                @typescript-eslint/no-unused-vars
+   67:9  warning  The 'dropdownItems' array makes the dependencies of useCallback Hook (at line 172) change on every render. To fix this, wrap the initialization of 'dropdownItems' in its own useMemo() Hook                                                      react-hooks/exhaustive-deps
+   96:5  error    React Hook "useEffect" cannot be called inside a callback. React Hooks must be called in a React function component or a custom React Hook function                                                                                               react-hooks/rules-of-hooks
+  108:8  warning  React Hook useEffect has an unnecessary dependency: 'isDropdownOpen'. Either exclude it or remove the dependency array. Outer scope values like 'isDropdownOpen' aren't valid dependencies because mutating them doesn't re-render the component  react-hooks/exhaustive-deps
+  125:7  warning  Unexpected console statement                                                                                                                                                                                                                      no-console
+  129:6  warning  React Hook useCallback has a missing dependency: 'statusCycle'. Either include it or remove the dependency array                                                                                                                                  react-hooks/exhaustive-deps
+
+/Users/davidleathers/taskmaster-ui/src/renderer/src/components/task/TaskDetailPanel.tsx
+   35:39  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   39:43  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  121:53  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/davidleathers/taskmaster-ui/src/renderer/src/components/task/__tests__/TaskCard.test.tsx
+  21:17  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+
+/Users/davidleathers/taskmaster-ui/src/renderer/src/components/ui/SuspenseWrapper.tsx
+  228:14  warning  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
+
+/Users/davidleathers/taskmaster-ui/src/renderer/src/components/ui/VirtualizedList.tsx
+  4:10  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  5:22  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/davidleathers/taskmaster-ui/src/renderer/src/components/views/AnalyticsView.tsx
+  120:49  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/davidleathers/taskmaster-ui/src/renderer/src/contexts/IPCContext.tsx
+   33:42  warning  Unexpected any. Specify a different type                                                                                        @typescript-eslint/no-explicit-any
+   68:39  warning  Unexpected any. Specify a different type                                                                                        @typescript-eslint/no-explicit-any
+  186:61  warning  Unexpected any. Specify a different type                                                                                        @typescript-eslint/no-explicit-any
+  252:6   warning  React Hook useEffect has a missing dependency: 'monitoringInterval'. Either include it or remove the dependency array           react-hooks/exhaustive-deps
+  296:17  warning  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
+  309:17  warning  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
+  314:7   warning  Unexpected console statement                                                                                                    no-console
+  331:17  warning  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
+  334:45  warning  Unexpected any. Specify a different type                                                                                        @typescript-eslint/no-explicit-any
+  336:14  warning  Unexpected any. Specify a different type                                                                                        @typescript-eslint/no-explicit-any
+
+/Users/davidleathers/taskmaster-ui/src/renderer/src/examples/IPCErrorBoundaryExample.tsx
+   12:10  warning  'Download' is defined but never used                                                                          @typescript-eslint/no-unused-vars
+   12:20  warning  'Settings' is defined but never used                                                                          @typescript-eslint/no-unused-vars
+   12:30  warning  'Info' is defined but never used                                                                              @typescript-eslint/no-unused-vars
+   19:23  warning  'ipcHigh' is defined but never used                                                                           @typescript-eslint/no-unused-vars
+   46:11  warning  Unexpected console statement                                                                                  no-console
+   89:5   warning  'isAvailable' is assigned a value but never used                                                              @typescript-eslint/no-unused-vars
+   91:5   warning  'safeInvoke' is assigned a value but never used                                                               @typescript-eslint/no-unused-vars
+   92:5   warning  'hasError' is assigned a value but never used                                                                 @typescript-eslint/no-unused-vars
+   99:7   warning  Unexpected console statement                                                                                  no-console
+  118:7   warning  Unexpected console statement                                                                                  no-console
+  126:6   warning  React Hook useEffect has a missing dependency: 'loadPaths'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+  241:42  warning  Unexpected any. Specify a different type                                                                      @typescript-eslint/no-explicit-any
+  273:7   warning  Unexpected console statement                                                                                  no-console
+  309:52  warning  Unexpected any. Specify a different type                                                                      @typescript-eslint/no-explicit-any
+  310:52  warning  Unexpected any. Specify a different type                                                                      @typescript-eslint/no-explicit-any
+  378:31  warning  Unexpected console statement                                                                                  no-console
+  379:35  warning  Unexpected console statement                                                                                  no-console
+  380:27  warning  Unexpected console statement                                                                                  no-console
+
+/Users/davidleathers/taskmaster-ui/src/renderer/src/examples/StoreErrorHandlingExample.tsx
+   19:15  warning  'Task' is defined but never used                                                                          @typescript-eslint/no-unused-vars
+   26:9   warning  'store' is assigned a value but never used                                                                @typescript-eslint/no-unused-vars
+   38:7   warning  Unexpected console statement                                                                              no-console
+  140:9   warning  'criticalErrors' is assigned a value but never used                                                       @typescript-eslint/no-unused-vars
+  232:13  warning  Unexpected console statement                                                                              no-console
+  248:42  warning  Unexpected any. Specify a different type                                                                  @typescript-eslint/no-explicit-any
+  258:9   warning  Unexpected console statement                                                                              no-console
+  295:7   warning  Unexpected console statement                                                                              no-console
+  386:6   warning  React Hook useEffect has a missing dependency: 'store'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+  407:9   warning  Unexpected console statement                                                                              no-console
+  408:9   warning  Unexpected console statement                                                                              no-console
+  409:9   warning  Unexpected console statement                                                                              no-console
+  410:9   warning  Unexpected console statement                                                                              no-console
+
+/Users/davidleathers/taskmaster-ui/src/renderer/src/hooks/useAppState.ts
+   24:10  warning  Unexpected any. Specify a different type                                                                                                                                       @typescript-eslint/no-explicit-any
+   29:14  warning  Unexpected any. Specify a different type                                                                                                                                       @typescript-eslint/no-explicit-any
+   34:18  warning  Unexpected any. Specify a different type                                                                                                                                       @typescript-eslint/no-explicit-any
+   35:15  warning  Unexpected any. Specify a different type                                                                                                                                       @typescript-eslint/no-explicit-any
+   36:15  warning  Unexpected any. Specify a different type                                                                                                                                       @typescript-eslint/no-explicit-any
+   43:25  warning  Unexpected any. Specify a different type                                                                                                                                       @typescript-eslint/no-explicit-any
+   63:17  warning  Unexpected any. Specify a different type                                                                                                                                       @typescript-eslint/no-explicit-any
+   94:9   warning  The 'config' object makes the dependencies of useEffect Hook (at line 492) change on every render. To fix this, wrap the initialization of 'config' in its own useMemo() Hook  react-hooks/exhaustive-deps
+   97:9   warning  'taskStoreState' is assigned a value but never used                                                                                                                            @typescript-eslint/no-unused-vars
+  196:7   warning  Unexpected console statement                                                                                                                                                   no-console
+  200:7   warning  Unexpected console statement                                                                                                                                                   no-console
+  275:9   warning  Unexpected console statement                                                                                                                                                   no-console
+  288:9   warning  Unexpected console statement                                                                                                                                                   no-console
+  299:9   warning  Unexpected console statement                                                                                                                                                   no-console
+  311:15  warning  Unexpected console statement                                                                                                                                                   no-console
+  316:9   warning  Unexpected console statement                                                                                                                                                   no-console
+  346:7   warning  Unexpected console statement                                                                                                                                                   no-console
+  350:7   warning  Unexpected console statement                                                                                                                                                   no-console
+  390:9   warning  Unexpected console statement                                                                                                                                                   no-console
+  405:7   warning  Unexpected console statement                                                                                                                                                   no-console
+  418:7   warning  Unexpected console statement                                                                                                                                                   no-console
+  433:11  warning  Unexpected console statement                                                                                                                                                   no-console
+  457:17  warning  Unexpected console statement                                                                                                                                                   no-console
+  474:11  warning  Unexpected console statement                                                                                                                                                   no-console
+  520:44  warning  Unexpected any. Specify a different type                                                                                                                                       @typescript-eslint/no-explicit-any
+  521:34  warning  Unexpected any. Specify a different type                                                                                                                                       @typescript-eslint/no-explicit-any
+  527:40  warning  Unexpected any. Specify a different type                                                                                                                                       @typescript-eslint/no-explicit-any
+  530:30  warning  Unexpected any. Specify a different type                                                                                                                                       @typescript-eslint/no-explicit-any
+  541:5   warning  Unexpected console statement                                                                                                                                                   no-console
+  550:51  warning  Unexpected any. Specify a different type                                                                                                                                       @typescript-eslint/no-explicit-any
+  566:5   warning  Unexpected console statement                                                                                                                                                   no-console
+
+/Users/davidleathers/taskmaster-ui/src/renderer/src/hooks/useErrorBoundary.ts
+   57:39  warning  Unexpected any. Specify a different type                                                                                                                                         @typescript-eslint/no-explicit-any
+   82:9   warning  The 'config' object makes the dependencies of useCallback Hook (at line 265) change on every render. To fix this, wrap the initialization of 'config' in its own useMemo() Hook  react-hooks/exhaustive-deps
+  145:9   warning  Unexpected console statement                                                                                                                                                     no-console
+  165:9   warning  Unexpected console statement                                                                                                                                                     no-console
+  179:6   warning  React Hook useCallback has a missing dependency: 'attemptAutoRecovery'. Either include it or remove the dependency array                                                         react-hooks/exhaustive-deps
+  206:11  warning  Unexpected console statement                                                                                                                                                     no-console
+  210:13  warning  Unexpected console statement                                                                                                                                                     no-console
+  215:11  warning  Unexpected console statement                                                                                                                                                     no-console
+  228:6   warning  React Hook useCallback has missing dependencies: 'handleRecovery' and 'handleRetry'. Either include them or remove the dependency array                                          react-hooks/exhaustive-deps
+  260:9   warning  Unexpected console statement                                                                                                                                                     no-console
+  293:9   warning  Unexpected console statement                                                                                                                                                     no-console
+  296:6   warning  React Hook useCallback has a missing dependency: 'config'. Either include it or remove the dependency array                                                                      react-hooks/exhaustive-deps
+  330:7   warning  Unexpected console statement                                                                                                                                                     no-console
+  448:20  warning  'error' is defined but never used                                                                                                                                                @typescript-eslint/no-unused-vars
+  448:27  warning  'state' is defined but never used                                                                                                                                                @typescript-eslint/no-unused-vars
+  460:27  warning  'state' is defined but never used                                                                                                                                                @typescript-eslint/no-unused-vars
+
+/Users/davidleathers/taskmaster-ui/src/renderer/src/hooks/useProjectDiscovery.ts
+   61:13  warning  Unexpected console statement              no-console
+   67:13  warning  Unexpected console statement              no-console
+   71:9   warning  Unexpected console statement              no-console
+  102:7   warning  Unexpected console statement              no-console
+  124:7   warning  Unexpected console statement              no-console
+  138:7   warning  Unexpected console statement              no-console
+  159:54  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  160:50  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  164:32  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  167:9   warning  Unexpected console statement              no-console
+  169:11  warning  Unexpected console statement              no-console
+
+/Users/davidleathers/taskmaster-ui/src/renderer/src/hooks/useProjectManager.ts
+   16:18  warning  Unexpected any. Specify a different type                                                                             @typescript-eslint/no-explicit-any
+   34:7   warning  Unexpected console statement                                                                                         no-console
+   43:11  warning  Unexpected console statement                                                                                         no-console
+   58:9   warning  Unexpected console statement                                                                                         no-console
+   63:7   warning  Unexpected console statement                                                                                         no-console
+   82:7   warning  Unexpected console statement                                                                                         no-console
+  171:7   warning  Use "@ts-expect-error" instead of "@ts-ignore", as "@ts-ignore" will do nothing if the following line is error-free  @typescript-eslint/ban-ts-comment
+  182:9   warning  Unexpected console statement                                                                                         no-console
+  186:19  warning  Unexpected any. Specify a different type                                                                             @typescript-eslint/no-explicit-any
+
+/Users/davidleathers/taskmaster-ui/src/renderer/src/hooks/useViewStatePreservation.ts
+  11:17  warning  Unexpected any. Specify a different type                                                                                                                              @typescript-eslint/no-explicit-any
+  18:6   warning  React Hook useEffect was passed a dependency list that is not an array literal. This means we can't statically verify whether you've passed the correct dependencies  react-hooks/exhaustive-deps
+  18:6   warning  React Hook useEffect has missing dependencies: 'currentState' and 'viewName'. Either include them or remove the dependency array                                      react-hooks/exhaustive-deps
+
+/Users/davidleathers/taskmaster-ui/src/renderer/src/lib/advanced-types.ts
+  105:52  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  107:35  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  198:55  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  244:66  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/davidleathers/taskmaster-ui/src/renderer/src/lib/config/monitoring.ts
+  159:7   warning  Unexpected console statement              no-console
+  222:5   warning  Unexpected console statement              no-console
+  298:27  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  363:29  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  364:39  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  365:40  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  366:40  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/davidleathers/taskmaster-ui/src/renderer/src/lib/ipc.ts
+   11:34  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   17:15  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   69:43  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   71:26  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   79:21  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  148:20  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  150:14  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  198:20  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  258:61  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  258:77  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  259:43  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  303:38  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  315:48  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  322:31  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  340:34  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  354:15  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  397:16  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  397:50  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/davidleathers/taskmaster-ui/src/renderer/src/lib/ipcRetry.ts
+   30:25  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   31:38  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   32:24  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   33:23  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   40:9   warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   45:11  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  132:30  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  134:11  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  173:29  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  175:11  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  365:52  warning  'error' is defined but never used         @typescript-eslint/no-unused-vars
+  365:59  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  437:16  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  437:50  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  442:16  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  442:50  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  447:16  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  447:50  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  452:16  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  452:50  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/davidleathers/taskmaster-ui/src/renderer/src/lib/services.ts
+   10:51  warning  'ipcRetry' is defined but never used      @typescript-eslint/no-unused-vars
+   14:38  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  272:7   warning  Unexpected console statement              no-console
+  280:7   warning  Unexpected console statement              no-console
+  449:33  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  452:13  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  494:36  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  503:34  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/davidleathers/taskmaster-ui/src/renderer/src/lib/services/crashRecovery.ts
+   18:10  warning  'RehydrationResult' is defined but never used  @typescript-eslint/no-unused-vars
+   22:35  warning  Unexpected any. Specify a different type       @typescript-eslint/no-explicit-any
+   50:48  warning  Unexpected any. Specify a different type       @typescript-eslint/no-explicit-any
+   60:11  warning  Unexpected any. Specify a different type       @typescript-eslint/no-explicit-any
+   73:29  warning  Unexpected any. Specify a different type       @typescript-eslint/no-explicit-any
+  161:7   warning  Unexpected console statement                   no-console
+  184:7   warning  Unexpected console statement                   no-console
+  187:7   warning  Unexpected console statement                   no-console
+  216:7   warning  Unexpected console statement                   no-console
+  324:11  warning  Unexpected console statement                   no-console
+  373:15  warning  Unexpected console statement                   no-console
+  389:13  warning  Unexpected console statement                   no-console
+  394:11  warning  Unexpected console statement                   no-console
+  431:44  warning  'store' is defined but never used              @typescript-eslint/no-unused-vars
+  431:60  warning  Unexpected any. Specify a different type       @typescript-eslint/no-explicit-any
+  445:60  warning  Unexpected any. Specify a different type       @typescript-eslint/no-explicit-any
+  458:13  warning  Unexpected console statement                   no-console
+  469:60  warning  Unexpected any. Specify a different type       @typescript-eslint/no-explicit-any
+  472:44  warning  Unexpected any. Specify a different type       @typescript-eslint/no-explicit-any
+  476:13  warning  Unexpected console statement                   no-console
+  513:9   error    Unexpected lexical declaration in case block   no-case-declarations
+  514:9   error    Unexpected lexical declaration in case block   no-case-declarations
+  584:37  warning  Unexpected any. Specify a different type       @typescript-eslint/no-explicit-any
+  686:5   warning  Unexpected console statement                   no-console
+  729:5   warning  Unexpected console statement                   no-console
+
+/Users/davidleathers/taskmaster-ui/src/renderer/src/lib/services/errorReporting.ts
+   11:10  warning  'backupService' is defined but never used  @typescript-eslint/no-unused-vars
+   15:43  warning  Unexpected any. Specify a different type   @typescript-eslint/no-explicit-any
+   47:26  warning  Unexpected any. Specify a different type   @typescript-eslint/no-explicit-any
+   56:25  warning  Unexpected any. Specify a different type   @typescript-eslint/no-explicit-any
+  157:7   warning  Unexpected console statement               no-console
+  184:7   warning  Unexpected console statement               no-console
+  186:7   warning  Unexpected console statement               no-console
+  200:28  warning  Unexpected any. Specify a different type   @typescript-eslint/no-explicit-any
+  212:7   warning  Unexpected console statement               no-console
+  213:7   warning  Unexpected console statement               no-console
+  214:7   warning  Unexpected console statement               no-console
+  215:7   warning  Unexpected console statement               no-console
+  216:7   warning  Unexpected console statement               no-console
+  230:7   warning  Unexpected console statement               no-console
+  335:7   warning  Unexpected console statement               no-console
+  357:7   warning  Unexpected console statement               no-console
+  361:56  warning  Unexpected any. Specify a different type   @typescript-eslint/no-explicit-any
+  476:5   warning  Unexpected console statement               no-console
+  492:7   warning  Unexpected console statement               no-console
+  501:49  warning  Unexpected any. Specify a different type   @typescript-eslint/no-explicit-any
+  504:50  warning  Unexpected any. Specify a different type   @typescript-eslint/no-explicit-any
+  511:7   warning  Unexpected console statement               no-console
+  521:5   warning  Unexpected console statement               no-console
+  532:9   warning  Unexpected console statement               no-console
+  539:5   warning  Unexpected console statement               no-console
+
+/Users/davidleathers/taskmaster-ui/src/renderer/src/lib/services/globalErrorHandler.ts
+   53:57  warning  Unexpected any. Specify a different type             @typescript-eslint/no-explicit-any
+   54:72  warning  Unexpected any. Specify a different type             @typescript-eslint/no-explicit-any
+   69:7   warning  Unexpected console statement                         no-console
+   88:5   warning  Unexpected console statement                         no-console
+  107:5   warning  Unexpected console statement                         no-console
+  191:7   warning  Unexpected console statement                         no-console
+  192:7   warning  Unexpected console statement                         no-console
+  193:7   warning  Unexpected console statement                         no-console
+  194:7   warning  Unexpected console statement                         no-console
+  199:7   warning  Unexpected console statement                         no-console
+  274:7   warning  Unexpected console statement                         no-console
+  275:7   warning  Unexpected console statement                         no-console
+  276:7   warning  Unexpected console statement                         no-console
+  277:7   warning  Unexpected console statement                         no-console
+  306:36  warning  Unexpected any. Specify a different type             @typescript-eslint/no-explicit-any
+  306:59  warning  Unexpected any. Specify a different type             @typescript-eslint/no-explicit-any
+  358:7   warning  Unexpected console statement                         no-console
+  375:11  warning  'classification' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  422:7   warning  Unexpected console statement                         no-console
+  479:9   warning  Unexpected console statement                         no-console
+  486:41  warning  Unexpected any. Specify a different type             @typescript-eslint/no-explicit-any
+  605:7   warning  Unexpected console statement                         no-console
+  703:5   warning  Unexpected console statement                         no-console
+
+/Users/davidleathers/taskmaster-ui/src/renderer/src/lib/services/monitoring.ts
+   41:28  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   65:5   warning  Unexpected console statement              no-console
+   79:9   warning  Unexpected console statement              no-console
+  111:7   warning  Unexpected console statement              no-console
+  115:9   warning  Unexpected console statement              no-console
+  116:9   warning  Unexpected console statement              no-console
+  117:9   warning  Unexpected console statement              no-console
+  118:9   warning  Unexpected console statement              no-console
+  119:9   warning  Unexpected console statement              no-console
+  120:9   warning  Unexpected console statement              no-console
+  126:7   warning  Unexpected console statement              no-console
+  135:5   warning  Unexpected console statement              no-console
+  144:7   warning  Unexpected console statement              no-console
+  146:7   warning  Unexpected console statement              no-console
+  155:5   warning  Unexpected console statement              no-console
+  176:7   warning  Unexpected console statement              no-console
+  178:7   warning  Unexpected console statement              no-console
+  209:5   warning  Unexpected console statement              no-console
+  219:7   warning  Unexpected console statement              no-console
+  221:7   warning  Unexpected console statement              no-console
+  229:24  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  251:7   warning  Unexpected console statement              no-console
+  255:7   warning  Unexpected console statement              no-console
+  263:7   warning  Unexpected console statement              no-console
+  267:7   warning  Unexpected console statement              no-console
+  275:7   warning  Unexpected console statement              no-console
+  279:7   warning  Unexpected console statement              no-console
+  284:33  warning  'config' is defined but never used        @typescript-eslint/no-unused-vars
+  287:7   warning  Unexpected console statement              no-console
+  295:9   warning  Unexpected console statement              no-console
+  315:5   warning  Unexpected console statement              no-console
+
+/Users/davidleathers/taskmaster-ui/src/renderer/src/lib/services/telemetry.ts
+   35:31  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   42:31  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  181:7   warning  Unexpected console statement              no-console
+  216:7   warning  Unexpected console statement              no-console
+  218:7   warning  Unexpected console statement              no-console
+  246:7   warning  Unexpected console statement              no-console
+  280:7   warning  Unexpected console statement              no-console
+  321:7   warning  Unexpected console statement              no-console
+  358:7   warning  Unexpected console statement              no-console
+  398:63  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  419:33  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  459:7   warning  Unexpected console statement              no-console
+  492:7   warning  Unexpected console statement              no-console
+  534:9   warning  Unexpected console statement              no-console
+  605:9   warning  Unexpected console statement              no-console
+  628:7   warning  Unexpected console statement              no-console
+  639:47  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  644:7   warning  Unexpected console statement              no-console
+  691:7   warning  Unexpected console statement              no-console
+  700:60  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  701:58  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  702:64  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  705:7   warning  Unexpected console statement              no-console
+  715:5   warning  Unexpected console statement              no-console
+  734:24  warning  Unexpected console statement              no-console
+
+/Users/davidleathers/taskmaster-ui/src/renderer/src/lib/utils.ts
+  140:53  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  157:17  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  158:17  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  177:46  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  177:56  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  188:46  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  188:56  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  210:36  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/davidleathers/taskmaster-ui/src/renderer/src/main.tsx
+  23:7   warning  Unexpected console statement              no-console
+  31:5   warning  Unexpected console statement              no-console
+  34:7   warning  Unexpected console statement              no-console
+  43:5   warning  Unexpected console statement              no-console
+  47:5   warning  Unexpected console statement              no-console
+  53:16  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  60:5   warning  Unexpected console statement              no-console
+  61:5   warning  Unexpected console statement              no-console
+  69:5   warning  Unexpected console statement              no-console
+  70:5   warning  Unexpected console statement              no-console
+  71:5   warning  Unexpected console statement              no-console
+  72:5   warning  Unexpected console statement              no-console
+
+/Users/davidleathers/taskmaster-ui/src/renderer/src/services/ErrorReportingService.ts
+   31:29   warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   42:13   warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  152:5    warning  Unexpected console statement              no-console
+  225:11   warning  Unexpected console statement              no-console
+  228:11   warning  Unexpected console statement              no-console
+  236:7    warning  Unexpected console statement              no-console
+  313:9    warning  Unexpected console statement              no-console
+  317:9    warning  Unexpected console statement              no-console
+  326:7    warning  Unexpected console statement              no-console
+  366:38   warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  366:71   warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  366:107  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  375:31   warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  448:9    warning  Unexpected console statement              no-console
+  476:7    warning  Unexpected console statement              no-console
+  487:7    warning  Unexpected console statement              no-console
+  501:7    warning  Unexpected console statement              no-console
+  538:5    warning  Unexpected console statement              no-console
+  539:5    warning  Unexpected console statement              no-console
+  540:5    warning  Unexpected console statement              no-console
+  541:5    warning  Unexpected console statement              no-console
+  542:5    warning  Unexpected console statement              no-console
+  544:7    warning  Unexpected console statement              no-console
+  546:5    warning  Unexpected console statement              no-console
+  586:7    warning  Unexpected console statement              no-console
+
+/Users/davidleathers/taskmaster-ui/src/renderer/src/store/__tests__/errorHandling.test.ts
+   11:10  warning  'act' is defined but never used                     @typescript-eslint/no-unused-vars
+   11:15  warning  'renderHook' is defined but never used              @typescript-eslint/no-unused-vars
+   14:10  warning  'errorHandledTaskStore' is defined but never used   @typescript-eslint/no-unused-vars
+   15:10  warning  'useTaskStore' is defined but never used            @typescript-eslint/no-unused-vars
+  457:14  warning  'error' is defined but never used                   @typescript-eslint/no-unused-vars
+  469:11  warning  'initialStates' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  516:14  warning  'error' is defined but never used                   @typescript-eslint/no-unused-vars
+  547:11  warning  'store' is assigned a value but never used          @typescript-eslint/no-unused-vars
+  630:14  warning  'error' is defined but never used                   @typescript-eslint/no-unused-vars
+
+/Users/davidleathers/taskmaster-ui/src/renderer/src/store/__tests__/useTaskStore.test.ts
+   14:15  warning  'Task' is defined but never used                                                                            @typescript-eslint/no-unused-vars
+   14:31  warning  'UserSettings' is defined but never used                                                                    @typescript-eslint/no-unused-vars
+  204:25  error    Optional chain expressions can return undefined by design - using a non-null assertion is unsafe and wrong  @typescript-eslint/no-non-null-asserted-optional-chain
+  237:25  error    Optional chain expressions can return undefined by design - using a non-null assertion is unsafe and wrong  @typescript-eslint/no-non-null-asserted-optional-chain
+
+/Users/davidleathers/taskmaster-ui/src/renderer/src/store/backupService.ts
+   28:41  warning  Unexpected any. Specify a different type            @typescript-eslint/no-explicit-any
+   28:89  warning  Unexpected any. Specify a different type            @typescript-eslint/no-explicit-any
+   32:27  warning  Unexpected any. Specify a different type            @typescript-eslint/no-explicit-any
+   33:30  warning  Unexpected any. Specify a different type            @typescript-eslint/no-explicit-any
+   63:33  warning  Unexpected any. Specify a different type            @typescript-eslint/no-explicit-any
+   75:36  warning  Unexpected any. Specify a different type            @typescript-eslint/no-explicit-any
+  128:33  warning  Unexpected any. Specify a different type            @typescript-eslint/no-explicit-any
+  136:36  warning  Unexpected any. Specify a different type            @typescript-eslint/no-explicit-any
+  170:33  warning  Unexpected any. Specify a different type            @typescript-eslint/no-explicit-any
+  183:36  warning  Unexpected any. Specify a different type            @typescript-eslint/no-explicit-any
+  282:48  warning  Unexpected any. Specify a different type            @typescript-eslint/no-explicit-any
+  312:9   warning  Unexpected console statement                        no-console
+  314:9   warning  Unexpected console statement                        no-console
+  346:50  warning  Unexpected any. Specify a different type            @typescript-eslint/no-explicit-any
+  360:25  warning  Unexpected any. Specify a different type            @typescript-eslint/no-explicit-any
+  371:11  warning  Unexpected console statement                        no-console
+  395:7   warning  Unexpected console statement                        no-console
+  400:9   warning  Unexpected console statement                        no-console
+  409:9   warning  Unexpected console statement                        no-console
+  413:5   warning  Unexpected console statement                        no-console
+  447:29  warning  Unexpected any. Specify a different type            @typescript-eslint/no-explicit-any
+  458:15  warning  Unexpected console statement                        no-console
+  465:64  warning  Unexpected any. Specify a different type            @typescript-eslint/no-explicit-any
+  470:11  warning  Unexpected console statement                        no-console
+  497:9   warning  Unexpected console statement                        no-console
+  524:9   warning  Unexpected console statement                        no-console
+  548:7   warning  Unexpected console statement                        no-console
+  605:42  warning  Unexpected any. Specify a different type            @typescript-eslint/no-explicit-any
+  626:7   warning  Unexpected console statement                        no-console
+  634:7   warning  Unexpected console statement                        no-console
+  653:37  warning  Unexpected any. Specify a different type            @typescript-eslint/no-explicit-any
+  653:91  warning  Unexpected any. Specify a different type            @typescript-eslint/no-explicit-any
+  657:7   warning  Unexpected console statement                        no-console
+  658:7   warning  Unexpected console statement                        no-console
+  668:11  warning  Unexpected console statement                        no-console
+  673:13  warning  Unexpected console statement                        no-console
+  677:17  warning  'previousState' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  687:15  warning  Unexpected console statement                        no-console
+  690:13  warning  Unexpected console statement                        no-console
+  694:11  warning  Unexpected console statement                        no-console
+  700:7   warning  Unexpected console statement                        no-console
+  705:26  warning  Unexpected any. Specify a different type            @typescript-eslint/no-explicit-any
+  711:37  warning  Unexpected any. Specify a different type            @typescript-eslint/no-explicit-any
+  720:34  warning  Unexpected any. Specify a different type            @typescript-eslint/no-explicit-any
+  736:47  warning  '_fromVersion' is defined but never used            @typescript-eslint/no-unused-vars
+  736:61  warning  '_toVersion' is defined but never used              @typescript-eslint/no-unused-vars
+  739:42  warning  Unexpected any. Specify a different type            @typescript-eslint/no-explicit-any
+
+/Users/davidleathers/taskmaster-ui/src/renderer/src/store/errorStore.ts
+   20:13  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   42:10  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  102:44  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  189:33  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  244:13  warning  Unexpected console statement              no-console
+  245:13  warning  Unexpected console statement              no-console
+  246:13  warning  Unexpected console statement              no-console
+  247:13  warning  Unexpected console statement              no-console
+  248:32  warning  Unexpected console statement              no-console
+  249:30  warning  Unexpected console statement              no-console
+  250:13  warning  Unexpected console statement              no-console
+  303:13  warning  Unexpected console statement              no-console
+  304:13  warning  Unexpected console statement              no-console
+  310:13  warning  Unexpected console statement              no-console
+  338:31  warning  'strategy' is defined but never used      @typescript-eslint/no-unused-vars
+  364:20  warning  'error' is defined but never used         @typescript-eslint/no-unused-vars
+  444:20  warning  'error' is defined but never used         @typescript-eslint/no-unused-vars
+  544:31  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/davidleathers/taskmaster-ui/src/renderer/src/store/rehydration.ts
+   15:24  warning  'StoreApi' is defined but never used           @typescript-eslint/no-unused-vars
+   18:41  warning  Unexpected any. Specify a different type       @typescript-eslint/no-explicit-any
+   21:30  warning  Unexpected any. Specify a different type       @typescript-eslint/no-explicit-any
+   53:40  warning  Unexpected any. Specify a different type       @typescript-eslint/no-explicit-any
+   70:37  warning  Unexpected any. Specify a different type       @typescript-eslint/no-explicit-any
+  127:33  warning  Unexpected any. Specify a different type       @typescript-eslint/no-explicit-any
+  127:79  warning  Unexpected any. Specify a different type       @typescript-eslint/no-explicit-any
+  166:33  warning  'metadata' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  178:15  warning  Unexpected console statement                   no-console
+  188:13  warning  Unexpected console statement                   no-console
+  252:11  warning  Unexpected console statement                   no-console
+  337:11  warning  Unexpected console statement                   no-console
+  344:9   warning  Unexpected console statement                   no-console
+  365:13  warning  Unexpected console statement                   no-console
+  377:11  warning  Unexpected console statement                   no-console
+  439:11  warning  Unexpected console statement                   no-console
+  490:9   warning  Unexpected console statement                   no-console
+  507:9   warning  Unexpected console statement                   no-console
+  524:9   warning  Unexpected console statement                   no-console
+  541:9   warning  Unexpected console statement                   no-console
+
+/Users/davidleathers/taskmaster-ui/src/renderer/src/store/stateBackup.ts
+   31:34  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  147:7   warning  Unexpected console statement              no-console
+  163:7   warning  Unexpected console statement              no-console
+  179:7   warning  Unexpected console statement              no-console
+  193:9   warning  Unexpected console statement              no-console
+  202:7   warning  Unexpected console statement              no-console
+  286:11  warning  Unexpected console statement              no-console
+  297:7   warning  Unexpected console statement              no-console
+  326:11  warning  Unexpected console statement              no-console
+  440:7   warning  Unexpected console statement              no-console
+  512:36  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/davidleathers/taskmaster-ui/src/renderer/src/store/storeErrorWrapper.ts
+   72:31  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   73:36  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   78:38  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  114:9   warning  Unexpected console statement              no-console
+  155:43  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  192:11  warning  Unexpected console statement              no-console
+  216:13  warning  Unexpected console statement              no-console
+  359:7   warning  Unexpected console statement              no-console
+  368:7   warning  Unexpected console statement              no-console
+  378:7   warning  Unexpected console statement              no-console
+  488:36  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  497:7   warning  Unexpected console statement              no-console
+  719:12  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  731:31  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/davidleathers/taskmaster-ui/src/renderer/src/types/claude-config.ts
+  236:21  error  The `{}` ("empty object") type allows any non-nullish value, including literals like `0` and `""`.
+- If that's what you want, disable this lint rule with an inline comment or configure the 'allowObjectTypes' rule option.
+- If you want a type meaning "any object", you probably want `object` instead.
+- If you want a type meaning "any value", you probably want `unknown` instead  @typescript-eslint/no-empty-object-type
+  240:21  error  The `{}` ("empty object") type allows any non-nullish value, including literals like `0` and `""`.
+- If that's what you want, disable this lint rule with an inline comment or configure the 'allowObjectTypes' rule option.
+- If you want a type meaning "any object", you probably want `object` instead.
+- If you want a type meaning "any value", you probably want `unknown` instead  @typescript-eslint/no-empty-object-type
+
+/Users/davidleathers/taskmaster-ui/src/renderer/src/utils/errorLogging.ts
+   20:28  warning  Unexpected any. Specify a different type    @typescript-eslint/no-explicit-any
+   30:16  warning  Unexpected any. Specify a different type    @typescript-eslint/no-explicit-any
+   49:28  warning  Unexpected any. Specify a different type    @typescript-eslint/no-explicit-any
+  115:5   warning  Unexpected console statement                no-console
+  116:5   warning  Unexpected console statement                no-console
+  117:5   warning  Unexpected console statement                no-console
+  119:7   warning  Unexpected console statement                no-console
+  121:5   warning  Unexpected console statement                no-console
+  130:14  warning  'reportingError' is defined but never used  @typescript-eslint/no-unused-vars
+  140:55  warning  Unexpected any. Specify a different type    @typescript-eslint/no-explicit-any
+  154:3   warning  Unexpected console statement                no-console
+  160:41  warning  Unexpected any. Specify a different type    @typescript-eslint/no-explicit-any
+  172:5   warning  Unexpected console statement                no-console
+  179:37  warning  Unexpected any. Specify a different type    @typescript-eslint/no-explicit-any
+
+/Users/davidleathers/taskmaster-ui/src/renderer/src/utils/sessionPreservation.ts
+   29:9   warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   30:11  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   31:15  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   32:17  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   33:12  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   34:20  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  112:33  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  147:7   warning  Unexpected console statement              no-console
+  157:7   warning  Unexpected console statement              no-console
+  165:52  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  198:7   warning  Unexpected console statement              no-console
+  206:7   warning  Unexpected console statement              no-console
+  221:7   warning  Unexpected console statement              no-console
+  240:7   warning  Unexpected console statement              no-console
+  243:7   warning  Unexpected console statement              no-console
+  260:7   warning  Unexpected console statement              no-console
+  262:7   warning  Unexpected console statement              no-console
+  269:58  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  269:65  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  270:17  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  309:64  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  310:32  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  327:7   warning  Unexpected console statement              no-console
+  336:45  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  337:36  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  343:42  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  346:32  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  357:7   warning  Unexpected console statement              no-console
+  366:50  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  367:34  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  383:13  warning  Unexpected console statement              no-console
+  388:7   warning  Unexpected console statement              no-console
+  437:30  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  437:36  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  444:34  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  444:40  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  466:35  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  473:41  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  485:36  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  485:50  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  494:38  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  494:52  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  503:35  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  503:49  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  512:35  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  512:49  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  568:9   warning  Unexpected console statement              no-console
+  582:7   warning  Unexpected console statement              no-console
+  609:9   warning  Unexpected console statement              no-console
+  612:7   warning  Unexpected console statement              no-console
+  647:7   warning  Unexpected console statement              no-console
+  661:66  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  674:50  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  682:5   warning  Unexpected console statement              no-console
+
+/Users/davidleathers/taskmaster-ui/src/renderer/src/utils/statePreservation.ts
+    4:18  warning  Unexpected any. Specify a different type        @typescript-eslint/no-explicit-any
+   47:7   warning  Unexpected console statement                    no-console
+   53:7   warning  Unexpected console statement                    no-console
+   64:5   warning  Unexpected console statement                    no-console
+   79:9   warning  Unexpected console statement                    no-console
+   96:7   warning  Unexpected console statement                    no-console
+  110:7   warning  Unexpected console statement                    no-console
+  129:13  warning  'timestamp' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  129:24  warning  'version' is assigned a value but never used    @typescript-eslint/no-unused-vars
+  129:33  warning  'expiresAt' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  133:5   warning  Unexpected console statement                    no-console
+  139:7   warning  Unexpected console statement                    no-console
+  154:5   warning  Unexpected console statement                    no-console
+  177:5   warning  Unexpected console statement                    no-console
+  199:5   warning  Unexpected console statement                    no-console
+  247:7   warning  Unexpected console statement                    no-console
+  250:5   warning  Unexpected console statement                    no-console
+  290:7   warning  Unexpected console statement                    no-console
+  293:5   warning  Unexpected console statement                    no-console
+  307:3   warning  Unexpected console statement                    no-console
+
+/Users/davidleathers/taskmaster-ui/tests/setup.ts
+  93:32  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+  95:12  error  'error' is defined but never used        @typescript-eslint/no-unused-vars
+
+✖ 808 problems (92 errors, 716 warnings)
+

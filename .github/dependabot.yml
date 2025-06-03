@@ -1,0 +1,96 @@
+# Dependabot Configuration for ESLint Monitoring - 2025 Best Practices
+# Based on GitHub Actions integration and enhanced security features
+
+version: 2
+updates:
+  # ESLint and JavaScript/TypeScript Linting Dependencies
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      # Custom cron for weekly ESLint updates (Mondays at 9 AM UTC)
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "UTC"
+    
+    # Group ESLint-related packages for easier review
+    groups:
+      eslint:
+        patterns:
+          - "eslint*"
+          - "@eslint/*"
+          - "*eslint*"
+          - "typescript-eslint"
+          - "@typescript-eslint/*"
+        
+    # Prioritize security updates
+    open-pull-requests-limit: 10
+    
+    # Enhanced update strategy for 2025
+    reviewers:
+      - "eslint-team"
+    assignees:
+      - "tech-lead"
+    
+    # Custom commit messages for ESLint updates
+    commit-message:
+      prefix: "chore"
+      prefix-development: "dev"
+      include: "scope"
+    
+    # Enable version updates for all dependency types
+    allow:
+      - dependency-type: "direct"
+      - dependency-type: "indirect"
+      - dependency-type: "production"
+      - dependency-type: "development"
+    
+    # Ignore specific versions if needed
+    ignore:
+      # Example: Ignore major version updates that require manual migration
+      - dependency-name: "eslint"
+        update-types: ["version-update:semver-major"]
+        
+  # Server-side dependencies monitoring
+  - package-ecosystem: "npm"
+    directory: "/server"
+    schedule:
+      interval: "weekly"
+      day: "tuesday"
+      time: "10:00"
+      timezone: "UTC"
+    
+    groups:
+      server-eslint:
+        patterns:
+          - "eslint*"
+          - "@eslint/*"
+          - "*eslint*"
+    
+    open-pull-requests-limit: 5
+    
+    commit-message:
+      prefix: "server"
+      include: "scope"
+
+  # GitHub Actions workflow dependencies
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "wednesday"
+      time: "11:00"
+      timezone: "UTC"
+    
+    open-pull-requests-limit: 3
+    
+    commit-message:
+      prefix: "ci"
+      include: "scope"
+
+# Configuration notes:
+# - ESLint packages are grouped for efficient review
+# - Custom scheduling prevents overwhelming the team
+# - Security updates are prioritized
+# - Both main project and server dependencies are monitored
+# - GitHub Actions workflows are also kept up-to-date

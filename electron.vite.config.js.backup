@@ -1,6 +1,7 @@
 import { defineConfig, externalizeDepsPlugin } from 'electron-vite';
 import react from '@vitejs/plugin-react';
 import { resolve } from 'path';
+import { visualizer } from 'rollup-plugin-visualizer';
 import packageJson from './package.json';
 
 /**
@@ -27,14 +28,23 @@ export default defineConfig({
    */
   main: {
     plugins: [externalizeDepsPlugin()],
+    publicDir: 'resources', // Configure public directory for main process assets
     build: {
       lib: {
         entry: resolve(__dirname, 'src/main/index.ts'),
         formats: ['cjs'],
         fileName: 'main',
       },
-      outDir: 'dist/electron',
+      outDir: 'dist/main',
       emptyOutDir: false, // Don't clean the directory to preserve preload script
+      // Enhanced watch configuration for 2025 best practices
+      watch: {
+        include: ['src/main/**/*'],
+        exclude: ['node_modules/**', 'dist/**', 'out/**'],
+        // Rollup watch options for optimal performance  
+        buildDelay: 100, // Debounce rebuilds
+        clearScreen: false, // Keep terminal output visible
+      },
       rollupOptions: {
         external: [
           // Core Electron modules
@@ -81,7 +91,7 @@ export default defineConfig({
     },
     define: {
       // Define __dirname for use in main process
-      __dirname: `"${resolve(__dirname, 'dist', 'electron')}"`,
+      __dirname: `"${resolve(__dirname, 'dist', 'main')}"`,
       'import.meta.url': 'import.meta.url',
     },
   },
@@ -92,14 +102,22 @@ export default defineConfig({
    */
   preload: {
     plugins: [externalizeDepsPlugin()],
+    publicDir: 'resources', // Configure public directory for preload process assets
     build: {
       lib: {
         entry: resolve(__dirname, 'src/preload/index.ts'),
         formats: ['cjs'],
         fileName: 'preload',
       },
-      outDir: 'dist/electron',
+      outDir: 'dist/preload',
       emptyOutDir: false, // Don't clean the directory to preserve main script
+      // Enhanced watch configuration for preload scripts
+      watch: {
+        include: ['src/preload/**/*'],
+        exclude: ['node_modules/**', 'dist/**', 'out/**'],
+        buildDelay: 100, // Debounce rebuilds for performance
+        clearScreen: false, // Keep terminal output visible
+      },
       rollupOptions: {
         external: [
           'electron', // Only electron needs to be external for preload
@@ -138,18 +156,54 @@ export default defineConfig({
    * Configured to work with existing project structure (index.html in root)
    */
   renderer: {
-    plugins: [react()],
-    root: resolve(__dirname, 'src/renderer'), // Use renderer directory as root
+    plugins: [
+      react(),
+      // Bundle analysis - 2025 best practice for build optimization
+      visualizer({
+        filename: 'dist/bundle-analysis.html',
+        open: false, // Don't auto-open in CI environments
+        gzipSize: true,
+        brotliSize: true,
+      }),
+    ],
+    root: resolve(__dirname, './src/renderer'), // Use renderer directory as root
+    publicDir: resolve(__dirname, './src/renderer/public'), // Configure public directory for renderer assets
     base: './', // Important for Electron - use relative paths
     build: {
       rollupOptions: {
         input: {
           // Use named input to specify the HTML entry point
-          index: resolve(__dirname, 'src/renderer/index.html')
+          index: resolve(__dirname, './src/renderer/index.html')
         },
         output: {
-          // Prevent information leakage through build output
-          manualChunks: undefined,
+          // 2025 Best Practice: Intelligent code splitting for optimal performance
+          manualChunks: (id) => {
+            // Vendor chunk for node_modules
+            if (id.includes('node_modules')) {
+              // Large UI libraries get their own chunks
+              if (id.includes('react') || id.includes('react-dom')) {
+                return 'react-vendor';
+              }
+              if (id.includes('@mui') || id.includes('@emotion')) {
+                return 'mui-vendor';
+              }
+              if (id.includes('framer-motion')) {
+                return 'animation-vendor';
+              }
+              if (id.includes('lucide-react')) {
+                return 'icons-vendor';
+              }
+              // Other vendor libraries
+              return 'vendor';
+            }
+            // App-specific chunks
+            if (id.includes('src/components/views/')) {
+              return 'views';
+            }
+            if (id.includes('src/components/project/')) {
+              return 'project';
+            }
+          },
         }
       },
       outDir: 'dist/renderer',

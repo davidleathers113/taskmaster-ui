@@ -132,7 +132,7 @@ const electronAPI: ElectronAPI = {
     }
     
     // Create new listener with validation
-    downloadProgressCallback = (event: any, progress: any) => {
+    downloadProgressCallback = (_event: any, progress: any) => {
       // Security: Validate progress object structure
       if (progress && typeof progress === 'object' && 
           typeof progress.percent === 'number' && 

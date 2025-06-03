@@ -5,11 +5,11 @@ import path from 'path';
 export default defineConfig({
   build: {
     lib: {
-      entry: path.resolve(__dirname, 'electron/preload.ts'),
+      entry: path.resolve(__dirname, 'src/preload/index.ts'),
       formats: ['cjs'],
       fileName: () => 'preload',
     },
-    outDir: 'dist/electron',
+    outDir: 'dist/preload',
     emptyOutDir: false, // Don't clean the directory
     rollupOptions: {
       external: [

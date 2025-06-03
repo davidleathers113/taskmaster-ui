@@ -1,10 +1,12 @@
 import { useEffect, lazy } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useTaskStore } from '@/store/useTaskStore'
+import { useErrorHandledTaskStore } from '@/store/storeErrorWrapper'
 import { Sidebar } from '@/components/layout/Sidebar'
 import { Header } from '@/components/layout/Header'
 import { MainContent } from '@/components/layout/MainContent'
 import { ErrorBoundary } from '@/components/error/ErrorBoundary'
+import { StoreErrorBoundary } from '@/components/error/StoreErrorBoundary'
 import { SuspenseWrapper } from '@/components/ui/SuspenseWrapper'
 import { DebugPanel } from '@/components/DebugPanel'
 import { cn } from '@/lib/utils'
@@ -29,24 +31,28 @@ const ProjectManager = lazy(() =>
 )
 
 function App() {
+  // Use regular store for reactive state
   const { 
     userSettings, 
     sidebarCollapsed, 
-    selectedTask,
-    loadFromJSON
+    selectedTask
   } = useTaskStore()
+  
+  // Use error-handled store for operations
+  const errorHandledStore = useErrorHandledTaskStore()
 
   useEffect(() => {
-    // Load tasks from the sample JSON file
+    // Load tasks from the sample JSON file (Vite asset handling)
     const loadTasks = async () => {
       try {
-        const response = await fetch('./sample-tasks.json')
+        // Vite handles assets in public directory via absolute paths
+        const response = await fetch('/sample-tasks.json')
         const data = await response.json()
-        loadFromJSON(data)
+        await errorHandledStore.loadFromJSON(data)
       } catch (error) {
         console.error('Failed to load tasks:', error)
         // Load minimal sample data as fallback
-        loadFromJSON({ 
+        await errorHandledStore.loadFromJSON({ 
           tasks: [
             {
               id: 1,
@@ -65,18 +71,23 @@ function App() {
     }
     
     loadTasks()
-  }, [loadFromJSON])
+  }, [errorHandledStore.loadFromJSON])
 
   const isDark = userSettings.ui.theme === 'dark' || 
     (userSettings.ui.theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)
 
   return (
-    <div className={cn(
-      "min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50",
-      "dark:from-slate-950 dark:via-slate-900 dark:to-slate-950",
-      "transition-all duration-500 ease-out",
-      isDark && "dark"
-    )}>
+    <StoreErrorBoundary 
+      enableAutoRecovery={true}
+      maxAutoRecoveryAttempts={3}
+      showDeveloperInfo={process.env.NODE_ENV === 'development'}
+    >
+      <div className={cn(
+        "min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50",
+        "dark:from-slate-950 dark:via-slate-900 dark:to-slate-950",
+        "transition-all duration-500 ease-out",
+        isDark && "dark"
+      )}>
       {/* Debug Panel - Shows critical debug info */}
       <DebugPanel />
       
@@ -211,7 +222,8 @@ function App() {
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+      </div>
+    </StoreErrorBoundary>
   )
 }
 

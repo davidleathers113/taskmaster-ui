@@ -112,7 +112,7 @@ src/renderer/src/
 ## Key Patterns and Conventions
 
 ### Import Aliases
-Use configured path aliases in `vite.config.ts`:
+Use configured path aliases in `electron.vite.config.ts`:
 - `@/` → `./src/renderer/src/`
 - `@components/` → `./src/renderer/src/components/`
 - `@lib/` → `./src/renderer/src/lib/`
@@ -178,7 +178,7 @@ Tasks follow the TaskMaster format with:
 
 ### Build System (electron-vite)
 The project uses **electron-vite** for unified development across all Electron processes:
-- **Configuration**: `electron.vite.config.js` - Main configuration file
+- **Configuration**: `electron.vite.config.ts` - Main configuration file
 - **Development**: `npm run dev` - Starts all processes with hot reload
 - **Building**: `npm run build` - Builds all processes for production
 - **Preview**: `npm run preview` - Preview built application

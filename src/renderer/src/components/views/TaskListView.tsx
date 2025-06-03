@@ -1,11 +1,61 @@
 import { motion } from 'framer-motion'
+import { useState, useEffect } from 'react'
 import { useTaskStore } from '@/store/useTaskStore'
 import { TaskCard } from '@/components/task/TaskCard'
 import { cn } from '@/lib/utils'
+import { useViewStatePreservation } from '@/hooks/useViewStatePreservation'
 
 export function TaskListView() {
   const { getFilteredTasks, viewMode } = useTaskStore()
   const tasks = getFilteredTasks()
+
+  // State preservation for TaskListView
+  const [viewState, setViewState] = useState(() => ({
+    scrollPosition: 0,
+    expandedTasks: [] as string[],
+    lastSelectedTask: null as string | null,
+    loadMoreThreshold: 50
+  }))
+
+  const { loadSavedState } = useViewStatePreservation(
+    'taskList',
+    viewState,
+    [viewState] // Auto-save when viewState changes
+  )
+
+  // Load saved state on mount
+  useEffect(() => {
+    const savedState = loadSavedState()
+    if (savedState) {
+      setViewState(prev => ({ ...prev, ...savedState }))
+    }
+  }, [loadSavedState])
+
+  // Restore scroll position after render
+  useEffect(() => {
+    if (viewState.scrollPosition > 0) {
+      requestAnimationFrame(() => {
+        const container = document.querySelector('.task-list-container')
+        if (container) {
+          container.scrollTop = viewState.scrollPosition
+        }
+      })
+    }
+  }, [tasks.length, viewState.scrollPosition])
+
+  // Handle scroll position tracking
+  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    const scrollTop = e.currentTarget.scrollTop
+    setViewState(prev => ({ ...prev, scrollPosition: scrollTop }))
+  }
+
+  // Future handler for task selection/expansion support
+  // const handleTaskSelect = (taskId: string) => {
+  //   setViewState(prev => ({
+  //     ...prev,
+  //     lastSelectedTask: taskId
+  //   }))
+  // }
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -51,7 +101,10 @@ export function TaskListView() {
       initial="hidden"
       animate="visible"
     >
-      <div className="h-full p-6">
+      <div 
+        className="h-full p-6 task-list-container overflow-y-auto"
+        onScroll={handleScroll}
+      >
         {/* Header */}
         <motion.div 
           className="mb-6"

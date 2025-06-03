@@ -1,12 +1,19 @@
 import React, { Component, ReactNode, ErrorInfo } from 'react';
 import { motion } from 'framer-motion';
 import { AlertTriangle, RefreshCw, Home, Bug } from 'lucide-react';
+import { handleErrorBoundaryError } from '@/utils/errorLogging';
+import { saveViewState } from '@/utils/statePreservation';
 
 interface Props {
   children: ReactNode;
   fallback?: ReactNode;
   onError?: (error: Error, errorInfo: ErrorInfo) => void;
   level?: 'app' | 'component' | 'route';
+  resetKey?: any; // Auto-reset when this value changes
+  resetOnPropsChange?: boolean; // Reset when any prop changes
+  isolate?: boolean; // Prevent error propagation to parent boundaries
+  viewType?: string; // For view-specific error tracking
+  enableStatePreservation?: boolean; // Save component state before errors
 }
 
 interface State {
@@ -14,27 +21,34 @@ interface State {
   error: Error | null;
   errorInfo: ErrorInfo | null;
   retryCount: number;
+  errorId: string | null; // Unique identifier for this error instance
+  lastResetKey: any; // Track the last resetKey value
 }
 
 const MAX_RETRY_COUNT = 3;
 
 export class ErrorBoundary extends Component<Props, State> {
   private retryTimeoutId: number | null = null;
+  private stateBackupKey: string;
 
   constructor(props: Props) {
     super(props);
+    this.stateBackupKey = `error_boundary_${props.viewType || 'default'}_backup`;
     this.state = {
       hasError: false,
       error: null,
       errorInfo: null,
-      retryCount: 0
+      retryCount: 0,
+      errorId: null,
+      lastResetKey: props.resetKey
     };
   }
 
   static getDerivedStateFromError(error: Error): Partial<State> {
     return {
       hasError: true,
-      error
+      error,
+      errorId: `err_${Date.now()}_${Math.random().toString(36).substring(2)}`
     };
   }
 
@@ -44,22 +58,52 @@ export class ErrorBoundary extends Component<Props, State> {
       errorInfo
     });
 
-    // Call optional error handler
-    this.props.onError?.(error, errorInfo);
+    // Enhanced error handling with 2025 best practices
+    try {
+      // Use the new error logging system
+      handleErrorBoundaryError(
+        error,
+        errorInfo,
+        this.props.level || 'component',
+        this.props.viewType
+      );
 
-    // Log error to console in development
-    if (process.env.NODE_ENV === 'development') {
-      console.group('🚨 Error Boundary Caught Error');
-      console.error('Error:', error);
-      console.error('Error Info:', errorInfo);
-      console.error('Component Stack:', errorInfo.componentStack);
-      console.groupEnd();
+      // Save state before error if preservation is enabled
+      if (this.props.enableStatePreservation) {
+        this.preservePreErrorState();
+      }
+
+      // Call optional error handler
+      this.props.onError?.(error, errorInfo);
+
+      // Prevent error propagation if isolate mode is enabled
+      if (this.props.isolate) {
+        // Log that we're isolating the error
+        console.info('Error isolated to prevent propagation:', error.message);
+      }
+    } catch (handlingError) {
+      // Fallback error handling if our error handling fails
+      console.error('Error in error handling:', handlingError);
+      console.error('Original error:', error);
+    }
+  }
+
+  componentDidUpdate(prevProps: Props): void {
+    // Reset error state if resetKey changes
+    if (this.props.resetKey !== prevProps.resetKey && this.state.hasError) {
+      this.resetErrorState('resetKey changed');
     }
 
-    // In production, you might want to send this to an error reporting service
-    if (process.env.NODE_ENV === 'production') {
-      // Example: Send to error reporting service
-      // reportError(error, errorInfo);
+    // Reset if resetOnPropsChange is enabled and any prop changed
+    if (this.props.resetOnPropsChange && 
+        this.state.hasError && 
+        this.hasPropsChanged(prevProps)) {
+      this.resetErrorState('props changed');
+    }
+
+    // Update lastResetKey tracking
+    if (this.props.resetKey !== this.state.lastResetKey) {
+      this.setState({ lastResetKey: this.props.resetKey });
     }
   }
 
@@ -67,18 +111,13 @@ export class ErrorBoundary extends Component<Props, State> {
     const { retryCount } = this.state;
     
     if (retryCount < MAX_RETRY_COUNT) {
-      this.setState(prevState => ({
-        hasError: false,
-        error: null,
-        errorInfo: null,
-        retryCount: prevState.retryCount + 1
-      }));
+      this.resetErrorState('manual retry', retryCount + 1);
 
       // Auto-retry with exponential backoff for component-level errors
       if (this.props.level === 'component') {
         const delay = Math.pow(2, retryCount) * 1000; // 1s, 2s, 4s
         this.retryTimeoutId = window.setTimeout(() => {
-          this.setState({ hasError: false, error: null, errorInfo: null });
+          this.setState({ hasError: false, error: null, errorInfo: null, errorId: null });
         }, delay);
       }
     }
@@ -97,6 +136,51 @@ export class ErrorBoundary extends Component<Props, State> {
       window.clearTimeout(this.retryTimeoutId);
     }
   }
+
+  // Enhanced helper methods for 2025 functionality
+  private resetErrorState = (reason: string, newRetryCount?: number) => {
+    this.setState({
+      hasError: false,
+      error: null,
+      errorInfo: null,
+      errorId: null,
+      retryCount: newRetryCount ?? this.state.retryCount
+    });
+
+    // Log recovery for monitoring
+    console.info(`Error boundary recovered: ${reason}`, {
+      viewType: this.props.viewType,
+      level: this.props.level,
+      retryCount: newRetryCount ?? this.state.retryCount
+    });
+  };
+
+  private hasPropsChanged = (prevProps: Props): boolean => {
+    const currentProps = this.props;
+    const keysToCheck = ['children', 'fallback', 'level', 'viewType'] as const;
+    
+    return keysToCheck.some(key => currentProps[key] !== prevProps[key]);
+  };
+
+  private preservePreErrorState = () => {
+    try {
+      if (this.props.viewType) {
+        const stateToSave = {
+          errorInfo: {
+            timestamp: new Date().toISOString(),
+            errorId: this.state.errorId,
+            retryCount: this.state.retryCount,
+            viewType: this.props.viewType,
+            level: this.props.level
+          }
+        };
+        
+        saveViewState(this.stateBackupKey, stateToSave);
+      }
+    } catch (error) {
+      console.warn('Failed to preserve pre-error state:', error);
+    }
+  };
 
   render() {
     if (this.state.hasError) {
