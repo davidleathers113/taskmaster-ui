@@ -1,0 +1,23 @@
+# Development Auto-Update Configuration
+# This file is used for testing auto-updater functionality during development
+# Place this file in the root of your project
+
+# GitHub Release Provider (Default)
+owner: taskmaster-team
+repo: taskmaster-ui
+provider: github
+
+# Alternative: Generic HTTP Server Provider
+# provider: generic
+# url: http://localhost:8080/updates
+# channel: latest
+
+# Alternative: S3 Provider
+# provider: s3
+# bucket: taskmaster-updates
+# region: us-east-1
+# acl: public-read
+
+# Update Channel Configuration
+# channel: stable  # stable, beta, alpha
+# updaterCacheDirName: taskmaster-updater

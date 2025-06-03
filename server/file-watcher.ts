@@ -8,10 +8,20 @@ import { createServer } from 'http';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import { z } from 'zod';
+import log from 'electron-log';
 // @ts-ignore - Module doesn't have TypeScript declarations
 import { ProjectDiscoveryEngine } from './discovery-engine.js';
 // @ts-ignore - Module doesn't have TypeScript declarations  
 import { addClaudeConfigAPI } from './claude-config-api.js';
+
+// Configure server logging
+log.transports.file.level = 'debug';
+log.transports.console.level = 'debug';
+log.transports.file.fileName = 'server.log';
+log.transports.file.maxSize = 5 * 1024 * 1024; // 5MB
+
+// Override console for server logging
+Object.assign(console, log.functions);
 
 // Type definitions
 interface Project {

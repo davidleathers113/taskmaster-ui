@@ -1,0 +1,118 @@
+# electron-builder configuration for TaskMaster UI
+# Enhanced 2025 Best Practices Configuration with Auto-Updater and Code Signing
+
+# Application Identity and Metadata
+appId: "com.taskmaster.taskmaster-ui"
+productName: "TaskMaster UI"
+copyright: "Copyright © 2025 TaskMaster Team"
+artifactName: "${productName}-${version}-${platform}-${arch}.${ext}"
+
+# Enhanced Metadata for 2025 (via extraMetadata)
+extraMetadata:
+  description: "The most advanced task management desktop application"
+  author:
+    name: "TaskMaster Team"
+    email: "support@taskmaster.com"
+  homepage: "https://github.com/taskmaster/taskmaster-ui"
+  repository:
+    type: "git"
+    url: "https://github.com/taskmaster/taskmaster-ui.git"
+
+# Build Directories
+directories:
+  output: dist-packages
+  buildResources: resources
+
+# File Inclusion/Exclusion
+files:
+  - "dist/**/*"
+  - "node_modules/**/*"
+  - "!node_modules/**/*.{md,txt}"
+  - "!node_modules/**/test/**/*"
+  - "!node_modules/**/{examples,example}/**/*"
+
+# Windows Configuration (2025 Enhanced)
+win:
+  target:
+    - target: nsis
+      arch: [x64, ia32]
+    - target: portable
+      arch: [x64, ia32]
+  icon: "resources/icon-256.png"
+  verifyUpdateCodeSignature: true
+  requestedExecutionLevel: "asInvoker"
+
+# NSIS Installer Configuration
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+
+# macOS Configuration (2025 Enhanced Security)
+mac:
+  target:
+    - target: dmg
+      arch: [x64, arm64]
+    - target: zip
+      arch: [x64, arm64]
+  icon: "resources/icon-512.png"
+  category: "public.app-category.productivity"
+  hardenedRuntime: true
+  gatekeeperAssess: false
+  entitlements: "resources/entitlements.mac.plist"
+  entitlementsInherit: "resources/entitlements.mac.plist"
+  minimumSystemVersion: "10.15.0"
+  darkModeSupport: true
+  type: "distribution"
+
+# DMG Configuration
+dmg:
+  title: "${productName} ${version}"
+  icon: "resources/icon-512.png"
+  contents:
+    - x: 410
+      y: 150
+      type: link
+      path: /Applications
+    - x: 130
+      y: 150
+      type: file
+
+# Linux Configuration
+linux:
+  target:
+    - target: AppImage
+      arch: [x64]
+    - target: deb
+      arch: [x64]
+  icon: "resources/icon-512.png"
+  category: "Office"
+
+# Auto-Updater Configuration (2025 Best Practices)
+publish:
+  provider: github
+  owner: taskmaster
+  repo: taskmaster-ui
+  releaseType: draft
+  publishAutoUpdate: true
+
+# Code Signing Configuration (2025 Hardware Token Requirements)
+# Development: Set CSC_IDENTITY_AUTO_DISCOVERY=false to skip signing
+# Production: Configure environment variables for secure hardware tokens
+# macOS: CSC_LINK, CSC_KEY_PASSWORD (or hardware HSM)
+# Windows: CSC_LINK, CSC_KEY_PASSWORD (or EV cert with certificateSubjectName)
+forceCodeSigning: false
+
+# Performance and Security Optimizations (2025 Enhanced)
+compression: "maximum"
+nodeGypRebuild: false
+removePackageScripts: true
+removePackageKeywords: true
+
+# Enhanced File Exclusions for Smaller Bundle Size
+asarUnpack:
+  - "resources/**/*"
+
+# Security and Privacy Settings (2025 Standards)
+includePdb: false

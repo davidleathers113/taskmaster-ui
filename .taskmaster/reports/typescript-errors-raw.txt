@@ -1,0 +1,526 @@
+
+> taskmaster-ui@1.0.0 typecheck
+> tsc --noEmit
+
+src/main/__tests__/auto-updater-differential.test.ts(156,9): error TS2322: Type 'null' is not assignable to type 'CancellationToken | undefined'.
+src/main/__tests__/auto-updater-differential.test.ts(398,9): error TS2322: Type 'null' is not assignable to type 'CancellationToken | undefined'.
+src/main/__tests__/auto-updater-differential.test.ts(461,26): error TS2349: This expression is not callable.
+  Type '{ version: string; mandatoryUpdate: boolean; releaseNotes: string; }' has no call signatures.
+src/main/__tests__/auto-updater-differential.test.ts(579,52): error TS2554: Expected 0 arguments, but got 2.
+src/main/__tests__/auto-updater-differential.test.ts(648,48): error TS2554: Expected 0 arguments, but got 1.
+src/main/__tests__/auto-updater-integration.test.ts(172,7): error TS2349: This expression is not callable.
+  Type 'void' has no call signatures.
+src/main/__tests__/auto-updater-integration.test.ts(319,59): error TS2554: Expected 0 arguments, but got 1.
+src/main/__tests__/auto-updater-integration.test.ts(505,23): error TS2349: This expression is not callable.
+  Type 'Number' has no call signatures.
+src/main/__tests__/auto-updater-security.test.ts(13,1): error TS6133: 'MockAutoUpdater' is declared but its value is never read.
+src/main/__tests__/auto-updater-security.test.ts(58,7): error TS6133: 'serverUrl' is declared but its value is never read.
+src/main/__tests__/auto-updater-security.test.ts(242,53): error TS2554: Expected 0 arguments, but got 1.
+src/main/__tests__/auto-updater-security.test.ts(259,50): error TS2554: Expected 0 arguments, but got 1.
+src/main/__tests__/auto-updater.test.ts(327,52): error TS2345: Argument of type '{}' is not assignable to parameter of type 'BaseWindow'.
+  Type '{}' is missing the following properties from type 'BaseWindow': on, off, once, addListener, and 160 more.
+src/main/__tests__/auto-updater.test.ts(357,52): error TS2345: Argument of type '{}' is not assignable to parameter of type 'BaseWindow'.
+  Type '{}' is missing the following properties from type 'BaseWindow': on, off, once, addListener, and 160 more.
+src/main/__tests__/auto-updater.test.ts(377,52): error TS2345: Argument of type '{}' is not assignable to parameter of type 'BaseWindow'.
+  Type '{}' is missing the following properties from type 'BaseWindow': on, off, once, addListener, and 160 more.
+src/main/__tests__/auto-updater.test.ts(427,38): error TS2349: This expression is not callable.
+  Type 'String' has no call signatures.
+src/main/__tests__/auto-updater.test.ts(495,59): error TS2554: Expected 0-1 arguments, but got 2.
+src/main/__tests__/baseline.test.ts(16,12): error TS7017: Element implicitly has an 'any' type because type 'typeof globalThis' has no index signature.
+src/main/__tests__/baseline.test.ts(17,12): error TS7017: Element implicitly has an 'any' type because type 'typeof globalThis' has no index signature.
+src/main/__tests__/baseline.test.ts(93,18): error TS7017: Element implicitly has an 'any' type because type 'typeof globalThis' has no index signature.
+src/main/__tests__/baseline.test.ts(94,23): error TS7017: Element implicitly has an 'any' type because type 'typeof globalThis' has no index signature.
+src/main/__tests__/baseline.test.ts(95,23): error TS7017: Element implicitly has an 'any' type because type 'typeof globalThis' has no index signature.
+src/main/__tests__/baseline.test.ts(96,23): error TS7017: Element implicitly has an 'any' type because type 'typeof globalThis' has no index signature.
+src/main/__tests__/baseline.test.ts(97,23): error TS7017: Element implicitly has an 'any' type because type 'typeof globalThis' has no index signature.
+src/main/__tests__/baseline.test.ts(115,27): error TS2304: Cannot find name 'vi'.
+src/main/__tests__/cross-process-communication.test.ts(13,1): error TS2349: This expression is not callable.
+  Type 'void' has no call signatures.
+src/main/__tests__/cross-process-communication.test.ts(67,13): error TS2551: Property '_handlers' does not exist on type 'IpcMain'. Did you mean 'handle'?
+src/main/__tests__/cross-process-communication.test.ts(68,13): error TS2551: Property '_listeners' does not exist on type 'IpcMain'. Did you mean 'listeners'?
+src/main/__tests__/cross-process-communication.test.ts(145,35): error TS2339: Property 'mockReturnValue' does not exist on type '() => BrowserWindow[]'.
+src/main/__tests__/cross-process-communication.test.ts(449,17): error TS6133: 'event' is declared but its value is never read.
+src/main/__tests__/cross-process-communication.test.ts(478,14): error TS18048: 'callArgs' is possibly 'undefined'.
+src/main/__tests__/cross-process-communication.test.ts(479,14): error TS18048: 'callArgs' is possibly 'undefined'.
+src/main/__tests__/cross-process-communication.test.ts(484,17): error TS6133: 'event' is declared but its value is never read.
+src/main/__tests__/ipc-security.test.ts(58,5): error TS2552: Cannot find name 'securityMonitor'. Did you mean 'SecurityMonitor'?
+src/main/__tests__/ipc-security.test.ts(64,13): error TS2551: Property '_handlers' does not exist on type 'IpcMain'. Did you mean 'handle'?
+src/main/__tests__/ipc-security.test.ts(87,67): error TS6133: 'args' is declared but its value is never read.
+src/main/__tests__/ipc-security.test.ts(101,15): error TS2551: Property '_handlers' does not exist on type 'IpcMain'. Did you mean 'handle'?
+src/main/__tests__/ipc-security.test.ts(146,35): error TS2339: Property 'mockReturnValue' does not exist on type '() => BrowserWindow[]'.
+src/main/__tests__/ipc-security.test.ts(448,30): error TS2532: Object is possibly 'undefined'.
+src/main/__tests__/ipc-security.test.ts(448,72): error TS2532: Object is possibly 'undefined'.
+src/main/__tests__/ipc-security.test.ts(531,23): error TS6133: 'channel' is declared but its value is never read.
+src/main/__tests__/ipc-security.test.ts(531,40): error TS6133: 'data' is declared but its value is never read.
+src/main/__tests__/ipc-security.test.ts(534,21): error TS6133: 'channel' is declared but its value is never read.
+src/main/__tests__/ipc-security.test.ts(534,38): error TS6133: 'callback' is declared but its value is never read.
+src/main/__tests__/ipc-security.test.ts(546,17): error TS6133: 'serialized' is declared but its value is never read.
+src/main/__tests__/ipc-security.test.ts(665,46): error TS6133: 'cmd' is declared but its value is never read.
+src/main/__tests__/ipc-security.test.ts(702,38): error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+src/main/__tests__/ipc-security.test.ts(731,23): error TS6133: 'sender' is declared but its value is never read.
+src/main/__tests__/ipc-security.test.ts(740,28): error TS2532: Object is possibly 'undefined'.
+src/main/__tests__/ipc-security.test.ts(740,57): error TS2532: Object is possibly 'undefined'.
+src/main/__tests__/lifecycle.test.ts(115,5): error TS2304: Cannot find name 'createWindow'.
+src/main/__tests__/lifecycle.test.ts(134,36): error TS2339: Property 'mock' does not exist on type '{ (event: "accessibility-support-changed", listener: (event: { preventDefault: () => void; readonly defaultPrevented: boolean; }, accessibilitySupportEnabled: boolean) => void): App; (event: "activate", listener: (event: { ...; }, hasVisibleWindows: boolean) => void): App; (event: "activity-was-continued", listener:...'.
+src/main/__tests__/lifecycle.test.ts(134,52): error TS7006: Parameter 'call' implicitly has an 'any' type.
+src/main/__tests__/lifecycle.test.ts(183,36): error TS2339: Property 'mock' does not exist on type '{ (event: "accessibility-support-changed", listener: (event: { preventDefault: () => void; readonly defaultPrevented: boolean; }, accessibilitySupportEnabled: boolean) => void): App; (event: "activate", listener: (event: { ...; }, hasVisibleWindows: boolean) => void): App; (event: "activity-was-continued", listener:...'.
+src/main/__tests__/lifecycle.test.ts(183,52): error TS7006: Parameter 'call' implicitly has an 'any' type.
+src/main/__tests__/lifecycle.test.ts(203,36): error TS2339: Property 'mock' does not exist on type '{ (event: "accessibility-support-changed", listener: (event: { preventDefault: () => void; readonly defaultPrevented: boolean; }, accessibilitySupportEnabled: boolean) => void): App; (event: "activate", listener: (event: { ...; }, hasVisibleWindows: boolean) => void): App; (event: "activity-was-continued", listener:...'.
+src/main/__tests__/lifecycle.test.ts(203,52): error TS7006: Parameter 'call' implicitly has an 'any' type.
+src/main/__tests__/lifecycle.test.ts(224,36): error TS2339: Property 'mock' does not exist on type '{ (event: "accessibility-support-changed", listener: (event: { preventDefault: () => void; readonly defaultPrevented: boolean; }, accessibilitySupportEnabled: boolean) => void): App; (event: "activate", listener: (event: { ...; }, hasVisibleWindows: boolean) => void): App; (event: "activity-was-continued", listener:...'.
+src/main/__tests__/lifecycle.test.ts(224,52): error TS7006: Parameter 'call' implicitly has an 'any' type.
+src/main/__tests__/lifecycle.test.ts(244,36): error TS2339: Property 'mock' does not exist on type '{ (event: "accessibility-support-changed", listener: (event: { preventDefault: () => void; readonly defaultPrevented: boolean; }, accessibilitySupportEnabled: boolean) => void): App; (event: "activate", listener: (event: { ...; }, hasVisibleWindows: boolean) => void): App; (event: "activity-was-continued", listener:...'.
+src/main/__tests__/lifecycle.test.ts(244,52): error TS7006: Parameter 'call' implicitly has an 'any' type.
+src/main/__tests__/lifecycle.test.ts(270,36): error TS2339: Property 'mock' does not exist on type '{ (event: "accessibility-support-changed", listener: (event: { preventDefault: () => void; readonly defaultPrevented: boolean; }, accessibilitySupportEnabled: boolean) => void): App; (event: "activate", listener: (event: { ...; }, hasVisibleWindows: boolean) => void): App; (event: "activity-was-continued", listener:...'.
+src/main/__tests__/lifecycle.test.ts(270,52): error TS7006: Parameter 'call' implicitly has an 'any' type.
+src/main/__tests__/lifecycle.test.ts(319,36): error TS2339: Property 'mock' does not exist on type '{ (event: "accessibility-support-changed", listener: (event: { preventDefault: () => void; readonly defaultPrevented: boolean; }, accessibilitySupportEnabled: boolean) => void): App; (event: "activate", listener: (event: { ...; }, hasVisibleWindows: boolean) => void): App; (event: "activity-was-continued", listener:...'.
+src/main/__tests__/lifecycle.test.ts(319,52): error TS7006: Parameter 'call' implicitly has an 'any' type.
+src/main/__tests__/lifecycle.test.ts(322,13): error TS2540: Cannot assign to 'isPackaged' because it is a read-only property.
+src/main/__tests__/lifecycle.test.ts(376,36): error TS2339: Property 'mock' does not exist on type '{ (event: "accessibility-support-changed", listener: (event: { preventDefault: () => void; readonly defaultPrevented: boolean; }, accessibilitySupportEnabled: boolean) => void): App; (event: "activate", listener: (event: { ...; }, hasVisibleWindows: boolean) => void): App; (event: "activity-was-continued", listener:...'.
+src/main/__tests__/lifecycle.test.ts(376,52): error TS7006: Parameter 'call' implicitly has an 'any' type.
+src/main/__tests__/lifecycle.test.ts(442,36): error TS2339: Property 'mock' does not exist on type '{ (event: "accessibility-support-changed", listener: (event: { preventDefault: () => void; readonly defaultPrevented: boolean; }, accessibilitySupportEnabled: boolean) => void): App; (event: "activate", listener: (event: { ...; }, hasVisibleWindows: boolean) => void): App; (event: "activity-was-continued", listener:...'.
+src/main/__tests__/lifecycle.test.ts(442,52): error TS7006: Parameter 'call' implicitly has an 'any' type.
+src/main/__tests__/lifecycle.test.ts(473,41): error TS2339: Property 'mock' does not exist on type '{ (event: "accessibility-support-changed", listener: (event: { preventDefault: () => void; readonly defaultPrevented: boolean; }, accessibilitySupportEnabled: boolean) => void): App; (event: "activate", listener: (event: { ...; }, hasVisibleWindows: boolean) => void): App; (event: "activity-was-continued", listener:...'.
+src/main/__tests__/lifecycle.test.ts(473,57): error TS7006: Parameter 'call' implicitly has an 'any' type.
+src/main/__tests__/lifecycle.test.ts(474,36): error TS2339: Property 'mock' does not exist on type '{ (event: "accessibility-support-changed", listener: (event: { preventDefault: () => void; readonly defaultPrevented: boolean; }, accessibilitySupportEnabled: boolean) => void): App; (event: "activate", listener: (event: { ...; }, hasVisibleWindows: boolean) => void): App; (event: "activity-was-continued", listener:...'.
+src/main/__tests__/lifecycle.test.ts(474,52): error TS7006: Parameter 'call' implicitly has an 'any' type.
+src/main/__tests__/lifecycle.test.ts(490,36): error TS2339: Property 'mock' does not exist on type '{ (event: "accessibility-support-changed", listener: (event: { preventDefault: () => void; readonly defaultPrevented: boolean; }, accessibilitySupportEnabled: boolean) => void): App; (event: "activate", listener: (event: { ...; }, hasVisibleWindows: boolean) => void): App; (event: "activity-was-continued", listener:...'.
+src/main/__tests__/lifecycle.test.ts(490,52): error TS7006: Parameter 'call' implicitly has an 'any' type.
+src/main/__tests__/lifecycle.test.ts(510,35): error TS6133: 'event' is declared but its value is never read.
+src/main/__tests__/memory-leak-detection.test.ts(196,9): error TS2304: Cannot find name 'detectedLeak'.
+src/main/__tests__/memory-leak-detection.test.ts(216,15): error TS2451: Cannot redeclare block-scoped variable 'createWindow'.
+src/main/__tests__/memory-leak-detection.test.ts(216,29): error TS2451: Cannot redeclare block-scoped variable 'destroyWindow'.
+src/main/__tests__/memory-leak-detection.test.ts(216,60): error TS2307: Cannot find module '../window-manager' or its corresponding type declarations.
+src/main/__tests__/memory-leak-detection.test.ts(219,13): error TS2451: Cannot redeclare block-scoped variable 'createWindow'.
+src/main/__tests__/memory-leak-detection.test.ts(225,13): error TS2451: Cannot redeclare block-scoped variable 'destroyWindow'.
+src/main/__tests__/memory-leak-detection.test.ts(287,19): error TS2769: No overload matches this call.
+  The last overload gave the following error.
+    Argument of type 'string' is not assignable to parameter of type '"will-resize"'.
+src/main/__tests__/memory-leak-detection.test.ts(288,19): error TS2769: No overload matches this call.
+  The last overload gave the following error.
+    Argument of type 'string' is not assignable to parameter of type '"will-resize"'.
+src/main/__tests__/memory-leak-detection.test.ts(305,15): error TS2451: Cannot redeclare block-scoped variable 'setupIpcHandlers'.
+src/main/__tests__/memory-leak-detection.test.ts(305,33): error TS2451: Cannot redeclare block-scoped variable 'cleanupIpcHandlers'.
+src/main/__tests__/memory-leak-detection.test.ts(305,69): error TS2307: Cannot find module '../ipc-handlers' or its corresponding type declarations.
+src/main/__tests__/memory-leak-detection.test.ts(308,13): error TS2451: Cannot redeclare block-scoped variable 'setupIpcHandlers'.
+src/main/__tests__/memory-leak-detection.test.ts(314,13): error TS2451: Cannot redeclare block-scoped variable 'cleanupIpcHandlers'.
+src/main/__tests__/memory-leak-detection.test.ts(340,57): error TS6133: 'event' is declared but its value is never read.
+src/main/__tests__/memory-leak-detection.test.ts(426,7): error TS2741: Property '__promisify__' is missing in type 'Mock<Procedure>' but required in type 'typeof setTimeout'.
+src/main/__tests__/memory-leaks.test.ts(168,30): error TS6133: 'event' is declared but its value is never read.
+src/main/__tests__/memory-leaks.test.ts(306,24): error TS2339: Property 'mock' does not exist on type '(channel: string, listener: (event: IpcMainInvokeEvent, ...args: any[]) => any) => void'.
+src/main/__tests__/memory-leaks.test.ts(306,45): error TS6133: 'channel' is declared but its value is never read.
+src/main/__tests__/memory-leaks.test.ts(306,45): error TS7031: Binding element 'channel' implicitly has an 'any' type.
+src/main/__tests__/memory-leaks.test.ts(306,54): error TS7031: Binding element 'handler' implicitly has an 'any' type.
+src/main/__tests__/memory-leaks.test.ts(344,22): error TS2554: Expected 1-2 arguments, but got 0.
+src/main/__tests__/memory-leaks.test.ts(355,35): error TS2345: Argument of type 'Function' is not assignable to parameter of type '(event: IpcMainInvokeEvent, ...args: any[]) => any'.
+  Type 'Function' provides no match for the signature '(event: IpcMainInvokeEvent, ...args: any[]): any'.
+src/main/__tests__/memory-leaks.test.ts(477,13): error TS7034: Variable 'listeners' implicitly has type 'any[]' in some locations where its type cannot be determined.
+src/main/__tests__/memory-leaks.test.ts(484,16): error TS2769: No overload matches this call.
+  The last overload gave the following error.
+    Argument of type 'string' is not assignable to parameter of type '"window-all-closed"'.
+src/main/__tests__/memory-leaks.test.ts(490,9): error TS7005: Variable 'listeners' implicitly has an 'any[]' type.
+src/main/__tests__/mocked-apis.test.ts(12,1): error TS6133: 'fs' is declared but its value is never read.
+src/main/__tests__/mocked-electron-apis.test.ts(42,14): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{ home: string; appData: string; userData: string; temp: string; desktop: string; documents: string; downloads: string; music: string; pictures: string; videos: string; logs: string; pepperFlashSystemPlugin: string; }'.
+src/main/__tests__/mocked-electron-apis.test.ts(236,49): error TS6133: 'path' is declared but its value is never read.
+src/main/__tests__/mocked-electron-apis.test.ts(272,37): error TS6133: 'icon' is declared but its value is never read.
+src/main/__tests__/mocked-electron-apis.test.ts(390,26): error TS2345: Argument of type '"unknown"' is not assignable to parameter of type '"home" | "appData" | "userData" | "sessionData" | "temp" | "exe" | "module" | "desktop" | "documents" | "downloads" | "music" | "pictures" | "videos" | "recent" | "logs" | "crashDumps"'.
+src/main/__tests__/mocked-electron-apis.test.ts(401,24): error TS18048: 'app.dock' is possibly 'undefined'.
+src/main/__tests__/mocked-electron-apis.test.ts(404,7): error TS18048: 'app.dock' is possibly 'undefined'.
+src/main/__tests__/mocked-electron-apis.test.ts(405,14): error TS18048: 'app.dock' is possibly 'undefined'.
+src/main/__tests__/mocked-electron-apis.test.ts(407,20): error TS18048: 'app.dock' is possibly 'undefined'.
+src/main/__tests__/mocked-electron-apis.test.ts(408,14): error TS18048: 'app.dock' is possibly 'undefined'.
+src/main/__tests__/mocked-electron-apis.test.ts(430,21): error TS2339: Property 'options' does not exist on type 'BrowserWindow'.
+src/main/__tests__/mocked-electron-apis.test.ts(515,39): error TS2339: Property 'moveItemToTrash' does not exist on type 'Shell'.
+src/main/__tests__/mocked-electron-apis.test.ts(603,32): error TS2339: Property 'isDarkMode' does not exist on type 'SystemPreferences'.
+src/main/__tests__/mocked-electron-apis.test.ts(629,25): error TS2339: Property 'mock' does not exist on type '() => void'.
+src/main/__tests__/mocked-electron-apis.test.ts(630,25): error TS2339: Property 'mock' does not exist on type '() => void'.
+src/main/__tests__/mocked-electron-apis.test.ts(631,24): error TS2339: Property 'mock' does not exist on type '() => void'.
+src/main/__tests__/mocked-electron-apis.test.ts(640,44): error TS2339: Property 'mockImplementation' does not exist on type '(code: string, userGesture?: boolean | undefined) => Promise<any>'.
+src/main/__tests__/mocked-electron-apis.test.ts(640,70): error TS7006: Parameter 'code' implicitly has an 'any' type.
+src/main/index.ts(700,9): error TS2532: Object is possibly 'undefined'.
+src/main/index.ts(700,35): error TS2532: Object is possibly 'undefined'.
+src/main/index.ts(701,5): error TS2532: Object is possibly 'undefined'.
+src/main/security/secure-ipc-handler.ts(71,52): error TS2345: Argument of type 'WebFrameMain | null' is not assignable to parameter of type 'WebFrame | undefined'.
+  Type 'null' is not assignable to type 'WebFrame | undefined'.
+src/main/security/secure-ipc-handler.ts(149,38): error TS2339: Property 'url' does not exist on type 'WebFrame'.
+src/main/security/secure-ipc-handler.ts(158,26): error TS2339: Property 'frameId' does not exist on type 'WebFrame'.
+src/main/security/secure-ipc-handler.ts(169,28): error TS2339: Property 'frameId' does not exist on type 'WebFrame'.
+src/main/security/secure-ipc-handler.ts(174,52): error TS2339: Property 'frameId' does not exist on type 'WebFrame'.
+src/main/security/secure-ipc-handler.ts(180,31): error TS6133: 'event' is declared but its value is never read.
+src/main/security/security-monitor.ts(55,28): error TS2532: Object is possibly 'undefined'.
+src/main/security/security-monitor.ts(55,78): error TS2532: Object is possibly 'undefined'.
+src/main/security/security-monitor.ts(102,26): error TS2532: Object is possibly 'undefined'.
+src/main/security/security-monitor.ts(102,54): error TS2532: Object is possibly 'undefined'.
+src/main/utils/heap-snapshot-analyzer.ts(145,68): error TS18046: 'error' is of type 'unknown'.
+src/main/utils/heap-snapshot-analyzer.ts(248,37): error TS2538: Type 'undefined' cannot be used as an index type.
+src/main/utils/heap-snapshot-analyzer.ts(252,15): error TS2532: Object is possibly 'undefined'.
+src/main/utils/heap-snapshot-analyzer.ts(252,47): error TS2538: Type 'undefined' cannot be used as an index type.
+src/main/utils/heap-snapshot-analyzer.ts(259,5): error TS2322: Type '{ type: any; name: any; size: number | undefined; id: number; }[]' is not assignable to type 'SnapshotObject[]'.
+  Type '{ type: any; name: any; size: number | undefined; id: number; }' is not assignable to type 'SnapshotObject'.
+    Types of property 'size' are incompatible.
+      Type 'number | undefined' is not assignable to type 'number'.
+        Type 'undefined' is not assignable to type 'number'.
+src/main/utils/memory-monitor.ts(239,25): error TS18048: 'last' is possibly 'undefined'.
+src/main/utils/memory-monitor.ts(239,50): error TS18048: 'first' is possibly 'undefined'.
+src/main/utils/memory-monitor.ts(240,22): error TS18048: 'last' is possibly 'undefined'.
+src/main/utils/memory-monitor.ts(240,39): error TS18048: 'first' is possibly 'undefined'.
+src/main/utils/memory-monitor.ts(261,48): error TS2322: Type 'MemorySnapshot | undefined' is not assignable to type 'MemorySnapshot'.
+  Type 'undefined' is not assignable to type 'MemorySnapshot'.
+src/main/utils/memory-monitor.ts(261,58): error TS2322: Type 'MemorySnapshot | undefined' is not assignable to type 'MemorySnapshot'.
+  Type 'undefined' is not assignable to type 'MemorySnapshot'.
+src/main/utils/memory-monitor.ts(366,25): error TS18048: 'last' is possibly 'undefined'.
+src/main/utils/memory-monitor.ts(366,41): error TS18048: 'first' is possibly 'undefined'.
+src/main/utils/memory-monitor.ts(367,22): error TS18048: 'last' is possibly 'undefined'.
+src/main/utils/memory-monitor.ts(367,39): error TS18048: 'first' is possibly 'undefined'.
+src/preload/__tests__/baseline.test.ts(93,28): error TS2304: Cannot find name 'vi'.
+src/preload/__tests__/baseline.test.ts(101,28): error TS2304: Cannot find name 'vi'.
+src/preload/__tests__/baseline.test.ts(108,28): error TS2304: Cannot find name 'vi'.
+src/preload/__tests__/baseline.test.ts(117,26): error TS2304: Cannot find name 'vi'.
+src/preload/__tests__/baseline.test.ts(149,78): error TS2345: Argument of type 'Function' is not assignable to parameter of type '(event: IpcRendererEvent, ...args: any[]) => void'.
+  Type 'Function' provides no match for the signature '(event: IpcRendererEvent, ...args: any[]): void'.
+src/preload/__tests__/baseline.test.ts(152,49): error TS2345: Argument of type 'Function' is not assignable to parameter of type '(event: IpcRendererEvent, ...args: any[]) => void'.
+  Type 'Function' provides no match for the signature '(event: IpcRendererEvent, ...args: any[]): void'.
+src/preload/__tests__/baseline.test.ts(215,23): error TS2339: Property 'validateExposedAPI' does not exist on type 'ContextBridge'.
+src/preload/__tests__/baseline.test.ts(220,23): error TS2339: Property 'validateExposedAPI' does not exist on type 'ContextBridge'.
+src/preload/__tests__/baseline.test.ts(227,28): error TS2304: Cannot find name 'vi'.
+src/preload/__tests__/baseline.test.ts(237,29): error TS2304: Cannot find name 'vi'.
+src/preload/__tests__/baseline.test.ts(241,26): error TS2304: Cannot find name 'vi'.
+src/preload/__tests__/baseline.test.ts(257,25): error TS2304: Cannot find name 'vi'.
+src/preload/__tests__/baseline.test.ts(258,25): error TS2304: Cannot find name 'vi'.
+src/preload/__tests__/preload-security.test.ts(13,1): error TS2349: This expression is not callable.
+  Type 'void' has no call signatures.
+src/preload/__tests__/preload-security.test.ts(27,27): error TS2349: This expression is not callable.
+  Type '{ type: string; sandboxed: boolean; contextId: number; isMainFrame: boolean; env: { NODE_ENV: string; }; }' has no call signatures.
+src/preload/__tests__/preload-security.test.ts(367,7): error TS2349: This expression is not callable.
+  Type 'VitestUtils' has no call signatures.
+src/preload/__tests__/preload-security.test.ts(436,13): error TS6133: 'expectedWebPreferences' is declared but its value is never read.
+src/preload/__tests__/preload-security.test.ts(508,16): error TS6133: 'channel' is declared but its value is never read.
+src/preload/__tests__/preload-security.test.ts(602,14): error TS6133: 'channel' is declared but its value is never read.
+src/preload/__tests__/preload-security.test.ts(635,14): error TS18048: 'callArgs' is possibly 'undefined'.
+src/preload/__tests__/preload-security.test.ts(636,14): error TS18048: 'callArgs' is possibly 'undefined'.
+src/preload/__tests__/preload-security.test.ts(637,14): error TS18048: 'callArgs' is possibly 'undefined'.
+src/preload/__tests__/preload-security.test.ts(638,14): error TS18048: 'callArgs' is possibly 'undefined'.
+src/preload/__tests__/preload-security.test.ts(650,9): error TS2322: Type '{ __proto__: { polluted: true; }; }' is not assignable to type 'symbol | (() => string) | { __proto__: { polluted: boolean; }; constructor?: undefined; } | { constructor: { prototype: { polluted: boolean; }; }; __proto__?: undefined; } | null | undefined'.
+  Type '{ __proto__: { polluted: true; }; }' is not assignable to type '{ __proto__: { polluted: boolean; }; constructor?: undefined; }'.
+    Types of property 'constructor' are incompatible.
+      Type 'Function' is not assignable to type 'undefined'.
+src/renderer/src/__tests__/baseline.test.tsx(29,26): error TS2339: Property 'invoke' does not exist on type 'ElectronAPI'.
+src/renderer/src/__tests__/baseline.test.tsx(45,26): error TS2339: Property 'invoke' does not exist on type 'ElectronAPI'.
+src/renderer/src/__tests__/baseline.test.tsx(88,33): error TS2339: Property 'invoke' does not exist on type 'ElectronAPI'.
+src/renderer/src/__tests__/baseline.test.tsx(89,33): error TS2339: Property 'on' does not exist on type 'ElectronAPI'.
+src/renderer/src/__tests__/baseline.test.tsx(90,33): error TS2339: Property 'off' does not exist on type 'ElectronAPI'.
+src/renderer/src/__tests__/baseline.test.tsx(94,26): error TS2339: Property 'invoke' does not exist on type 'ElectronAPI'.
+src/renderer/src/__tests__/baseline.test.tsx(99,13): error TS2304: Cannot find name 'vi'.
+src/renderer/src/__tests__/baseline.test.tsx(103,33): error TS2339: Property 'invoke' does not exist on type 'ElectronAPI'.
+src/renderer/src/__tests__/baseline.test.tsx(107,26): error TS2339: Property 'invoke' does not exist on type 'ElectronAPI'.
+src/renderer/src/__tests__/baseline.test.tsx(116,28): error TS2304: Cannot find name 'vi'.
+src/renderer/src/__tests__/baseline.test.tsx(118,42): error TS2339: Property 'on' does not exist on type 'ElectronAPI'.
+src/renderer/src/__tests__/baseline.test.tsx(119,33): error TS2339: Property 'on' does not exist on type 'ElectronAPI'.
+src/renderer/src/__tests__/baseline.test.tsx(157,28): error TS2304: Cannot find name 'vi'.
+src/renderer/src/__tests__/baseline.test.tsx(168,28): error TS2304: Cannot find name 'vi'.
+src/renderer/src/__tests__/baseline.test.tsx(224,24): error TS2304: Cannot find name 'vi'.
+src/renderer/src/components/error/__tests__/ErrorBoundary.test.tsx(14,27): error TS2307: Cannot find module '@tests/setup' or its corresponding type declarations.
+src/renderer/src/components/error/__tests__/ErrorBoundary.test.tsx(36,1): error TS2304: Cannot find name 'afterEach'.
+src/renderer/src/components/error/__tests__/ErrorBoundary.test.tsx(107,24): error TS2322: Type '"page"' is not assignable to type '"route" | "app" | "component" | undefined'.
+src/renderer/src/components/error/__tests__/ErrorBoundary.test.tsx(196,42): error TS2322: Type '{ children: Element; level: "component"; componentName: string; }' is not assignable to type 'IntrinsicAttributes & IntrinsicClassAttributes<ErrorBoundary> & Readonly<Props>'.
+  Property 'componentName' does not exist on type 'IntrinsicAttributes & IntrinsicClassAttributes<ErrorBoundary> & Readonly<Props>'.
+src/renderer/src/components/error/__tests__/ErrorBoundary.test.tsx(216,24): error TS2322: Type '"page"' is not assignable to type '"route" | "app" | "component" | undefined'.
+src/renderer/src/components/error/__tests__/ErrorBoundary.test.tsx(298,24): error TS2322: Type '"page"' is not assignable to type '"route" | "app" | "component" | undefined'.
+src/renderer/src/components/error/__tests__/ErrorBoundary.test.tsx(312,19): error TS2540: Cannot assign to 'NODE_ENV' because it is a read-only property.
+src/renderer/src/components/error/__tests__/ErrorBoundary.test.tsx(319,42): error TS2322: Type '{ children: Element; level: "component"; showDetailedError: boolean; }' is not assignable to type 'IntrinsicAttributes & IntrinsicClassAttributes<ErrorBoundary> & Readonly<Props>'.
+  Property 'showDetailedError' does not exist on type 'IntrinsicAttributes & IntrinsicClassAttributes<ErrorBoundary> & Readonly<Props>'.
+src/renderer/src/components/error/__tests__/ErrorBoundary.test.tsx(328,19): error TS2540: Cannot assign to 'NODE_ENV' because it is a read-only property.
+src/renderer/src/components/error/__tests__/ErrorBoundary.test.tsx(334,19): error TS2540: Cannot assign to 'NODE_ENV' because it is a read-only property.
+src/renderer/src/components/error/__tests__/ErrorBoundary.test.tsx(347,19): error TS2540: Cannot assign to 'NODE_ENV' because it is a read-only property.
+src/renderer/src/components/error/__tests__/ErrorBoundary.test.tsx(354,42): error TS2322: Type '{ children: Element; level: "component"; componentName: string; }' is not assignable to type 'IntrinsicAttributes & IntrinsicClassAttributes<ErrorBoundary> & Readonly<Props>'.
+  Property 'componentName' does not exist on type 'IntrinsicAttributes & IntrinsicClassAttributes<ErrorBoundary> & Readonly<Props>'.
+src/renderer/src/components/error/__tests__/ErrorBoundary.test.tsx(462,42): error TS2322: Type '{ children: Element; level: "component"; reportToStore: boolean; }' is not assignable to type 'IntrinsicAttributes & IntrinsicClassAttributes<ErrorBoundary> & Readonly<Props>'.
+  Property 'reportToStore' does not exist on type 'IntrinsicAttributes & IntrinsicClassAttributes<ErrorBoundary> & Readonly<Props>'.
+src/renderer/src/components/error/IPCStatusNotification.tsx(19,3): error TS6133: 'Settings' is declared but its value is never read.
+src/renderer/src/components/error/IPCStatusNotification.tsx(20,3): error TS6133: 'Info' is declared but its value is never read.
+src/renderer/src/components/error/IPCStatusNotification.tsx(21,3): error TS6133: 'Clock' is declared but its value is never read.
+src/renderer/src/components/error/MUIErrorBoundary.tsx(51,11): error TS6133: 'HomeIcon' is declared but its value is never read.
+src/renderer/src/components/error/MUIErrorBoundary.tsx(56,14): error TS6133: 'RestoreIcon' is declared but its value is never read.
+src/renderer/src/components/error/withIPCErrorHandling.tsx(14,1): error TS6192: All imports in import declaration are unused.
+src/renderer/src/components/recovery/RecoveryDashboard.tsx(25,3): error TS6133: 'Download' is declared but its value is never read.
+src/renderer/src/components/recovery/RecoveryDashboard.tsx(26,3): error TS6133: 'Upload' is declared but its value is never read.
+src/renderer/src/components/recovery/RecoveryDashboard.tsx(31,3): error TS6133: 'Info' is declared but its value is never read.
+src/renderer/src/components/recovery/RecoveryDashboard.tsx(33,3): error TS6133: 'TrendingDown' is declared but its value is never read.
+src/renderer/src/components/recovery/RecoveryDashboard.tsx(34,3): error TS6133: 'Minus' is declared but its value is never read.
+src/renderer/src/components/recovery/RecoveryDashboard.tsx(35,3): error TS6133: 'FileText' is declared but its value is never read.
+src/renderer/src/components/recovery/RecoveryDashboard.tsx(41,1): error TS6192: All imports in import declaration are unused.
+src/renderer/src/components/recovery/RecoveryDashboard.tsx(249,11): error TS2532: Object is possibly 'undefined'.
+src/renderer/src/components/recovery/RecoveryNotification.tsx(24,3): error TS6133: 'Download' is declared but its value is never read.
+src/renderer/src/components/recovery/RecoveryNotification.tsx(25,3): error TS6133: 'Eye' is declared but its value is never read.
+src/renderer/src/components/recovery/RecoveryNotification.tsx(26,3): error TS6133: 'Settings' is declared but its value is never read.
+src/renderer/src/components/recovery/RecoveryNotification.tsx(84,13): error TS7030: Not all code paths return a value.
+src/renderer/src/components/task/__tests__/TaskCard.test.tsx(16,27): error TS2307: Cannot find module '@tests/setup' or its corresponding type declarations.
+src/renderer/src/components/task/__tests__/TaskCard.test.tsx(40,5): error TS2347: Untyped function calls may not accept type arguments.
+src/renderer/src/components/task/__tests__/TaskCard.test.tsx(40,33): error TS7006: Parameter 'props' implicitly has an 'any' type.
+src/renderer/src/components/task/__tests__/TaskCard.test.tsx(40,40): error TS7006: Parameter 'ref' implicitly has an 'any' type.
+src/renderer/src/components/task/__tests__/TaskCard.test.tsx(48,13): error TS6133: 'target' is declared but its value is never read.
+src/renderer/src/components/task/__tests__/TaskCard.test.tsx(158,47): error TS6133: 'content' is declared but its value is never read.
+src/renderer/src/components/task/__tests__/TaskCard.test.tsx(165,45): error TS6133: 'content' is declared but its value is never read.
+src/renderer/src/components/task/__tests__/TaskCard.test.tsx(196,47): error TS6133: 'content' is declared but its value is never read.
+src/renderer/src/components/task/__tests__/TaskCard.test.tsx(209,45): error TS6133: 'content' is declared but its value is never read.
+src/renderer/src/components/task/TaskCard.tsx(15,3): error TS6133: 'Edit3' is declared but its value is never read.
+src/renderer/src/components/task/TaskCard.tsx(16,3): error TS6133: 'Copy' is declared but its value is never read.
+src/renderer/src/components/task/TaskCard.tsx(17,3): error TS6133: 'Trash2' is declared but its value is never read.
+src/renderer/src/components/task/TaskCard.tsx(96,15): error TS7030: Not all code paths return a value.
+src/renderer/src/components/task/TaskCard.tsx(163,11): error TS2532: Object is possibly 'undefined'.
+src/renderer/src/components/ui/CommandPalette.tsx(150,5): error TS2532: Object is possibly 'undefined'.
+src/renderer/src/components/views/KanbanView.tsx(152,19): error TS2322: Type 'number | undefined' is not assignable to type 'number'.
+  Type 'undefined' is not assignable to type 'number'.
+src/renderer/src/components/views/PerformanceDashboard.tsx(8,3): error TS6133: 'Zap' is declared but its value is never read.
+src/renderer/src/components/views/PerformanceDashboard.tsx(10,3): error TS6133: 'CheckCircle2' is declared but its value is never read.
+src/renderer/src/components/views/PerformanceDashboard.tsx(14,3): error TS6133: 'Gauge' is declared but its value is never read.
+src/renderer/src/components/views/PerformanceDashboard.tsx(16,3): error TS6133: 'RefreshCw' is declared but its value is never read.
+src/renderer/src/components/views/PerformanceDashboard.tsx(24,40): error TS2307: Cannot find module '@/lib/performance-database' or its corresponding type declarations.
+src/renderer/src/components/views/PerformanceDashboard.tsx(288,50): error TS2532: Object is possibly 'undefined'.
+src/renderer/src/components/views/PerformanceDashboard.tsx(334,31): error TS2532: Object is possibly 'undefined'.
+src/renderer/src/components/views/PerformanceDashboard.tsx(370,11): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(props: Props): ReactApexChart', gave the following error.
+    Type '{ chart: { id: string; type: any; animations: { enabled: boolean; easing: string; speed: number; animateGradually: { enabled: boolean; delay: number; }; dynamicAnimation: { enabled: boolean; speed: number; }; }; toolbar: { ...; }; background: string; }; ... 8 more ...; responsive: { ...; }[]; } | { ...; }' is not assignable to type 'ApexOptions | undefined'.
+      Type '{ chart: { type: string; id: string; animations: { enabled: boolean; easing: string; speed: number; animateGradually: { enabled: boolean; delay: number; }; dynamicAnimation: { enabled: boolean; speed: number; }; }; toolbar: { ...; }; background: string; }; ... 10 more ...; responsive: { ...; }[]; }' is not assignable to type 'ApexOptions'.
+        The types of 'chart.type' are incompatible between these types.
+          Type 'string' is not assignable to type '"area" | "line" | "bar" | "heatmap" | "radialBar" | "pie" | "donut" | "scatter" | "bubble" | "candlestick" | "boxPlot" | "radar" | "polarArea" | "rangeBar" | "rangeArea" | "treemap" | undefined'.
+  Overload 2 of 2, '(props: Props, context: any): ReactApexChart', gave the following error.
+    Type '{ chart: { id: string; type: any; animations: { enabled: boolean; easing: string; speed: number; animateGradually: { enabled: boolean; delay: number; }; dynamicAnimation: { enabled: boolean; speed: number; }; }; toolbar: { ...; }; background: string; }; ... 8 more ...; responsive: { ...; }[]; } | { ...; }' is not assignable to type 'ApexOptions | undefined'.
+      Type '{ chart: { type: string; id: string; animations: { enabled: boolean; easing: string; speed: number; animateGradually: { enabled: boolean; delay: number; }; dynamicAnimation: { enabled: boolean; speed: number; }; }; toolbar: { ...; }; background: string; }; ... 10 more ...; responsive: { ...; }[]; }' is not assignable to type 'ApexOptions'.
+        The types of 'chart.type' are incompatible between these types.
+          Type 'string' is not assignable to type '"area" | "line" | "bar" | "heatmap" | "radialBar" | "pie" | "donut" | "scatter" | "bubble" | "candlestick" | "boxPlot" | "radar" | "polarArea" | "rangeBar" | "rangeArea" | "treemap" | undefined'.
+src/renderer/src/components/views/PerformanceDashboard.tsx(384,18): error TS6133: 'setAlerts' is declared but its value is never read.
+src/renderer/src/config/errorHandling.ts(320,10): error TS2678: Type '"staging"' is not comparable to type '"development" | "production" | "test"'.
+src/renderer/src/contexts/IPCContext.tsx(130,65): error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+src/renderer/src/examples/IPCErrorBoundaryExample.tsx(89,5): error TS6133: 'isAvailable' is declared but its value is never read.
+src/renderer/src/examples/IPCErrorBoundaryExample.tsx(91,5): error TS6133: 'safeInvoke' is declared but its value is never read.
+src/renderer/src/examples/IPCErrorBoundaryExample.tsx(92,5): error TS6133: 'hasError' is declared but its value is never read.
+src/renderer/src/examples/StoreErrorHandlingExample.tsx(387,19): error TS2345: Argument of type '{ title: string; description: string; status: "pending"; priority: "medium"; dependencies: never[]; subtasks: never[]; createdAt: string; updatedAt: string; }' is not assignable to parameter of type 'Omit<Task, "id">'.
+  Type '{ title: string; description: string; status: "pending"; priority: "medium"; dependencies: never[]; subtasks: never[]; createdAt: string; updatedAt: string; }' is missing the following properties from type 'Omit<Task, "id">': details, testStrategy
+src/renderer/src/hooks/useAppState.ts(127,32): error TS2339: Property 'sidebarOpen' does not exist on type 'TaskStore'.
+src/renderer/src/hooks/useAppState.ts(128,26): error TS2339: Property 'theme' does not exist on type 'TaskStore'.
+src/renderer/src/hooks/useAppState.ts(131,34): error TS2551: Property 'selectedTaskIds' does not exist on type 'TaskStore'. Did you mean 'selectedTask'?
+src/renderer/src/hooks/useAppState.ts(134,32): error TS2339: Property 'userPreferences' does not exist on type 'TaskStore'.
+src/renderer/src/hooks/useAppState.ts(135,29): error TS2339: Property 'settings' does not exist on type 'TaskStore'.
+src/renderer/src/hooks/useAppState.ts(145,9): error TS2322: Type 'Error | null' is not assignable to type 'Error | undefined'.
+  Type 'null' is not assignable to type 'Error | undefined'.
+src/renderer/src/hooks/useAppState.ts(247,27): error TS2532: Object is possibly 'undefined'.
+src/renderer/src/hooks/useAppState.ts(356,18): error TS18046: 'error' is of type 'unknown'.
+src/renderer/src/hooks/useAppState.ts(451,56): error TS18048: 'mostRecent' is possibly 'undefined'.
+src/renderer/src/hooks/useAppState.ts(454,51): error TS18048: 'mostRecent' is possibly 'undefined'.
+src/renderer/src/hooks/useAppState.ts(455,28): error TS18048: 'mostRecent' is possibly 'undefined'.
+src/renderer/src/hooks/useAppState.ts(572,3): error TS2484: Export declaration conflicts with exported declaration of 'AppState'.
+src/renderer/src/hooks/useAppState.ts(573,3): error TS2484: Export declaration conflicts with exported declaration of 'StatePreservationResult'.
+src/renderer/src/hooks/useAppState.ts(574,3): error TS2484: Export declaration conflicts with exported declaration of 'StateRestorationResult'.
+src/renderer/src/hooks/useAppState.ts(575,3): error TS2484: Export declaration conflicts with exported declaration of 'UseAppStateOptions'.
+src/renderer/src/hooks/useErrorBoundary.ts(17,10): error TS2305: Module '"react-error-boundary"' has no exported member 'useErrorHandler'.
+src/renderer/src/hooks/useErrorBoundary.ts(424,20): error TS6133: 'error' is declared but its value is never read.
+src/renderer/src/hooks/useErrorBoundary.ts(436,20): error TS6133: 'error' is declared but its value is never read.
+src/renderer/src/hooks/useErrorBoundary.ts(448,20): error TS6133: 'error' is declared but its value is never read.
+src/renderer/src/hooks/useErrorBoundary.ts(448,27): error TS6133: 'state' is declared but its value is never read.
+src/renderer/src/hooks/useErrorBoundary.ts(460,27): error TS6133: 'state' is declared but its value is never read.
+src/renderer/src/hooks/useErrorBoundary.ts(501,3): error TS2484: Export declaration conflicts with exported declaration of 'ErrorBoundaryState'.
+src/renderer/src/hooks/useErrorBoundary.ts(502,3): error TS2484: Export declaration conflicts with exported declaration of 'ErrorRecoveryStrategy'.
+src/renderer/src/hooks/useErrorBoundary.ts(503,3): error TS2484: Export declaration conflicts with exported declaration of 'UseErrorBoundaryOptions'.
+src/renderer/src/lib/config/monitoring.ts(386,3): error TS2484: Export declaration conflicts with exported declaration of 'MonitoringFeatureFlags'.
+src/renderer/src/lib/config/monitoring.ts(387,3): error TS2484: Export declaration conflicts with exported declaration of 'MonitoringEndpoints'.
+src/renderer/src/lib/config/monitoring.ts(388,3): error TS2484: Export declaration conflicts with exported declaration of 'SampleRates'.
+src/renderer/src/lib/config/monitoring.ts(389,3): error TS2484: Export declaration conflicts with exported declaration of 'MonitoringConfig'.
+src/renderer/src/lib/config/monitoring.ts(390,3): error TS2484: Export declaration conflicts with exported declaration of 'UserMonitoringSettings'.
+src/renderer/src/lib/config/monitoring.ts(391,3): error TS2484: Export declaration conflicts with exported declaration of 'MonitoringHealthStatus'.
+src/renderer/src/lib/config/performance-dashboard.ts(749,3): error TS2484: Export declaration conflicts with exported declaration of 'PerformanceMetricConfig'.
+src/renderer/src/lib/config/performance-dashboard.ts(750,3): error TS2484: Export declaration conflicts with exported declaration of 'AlertThresholdConfig'.
+src/renderer/src/lib/config/performance-dashboard.ts(751,3): error TS2484: Export declaration conflicts with exported declaration of 'VisualizationConfig'.
+src/renderer/src/lib/config/performance-dashboard.ts(752,3): error TS2484: Export declaration conflicts with exported declaration of 'DashboardLayoutConfig'.
+src/renderer/src/lib/config/performance-dashboard.ts(753,3): error TS2484: Export declaration conflicts with exported declaration of 'WidgetConfig'.
+src/renderer/src/lib/config/performance-dashboard.ts(754,3): error TS2484: Export declaration conflicts with exported declaration of 'RealTimeDataConfig'.
+src/renderer/src/lib/config/performance-dashboard.ts(755,3): error TS2484: Export declaration conflicts with exported declaration of 'DataRetentionConfig'.
+src/renderer/src/lib/config/performance-dashboard.ts(756,3): error TS2484: Export declaration conflicts with exported declaration of 'PerformanceDashboardConfig'.
+src/renderer/src/lib/ipcRetry.ts(104,11): error TS6133: 'operationQueue' is declared but its value is never read.
+src/renderer/src/lib/ipcRetry.ts(105,11): error TS6133: 'isProcessing' is declared but its value is never read.
+src/renderer/src/lib/ipcRetry.ts(230,40): error TS2345: Argument of type 'string' is not assignable to parameter of type 'IPCErrorCode'.
+src/renderer/src/lib/ipcRetry.ts(365,52): error TS6133: 'error' is declared but its value is never read.
+src/renderer/src/lib/services/crashRecovery.ts(345,61): error TS2345: Argument of type 'StoreApi<any> | undefined' is not assignable to parameter of type 'StoreApi<any>'.
+  Type 'undefined' is not assignable to type 'StoreApi<any>'.
+src/renderer/src/lib/services/crashRecovery.ts(431,44): error TS6133: 'store' is declared but its value is never read.
+src/renderer/src/lib/services/crashRecovery.ts(737,3): error TS2484: Export declaration conflicts with exported declaration of 'CrashRecoveryOptions'.
+src/renderer/src/lib/services/crashRecovery.ts(738,3): error TS2484: Export declaration conflicts with exported declaration of 'RecoveryStrategy'.
+src/renderer/src/lib/services/crashRecovery.ts(739,3): error TS2484: Export declaration conflicts with exported declaration of 'RecoveryMethod'.
+src/renderer/src/lib/services/crashRecovery.ts(740,3): error TS2484: Export declaration conflicts with exported declaration of 'CrashIndicator'.
+src/renderer/src/lib/services/crashRecovery.ts(741,3): error TS2484: Export declaration conflicts with exported declaration of 'RecoveryAttemptResult'.
+src/renderer/src/lib/services/crashRecovery.ts(742,3): error TS2484: Export declaration conflicts with exported declaration of 'CrashRecoveryResult'.
+src/renderer/src/lib/services/crashRecovery.ts(743,3): error TS2484: Export declaration conflicts with exported declaration of 'RecoverySummary'.
+src/renderer/src/lib/services/crashRecovery.ts(744,3): error TS2484: Export declaration conflicts with exported declaration of 'HealthStatus'.
+src/renderer/src/lib/services/errorReporting.ts(452,34): error TS2551: Property 'markErrorReported' does not exist on type 'ErrorStore'. Did you mean 'markErrorRecovered'?
+src/renderer/src/lib/services/errorReporting.ts(563,15): error TS2484: Export declaration conflicts with exported declaration of 'ErrorReportingConfig'.
+src/renderer/src/lib/services/globalErrorHandler.ts(58,5): error TS2322: Type 'OnErrorEventHandler' is not assignable to type '((event: ErrorEvent) => any) | undefined'.
+  Type 'null' is not assignable to type '((event: ErrorEvent) => any) | undefined'.
+src/renderer/src/lib/services/globalErrorHandler.ts(59,5): error TS2322: Type '(((this: WindowEventHandlers, ev: PromiseRejectionEvent) => any) & ((this: Window, ev: PromiseRejectionEvent) => any)) | null' is not assignable to type '((event: PromiseRejectionEvent) => any) | undefined'.
+  Type 'null' is not assignable to type '((event: PromiseRejectionEvent) => any) | undefined'.
+src/renderer/src/lib/services/globalErrorHandler.ts(300,20): error TS2367: This comparison appears to be unintentional because the types 'HTMLElement' and 'Window & typeof globalThis' have no overlap.
+src/renderer/src/lib/services/globalErrorHandler.ts(698,5): error TS2322: Type '((event: ErrorEvent) => any) | null' is not assignable to type 'OnErrorEventHandler'.
+  Type '(event: ErrorEvent) => any' is not assignable to type 'OnErrorEventHandler'.
+    Types of parameters 'event' and 'event' are incompatible.
+      Type 'string | Event' is not assignable to type 'ErrorEvent'.
+        Type 'string' is not assignable to type 'ErrorEvent'.
+src/renderer/src/lib/services/globalErrorHandler.ts(710,15): error TS2484: Export declaration conflicts with exported declaration of 'GlobalErrorHandlerConfig'.
+src/renderer/src/lib/services/monitoring.ts(284,33): error TS6133: 'config' is declared but its value is never read.
+src/renderer/src/lib/services/monitoring.ts(321,29): error TS2686: 'React' refers to a UMD global, but the current file is a module. Consider adding an import instead.
+src/renderer/src/lib/services/monitoring.ts(323,3): error TS2686: 'React' refers to a UMD global, but the current file is a module. Consider adding an import instead.
+src/renderer/src/lib/services/monitoring.ts(353,15): error TS2484: Export declaration conflicts with exported declaration of 'MonitoringServiceManager'.
+src/renderer/src/lib/services/monitoring.ts(353,41): error TS2484: Export declaration conflicts with exported declaration of 'MonitoringServiceState'.
+src/renderer/src/lib/services/telemetry.ts(577,72): error TS2339: Property 'domLoading' does not exist on type 'PerformanceNavigationTiming'.
+src/renderer/src/lib/services/telemetry.ts(597,37): error TS2345: Argument of type 'PerformanceNavigationTiming | undefined' is not assignable to parameter of type 'PerformanceNavigationTiming'.
+  Type 'undefined' is not assignable to type 'PerformanceNavigationTiming'.
+src/renderer/src/lib/services/telemetry.ts(743,15): error TS2484: Export declaration conflicts with exported declaration of 'TelemetryConfig'.
+src/renderer/src/lib/utils.ts(136,5): error TS2322: Type '{ date: string | undefined; remaining: number; completed: number; }[]' is not assignable to type '{ date: string; remaining: number; completed: number; }[]'.
+  Type '{ date: string | undefined; remaining: number; completed: number; }' is not assignable to type '{ date: string; remaining: number; completed: number; }'.
+    Types of property 'date' are incompatible.
+      Type 'string | undefined' is not assignable to type 'string'.
+        Type 'undefined' is not assignable to type 'string'.
+src/renderer/src/services/ErrorReportingService.ts(266,22): error TS2550: Property 'cause' does not exist on type 'Error'. Do you need to change your target library? Try changing the 'lib' compiler option to 'es2022' or later.
+src/renderer/src/services/ErrorReportingService.ts(268,7): error TS2322: Type '{ componentStack: string | null | undefined; errorBoundary: string | undefined; } | undefined' is not assignable to type '{ componentStack?: string | undefined; errorBoundary?: string | undefined; } | undefined'.
+  Type '{ componentStack: string | null | undefined; errorBoundary: string | undefined; }' is not assignable to type '{ componentStack?: string | undefined; errorBoundary?: string | undefined; }'.
+    Types of property 'componentStack' are incompatible.
+      Type 'string | null | undefined' is not assignable to type 'string | undefined'.
+        Type 'null' is not assignable to type 'string | undefined'.
+src/renderer/src/services/ErrorReportingService.ts(270,32): error TS2345: Argument of type 'string | null | undefined' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+src/renderer/src/services/ErrorReportingService.ts(494,11): error TS6133: 'loadOfflineQueue' is declared but its value is never read.
+src/renderer/src/services/ErrorReportingService.ts(599,3): error TS2484: Export declaration conflicts with exported declaration of 'ErrorContext'.
+src/renderer/src/services/ErrorReportingService.ts(600,3): error TS2484: Export declaration conflicts with exported declaration of 'ErrorReport'.
+src/renderer/src/services/ErrorReportingService.ts(601,3): error TS2484: Export declaration conflicts with exported declaration of 'UserFeedback'.
+src/renderer/src/services/ErrorReportingService.ts(602,3): error TS2484: Export declaration conflicts with exported declaration of 'ErrorReportingConfig'.
+src/renderer/src/store/__tests__/errorHandling.test.ts(11,1): error TS6192: All imports in import declaration are unused.
+src/renderer/src/store/__tests__/errorHandling.test.ts(61,42): error TS2349: This expression is not callable.
+  Type 'never' has no call signatures.
+src/renderer/src/store/__tests__/errorHandling.test.ts(69,42): error TS2349: This expression is not callable.
+  Type 'never' has no call signatures.
+src/renderer/src/store/__tests__/errorHandling.test.ts(77,42): error TS2349: This expression is not callable.
+  Type 'never' has no call signatures.
+src/renderer/src/store/__tests__/errorHandling.test.ts(84,42): error TS2349: This expression is not callable.
+  Type 'never' has no call signatures.
+src/renderer/src/store/__tests__/errorHandling.test.ts(92,42): error TS2349: This expression is not callable.
+  Type 'never' has no call signatures.
+src/renderer/src/store/__tests__/errorHandling.test.ts(115,38): error TS2349: This expression is not callable.
+  Type 'never' has no call signatures.
+src/renderer/src/store/__tests__/errorHandling.test.ts(191,12): error TS2532: Object is possibly 'undefined'.
+src/renderer/src/store/__tests__/errorHandling.test.ts(192,12): error TS2532: Object is possibly 'undefined'.
+src/renderer/src/store/__tests__/errorHandling.test.ts(256,12): error TS2532: Object is possibly 'undefined'.
+src/renderer/src/store/__tests__/errorHandling.test.ts(359,12): error TS2532: Object is possibly 'undefined'.
+src/renderer/src/store/__tests__/errorHandling.test.ts(360,12): error TS2532: Object is possibly 'undefined'.
+src/renderer/src/store/__tests__/errorHandling.test.ts(441,12): error TS2532: Object is possibly 'undefined'.
+src/renderer/src/store/__tests__/errorHandling.test.ts(442,12): error TS2532: Object is possibly 'undefined'.
+src/renderer/src/store/__tests__/errorHandling.test.ts(492,7): error TS2739: Type '{ title: string; description: string; status: "pending"; priority: "medium"; dependencies: never[]; subtasks: never[]; }' is missing the following properties from type 'Omit<Task, "id" | "createdAt" | "updatedAt">': details, testStrategy
+src/renderer/src/store/__tests__/errorHandling.test.ts(722,29): error TS18048: 'metrics.p95' is possibly 'undefined'.
+src/renderer/src/store/__tests__/errorHandling.test.ts(723,29): error TS18048: 'metrics.p99' is possibly 'undefined'.
+src/renderer/src/store/__tests__/errorHandling.test.ts(776,12): error TS18048: 'latestError' is possibly 'undefined'.
+src/renderer/src/store/__tests__/errorHandling.test.ts(777,21): error TS18048: 'latestError' is possibly 'undefined'.
+src/renderer/src/store/__tests__/errorHandling.test.ts(777,21): error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+src/renderer/src/store/__tests__/useTaskStore.test.ts(13,27): error TS2307: Cannot find module '@tests/setup' or its corresponding type declarations.
+src/renderer/src/store/__tests__/useTaskStore.test.ts(14,15): error TS6196: 'Task' is declared but never used.
+src/renderer/src/store/__tests__/useTaskStore.test.ts(14,31): error TS6196: 'UserSettings' is declared but never used.
+src/renderer/src/store/__tests__/useTaskStore.test.ts(72,14): error TS2532: Object is possibly 'undefined'.
+src/renderer/src/store/__tests__/useTaskStore.test.ts(73,14): error TS2532: Object is possibly 'undefined'.
+src/renderer/src/store/__tests__/useTaskStore.test.ts(74,14): error TS2532: Object is possibly 'undefined'.
+src/renderer/src/store/__tests__/useTaskStore.test.ts(86,22): error TS2532: Object is possibly 'undefined'.
+src/renderer/src/store/__tests__/useTaskStore.test.ts(116,22): error TS2532: Object is possibly 'undefined'.
+src/renderer/src/store/__tests__/useTaskStore.test.ts(138,26): error TS2532: Object is possibly 'undefined'.
+src/renderer/src/store/__tests__/useTaskStore.test.ts(151,50): error TS2532: Object is possibly 'undefined'.
+src/renderer/src/store/__tests__/useTaskStore.test.ts(168,22): error TS2532: Object is possibly 'undefined'.
+src/renderer/src/store/__tests__/useTaskStore.test.ts(181,40): error TS2345: Argument of type '{ title: string; description: string; status: "pending"; priority: "low"; }' is not assignable to parameter of type 'Omit<Subtask, "id" | "taskId">'.
+  Property 'details' is missing in type '{ title: string; description: string; status: "pending"; priority: "low"; }' but required in type 'Omit<Subtask, "id" | "taskId">'.
+src/renderer/src/store/__tests__/useTaskStore.test.ts(187,14): error TS2532: Object is possibly 'undefined'.
+src/renderer/src/store/__tests__/useTaskStore.test.ts(199,11): error TS2353: Object literal may only specify known properties, and 'priority' does not exist in type 'Omit<Subtask, "id" | "taskId">'.
+src/renderer/src/store/__tests__/useTaskStore.test.ts(204,25): error TS2532: Object is possibly 'undefined'.
+src/renderer/src/store/__tests__/useTaskStore.test.ts(232,11): error TS2353: Object literal may only specify known properties, and 'priority' does not exist in type 'Omit<Subtask, "id" | "taskId">'.
+src/renderer/src/store/__tests__/useTaskStore.test.ts(237,25): error TS2532: Object is possibly 'undefined'.
+src/renderer/src/store/__tests__/useTaskStore.test.ts(287,14): error TS2532: Object is possibly 'undefined'.
+src/renderer/src/store/__tests__/useTaskStore.test.ts(290,14): error TS2532: Object is possibly 'undefined'.
+src/renderer/src/store/__tests__/useTaskStore.test.ts(293,14): error TS2532: Object is possibly 'undefined'.
+src/renderer/src/store/__tests__/useTaskStore.test.ts(317,14): error TS2532: Object is possibly 'undefined'.
+src/renderer/src/store/__tests__/useTaskStore.test.ts(332,14): error TS2532: Object is possibly 'undefined'.
+src/renderer/src/store/__tests__/useTaskStore.test.ts(446,14): error TS2532: Object is possibly 'undefined'.
+src/renderer/src/store/__tests__/useTaskStore.test.ts(447,14): error TS2532: Object is possibly 'undefined'.
+src/renderer/src/store/__tests__/useTaskStore.test.ts(465,14): error TS2532: Object is possibly 'undefined'.
+src/renderer/src/store/__tests__/useTaskStore.test.ts(466,14): error TS2532: Object is possibly 'undefined'.
+src/renderer/src/store/__tests__/useTaskStore.test.ts(476,31): error TS2345: Argument of type 'number' is not assignable to parameter of type 'Task'.
+src/renderer/src/store/__tests__/useTaskStore.test.ts(519,26): error TS2345: Argument of type 'number | undefined' is not assignable to parameter of type 'number'.
+  Type 'undefined' is not assignable to type 'number'.
+src/renderer/src/store/__tests__/useTaskStore.test.ts(522,54): error TS2345: Argument of type 'number | undefined' is not assignable to parameter of type 'number'.
+  Type 'undefined' is not assignable to type 'number'.
+src/renderer/src/store/__tests__/useTaskStore.test.ts(524,14): error TS2532: Object is possibly 'undefined'.
+src/renderer/src/store/__tests__/useTaskStore.test.ts(532,26): error TS2345: Argument of type 'number | undefined' is not assignable to parameter of type 'number'.
+  Type 'undefined' is not assignable to type 'number'.
+src/renderer/src/store/__tests__/useTaskStore.test.ts(535,52): error TS2345: Argument of type 'number | undefined' is not assignable to parameter of type 'number'.
+  Type 'undefined' is not assignable to type 'number'.
+src/renderer/src/store/__tests__/useTaskStore.test.ts(537,14): error TS2532: Object is possibly 'undefined'.
+src/renderer/src/store/backupService.ts(177,33): error TS2339: Property 'saveBackup' does not exist on type 'ElectronAPI'.
+src/renderer/src/store/backupService.ts(189,40): error TS2339: Property 'loadBackup' does not exist on type 'ElectronAPI'.
+src/renderer/src/store/backupService.ts(200,31): error TS2339: Property 'deleteBackup' does not exist on type 'ElectronAPI'.
+src/renderer/src/store/backupService.ts(209,40): error TS2339: Property 'listBackups' does not exist on type 'ElectronAPI'.
+src/renderer/src/store/errorStore.ts(206,3): error TS2345: Argument of type 'StateCreator<ErrorStoreState, [], [["zustand/persist", ErrorStoreState], ["zustand/subscribeWithSelector", never], ["zustand/immer", never]]>' is not assignable to parameter of type 'StateCreator<ErrorStore, [], [["zustand/persist", ErrorStoreState], ["zustand/subscribeWithSelector", never], ["zustand/immer", never]]>'.
+  Type 'StateCreator<ErrorStoreState, [], [["zustand/persist", ErrorStoreState], ["zustand/subscribeWithSelector", never], ["zustand/immer", never]]>' is not assignable to type '(setState: { (partial: ErrorStore | Partial<ErrorStore> | ((state: ErrorStore) => ErrorStore | Partial<ErrorStore>), replace?: false | undefined): void; (state: ErrorStore | ((state: ErrorStore) => ErrorStore), replace: true): void; }, getState: () => ErrorStore, store: StoreApi<...>) => ErrorStore'.
+    Type 'ErrorStoreState' is not assignable to type 'ErrorStore'.
+      Type 'ErrorStoreState' is missing the following properties from type 'ErrorStoreActions': addError, addErrors, clearError, clearErrors, and 19 more.
+src/renderer/src/store/errorStore.ts(207,5): error TS2345: Argument of type 'StateCreator<ErrorStore, [["zustand/persist", unknown]], [["zustand/subscribeWithSelector", never], ["zustand/immer", never]]>' is not assignable to parameter of type 'StateCreator<ErrorStoreState, [["zustand/persist", unknown]], [["zustand/subscribeWithSelector", never], ["zustand/immer", never]]>'.
+  Type 'StateCreator<ErrorStore, [["zustand/persist", unknown]], [["zustand/subscribeWithSelector", never], ["zustand/immer", never]]>' is not assignable to type '(setState: { (partial: ErrorStoreState | Partial<ErrorStoreState> | ((state: ErrorStoreState) => ErrorStoreState | Partial<...>), replace?: false | undefined): void; (state: ErrorStoreState | ((state: ErrorStoreState) => ErrorStoreState), replace: true): void; }, getState: () => ErrorStoreState, store: Write<...>) =...'.
+    Types of parameters 'getState' and 'getState' are incompatible.
+      Type '() => ErrorStoreState' is not assignable to type '() => ErrorStore'.
+        Type 'ErrorStoreState' is not assignable to type 'ErrorStore'.
+          Type 'ErrorStoreState' is missing the following properties from type 'ErrorStoreActions': addError, addErrors, clearError, clearErrors, and 19 more.
+src/renderer/src/store/errorStore.ts(235,11): error TS2532: Object is possibly 'undefined'.
+src/renderer/src/store/errorStore.ts(296,13): error TS2532: Object is possibly 'undefined'.
+src/renderer/src/store/errorStore.ts(338,31): error TS6133: 'strategy' is declared but its value is never read.
+src/renderer/src/store/errorStore.ts(472,13): error TS2532: Object is possibly 'undefined'.
+src/renderer/src/store/errorStore.ts(475,11): error TS2322: Type 'number | undefined' is not assignable to type 'number'.
+  Type 'undefined' is not assignable to type 'number'.
+src/renderer/src/store/rehydration.ts(166,33): error TS6133: 'metadata' is declared but its value is never read.
+src/renderer/src/store/rehydration.ts(333,45): error TS2345: Argument of type 'T | VersionedState<T>' is not assignable to parameter of type 'T'.
+  'T' could be instantiated with an arbitrary type which could be unrelated to 'T | VersionedState<T>'.
+src/renderer/src/store/stateBackup.ts(159,43): error TS6133: 'match' is declared but its value is never read.
+src/renderer/src/store/stateBackup.ts(280,47): error TS18048: 'oldest' is possibly 'undefined'.
+src/renderer/src/store/storeErrorWrapper.ts(396,21): error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
+src/renderer/src/utils/sessionPreservation.ts(528,35): error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+tests/mocks/mock-update-server.ts(98,24): error TS6133: 'res' is declared but its value is never read.
+tests/mocks/mock-update-server.ts(112,19): error TS6133: 'req' is declared but its value is never read.
+tests/mocks/mock-update-server.ts(122,27): error TS7006: Parameter 'data' implicitly has an 'any' type.
+tests/mocks/mock-update-server.ts(123,9): error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
+tests/mocks/mock-update-server.ts(129,34): error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
+tests/mocks/mock-update-server.ts(137,33): error TS2769: No overload matches this call.
+  The last overload gave the following error.
+    Argument of type '(req: Request<{}, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>, number>) => Response<any, Record<...>, number> | undefined' is not assignable to parameter of type 'Application<Record<string, any>>'.
+      Type '(req: Request<{}, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>, number>) => Response<any, Record<...>, number> | undefined' is missing the following properties from type 'Application<Record<string, any>>': init, defaultConfiguration, engine, set, and 63 more.
+tests/mocks/mock-update-server.ts(137,33): error TS7030: Not all code paths return a value.
+tests/mocks/mock-update-server.ts(149,37): error TS2769: No overload matches this call.
+  The last overload gave the following error.
+    Argument of type '(req: Request<{}, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>, number>) => Response<any, Record<...>, number> | undefined' is not assignable to parameter of type 'Application<Record<string, any>>'.
+      Type '(req: Request<{}, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>, number>) => Response<any, Record<...>, number> | undefined' is missing the following properties from type 'Application<Record<string, any>>': init, defaultConfiguration, engine, set, and 63 more.
+tests/mocks/mock-update-server.ts(149,37): error TS7030: Not all code paths return a value.
+tests/mocks/mock-update-server.ts(164,34): error TS2769: No overload matches this call.
+  The last overload gave the following error.
+    Argument of type '(req: Request<{}, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>, number>) => Response<any, Record<...>, number> | undefined' is not assignable to parameter of type 'Application<Record<string, any>>'.
+      Type '(req: Request<{}, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>, number>) => Response<any, Record<...>, number> | undefined' is missing the following properties from type 'Application<Record<string, any>>': init, defaultConfiguration, engine, set, and 63 more.
+tests/mocks/mock-update-server.ts(164,34): error TS7030: Not all code paths return a value.
+tests/mocks/mock-update-server.ts(174,41): error TS2769: No overload matches this call.
+  The last overload gave the following error.
+    Argument of type '(req: Request<{ filename: string; }, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>, number>) => Response<...> | undefined' is not assignable to parameter of type 'Application<Record<string, any>>'.
+      Type '(req: Request<{ filename: string; }, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>, number>) => Response<...> | undefined' is missing the following properties from type 'Application<Record<string, any>>': init, defaultConfiguration, engine, set, and 63 more.
+tests/mocks/mock-update-server.ts(174,41): error TS7030: Not all code paths return a value.
+tests/mocks/mock-update-server.ts(196,32): error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+tests/mocks/mock-update-server.ts(209,59): error TS2769: No overload matches this call.
+  The last overload gave the following error.
+    Argument of type '(req: Request<{ fromVersion: string; } & { toVersion: string; }, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>, number>) => Response<...> | undefined' is not assignable to parameter of type 'Application<Record<string, any>>'.
+      Type '(req: Request<{ fromVersion: string; } & { toVersion: string; }, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>, number>) => Response<...> | undefined' is missing the following properties from type 'Application<Record<string, any>>': init, defaultConfiguration, engine, set, and 63 more.
+tests/mocks/mock-update-server.ts(209,59): error TS7030: Not all code paths return a value.
+tests/mocks/mock-update-server.ts(244,30): error TS6133: 'req' is declared but its value is never read.
+tests/mocks/mock-update-server.ts(307,43): error TS2345: Argument of type 'string | string[] | undefined' is not assignable to parameter of type 'BinaryLike'.
+  Type 'undefined' is not assignable to type 'BinaryLike'.
+tests/setup/preload.setup.ts(58,59): error TS6133: 'args' is declared but its value is never read.
+tests/setup/preload.setup.ts(136,61): error TS6133: 'args' is declared but its value is never read.
+tests/setup/preload.setup.ts(299,66): error TS6133: 'args' is declared but its value is never read.

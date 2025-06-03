@@ -1,0 +1,267 @@
+import { defineConfig, externalizeDepsPlugin } from 'electron-vite';
+import react from '@vitejs/plugin-react';
+import { resolve } from 'path';
+import { visualizer } from 'rollup-plugin-visualizer';
+import packageJson from './package.json';
+
+/**
+ * electron-vite Configuration for TaskMaster UI
+ * 2025 Best Practices Implementation
+ * 
+ * This configuration consolidates the previous separate Vite configs for:
+ * - Main process (electron/main.ts → dist/electron/main.cjs)
+ * - Preload script (electron/preload.ts → dist/electron/preload.cjs)  
+ * - Renderer process (src/ → dist/renderer)
+ * 
+ * Features:
+ * - TypeScript support across all processes
+ * - Path aliases for clean imports
+ * - Security-focused CSP and headers
+ * - Source maps for debugging
+ * - Dependency externalization for optimal builds
+ * - React support with hot reloading
+ */
+export default defineConfig({
+  /**
+   * Main Process Configuration
+   * Builds the Electron main process from TypeScript
+   */
+  main: {
+    plugins: [externalizeDepsPlugin()],
+    publicDir: 'resources', // Configure public directory for main process assets
+    build: {
+      lib: {
+        entry: resolve(__dirname, 'src/main/index.ts'),
+        formats: ['cjs'],
+        fileName: 'main',
+      },
+      outDir: 'dist/main',
+      emptyOutDir: false, // Don't clean the directory to preserve preload script
+      // Enhanced watch configuration for 2025 best practices
+      watch: {
+        include: ['src/main/**/*'],
+        exclude: ['node_modules/**', 'dist/**', 'out/**'],
+        // Rollup watch options for optimal performance  
+        buildDelay: 100, // Debounce rebuilds
+        clearScreen: false, // Keep terminal output visible
+      },
+      rollupOptions: {
+        external: [
+          // Core Electron modules
+          'electron',
+          'electron-updater',
+          
+          // Node.js built-in modules  
+          'path',
+          'os',
+          'fs',
+          'child_process',
+          'module',
+          'url',
+          'crypto',
+          'http',
+          'https',
+          'stream',
+          'util',
+          
+          // All package.json dependencies should be external for main process
+          ...Object.keys(packageJson.dependencies || {}),
+        ],
+        output: {
+          // Preserve import.meta.url for ES modules compatibility
+          preserveModules: false,
+        }
+      },
+      minify: false, // Keep readable for debugging and security auditing
+      sourcemap: true,
+      // Target Node.js environment
+      ssr: true,
+      target: 'node18',
+    },
+    resolve: {
+      alias: {
+        '@': resolve(__dirname, './src'),
+        '@components': resolve(__dirname, './src/components'),
+        '@lib': resolve(__dirname, './src/lib'),
+        '@hooks': resolve(__dirname, './src/hooks'),
+        '@types': resolve(__dirname, './src/types'),
+        '@store': resolve(__dirname, './src/store'),
+        '@utils': resolve(__dirname, './src/utils'),
+      },
+    },
+    define: {
+      // Define __dirname for use in main process
+      __dirname: `"${resolve(__dirname, 'dist', 'main')}"`,
+      'import.meta.url': 'import.meta.url',
+    },
+  },
+
+  /**
+   * Preload Script Configuration  
+   * Builds the secure bridge between main and renderer processes
+   */
+  preload: {
+    plugins: [externalizeDepsPlugin()],
+    publicDir: 'resources', // Configure public directory for preload process assets
+    build: {
+      lib: {
+        entry: resolve(__dirname, 'src/preload/index.ts'),
+        formats: ['cjs'],
+        fileName: 'preload',
+      },
+      outDir: 'dist/preload',
+      emptyOutDir: false, // Don't clean the directory to preserve main script
+      // Enhanced watch configuration for preload scripts
+      watch: {
+        include: ['src/preload/**/*'],
+        exclude: ['node_modules/**', 'dist/**', 'out/**'],
+        buildDelay: 100, // Debounce rebuilds for performance
+        clearScreen: false, // Keep terminal output visible
+      },
+      rollupOptions: {
+        external: [
+          'electron', // Only electron needs to be external for preload
+        ],
+        output: {
+          format: 'cjs',
+          exports: 'auto',
+          inlineDynamicImports: true,
+        }
+      },
+      minify: false, // Keep readable for security auditing
+      sourcemap: true,
+      // Target Node.js environment for preload scripts
+      ssr: {
+        noExternal: true,
+        target: 'node',
+      },
+      target: 'node18',
+    },
+    resolve: {
+      alias: {
+        '@': resolve(__dirname, './src'),
+        '@components': resolve(__dirname, './src/components'),
+        '@lib': resolve(__dirname, './src/lib'),
+        '@hooks': resolve(__dirname, './src/hooks'),
+        '@types': resolve(__dirname, './src/types'),
+        '@store': resolve(__dirname, './src/store'),
+        '@utils': resolve(__dirname, './src/utils'),
+      },
+    },
+  },
+
+  /**
+   * Renderer Process Configuration
+   * Builds the React frontend with security and performance optimizations
+   * Configured to work with existing project structure (index.html in root)
+   */
+  renderer: {
+    plugins: [
+      react(),
+      // Bundle analysis - 2025 best practice for build optimization
+      visualizer({
+        filename: 'dist/bundle-analysis.html',
+        open: false, // Don't auto-open in CI environments
+        gzipSize: true,
+        brotliSize: true,
+      }),
+    ],
+    root: resolve(__dirname, './src/renderer'), // Use renderer directory as root
+    publicDir: resolve(__dirname, './src/renderer/public'), // Configure public directory for renderer assets
+    base: './', // Important for Electron - use relative paths
+    build: {
+      rollupOptions: {
+        input: {
+          // Use named input to specify the HTML entry point
+          index: resolve(__dirname, './src/renderer/index.html')
+        },
+        output: {
+          // 2025 Best Practice: Intelligent code splitting for optimal performance
+          manualChunks: (id) => {
+            // Vendor chunk for node_modules
+            if (id.includes('node_modules')) {
+              // Large UI libraries get their own chunks
+              if (id.includes('react') || id.includes('react-dom')) {
+                return 'react-vendor';
+              }
+              if (id.includes('@mui') || id.includes('@emotion')) {
+                return 'mui-vendor';
+              }
+              if (id.includes('framer-motion')) {
+                return 'animation-vendor';
+              }
+              if (id.includes('lucide-react')) {
+                return 'icons-vendor';
+              }
+              // Other vendor libraries
+              return 'vendor';
+            }
+            // App-specific chunks
+            if (id.includes('src/components/views/')) {
+              return 'views';
+            }
+            if (id.includes('src/components/project/')) {
+              return 'project';
+            }
+          },
+        }
+      },
+      outDir: 'dist/renderer',
+      // Enable source maps for development, disable for production security
+      sourcemap: process.env.NODE_ENV === 'development',
+      minify: 'terser',
+      terserOptions: {
+        compress: {
+          drop_console: process.env.NODE_ENV === 'production',
+          drop_debugger: true
+        }
+      }
+    },
+    resolve: {
+      alias: {
+        '@': resolve(__dirname, './src/renderer/src'),
+        '@components': resolve(__dirname, './src/renderer/src/components'),
+        '@lib': resolve(__dirname, './src/renderer/src/lib'),
+        '@hooks': resolve(__dirname, './src/renderer/src/hooks'),
+        '@types': resolve(__dirname, './src/renderer/src/types'),
+        '@store': resolve(__dirname, './src/renderer/src/store'),
+        '@utils': resolve(__dirname, './src/renderer/src/utils'),
+      },
+    },
+    server: {
+      port: 5173, // Standard Vite dev server port
+      strictPort: false, // Allow fallback ports if 5173 is taken
+      headers: {
+        // Content Security Policy - 2025 Security Best Practices
+        'Content-Security-Policy': [
+          "default-src 'self'",
+          "script-src 'self' 'unsafe-inline' 'unsafe-eval'", // Vite dev needs unsafe-eval
+          "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com", // Material-UI needs unsafe-inline, Google Fonts
+          "img-src 'self' data: blob:",
+          "font-src 'self' data: https://fonts.googleapis.com https://fonts.gstatic.com", // Added Google Fonts
+          "connect-src 'self' ws://localhost:* wss://localhost:* http://localhost:*",
+          "object-src 'none'",
+          "base-uri 'self'",
+          "form-action 'self'",
+          "frame-ancestors 'none'"
+        ].join('; '),
+        
+        // Additional Security Headers - 2025 Best Practices
+        'X-Content-Type-Options': 'nosniff',
+        'X-Frame-Options': 'DENY',
+        'X-XSS-Protection': '1; mode=block',
+        'Referrer-Policy': 'strict-origin-when-cross-origin',
+        'Permissions-Policy': [
+          'accelerometer=()',
+          'camera=()',
+          'geolocation=()',
+          'gyroscope=()',
+          'magnetometer=()',
+          'microphone=()',
+          'payment=()',
+          'usb=()'
+        ].join(', ')
+      }
+    },
+  }
+});

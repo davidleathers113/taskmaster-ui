@@ -1,9 +1,9 @@
 {
   "meta": {
-    "generatedAt": "2025-06-01T22:09:01.245Z",
-    "tasksAnalyzed": 12,
-    "totalTasks": 12,
-    "analysisCount": 12,
+    "generatedAt": "2025-06-03T11:23:22.270Z",
+    "tasksAnalyzed": 4,
+    "totalTasks": 37,
+    "analysisCount": 20,
     "thresholdScore": 5,
     "projectName": "Taskmaster",
     "usedResearch": true
@@ -104,6 +104,70 @@
       "recommendedSubtasks": 10,
       "expansionPrompt": "Expand into subtasks for creating a test plan, testing dev workflow, testing production builds, feature regression testing, documenting migration, updating README, creating MIGRATION.md, updating CI/CD, performance comparison, and documenting known issues.",
       "reasoning": "Comprehensive testing and documentation is the most complex task, requiring coordination across all previous tasks, thorough validation, and clear communication for future maintainers."
+    },
+    {
+      "taskId": 30,
+      "taskTitle": "Install and Configure Testing Dependencies for Electron",
+      "complexityScore": 6,
+      "recommendedSubtasks": 7,
+      "expansionPrompt": "Break down the setup of Electron testing dependencies into granular steps: include separate subtasks for dependency installation, directory structure creation, Jest multi-project configuration, process-specific setup files, package.json script updates, baseline test creation, and verification of the overall setup.",
+      "reasoning": "Setting up a robust Electron testing foundation is moderately complex due to the need for multi-environment configuration (main, renderer, preload, integration), mocking Electron APIs, and integrating multiple tools. Each step is distinct and can fail independently, so clear separation into at least 7 subtasks is recommended for clarity and maintainability[2][3][5]."
+    },
+    {
+      "taskId": 31,
+      "taskTitle": "Implement Main Process & IPC Testing for Electron",
+      "complexityScore": 8,
+      "recommendedSubtasks": 8,
+      "expansionPrompt": "Expand this task into subtasks for main process lifecycle tests, auto-updater tests, IPC security validation, IPC rate limiting, preload script security, mocked Electron API tests, cross-process communication security, and memory leak detection.",
+      "reasoning": "This task is highly complex, involving comprehensive security, lifecycle, and memory testing across multiple Electron processes. It requires deep knowledge of Electron internals, advanced mocking, and security best practices. Each area (lifecycle, updater, IPC, preload, memory) is substantial and should be a separate subtask to ensure thorough coverage and test reliability[2][3][5]."
+    },
+    {
+      "taskId": 32,
+      "taskTitle": "Implement E2E Testing with Playwright for Electron",
+      "complexityScore": 9,
+      "recommendedSubtasks": 7,
+      "expansionPrompt": "Decompose this task into subtasks for Playwright configuration, task management workflow tests, view switching/navigation tests, file operations tests, cross-platform compatibility tests, CI/CD pipeline setup, and visual/performance regression testing.",
+      "reasoning": "End-to-end testing for Electron with Playwright is very complex due to the need for cross-platform support, UI automation, file system operations, and integration with CI/CD. Each workflow (task management, navigation, file ops, platform checks) is non-trivial and should be handled as a dedicated subtask for maintainability and parallelization[2][3][4]."
+    },
+    {
+      "taskId": 33,
+      "taskTitle": "Implement Performance & Memory Testing for Electron",
+      "complexityScore": 8,
+      "recommendedSubtasks": 6,
+      "expansionPrompt": "Expand this task into subtasks for memory leak detection setup, performance benchmarking suite, security audit integration, cross-platform CI/CD matrix configuration, performance monitoring/reporting, and integration of all test types into a unified pipeline.",
+      "reasoning": "Performance and memory testing in Electron is complex due to the need for specialized tools (memwatch-next, Electronegativity), cross-platform CI, and the integration of performance metrics into the development workflow. Each aspect (memory, performance, security, CI, reporting) is distinct and requires focused attention to ensure reliability and actionable results[2][3][5]."
+    },
+    {
+      "taskId": 34,
+      "taskTitle": "Fix Zustand Mock Path Resolution in Vitest",
+      "complexityScore": 6,
+      "recommendedSubtasks": 7,
+      "expansionPrompt": "Break down the task into subtasks covering: researching Vitest mocking best practices, updating Vitest configuration, implementing the Zustand mock, updating test files to use the new approach, running and verifying the test suite, updating documentation, and refactoring existing tests to use the new mocking strategy.",
+      "reasoning": "This task requires understanding Vitest's mocking system, updating configuration, implementing and integrating mocks, and ensuring all tests use the new approach. While not trivial, it is well-scoped and follows established patterns, but involves several moving parts and coordination across configuration, code, and documentation[1][2]."
+    },
+    {
+      "taskId": 35,
+      "taskTitle": "Resolve TypeScript Compilation Errors",
+      "complexityScore": 9,
+      "recommendedSubtasks": 13,
+      "expansionPrompt": "Expand this task into subtasks for each error category (TS6133, TS2339, TS18047, TS7006, TS2307, TS2683), setting up error tracking, implementing fixes, updating type safety patterns, optimizing React and Zustand typings, automating type checks, documenting best practices, and conducting final verification.",
+      "reasoning": "Fixing 200+ TypeScript errors across multiple categories in a large codebase is highly complex. It requires systematic tracking, deep understanding of TypeScript, coordinated refactoring, and ensuring no regressions. Each error type may require a different approach, and the work spans code, configuration, and documentation."
+    },
+    {
+      "taskId": 36,
+      "taskTitle": "Stabilize Test Suite and Fix Failing Tests",
+      "complexityScore": 8,
+      "recommendedSubtasks": 8,
+      "expansionPrompt": "Decompose the task into subtasks for analyzing failure patterns, implementing fixes by category, refactoring tests using best practices, improving coverage, optimizing the test suite, setting up CI, documenting the testing strategy, and reviewing/refactoring the final suite.",
+      "reasoning": "With 40 out of 51 tests failing, this task involves significant debugging, root cause analysis, and broad test refactoring. It also requires improving coverage, optimizing performance, and updating documentation and CI, making it a complex and multi-faceted effort."
+    },
+    {
+      "taskId": 37,
+      "taskTitle": "Systematically Clean ESLint Warnings and Improve Code Quality",
+      "complexityScore": 7,
+      "recommendedSubtasks": 9,
+      "expansionPrompt": "Expand into subtasks for analyzing and categorizing warnings, researching ESLint best practices, implementing automated and manual fixes, updating configuration, establishing code quality standards, optimizing performance, conducting developer training, monitoring/reporting, and reviewing documentation.",
+      "reasoning": "Addressing over 1400 ESLint warnings is a large-scale code quality initiative. It involves both automated and manual work, configuration changes, team coordination, and ongoing process improvements. While not as technically deep as TypeScript error resolution, the breadth and organizational impact make it moderately complex."
     }
   ]
 }

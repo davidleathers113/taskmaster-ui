@@ -1,0 +1,3518 @@
+{
+  "timestamp": "2025-06-03T14:13:19.485Z",
+  "summary": {
+    "totalErrors": 416,
+    "uniqueErrorCodes": 37,
+    "affectedFiles": 57,
+    "topCategories": [
+      "TS6133 (Unused Variables)",
+      "TS2339 (Property Does Not Exist)",
+      "TS18047 (Possibly Null)",
+      "TS7006 (Implicit Any)",
+      "TS2307 (Cannot Find Module)",
+      "TS2683 (Cannot Assign to This)"
+    ]
+  },
+  "errorCategories": [
+    {
+      "code": "TS6133",
+      "name": "Unused Variables",
+      "description": "Variable is declared but never used",
+      "count": 73,
+      "percentage": "100.00%"
+    },
+    {
+      "code": "TS2532",
+      "name": "Object Possibly Undefined",
+      "description": "Object is possibly undefined (from noUncheckedIndexedAccess)",
+      "count": 50,
+      "percentage": "100.00%"
+    },
+    {
+      "code": "TS2339",
+      "name": "Property Does Not Exist",
+      "description": "Property does not exist on type",
+      "count": 47,
+      "percentage": "100.00%"
+    },
+    {
+      "code": "TS2484",
+      "name": "Export Assignment Conflict",
+      "description": "Export assignment conflicts with declaration",
+      "count": 38,
+      "percentage": "100.00%"
+    },
+    {
+      "code": "TS2345",
+      "name": "Type Mismatch",
+      "description": "Argument type is not assignable",
+      "count": 28,
+      "percentage": "100.00%"
+    },
+    {
+      "code": "TS18048",
+      "name": "Possibly Undefined",
+      "description": "Expression is possibly undefined",
+      "count": 27,
+      "percentage": "100.00%"
+    },
+    {
+      "code": "TS2322",
+      "name": "Type Not Assignable",
+      "description": "Type is not assignable to target type",
+      "count": 21,
+      "percentage": "100.00%"
+    },
+    {
+      "code": "TS2304",
+      "name": "Cannot Find Name",
+      "description": "Cannot find name",
+      "count": 18,
+      "percentage": "100.00%"
+    },
+    {
+      "code": "TS7006",
+      "name": "Implicit Any",
+      "description": "Parameter implicitly has an any type",
+      "count": 16,
+      "percentage": "100.00%"
+    },
+    {
+      "code": "TS2349",
+      "name": "Not Callable",
+      "description": "Expression is not callable",
+      "count": 14,
+      "percentage": "100.00%"
+    },
+    {
+      "code": "TS2769",
+      "name": "No Overload Matches",
+      "description": "No overload matches this call",
+      "count": 9,
+      "percentage": "100.00%"
+    },
+    {
+      "code": "TS2451",
+      "name": "Duplicate Identifier",
+      "description": "Cannot redeclare block-scoped variable",
+      "count": 8,
+      "percentage": "100.00%"
+    },
+    {
+      "code": "TS2554",
+      "name": "Wrong Argument Count",
+      "description": "Expected X arguments, but got Y",
+      "count": 7,
+      "percentage": "100.00%"
+    },
+    {
+      "code": "TS7017",
+      "name": "No Index Signature",
+      "description": "Element implicitly has any type because type has no index signature",
+      "count": 7,
+      "percentage": "100.00%"
+    },
+    {
+      "code": "TS7030",
+      "name": "Not All Paths Return",
+      "description": "Not all code paths return a value",
+      "count": 7,
+      "percentage": "100.00%"
+    },
+    {
+      "code": "TS2551",
+      "name": "Property Typo",
+      "description": "Property does not exist, did you mean...",
+      "count": 6,
+      "percentage": "100.00%"
+    },
+    {
+      "code": "TS2307",
+      "name": "Cannot Find Module",
+      "description": "Cannot find module or type declarations",
+      "count": 6,
+      "percentage": "100.00%"
+    },
+    {
+      "code": "TS2540",
+      "name": "Readonly Property",
+      "description": "Cannot assign to property because it is read-only",
+      "count": 5,
+      "percentage": "100.00%"
+    },
+    {
+      "code": "TS6192",
+      "name": "Unused Imports",
+      "description": "All imports in declaration are unused",
+      "count": 3,
+      "percentage": "100.00%"
+    },
+    {
+      "code": "TS2683",
+      "name": "Cannot Assign to This",
+      "description": "Cannot assign to this because it is not a variable",
+      "count": 3,
+      "percentage": "100.00%"
+    },
+    {
+      "code": "TS7031",
+      "name": "Implicit Any Binding",
+      "description": "Binding element implicitly has any type",
+      "count": 2,
+      "percentage": "100.00%"
+    },
+    {
+      "code": "TS18046",
+      "name": "Possibly Null or Undefined",
+      "description": "Expression is possibly null or undefined",
+      "count": 2,
+      "percentage": "100.00%"
+    },
+    {
+      "code": "TS2538",
+      "name": "Cannot Use Index",
+      "description": "Type cannot be used as an index type",
+      "count": 2,
+      "percentage": "100.00%"
+    },
+    {
+      "code": "TS2686",
+      "name": "Cannot Find External Module",
+      "description": "Cannot find external module",
+      "count": 2,
+      "percentage": "100.00%"
+    },
+    {
+      "code": "TS6196",
+      "name": "Function Not Implemented",
+      "description": "Function implementation is missing or not immediately following the declaration",
+      "count": 2,
+      "percentage": "100.00%"
+    },
+    {
+      "code": "TS2353",
+      "name": "Object Literal Excess Properties",
+      "description": "Object literal may only specify known properties",
+      "count": 2,
+      "percentage": "100.00%"
+    },
+    {
+      "code": "TS2552",
+      "name": "Name Does Not Exist",
+      "description": "Cannot find name, did you mean...",
+      "count": 1,
+      "percentage": "100.00%"
+    },
+    {
+      "code": "TS2741",
+      "name": "Missing Property",
+      "description": "Property is missing in type",
+      "count": 1,
+      "percentage": "100.00%"
+    },
+    {
+      "code": "TS7034",
+      "name": "Implicit Any Array",
+      "description": "Variable implicitly has any[] type",
+      "count": 1,
+      "percentage": "100.00%"
+    },
+    {
+      "code": "TS7005",
+      "name": "Implicit Any Array",
+      "description": "Variable implicitly has any[] type",
+      "count": 1,
+      "percentage": "100.00%"
+    },
+    {
+      "code": "TS7053",
+      "name": "No Index Signature with Numeric",
+      "description": "Element implicitly has any type because expression of type number cannot be used to index",
+      "count": 1,
+      "percentage": "100.00%"
+    },
+    {
+      "code": "TS2347",
+      "name": "Untyped Import",
+      "description": "Untyped import",
+      "count": 1,
+      "percentage": "100.00%"
+    },
+    {
+      "code": "TS2678",
+      "name": "Unknown",
+      "description": "Unknown error type",
+      "count": 1,
+      "percentage": "100.00%"
+    },
+    {
+      "code": "TS2305",
+      "name": "Module Has No Exported Member",
+      "description": "Module has no exported member",
+      "count": 1,
+      "percentage": "100.00%"
+    },
+    {
+      "code": "TS2367",
+      "name": "Condition Always Constant",
+      "description": "This condition will always return true/false",
+      "count": 1,
+      "percentage": "100.00%"
+    },
+    {
+      "code": "TS2550",
+      "name": "Property Typo Suggestion",
+      "description": "Property does not exist, did you mean...",
+      "count": 1,
+      "percentage": "100.00%"
+    },
+    {
+      "code": "TS2739",
+      "name": "Unknown",
+      "description": "Unknown error type",
+      "count": 1,
+      "percentage": "100.00%"
+    }
+  ],
+  "topFilesWithErrors": [
+    {
+      "file": "renderer/src/store/__tests__/useTaskStore.test.ts",
+      "errorCount": 33,
+      "errorCodes": [
+        "TS2307",
+        "TS2345",
+        "TS2353",
+        "TS2532",
+        "TS6196"
+      ]
+    },
+    {
+      "file": "main/__tests__/lifecycle.test.ts",
+      "errorCount": 27,
+      "errorCodes": [
+        "TS2304",
+        "TS2339",
+        "TS2540",
+        "TS6133",
+        "TS7006"
+      ]
+    },
+    {
+      "file": "renderer/src/store/__tests__/errorHandling.test.ts",
+      "errorCount": 20,
+      "errorCodes": [
+        "TS18048",
+        "TS2345",
+        "TS2349",
+        "TS2532",
+        "TS2739",
+        "TS6192"
+      ]
+    },
+    {
+      "file": "tests/mocks/mock-update-server.ts",
+      "errorCount": 18,
+      "errorCodes": [
+        "TS2345",
+        "TS2683",
+        "TS2769",
+        "TS6133",
+        "TS7006",
+        "TS7030"
+      ]
+    },
+    {
+      "file": "main/__tests__/ipc-security.test.ts",
+      "errorCount": 17,
+      "errorCodes": [
+        "TS2339",
+        "TS2345",
+        "TS2532",
+        "TS2551",
+        "TS2552",
+        "TS6133"
+      ]
+    },
+    {
+      "file": "main/__tests__/mocked-electron-apis.test.ts",
+      "errorCount": 17,
+      "errorCodes": [
+        "TS18048",
+        "TS2339",
+        "TS2345",
+        "TS6133",
+        "TS7006",
+        "TS7053"
+      ]
+    },
+    {
+      "file": "main/__tests__/memory-leak-detection.test.ts",
+      "errorCount": 15,
+      "errorCodes": [
+        "TS2304",
+        "TS2307",
+        "TS2451",
+        "TS2741",
+        "TS2769",
+        "TS6133"
+      ]
+    },
+    {
+      "file": "renderer/src/__tests__/baseline.test.tsx",
+      "errorCount": 15,
+      "errorCodes": [
+        "TS2304",
+        "TS2339"
+      ]
+    },
+    {
+      "file": "renderer/src/hooks/useAppState.ts",
+      "errorCount": 15,
+      "errorCodes": [
+        "TS18046",
+        "TS18048",
+        "TS2322",
+        "TS2339",
+        "TS2484",
+        "TS2532",
+        "TS2551"
+      ]
+    },
+    {
+      "file": "preload/__tests__/baseline.test.ts",
+      "errorCount": 13,
+      "errorCodes": [
+        "TS2304",
+        "TS2339",
+        "TS2345"
+      ]
+    },
+    {
+      "file": "renderer/src/components/error/__tests__/ErrorBoundary.test.tsx",
+      "errorCount": 13,
+      "errorCodes": [
+        "TS2304",
+        "TS2307",
+        "TS2322",
+        "TS2540"
+      ]
+    },
+    {
+      "file": "preload/__tests__/preload-security.test.ts",
+      "errorCount": 11,
+      "errorCodes": [
+        "TS18048",
+        "TS2322",
+        "TS2349",
+        "TS6133"
+      ]
+    },
+    {
+      "file": "main/__tests__/memory-leaks.test.ts",
+      "errorCount": 10,
+      "errorCodes": [
+        "TS2339",
+        "TS2345",
+        "TS2554",
+        "TS2769",
+        "TS6133",
+        "TS7005",
+        "TS7031",
+        "TS7034"
+      ]
+    },
+    {
+      "file": "main/utils/memory-monitor.ts",
+      "errorCount": 10,
+      "errorCodes": [
+        "TS18048",
+        "TS2322"
+      ]
+    },
+    {
+      "file": "renderer/src/lib/services/crashRecovery.ts",
+      "errorCount": 10,
+      "errorCodes": [
+        "TS2345",
+        "TS2484",
+        "TS6133"
+      ]
+    },
+    {
+      "file": "renderer/src/components/task/__tests__/TaskCard.test.tsx",
+      "errorCount": 9,
+      "errorCodes": [
+        "TS2307",
+        "TS2347",
+        "TS6133",
+        "TS7006"
+      ]
+    },
+    {
+      "file": "renderer/src/components/views/PerformanceDashboard.tsx",
+      "errorCount": 9,
+      "errorCodes": [
+        "TS2307",
+        "TS2532",
+        "TS2769",
+        "TS6133"
+      ]
+    },
+    {
+      "file": "renderer/src/hooks/useErrorBoundary.ts",
+      "errorCount": 9,
+      "errorCodes": [
+        "TS2305",
+        "TS2484",
+        "TS6133"
+      ]
+    },
+    {
+      "file": "main/__tests__/baseline.test.ts",
+      "errorCount": 8,
+      "errorCodes": [
+        "TS2304",
+        "TS7017"
+      ]
+    },
+    {
+      "file": "main/__tests__/cross-process-communication.test.ts",
+      "errorCount": 8,
+      "errorCodes": [
+        "TS18048",
+        "TS2339",
+        "TS2349",
+        "TS2551",
+        "TS6133"
+      ]
+    }
+  ],
+  "detailedErrors": {
+    "TS2322": [
+      {
+        "file": "src/main/__tests__/auto-updater-differential.test.ts",
+        "line": 156,
+        "column": 9,
+        "code": "TS2322",
+        "message": "Type 'null' is not assignable to type 'CancellationToken | undefined'."
+      },
+      {
+        "file": "src/main/__tests__/auto-updater-differential.test.ts",
+        "line": 398,
+        "column": 9,
+        "code": "TS2322",
+        "message": "Type 'null' is not assignable to type 'CancellationToken | undefined'."
+      },
+      {
+        "file": "src/main/utils/heap-snapshot-analyzer.ts",
+        "line": 259,
+        "column": 5,
+        "code": "TS2322",
+        "message": "Type '{ type: any; name: any; size: number | undefined; id: number; }[]' is not assignable to type 'SnapshotObject[]'."
+      },
+      {
+        "file": "src/main/utils/memory-monitor.ts",
+        "line": 261,
+        "column": 48,
+        "code": "TS2322",
+        "message": "Type 'MemorySnapshot | undefined' is not assignable to type 'MemorySnapshot'."
+      },
+      {
+        "file": "src/main/utils/memory-monitor.ts",
+        "line": 261,
+        "column": 58,
+        "code": "TS2322",
+        "message": "Type 'MemorySnapshot | undefined' is not assignable to type 'MemorySnapshot'."
+      },
+      {
+        "file": "src/preload/__tests__/preload-security.test.ts",
+        "line": 650,
+        "column": 9,
+        "code": "TS2322",
+        "message": "Type '{ __proto__: { polluted: true; }; }' is not assignable to type 'symbol | (() => string) | { __proto__: { polluted: boolean; }; constructor?: undefined; } | { constructor: { prototype: { polluted: boolean; }; }; __proto__?: undefined; } | null | undefined'."
+      },
+      {
+        "file": "src/renderer/src/components/error/__tests__/ErrorBoundary.test.tsx",
+        "line": 107,
+        "column": 24,
+        "code": "TS2322",
+        "message": "Type '\"page\"' is not assignable to type '\"route\" | \"app\" | \"component\" | undefined'."
+      },
+      {
+        "file": "src/renderer/src/components/error/__tests__/ErrorBoundary.test.tsx",
+        "line": 196,
+        "column": 42,
+        "code": "TS2322",
+        "message": "Type '{ children: Element; level: \"component\"; componentName: string; }' is not assignable to type 'IntrinsicAttributes & IntrinsicClassAttributes<ErrorBoundary> & Readonly<Props>'."
+      },
+      {
+        "file": "src/renderer/src/components/error/__tests__/ErrorBoundary.test.tsx",
+        "line": 216,
+        "column": 24,
+        "code": "TS2322",
+        "message": "Type '\"page\"' is not assignable to type '\"route\" | \"app\" | \"component\" | undefined'."
+      },
+      {
+        "file": "src/renderer/src/components/error/__tests__/ErrorBoundary.test.tsx",
+        "line": 298,
+        "column": 24,
+        "code": "TS2322",
+        "message": "Type '\"page\"' is not assignable to type '\"route\" | \"app\" | \"component\" | undefined'."
+      },
+      {
+        "file": "src/renderer/src/components/error/__tests__/ErrorBoundary.test.tsx",
+        "line": 319,
+        "column": 42,
+        "code": "TS2322",
+        "message": "Type '{ children: Element; level: \"component\"; showDetailedError: boolean; }' is not assignable to type 'IntrinsicAttributes & IntrinsicClassAttributes<ErrorBoundary> & Readonly<Props>'."
+      },
+      {
+        "file": "src/renderer/src/components/error/__tests__/ErrorBoundary.test.tsx",
+        "line": 354,
+        "column": 42,
+        "code": "TS2322",
+        "message": "Type '{ children: Element; level: \"component\"; componentName: string; }' is not assignable to type 'IntrinsicAttributes & IntrinsicClassAttributes<ErrorBoundary> & Readonly<Props>'."
+      },
+      {
+        "file": "src/renderer/src/components/error/__tests__/ErrorBoundary.test.tsx",
+        "line": 462,
+        "column": 42,
+        "code": "TS2322",
+        "message": "Type '{ children: Element; level: \"component\"; reportToStore: boolean; }' is not assignable to type 'IntrinsicAttributes & IntrinsicClassAttributes<ErrorBoundary> & Readonly<Props>'."
+      },
+      {
+        "file": "src/renderer/src/components/views/KanbanView.tsx",
+        "line": 152,
+        "column": 19,
+        "code": "TS2322",
+        "message": "Type 'number | undefined' is not assignable to type 'number'."
+      },
+      {
+        "file": "src/renderer/src/hooks/useAppState.ts",
+        "line": 145,
+        "column": 9,
+        "code": "TS2322",
+        "message": "Type 'Error | null' is not assignable to type 'Error | undefined'."
+      },
+      {
+        "file": "src/renderer/src/lib/services/globalErrorHandler.ts",
+        "line": 58,
+        "column": 5,
+        "code": "TS2322",
+        "message": "Type 'OnErrorEventHandler' is not assignable to type '((event: ErrorEvent) => any) | undefined'."
+      },
+      {
+        "file": "src/renderer/src/lib/services/globalErrorHandler.ts",
+        "line": 59,
+        "column": 5,
+        "code": "TS2322",
+        "message": "Type '(((this: WindowEventHandlers, ev: PromiseRejectionEvent) => any) & ((this: Window, ev: PromiseRejectionEvent) => any)) | null' is not assignable to type '((event: PromiseRejectionEvent) => any) | undefined'."
+      },
+      {
+        "file": "src/renderer/src/lib/services/globalErrorHandler.ts",
+        "line": 698,
+        "column": 5,
+        "code": "TS2322",
+        "message": "Type '((event: ErrorEvent) => any) | null' is not assignable to type 'OnErrorEventHandler'."
+      },
+      {
+        "file": "src/renderer/src/lib/utils.ts",
+        "line": 136,
+        "column": 5,
+        "code": "TS2322",
+        "message": "Type '{ date: string | undefined; remaining: number; completed: number; }[]' is not assignable to type '{ date: string; remaining: number; completed: number; }[]'."
+      },
+      {
+        "file": "src/renderer/src/services/ErrorReportingService.ts",
+        "line": 268,
+        "column": 7,
+        "code": "TS2322",
+        "message": "Type '{ componentStack: string | null | undefined; errorBoundary: string | undefined; } | undefined' is not assignable to type '{ componentStack?: string | undefined; errorBoundary?: string | undefined; } | undefined'."
+      },
+      {
+        "file": "src/renderer/src/store/errorStore.ts",
+        "line": 475,
+        "column": 11,
+        "code": "TS2322",
+        "message": "Type 'number | undefined' is not assignable to type 'number'."
+      }
+    ],
+    "TS2349": [
+      {
+        "file": "src/main/__tests__/auto-updater-differential.test.ts",
+        "line": 461,
+        "column": 26,
+        "code": "TS2349",
+        "message": "This expression is not callable."
+      },
+      {
+        "file": "src/main/__tests__/auto-updater-integration.test.ts",
+        "line": 172,
+        "column": 7,
+        "code": "TS2349",
+        "message": "This expression is not callable."
+      },
+      {
+        "file": "src/main/__tests__/auto-updater-integration.test.ts",
+        "line": 505,
+        "column": 23,
+        "code": "TS2349",
+        "message": "This expression is not callable."
+      },
+      {
+        "file": "src/main/__tests__/auto-updater.test.ts",
+        "line": 427,
+        "column": 38,
+        "code": "TS2349",
+        "message": "This expression is not callable."
+      },
+      {
+        "file": "src/main/__tests__/cross-process-communication.test.ts",
+        "line": 13,
+        "column": 1,
+        "code": "TS2349",
+        "message": "This expression is not callable."
+      },
+      {
+        "file": "src/preload/__tests__/preload-security.test.ts",
+        "line": 13,
+        "column": 1,
+        "code": "TS2349",
+        "message": "This expression is not callable."
+      },
+      {
+        "file": "src/preload/__tests__/preload-security.test.ts",
+        "line": 27,
+        "column": 27,
+        "code": "TS2349",
+        "message": "This expression is not callable."
+      },
+      {
+        "file": "src/preload/__tests__/preload-security.test.ts",
+        "line": 367,
+        "column": 7,
+        "code": "TS2349",
+        "message": "This expression is not callable."
+      },
+      {
+        "file": "src/renderer/src/store/__tests__/errorHandling.test.ts",
+        "line": 61,
+        "column": 42,
+        "code": "TS2349",
+        "message": "This expression is not callable."
+      },
+      {
+        "file": "src/renderer/src/store/__tests__/errorHandling.test.ts",
+        "line": 69,
+        "column": 42,
+        "code": "TS2349",
+        "message": "This expression is not callable."
+      },
+      {
+        "file": "src/renderer/src/store/__tests__/errorHandling.test.ts",
+        "line": 77,
+        "column": 42,
+        "code": "TS2349",
+        "message": "This expression is not callable."
+      },
+      {
+        "file": "src/renderer/src/store/__tests__/errorHandling.test.ts",
+        "line": 84,
+        "column": 42,
+        "code": "TS2349",
+        "message": "This expression is not callable."
+      },
+      {
+        "file": "src/renderer/src/store/__tests__/errorHandling.test.ts",
+        "line": 92,
+        "column": 42,
+        "code": "TS2349",
+        "message": "This expression is not callable."
+      },
+      {
+        "file": "src/renderer/src/store/__tests__/errorHandling.test.ts",
+        "line": 115,
+        "column": 38,
+        "code": "TS2349",
+        "message": "This expression is not callable."
+      }
+    ],
+    "TS2554": [
+      {
+        "file": "src/main/__tests__/auto-updater-differential.test.ts",
+        "line": 579,
+        "column": 52,
+        "code": "TS2554",
+        "message": "Expected 0 arguments, but got 2."
+      },
+      {
+        "file": "src/main/__tests__/auto-updater-differential.test.ts",
+        "line": 648,
+        "column": 48,
+        "code": "TS2554",
+        "message": "Expected 0 arguments, but got 1."
+      },
+      {
+        "file": "src/main/__tests__/auto-updater-integration.test.ts",
+        "line": 319,
+        "column": 59,
+        "code": "TS2554",
+        "message": "Expected 0 arguments, but got 1."
+      },
+      {
+        "file": "src/main/__tests__/auto-updater-security.test.ts",
+        "line": 242,
+        "column": 53,
+        "code": "TS2554",
+        "message": "Expected 0 arguments, but got 1."
+      },
+      {
+        "file": "src/main/__tests__/auto-updater-security.test.ts",
+        "line": 259,
+        "column": 50,
+        "code": "TS2554",
+        "message": "Expected 0 arguments, but got 1."
+      },
+      {
+        "file": "src/main/__tests__/auto-updater.test.ts",
+        "line": 495,
+        "column": 59,
+        "code": "TS2554",
+        "message": "Expected 0-1 arguments, but got 2."
+      },
+      {
+        "file": "src/main/__tests__/memory-leaks.test.ts",
+        "line": 344,
+        "column": 22,
+        "code": "TS2554",
+        "message": "Expected 1-2 arguments, but got 0."
+      }
+    ],
+    "TS6133": [
+      {
+        "file": "src/main/__tests__/auto-updater-security.test.ts",
+        "line": 13,
+        "column": 1,
+        "code": "TS6133",
+        "message": "'MockAutoUpdater' is declared but its value is never read."
+      },
+      {
+        "file": "src/main/__tests__/auto-updater-security.test.ts",
+        "line": 58,
+        "column": 7,
+        "code": "TS6133",
+        "message": "'serverUrl' is declared but its value is never read."
+      },
+      {
+        "file": "src/main/__tests__/cross-process-communication.test.ts",
+        "line": 449,
+        "column": 17,
+        "code": "TS6133",
+        "message": "'event' is declared but its value is never read."
+      },
+      {
+        "file": "src/main/__tests__/cross-process-communication.test.ts",
+        "line": 484,
+        "column": 17,
+        "code": "TS6133",
+        "message": "'event' is declared but its value is never read."
+      },
+      {
+        "file": "src/main/__tests__/ipc-security.test.ts",
+        "line": 87,
+        "column": 67,
+        "code": "TS6133",
+        "message": "'args' is declared but its value is never read."
+      },
+      {
+        "file": "src/main/__tests__/ipc-security.test.ts",
+        "line": 531,
+        "column": 23,
+        "code": "TS6133",
+        "message": "'channel' is declared but its value is never read."
+      },
+      {
+        "file": "src/main/__tests__/ipc-security.test.ts",
+        "line": 531,
+        "column": 40,
+        "code": "TS6133",
+        "message": "'data' is declared but its value is never read."
+      },
+      {
+        "file": "src/main/__tests__/ipc-security.test.ts",
+        "line": 534,
+        "column": 21,
+        "code": "TS6133",
+        "message": "'channel' is declared but its value is never read."
+      },
+      {
+        "file": "src/main/__tests__/ipc-security.test.ts",
+        "line": 534,
+        "column": 38,
+        "code": "TS6133",
+        "message": "'callback' is declared but its value is never read."
+      },
+      {
+        "file": "src/main/__tests__/ipc-security.test.ts",
+        "line": 546,
+        "column": 17,
+        "code": "TS6133",
+        "message": "'serialized' is declared but its value is never read."
+      },
+      {
+        "file": "src/main/__tests__/ipc-security.test.ts",
+        "line": 665,
+        "column": 46,
+        "code": "TS6133",
+        "message": "'cmd' is declared but its value is never read."
+      },
+      {
+        "file": "src/main/__tests__/ipc-security.test.ts",
+        "line": 731,
+        "column": 23,
+        "code": "TS6133",
+        "message": "'sender' is declared but its value is never read."
+      },
+      {
+        "file": "src/main/__tests__/lifecycle.test.ts",
+        "line": 510,
+        "column": 35,
+        "code": "TS6133",
+        "message": "'event' is declared but its value is never read."
+      },
+      {
+        "file": "src/main/__tests__/memory-leak-detection.test.ts",
+        "line": 340,
+        "column": 57,
+        "code": "TS6133",
+        "message": "'event' is declared but its value is never read."
+      },
+      {
+        "file": "src/main/__tests__/memory-leaks.test.ts",
+        "line": 168,
+        "column": 30,
+        "code": "TS6133",
+        "message": "'event' is declared but its value is never read."
+      },
+      {
+        "file": "src/main/__tests__/memory-leaks.test.ts",
+        "line": 306,
+        "column": 45,
+        "code": "TS6133",
+        "message": "'channel' is declared but its value is never read."
+      },
+      {
+        "file": "src/main/__tests__/mocked-apis.test.ts",
+        "line": 12,
+        "column": 1,
+        "code": "TS6133",
+        "message": "'fs' is declared but its value is never read."
+      },
+      {
+        "file": "src/main/__tests__/mocked-electron-apis.test.ts",
+        "line": 236,
+        "column": 49,
+        "code": "TS6133",
+        "message": "'path' is declared but its value is never read."
+      },
+      {
+        "file": "src/main/__tests__/mocked-electron-apis.test.ts",
+        "line": 272,
+        "column": 37,
+        "code": "TS6133",
+        "message": "'icon' is declared but its value is never read."
+      },
+      {
+        "file": "src/main/security/secure-ipc-handler.ts",
+        "line": 180,
+        "column": 31,
+        "code": "TS6133",
+        "message": "'event' is declared but its value is never read."
+      },
+      {
+        "file": "src/preload/__tests__/preload-security.test.ts",
+        "line": 436,
+        "column": 13,
+        "code": "TS6133",
+        "message": "'expectedWebPreferences' is declared but its value is never read."
+      },
+      {
+        "file": "src/preload/__tests__/preload-security.test.ts",
+        "line": 508,
+        "column": 16,
+        "code": "TS6133",
+        "message": "'channel' is declared but its value is never read."
+      },
+      {
+        "file": "src/preload/__tests__/preload-security.test.ts",
+        "line": 602,
+        "column": 14,
+        "code": "TS6133",
+        "message": "'channel' is declared but its value is never read."
+      },
+      {
+        "file": "src/renderer/src/components/error/IPCStatusNotification.tsx",
+        "line": 19,
+        "column": 3,
+        "code": "TS6133",
+        "message": "'Settings' is declared but its value is never read."
+      },
+      {
+        "file": "src/renderer/src/components/error/IPCStatusNotification.tsx",
+        "line": 20,
+        "column": 3,
+        "code": "TS6133",
+        "message": "'Info' is declared but its value is never read."
+      },
+      {
+        "file": "src/renderer/src/components/error/IPCStatusNotification.tsx",
+        "line": 21,
+        "column": 3,
+        "code": "TS6133",
+        "message": "'Clock' is declared but its value is never read."
+      },
+      {
+        "file": "src/renderer/src/components/error/MUIErrorBoundary.tsx",
+        "line": 51,
+        "column": 11,
+        "code": "TS6133",
+        "message": "'HomeIcon' is declared but its value is never read."
+      },
+      {
+        "file": "src/renderer/src/components/error/MUIErrorBoundary.tsx",
+        "line": 56,
+        "column": 14,
+        "code": "TS6133",
+        "message": "'RestoreIcon' is declared but its value is never read."
+      },
+      {
+        "file": "src/renderer/src/components/recovery/RecoveryDashboard.tsx",
+        "line": 25,
+        "column": 3,
+        "code": "TS6133",
+        "message": "'Download' is declared but its value is never read."
+      },
+      {
+        "file": "src/renderer/src/components/recovery/RecoveryDashboard.tsx",
+        "line": 26,
+        "column": 3,
+        "code": "TS6133",
+        "message": "'Upload' is declared but its value is never read."
+      },
+      {
+        "file": "src/renderer/src/components/recovery/RecoveryDashboard.tsx",
+        "line": 31,
+        "column": 3,
+        "code": "TS6133",
+        "message": "'Info' is declared but its value is never read."
+      },
+      {
+        "file": "src/renderer/src/components/recovery/RecoveryDashboard.tsx",
+        "line": 33,
+        "column": 3,
+        "code": "TS6133",
+        "message": "'TrendingDown' is declared but its value is never read."
+      },
+      {
+        "file": "src/renderer/src/components/recovery/RecoveryDashboard.tsx",
+        "line": 34,
+        "column": 3,
+        "code": "TS6133",
+        "message": "'Minus' is declared but its value is never read."
+      },
+      {
+        "file": "src/renderer/src/components/recovery/RecoveryDashboard.tsx",
+        "line": 35,
+        "column": 3,
+        "code": "TS6133",
+        "message": "'FileText' is declared but its value is never read."
+      },
+      {
+        "file": "src/renderer/src/components/recovery/RecoveryNotification.tsx",
+        "line": 24,
+        "column": 3,
+        "code": "TS6133",
+        "message": "'Download' is declared but its value is never read."
+      },
+      {
+        "file": "src/renderer/src/components/recovery/RecoveryNotification.tsx",
+        "line": 25,
+        "column": 3,
+        "code": "TS6133",
+        "message": "'Eye' is declared but its value is never read."
+      },
+      {
+        "file": "src/renderer/src/components/recovery/RecoveryNotification.tsx",
+        "line": 26,
+        "column": 3,
+        "code": "TS6133",
+        "message": "'Settings' is declared but its value is never read."
+      },
+      {
+        "file": "src/renderer/src/components/task/__tests__/TaskCard.test.tsx",
+        "line": 48,
+        "column": 13,
+        "code": "TS6133",
+        "message": "'target' is declared but its value is never read."
+      },
+      {
+        "file": "src/renderer/src/components/task/__tests__/TaskCard.test.tsx",
+        "line": 158,
+        "column": 47,
+        "code": "TS6133",
+        "message": "'content' is declared but its value is never read."
+      },
+      {
+        "file": "src/renderer/src/components/task/__tests__/TaskCard.test.tsx",
+        "line": 165,
+        "column": 45,
+        "code": "TS6133",
+        "message": "'content' is declared but its value is never read."
+      },
+      {
+        "file": "src/renderer/src/components/task/__tests__/TaskCard.test.tsx",
+        "line": 196,
+        "column": 47,
+        "code": "TS6133",
+        "message": "'content' is declared but its value is never read."
+      },
+      {
+        "file": "src/renderer/src/components/task/__tests__/TaskCard.test.tsx",
+        "line": 209,
+        "column": 45,
+        "code": "TS6133",
+        "message": "'content' is declared but its value is never read."
+      },
+      {
+        "file": "src/renderer/src/components/task/TaskCard.tsx",
+        "line": 15,
+        "column": 3,
+        "code": "TS6133",
+        "message": "'Edit3' is declared but its value is never read."
+      },
+      {
+        "file": "src/renderer/src/components/task/TaskCard.tsx",
+        "line": 16,
+        "column": 3,
+        "code": "TS6133",
+        "message": "'Copy' is declared but its value is never read."
+      },
+      {
+        "file": "src/renderer/src/components/task/TaskCard.tsx",
+        "line": 17,
+        "column": 3,
+        "code": "TS6133",
+        "message": "'Trash2' is declared but its value is never read."
+      },
+      {
+        "file": "src/renderer/src/components/views/PerformanceDashboard.tsx",
+        "line": 8,
+        "column": 3,
+        "code": "TS6133",
+        "message": "'Zap' is declared but its value is never read."
+      },
+      {
+        "file": "src/renderer/src/components/views/PerformanceDashboard.tsx",
+        "line": 10,
+        "column": 3,
+        "code": "TS6133",
+        "message": "'CheckCircle2' is declared but its value is never read."
+      },
+      {
+        "file": "src/renderer/src/components/views/PerformanceDashboard.tsx",
+        "line": 14,
+        "column": 3,
+        "code": "TS6133",
+        "message": "'Gauge' is declared but its value is never read."
+      },
+      {
+        "file": "src/renderer/src/components/views/PerformanceDashboard.tsx",
+        "line": 16,
+        "column": 3,
+        "code": "TS6133",
+        "message": "'RefreshCw' is declared but its value is never read."
+      },
+      {
+        "file": "src/renderer/src/components/views/PerformanceDashboard.tsx",
+        "line": 384,
+        "column": 18,
+        "code": "TS6133",
+        "message": "'setAlerts' is declared but its value is never read."
+      },
+      {
+        "file": "src/renderer/src/examples/IPCErrorBoundaryExample.tsx",
+        "line": 89,
+        "column": 5,
+        "code": "TS6133",
+        "message": "'isAvailable' is declared but its value is never read."
+      },
+      {
+        "file": "src/renderer/src/examples/IPCErrorBoundaryExample.tsx",
+        "line": 91,
+        "column": 5,
+        "code": "TS6133",
+        "message": "'safeInvoke' is declared but its value is never read."
+      },
+      {
+        "file": "src/renderer/src/examples/IPCErrorBoundaryExample.tsx",
+        "line": 92,
+        "column": 5,
+        "code": "TS6133",
+        "message": "'hasError' is declared but its value is never read."
+      },
+      {
+        "file": "src/renderer/src/hooks/useErrorBoundary.ts",
+        "line": 424,
+        "column": 20,
+        "code": "TS6133",
+        "message": "'error' is declared but its value is never read."
+      },
+      {
+        "file": "src/renderer/src/hooks/useErrorBoundary.ts",
+        "line": 436,
+        "column": 20,
+        "code": "TS6133",
+        "message": "'error' is declared but its value is never read."
+      },
+      {
+        "file": "src/renderer/src/hooks/useErrorBoundary.ts",
+        "line": 448,
+        "column": 20,
+        "code": "TS6133",
+        "message": "'error' is declared but its value is never read."
+      },
+      {
+        "file": "src/renderer/src/hooks/useErrorBoundary.ts",
+        "line": 448,
+        "column": 27,
+        "code": "TS6133",
+        "message": "'state' is declared but its value is never read."
+      },
+      {
+        "file": "src/renderer/src/hooks/useErrorBoundary.ts",
+        "line": 460,
+        "column": 27,
+        "code": "TS6133",
+        "message": "'state' is declared but its value is never read."
+      },
+      {
+        "file": "src/renderer/src/lib/ipcRetry.ts",
+        "line": 104,
+        "column": 11,
+        "code": "TS6133",
+        "message": "'operationQueue' is declared but its value is never read."
+      },
+      {
+        "file": "src/renderer/src/lib/ipcRetry.ts",
+        "line": 105,
+        "column": 11,
+        "code": "TS6133",
+        "message": "'isProcessing' is declared but its value is never read."
+      },
+      {
+        "file": "src/renderer/src/lib/ipcRetry.ts",
+        "line": 365,
+        "column": 52,
+        "code": "TS6133",
+        "message": "'error' is declared but its value is never read."
+      },
+      {
+        "file": "src/renderer/src/lib/services/crashRecovery.ts",
+        "line": 431,
+        "column": 44,
+        "code": "TS6133",
+        "message": "'store' is declared but its value is never read."
+      },
+      {
+        "file": "src/renderer/src/lib/services/monitoring.ts",
+        "line": 284,
+        "column": 33,
+        "code": "TS6133",
+        "message": "'config' is declared but its value is never read."
+      },
+      {
+        "file": "src/renderer/src/services/ErrorReportingService.ts",
+        "line": 494,
+        "column": 11,
+        "code": "TS6133",
+        "message": "'loadOfflineQueue' is declared but its value is never read."
+      },
+      {
+        "file": "src/renderer/src/store/errorStore.ts",
+        "line": 338,
+        "column": 31,
+        "code": "TS6133",
+        "message": "'strategy' is declared but its value is never read."
+      },
+      {
+        "file": "src/renderer/src/store/rehydration.ts",
+        "line": 166,
+        "column": 33,
+        "code": "TS6133",
+        "message": "'metadata' is declared but its value is never read."
+      },
+      {
+        "file": "src/renderer/src/store/stateBackup.ts",
+        "line": 159,
+        "column": 43,
+        "code": "TS6133",
+        "message": "'match' is declared but its value is never read."
+      },
+      {
+        "file": "tests/mocks/mock-update-server.ts",
+        "line": 98,
+        "column": 24,
+        "code": "TS6133",
+        "message": "'res' is declared but its value is never read."
+      },
+      {
+        "file": "tests/mocks/mock-update-server.ts",
+        "line": 112,
+        "column": 19,
+        "code": "TS6133",
+        "message": "'req' is declared but its value is never read."
+      },
+      {
+        "file": "tests/mocks/mock-update-server.ts",
+        "line": 244,
+        "column": 30,
+        "code": "TS6133",
+        "message": "'req' is declared but its value is never read."
+      },
+      {
+        "file": "tests/setup/preload.setup.ts",
+        "line": 58,
+        "column": 59,
+        "code": "TS6133",
+        "message": "'args' is declared but its value is never read."
+      },
+      {
+        "file": "tests/setup/preload.setup.ts",
+        "line": 136,
+        "column": 61,
+        "code": "TS6133",
+        "message": "'args' is declared but its value is never read."
+      },
+      {
+        "file": "tests/setup/preload.setup.ts",
+        "line": 299,
+        "column": 66,
+        "code": "TS6133",
+        "message": "'args' is declared but its value is never read."
+      }
+    ],
+    "TS2345": [
+      {
+        "file": "src/main/__tests__/auto-updater.test.ts",
+        "line": 327,
+        "column": 52,
+        "code": "TS2345",
+        "message": "Argument of type '{}' is not assignable to parameter of type 'BaseWindow'."
+      },
+      {
+        "file": "src/main/__tests__/auto-updater.test.ts",
+        "line": 357,
+        "column": 52,
+        "code": "TS2345",
+        "message": "Argument of type '{}' is not assignable to parameter of type 'BaseWindow'."
+      },
+      {
+        "file": "src/main/__tests__/auto-updater.test.ts",
+        "line": 377,
+        "column": 52,
+        "code": "TS2345",
+        "message": "Argument of type '{}' is not assignable to parameter of type 'BaseWindow'."
+      },
+      {
+        "file": "src/main/__tests__/ipc-security.test.ts",
+        "line": 702,
+        "column": 38,
+        "code": "TS2345",
+        "message": "Argument of type 'string | undefined' is not assignable to parameter of type 'string'."
+      },
+      {
+        "file": "src/main/__tests__/memory-leaks.test.ts",
+        "line": 355,
+        "column": 35,
+        "code": "TS2345",
+        "message": "Argument of type 'Function' is not assignable to parameter of type '(event: IpcMainInvokeEvent, ...args: any[]) => any'."
+      },
+      {
+        "file": "src/main/__tests__/mocked-electron-apis.test.ts",
+        "line": 390,
+        "column": 26,
+        "code": "TS2345",
+        "message": "Argument of type '\"unknown\"' is not assignable to parameter of type '\"home\" | \"appData\" | \"userData\" | \"sessionData\" | \"temp\" | \"exe\" | \"module\" | \"desktop\" | \"documents\" | \"downloads\" | \"music\" | \"pictures\" | \"videos\" | \"recent\" | \"logs\" | \"crashDumps\"'."
+      },
+      {
+        "file": "src/main/security/secure-ipc-handler.ts",
+        "line": 71,
+        "column": 52,
+        "code": "TS2345",
+        "message": "Argument of type 'WebFrameMain | null' is not assignable to parameter of type 'WebFrame | undefined'."
+      },
+      {
+        "file": "src/preload/__tests__/baseline.test.ts",
+        "line": 149,
+        "column": 78,
+        "code": "TS2345",
+        "message": "Argument of type 'Function' is not assignable to parameter of type '(event: IpcRendererEvent, ...args: any[]) => void'."
+      },
+      {
+        "file": "src/preload/__tests__/baseline.test.ts",
+        "line": 152,
+        "column": 49,
+        "code": "TS2345",
+        "message": "Argument of type 'Function' is not assignable to parameter of type '(event: IpcRendererEvent, ...args: any[]) => void'."
+      },
+      {
+        "file": "src/renderer/src/contexts/IPCContext.tsx",
+        "line": 130,
+        "column": 65,
+        "code": "TS2345",
+        "message": "Argument of type 'string | undefined' is not assignable to parameter of type 'string'."
+      },
+      {
+        "file": "src/renderer/src/examples/StoreErrorHandlingExample.tsx",
+        "line": 387,
+        "column": 19,
+        "code": "TS2345",
+        "message": "Argument of type '{ title: string; description: string; status: \"pending\"; priority: \"medium\"; dependencies: never[]; subtasks: never[]; createdAt: string; updatedAt: string; }' is not assignable to parameter of type 'Omit<Task, \"id\">'."
+      },
+      {
+        "file": "src/renderer/src/lib/ipcRetry.ts",
+        "line": 230,
+        "column": 40,
+        "code": "TS2345",
+        "message": "Argument of type 'string' is not assignable to parameter of type 'IPCErrorCode'."
+      },
+      {
+        "file": "src/renderer/src/lib/services/crashRecovery.ts",
+        "line": 345,
+        "column": 61,
+        "code": "TS2345",
+        "message": "Argument of type 'StoreApi<any> | undefined' is not assignable to parameter of type 'StoreApi<any>'."
+      },
+      {
+        "file": "src/renderer/src/lib/services/telemetry.ts",
+        "line": 597,
+        "column": 37,
+        "code": "TS2345",
+        "message": "Argument of type 'PerformanceNavigationTiming | undefined' is not assignable to parameter of type 'PerformanceNavigationTiming'."
+      },
+      {
+        "file": "src/renderer/src/services/ErrorReportingService.ts",
+        "line": 270,
+        "column": 32,
+        "code": "TS2345",
+        "message": "Argument of type 'string | null | undefined' is not assignable to parameter of type 'string | undefined'."
+      },
+      {
+        "file": "src/renderer/src/store/__tests__/errorHandling.test.ts",
+        "line": 777,
+        "column": 21,
+        "code": "TS2345",
+        "message": "Argument of type 'string | undefined' is not assignable to parameter of type 'string'."
+      },
+      {
+        "file": "src/renderer/src/store/__tests__/useTaskStore.test.ts",
+        "line": 181,
+        "column": 40,
+        "code": "TS2345",
+        "message": "Argument of type '{ title: string; description: string; status: \"pending\"; priority: \"low\"; }' is not assignable to parameter of type 'Omit<Subtask, \"id\" | \"taskId\">'."
+      },
+      {
+        "file": "src/renderer/src/store/__tests__/useTaskStore.test.ts",
+        "line": 476,
+        "column": 31,
+        "code": "TS2345",
+        "message": "Argument of type 'number' is not assignable to parameter of type 'Task'."
+      },
+      {
+        "file": "src/renderer/src/store/__tests__/useTaskStore.test.ts",
+        "line": 519,
+        "column": 26,
+        "code": "TS2345",
+        "message": "Argument of type 'number | undefined' is not assignable to parameter of type 'number'."
+      },
+      {
+        "file": "src/renderer/src/store/__tests__/useTaskStore.test.ts",
+        "line": 522,
+        "column": 54,
+        "code": "TS2345",
+        "message": "Argument of type 'number | undefined' is not assignable to parameter of type 'number'."
+      },
+      {
+        "file": "src/renderer/src/store/__tests__/useTaskStore.test.ts",
+        "line": 532,
+        "column": 26,
+        "code": "TS2345",
+        "message": "Argument of type 'number | undefined' is not assignable to parameter of type 'number'."
+      },
+      {
+        "file": "src/renderer/src/store/__tests__/useTaskStore.test.ts",
+        "line": 535,
+        "column": 52,
+        "code": "TS2345",
+        "message": "Argument of type 'number | undefined' is not assignable to parameter of type 'number'."
+      },
+      {
+        "file": "src/renderer/src/store/errorStore.ts",
+        "line": 206,
+        "column": 3,
+        "code": "TS2345",
+        "message": "Argument of type 'StateCreator<ErrorStoreState, [], [[\"zustand/persist\", ErrorStoreState], [\"zustand/subscribeWithSelector\", never], [\"zustand/immer\", never]]>' is not assignable to parameter of type 'StateCreator<ErrorStore, [], [[\"zustand/persist\", ErrorStoreState], [\"zustand/subscribeWithSelector\", never], [\"zustand/immer\", never]]>'."
+      },
+      {
+        "file": "src/renderer/src/store/errorStore.ts",
+        "line": 207,
+        "column": 5,
+        "code": "TS2345",
+        "message": "Argument of type 'StateCreator<ErrorStore, [[\"zustand/persist\", unknown]], [[\"zustand/subscribeWithSelector\", never], [\"zustand/immer\", never]]>' is not assignable to parameter of type 'StateCreator<ErrorStoreState, [[\"zustand/persist\", unknown]], [[\"zustand/subscribeWithSelector\", never], [\"zustand/immer\", never]]>'."
+      },
+      {
+        "file": "src/renderer/src/store/rehydration.ts",
+        "line": 333,
+        "column": 45,
+        "code": "TS2345",
+        "message": "Argument of type 'T | VersionedState<T>' is not assignable to parameter of type 'T'."
+      },
+      {
+        "file": "src/renderer/src/utils/sessionPreservation.ts",
+        "line": 528,
+        "column": 35,
+        "code": "TS2345",
+        "message": "Argument of type 'string | undefined' is not assignable to parameter of type 'string'."
+      },
+      {
+        "file": "tests/mocks/mock-update-server.ts",
+        "line": 196,
+        "column": 32,
+        "code": "TS2345",
+        "message": "Argument of type 'string | undefined' is not assignable to parameter of type 'string'."
+      },
+      {
+        "file": "tests/mocks/mock-update-server.ts",
+        "line": 307,
+        "column": 43,
+        "code": "TS2345",
+        "message": "Argument of type 'string | string[] | undefined' is not assignable to parameter of type 'BinaryLike'."
+      }
+    ],
+    "TS7017": [
+      {
+        "file": "src/main/__tests__/baseline.test.ts",
+        "line": 16,
+        "column": 12,
+        "code": "TS7017",
+        "message": "Element implicitly has an 'any' type because type 'typeof globalThis' has no index signature."
+      },
+      {
+        "file": "src/main/__tests__/baseline.test.ts",
+        "line": 17,
+        "column": 12,
+        "code": "TS7017",
+        "message": "Element implicitly has an 'any' type because type 'typeof globalThis' has no index signature."
+      },
+      {
+        "file": "src/main/__tests__/baseline.test.ts",
+        "line": 93,
+        "column": 18,
+        "code": "TS7017",
+        "message": "Element implicitly has an 'any' type because type 'typeof globalThis' has no index signature."
+      },
+      {
+        "file": "src/main/__tests__/baseline.test.ts",
+        "line": 94,
+        "column": 23,
+        "code": "TS7017",
+        "message": "Element implicitly has an 'any' type because type 'typeof globalThis' has no index signature."
+      },
+      {
+        "file": "src/main/__tests__/baseline.test.ts",
+        "line": 95,
+        "column": 23,
+        "code": "TS7017",
+        "message": "Element implicitly has an 'any' type because type 'typeof globalThis' has no index signature."
+      },
+      {
+        "file": "src/main/__tests__/baseline.test.ts",
+        "line": 96,
+        "column": 23,
+        "code": "TS7017",
+        "message": "Element implicitly has an 'any' type because type 'typeof globalThis' has no index signature."
+      },
+      {
+        "file": "src/main/__tests__/baseline.test.ts",
+        "line": 97,
+        "column": 23,
+        "code": "TS7017",
+        "message": "Element implicitly has an 'any' type because type 'typeof globalThis' has no index signature."
+      }
+    ],
+    "TS2304": [
+      {
+        "file": "src/main/__tests__/baseline.test.ts",
+        "line": 115,
+        "column": 27,
+        "code": "TS2304",
+        "message": "Cannot find name 'vi'."
+      },
+      {
+        "file": "src/main/__tests__/lifecycle.test.ts",
+        "line": 115,
+        "column": 5,
+        "code": "TS2304",
+        "message": "Cannot find name 'createWindow'."
+      },
+      {
+        "file": "src/main/__tests__/memory-leak-detection.test.ts",
+        "line": 196,
+        "column": 9,
+        "code": "TS2304",
+        "message": "Cannot find name 'detectedLeak'."
+      },
+      {
+        "file": "src/preload/__tests__/baseline.test.ts",
+        "line": 93,
+        "column": 28,
+        "code": "TS2304",
+        "message": "Cannot find name 'vi'."
+      },
+      {
+        "file": "src/preload/__tests__/baseline.test.ts",
+        "line": 101,
+        "column": 28,
+        "code": "TS2304",
+        "message": "Cannot find name 'vi'."
+      },
+      {
+        "file": "src/preload/__tests__/baseline.test.ts",
+        "line": 108,
+        "column": 28,
+        "code": "TS2304",
+        "message": "Cannot find name 'vi'."
+      },
+      {
+        "file": "src/preload/__tests__/baseline.test.ts",
+        "line": 117,
+        "column": 26,
+        "code": "TS2304",
+        "message": "Cannot find name 'vi'."
+      },
+      {
+        "file": "src/preload/__tests__/baseline.test.ts",
+        "line": 227,
+        "column": 28,
+        "code": "TS2304",
+        "message": "Cannot find name 'vi'."
+      },
+      {
+        "file": "src/preload/__tests__/baseline.test.ts",
+        "line": 237,
+        "column": 29,
+        "code": "TS2304",
+        "message": "Cannot find name 'vi'."
+      },
+      {
+        "file": "src/preload/__tests__/baseline.test.ts",
+        "line": 241,
+        "column": 26,
+        "code": "TS2304",
+        "message": "Cannot find name 'vi'."
+      },
+      {
+        "file": "src/preload/__tests__/baseline.test.ts",
+        "line": 257,
+        "column": 25,
+        "code": "TS2304",
+        "message": "Cannot find name 'vi'."
+      },
+      {
+        "file": "src/preload/__tests__/baseline.test.ts",
+        "line": 258,
+        "column": 25,
+        "code": "TS2304",
+        "message": "Cannot find name 'vi'."
+      },
+      {
+        "file": "src/renderer/src/__tests__/baseline.test.tsx",
+        "line": 99,
+        "column": 13,
+        "code": "TS2304",
+        "message": "Cannot find name 'vi'."
+      },
+      {
+        "file": "src/renderer/src/__tests__/baseline.test.tsx",
+        "line": 116,
+        "column": 28,
+        "code": "TS2304",
+        "message": "Cannot find name 'vi'."
+      },
+      {
+        "file": "src/renderer/src/__tests__/baseline.test.tsx",
+        "line": 157,
+        "column": 28,
+        "code": "TS2304",
+        "message": "Cannot find name 'vi'."
+      },
+      {
+        "file": "src/renderer/src/__tests__/baseline.test.tsx",
+        "line": 168,
+        "column": 28,
+        "code": "TS2304",
+        "message": "Cannot find name 'vi'."
+      },
+      {
+        "file": "src/renderer/src/__tests__/baseline.test.tsx",
+        "line": 224,
+        "column": 24,
+        "code": "TS2304",
+        "message": "Cannot find name 'vi'."
+      },
+      {
+        "file": "src/renderer/src/components/error/__tests__/ErrorBoundary.test.tsx",
+        "line": 36,
+        "column": 1,
+        "code": "TS2304",
+        "message": "Cannot find name 'afterEach'."
+      }
+    ],
+    "TS2551": [
+      {
+        "file": "src/main/__tests__/cross-process-communication.test.ts",
+        "line": 67,
+        "column": 13,
+        "code": "TS2551",
+        "message": "Property '_handlers' does not exist on type 'IpcMain'. Did you mean 'handle'?"
+      },
+      {
+        "file": "src/main/__tests__/cross-process-communication.test.ts",
+        "line": 68,
+        "column": 13,
+        "code": "TS2551",
+        "message": "Property '_listeners' does not exist on type 'IpcMain'. Did you mean 'listeners'?"
+      },
+      {
+        "file": "src/main/__tests__/ipc-security.test.ts",
+        "line": 64,
+        "column": 13,
+        "code": "TS2551",
+        "message": "Property '_handlers' does not exist on type 'IpcMain'. Did you mean 'handle'?"
+      },
+      {
+        "file": "src/main/__tests__/ipc-security.test.ts",
+        "line": 101,
+        "column": 15,
+        "code": "TS2551",
+        "message": "Property '_handlers' does not exist on type 'IpcMain'. Did you mean 'handle'?"
+      },
+      {
+        "file": "src/renderer/src/hooks/useAppState.ts",
+        "line": 131,
+        "column": 34,
+        "code": "TS2551",
+        "message": "Property 'selectedTaskIds' does not exist on type 'TaskStore'. Did you mean 'selectedTask'?"
+      },
+      {
+        "file": "src/renderer/src/lib/services/errorReporting.ts",
+        "line": 452,
+        "column": 34,
+        "code": "TS2551",
+        "message": "Property 'markErrorReported' does not exist on type 'ErrorStore'. Did you mean 'markErrorRecovered'?"
+      }
+    ],
+    "TS2339": [
+      {
+        "file": "src/main/__tests__/cross-process-communication.test.ts",
+        "line": 145,
+        "column": 35,
+        "code": "TS2339",
+        "message": "Property 'mockReturnValue' does not exist on type '() => BrowserWindow[]'."
+      },
+      {
+        "file": "src/main/__tests__/ipc-security.test.ts",
+        "line": 146,
+        "column": 35,
+        "code": "TS2339",
+        "message": "Property 'mockReturnValue' does not exist on type '() => BrowserWindow[]'."
+      },
+      {
+        "file": "src/main/__tests__/lifecycle.test.ts",
+        "line": 134,
+        "column": 36,
+        "code": "TS2339",
+        "message": "Property 'mock' does not exist on type '{ (event: \"accessibility-support-changed\", listener: (event: { preventDefault: () => void; readonly defaultPrevented: boolean; }, accessibilitySupportEnabled: boolean) => void): App; (event: \"activate\", listener: (event: { ...; }, hasVisibleWindows: boolean) => void): App; (event: \"activity-was-continued\", listener:...'."
+      },
+      {
+        "file": "src/main/__tests__/lifecycle.test.ts",
+        "line": 183,
+        "column": 36,
+        "code": "TS2339",
+        "message": "Property 'mock' does not exist on type '{ (event: \"accessibility-support-changed\", listener: (event: { preventDefault: () => void; readonly defaultPrevented: boolean; }, accessibilitySupportEnabled: boolean) => void): App; (event: \"activate\", listener: (event: { ...; }, hasVisibleWindows: boolean) => void): App; (event: \"activity-was-continued\", listener:...'."
+      },
+      {
+        "file": "src/main/__tests__/lifecycle.test.ts",
+        "line": 203,
+        "column": 36,
+        "code": "TS2339",
+        "message": "Property 'mock' does not exist on type '{ (event: \"accessibility-support-changed\", listener: (event: { preventDefault: () => void; readonly defaultPrevented: boolean; }, accessibilitySupportEnabled: boolean) => void): App; (event: \"activate\", listener: (event: { ...; }, hasVisibleWindows: boolean) => void): App; (event: \"activity-was-continued\", listener:...'."
+      },
+      {
+        "file": "src/main/__tests__/lifecycle.test.ts",
+        "line": 224,
+        "column": 36,
+        "code": "TS2339",
+        "message": "Property 'mock' does not exist on type '{ (event: \"accessibility-support-changed\", listener: (event: { preventDefault: () => void; readonly defaultPrevented: boolean; }, accessibilitySupportEnabled: boolean) => void): App; (event: \"activate\", listener: (event: { ...; }, hasVisibleWindows: boolean) => void): App; (event: \"activity-was-continued\", listener:...'."
+      },
+      {
+        "file": "src/main/__tests__/lifecycle.test.ts",
+        "line": 244,
+        "column": 36,
+        "code": "TS2339",
+        "message": "Property 'mock' does not exist on type '{ (event: \"accessibility-support-changed\", listener: (event: { preventDefault: () => void; readonly defaultPrevented: boolean; }, accessibilitySupportEnabled: boolean) => void): App; (event: \"activate\", listener: (event: { ...; }, hasVisibleWindows: boolean) => void): App; (event: \"activity-was-continued\", listener:...'."
+      },
+      {
+        "file": "src/main/__tests__/lifecycle.test.ts",
+        "line": 270,
+        "column": 36,
+        "code": "TS2339",
+        "message": "Property 'mock' does not exist on type '{ (event: \"accessibility-support-changed\", listener: (event: { preventDefault: () => void; readonly defaultPrevented: boolean; }, accessibilitySupportEnabled: boolean) => void): App; (event: \"activate\", listener: (event: { ...; }, hasVisibleWindows: boolean) => void): App; (event: \"activity-was-continued\", listener:...'."
+      },
+      {
+        "file": "src/main/__tests__/lifecycle.test.ts",
+        "line": 319,
+        "column": 36,
+        "code": "TS2339",
+        "message": "Property 'mock' does not exist on type '{ (event: \"accessibility-support-changed\", listener: (event: { preventDefault: () => void; readonly defaultPrevented: boolean; }, accessibilitySupportEnabled: boolean) => void): App; (event: \"activate\", listener: (event: { ...; }, hasVisibleWindows: boolean) => void): App; (event: \"activity-was-continued\", listener:...'."
+      },
+      {
+        "file": "src/main/__tests__/lifecycle.test.ts",
+        "line": 376,
+        "column": 36,
+        "code": "TS2339",
+        "message": "Property 'mock' does not exist on type '{ (event: \"accessibility-support-changed\", listener: (event: { preventDefault: () => void; readonly defaultPrevented: boolean; }, accessibilitySupportEnabled: boolean) => void): App; (event: \"activate\", listener: (event: { ...; }, hasVisibleWindows: boolean) => void): App; (event: \"activity-was-continued\", listener:...'."
+      },
+      {
+        "file": "src/main/__tests__/lifecycle.test.ts",
+        "line": 442,
+        "column": 36,
+        "code": "TS2339",
+        "message": "Property 'mock' does not exist on type '{ (event: \"accessibility-support-changed\", listener: (event: { preventDefault: () => void; readonly defaultPrevented: boolean; }, accessibilitySupportEnabled: boolean) => void): App; (event: \"activate\", listener: (event: { ...; }, hasVisibleWindows: boolean) => void): App; (event: \"activity-was-continued\", listener:...'."
+      },
+      {
+        "file": "src/main/__tests__/lifecycle.test.ts",
+        "line": 473,
+        "column": 41,
+        "code": "TS2339",
+        "message": "Property 'mock' does not exist on type '{ (event: \"accessibility-support-changed\", listener: (event: { preventDefault: () => void; readonly defaultPrevented: boolean; }, accessibilitySupportEnabled: boolean) => void): App; (event: \"activate\", listener: (event: { ...; }, hasVisibleWindows: boolean) => void): App; (event: \"activity-was-continued\", listener:...'."
+      },
+      {
+        "file": "src/main/__tests__/lifecycle.test.ts",
+        "line": 474,
+        "column": 36,
+        "code": "TS2339",
+        "message": "Property 'mock' does not exist on type '{ (event: \"accessibility-support-changed\", listener: (event: { preventDefault: () => void; readonly defaultPrevented: boolean; }, accessibilitySupportEnabled: boolean) => void): App; (event: \"activate\", listener: (event: { ...; }, hasVisibleWindows: boolean) => void): App; (event: \"activity-was-continued\", listener:...'."
+      },
+      {
+        "file": "src/main/__tests__/lifecycle.test.ts",
+        "line": 490,
+        "column": 36,
+        "code": "TS2339",
+        "message": "Property 'mock' does not exist on type '{ (event: \"accessibility-support-changed\", listener: (event: { preventDefault: () => void; readonly defaultPrevented: boolean; }, accessibilitySupportEnabled: boolean) => void): App; (event: \"activate\", listener: (event: { ...; }, hasVisibleWindows: boolean) => void): App; (event: \"activity-was-continued\", listener:...'."
+      },
+      {
+        "file": "src/main/__tests__/memory-leaks.test.ts",
+        "line": 306,
+        "column": 24,
+        "code": "TS2339",
+        "message": "Property 'mock' does not exist on type '(channel: string, listener: (event: IpcMainInvokeEvent, ...args: any[]) => any) => void'."
+      },
+      {
+        "file": "src/main/__tests__/mocked-electron-apis.test.ts",
+        "line": 430,
+        "column": 21,
+        "code": "TS2339",
+        "message": "Property 'options' does not exist on type 'BrowserWindow'."
+      },
+      {
+        "file": "src/main/__tests__/mocked-electron-apis.test.ts",
+        "line": 515,
+        "column": 39,
+        "code": "TS2339",
+        "message": "Property 'moveItemToTrash' does not exist on type 'Shell'."
+      },
+      {
+        "file": "src/main/__tests__/mocked-electron-apis.test.ts",
+        "line": 603,
+        "column": 32,
+        "code": "TS2339",
+        "message": "Property 'isDarkMode' does not exist on type 'SystemPreferences'."
+      },
+      {
+        "file": "src/main/__tests__/mocked-electron-apis.test.ts",
+        "line": 629,
+        "column": 25,
+        "code": "TS2339",
+        "message": "Property 'mock' does not exist on type '() => void'."
+      },
+      {
+        "file": "src/main/__tests__/mocked-electron-apis.test.ts",
+        "line": 630,
+        "column": 25,
+        "code": "TS2339",
+        "message": "Property 'mock' does not exist on type '() => void'."
+      },
+      {
+        "file": "src/main/__tests__/mocked-electron-apis.test.ts",
+        "line": 631,
+        "column": 24,
+        "code": "TS2339",
+        "message": "Property 'mock' does not exist on type '() => void'."
+      },
+      {
+        "file": "src/main/__tests__/mocked-electron-apis.test.ts",
+        "line": 640,
+        "column": 44,
+        "code": "TS2339",
+        "message": "Property 'mockImplementation' does not exist on type '(code: string, userGesture?: boolean | undefined) => Promise<any>'."
+      },
+      {
+        "file": "src/main/security/secure-ipc-handler.ts",
+        "line": 149,
+        "column": 38,
+        "code": "TS2339",
+        "message": "Property 'url' does not exist on type 'WebFrame'."
+      },
+      {
+        "file": "src/main/security/secure-ipc-handler.ts",
+        "line": 158,
+        "column": 26,
+        "code": "TS2339",
+        "message": "Property 'frameId' does not exist on type 'WebFrame'."
+      },
+      {
+        "file": "src/main/security/secure-ipc-handler.ts",
+        "line": 169,
+        "column": 28,
+        "code": "TS2339",
+        "message": "Property 'frameId' does not exist on type 'WebFrame'."
+      },
+      {
+        "file": "src/main/security/secure-ipc-handler.ts",
+        "line": 174,
+        "column": 52,
+        "code": "TS2339",
+        "message": "Property 'frameId' does not exist on type 'WebFrame'."
+      },
+      {
+        "file": "src/preload/__tests__/baseline.test.ts",
+        "line": 215,
+        "column": 23,
+        "code": "TS2339",
+        "message": "Property 'validateExposedAPI' does not exist on type 'ContextBridge'."
+      },
+      {
+        "file": "src/preload/__tests__/baseline.test.ts",
+        "line": 220,
+        "column": 23,
+        "code": "TS2339",
+        "message": "Property 'validateExposedAPI' does not exist on type 'ContextBridge'."
+      },
+      {
+        "file": "src/renderer/src/__tests__/baseline.test.tsx",
+        "line": 29,
+        "column": 26,
+        "code": "TS2339",
+        "message": "Property 'invoke' does not exist on type 'ElectronAPI'."
+      },
+      {
+        "file": "src/renderer/src/__tests__/baseline.test.tsx",
+        "line": 45,
+        "column": 26,
+        "code": "TS2339",
+        "message": "Property 'invoke' does not exist on type 'ElectronAPI'."
+      },
+      {
+        "file": "src/renderer/src/__tests__/baseline.test.tsx",
+        "line": 88,
+        "column": 33,
+        "code": "TS2339",
+        "message": "Property 'invoke' does not exist on type 'ElectronAPI'."
+      },
+      {
+        "file": "src/renderer/src/__tests__/baseline.test.tsx",
+        "line": 89,
+        "column": 33,
+        "code": "TS2339",
+        "message": "Property 'on' does not exist on type 'ElectronAPI'."
+      },
+      {
+        "file": "src/renderer/src/__tests__/baseline.test.tsx",
+        "line": 90,
+        "column": 33,
+        "code": "TS2339",
+        "message": "Property 'off' does not exist on type 'ElectronAPI'."
+      },
+      {
+        "file": "src/renderer/src/__tests__/baseline.test.tsx",
+        "line": 94,
+        "column": 26,
+        "code": "TS2339",
+        "message": "Property 'invoke' does not exist on type 'ElectronAPI'."
+      },
+      {
+        "file": "src/renderer/src/__tests__/baseline.test.tsx",
+        "line": 103,
+        "column": 33,
+        "code": "TS2339",
+        "message": "Property 'invoke' does not exist on type 'ElectronAPI'."
+      },
+      {
+        "file": "src/renderer/src/__tests__/baseline.test.tsx",
+        "line": 107,
+        "column": 26,
+        "code": "TS2339",
+        "message": "Property 'invoke' does not exist on type 'ElectronAPI'."
+      },
+      {
+        "file": "src/renderer/src/__tests__/baseline.test.tsx",
+        "line": 118,
+        "column": 42,
+        "code": "TS2339",
+        "message": "Property 'on' does not exist on type 'ElectronAPI'."
+      },
+      {
+        "file": "src/renderer/src/__tests__/baseline.test.tsx",
+        "line": 119,
+        "column": 33,
+        "code": "TS2339",
+        "message": "Property 'on' does not exist on type 'ElectronAPI'."
+      },
+      {
+        "file": "src/renderer/src/hooks/useAppState.ts",
+        "line": 127,
+        "column": 32,
+        "code": "TS2339",
+        "message": "Property 'sidebarOpen' does not exist on type 'TaskStore'."
+      },
+      {
+        "file": "src/renderer/src/hooks/useAppState.ts",
+        "line": 128,
+        "column": 26,
+        "code": "TS2339",
+        "message": "Property 'theme' does not exist on type 'TaskStore'."
+      },
+      {
+        "file": "src/renderer/src/hooks/useAppState.ts",
+        "line": 134,
+        "column": 32,
+        "code": "TS2339",
+        "message": "Property 'userPreferences' does not exist on type 'TaskStore'."
+      },
+      {
+        "file": "src/renderer/src/hooks/useAppState.ts",
+        "line": 135,
+        "column": 29,
+        "code": "TS2339",
+        "message": "Property 'settings' does not exist on type 'TaskStore'."
+      },
+      {
+        "file": "src/renderer/src/lib/services/telemetry.ts",
+        "line": 577,
+        "column": 72,
+        "code": "TS2339",
+        "message": "Property 'domLoading' does not exist on type 'PerformanceNavigationTiming'."
+      },
+      {
+        "file": "src/renderer/src/store/backupService.ts",
+        "line": 177,
+        "column": 33,
+        "code": "TS2339",
+        "message": "Property 'saveBackup' does not exist on type 'ElectronAPI'."
+      },
+      {
+        "file": "src/renderer/src/store/backupService.ts",
+        "line": 189,
+        "column": 40,
+        "code": "TS2339",
+        "message": "Property 'loadBackup' does not exist on type 'ElectronAPI'."
+      },
+      {
+        "file": "src/renderer/src/store/backupService.ts",
+        "line": 200,
+        "column": 31,
+        "code": "TS2339",
+        "message": "Property 'deleteBackup' does not exist on type 'ElectronAPI'."
+      },
+      {
+        "file": "src/renderer/src/store/backupService.ts",
+        "line": 209,
+        "column": 40,
+        "code": "TS2339",
+        "message": "Property 'listBackups' does not exist on type 'ElectronAPI'."
+      }
+    ],
+    "TS18048": [
+      {
+        "file": "src/main/__tests__/cross-process-communication.test.ts",
+        "line": 478,
+        "column": 14,
+        "code": "TS18048",
+        "message": "'callArgs' is possibly 'undefined'."
+      },
+      {
+        "file": "src/main/__tests__/cross-process-communication.test.ts",
+        "line": 479,
+        "column": 14,
+        "code": "TS18048",
+        "message": "'callArgs' is possibly 'undefined'."
+      },
+      {
+        "file": "src/main/__tests__/mocked-electron-apis.test.ts",
+        "line": 401,
+        "column": 24,
+        "code": "TS18048",
+        "message": "'app.dock' is possibly 'undefined'."
+      },
+      {
+        "file": "src/main/__tests__/mocked-electron-apis.test.ts",
+        "line": 404,
+        "column": 7,
+        "code": "TS18048",
+        "message": "'app.dock' is possibly 'undefined'."
+      },
+      {
+        "file": "src/main/__tests__/mocked-electron-apis.test.ts",
+        "line": 405,
+        "column": 14,
+        "code": "TS18048",
+        "message": "'app.dock' is possibly 'undefined'."
+      },
+      {
+        "file": "src/main/__tests__/mocked-electron-apis.test.ts",
+        "line": 407,
+        "column": 20,
+        "code": "TS18048",
+        "message": "'app.dock' is possibly 'undefined'."
+      },
+      {
+        "file": "src/main/__tests__/mocked-electron-apis.test.ts",
+        "line": 408,
+        "column": 14,
+        "code": "TS18048",
+        "message": "'app.dock' is possibly 'undefined'."
+      },
+      {
+        "file": "src/main/utils/memory-monitor.ts",
+        "line": 239,
+        "column": 25,
+        "code": "TS18048",
+        "message": "'last' is possibly 'undefined'."
+      },
+      {
+        "file": "src/main/utils/memory-monitor.ts",
+        "line": 239,
+        "column": 50,
+        "code": "TS18048",
+        "message": "'first' is possibly 'undefined'."
+      },
+      {
+        "file": "src/main/utils/memory-monitor.ts",
+        "line": 240,
+        "column": 22,
+        "code": "TS18048",
+        "message": "'last' is possibly 'undefined'."
+      },
+      {
+        "file": "src/main/utils/memory-monitor.ts",
+        "line": 240,
+        "column": 39,
+        "code": "TS18048",
+        "message": "'first' is possibly 'undefined'."
+      },
+      {
+        "file": "src/main/utils/memory-monitor.ts",
+        "line": 366,
+        "column": 25,
+        "code": "TS18048",
+        "message": "'last' is possibly 'undefined'."
+      },
+      {
+        "file": "src/main/utils/memory-monitor.ts",
+        "line": 366,
+        "column": 41,
+        "code": "TS18048",
+        "message": "'first' is possibly 'undefined'."
+      },
+      {
+        "file": "src/main/utils/memory-monitor.ts",
+        "line": 367,
+        "column": 22,
+        "code": "TS18048",
+        "message": "'last' is possibly 'undefined'."
+      },
+      {
+        "file": "src/main/utils/memory-monitor.ts",
+        "line": 367,
+        "column": 39,
+        "code": "TS18048",
+        "message": "'first' is possibly 'undefined'."
+      },
+      {
+        "file": "src/preload/__tests__/preload-security.test.ts",
+        "line": 635,
+        "column": 14,
+        "code": "TS18048",
+        "message": "'callArgs' is possibly 'undefined'."
+      },
+      {
+        "file": "src/preload/__tests__/preload-security.test.ts",
+        "line": 636,
+        "column": 14,
+        "code": "TS18048",
+        "message": "'callArgs' is possibly 'undefined'."
+      },
+      {
+        "file": "src/preload/__tests__/preload-security.test.ts",
+        "line": 637,
+        "column": 14,
+        "code": "TS18048",
+        "message": "'callArgs' is possibly 'undefined'."
+      },
+      {
+        "file": "src/preload/__tests__/preload-security.test.ts",
+        "line": 638,
+        "column": 14,
+        "code": "TS18048",
+        "message": "'callArgs' is possibly 'undefined'."
+      },
+      {
+        "file": "src/renderer/src/hooks/useAppState.ts",
+        "line": 451,
+        "column": 56,
+        "code": "TS18048",
+        "message": "'mostRecent' is possibly 'undefined'."
+      },
+      {
+        "file": "src/renderer/src/hooks/useAppState.ts",
+        "line": 454,
+        "column": 51,
+        "code": "TS18048",
+        "message": "'mostRecent' is possibly 'undefined'."
+      },
+      {
+        "file": "src/renderer/src/hooks/useAppState.ts",
+        "line": 455,
+        "column": 28,
+        "code": "TS18048",
+        "message": "'mostRecent' is possibly 'undefined'."
+      },
+      {
+        "file": "src/renderer/src/store/__tests__/errorHandling.test.ts",
+        "line": 722,
+        "column": 29,
+        "code": "TS18048",
+        "message": "'metrics.p95' is possibly 'undefined'."
+      },
+      {
+        "file": "src/renderer/src/store/__tests__/errorHandling.test.ts",
+        "line": 723,
+        "column": 29,
+        "code": "TS18048",
+        "message": "'metrics.p99' is possibly 'undefined'."
+      },
+      {
+        "file": "src/renderer/src/store/__tests__/errorHandling.test.ts",
+        "line": 776,
+        "column": 12,
+        "code": "TS18048",
+        "message": "'latestError' is possibly 'undefined'."
+      },
+      {
+        "file": "src/renderer/src/store/__tests__/errorHandling.test.ts",
+        "line": 777,
+        "column": 21,
+        "code": "TS18048",
+        "message": "'latestError' is possibly 'undefined'."
+      },
+      {
+        "file": "src/renderer/src/store/stateBackup.ts",
+        "line": 280,
+        "column": 47,
+        "code": "TS18048",
+        "message": "'oldest' is possibly 'undefined'."
+      }
+    ],
+    "TS2552": [
+      {
+        "file": "src/main/__tests__/ipc-security.test.ts",
+        "line": 58,
+        "column": 5,
+        "code": "TS2552",
+        "message": "Cannot find name 'securityMonitor'. Did you mean 'SecurityMonitor'?"
+      }
+    ],
+    "TS2532": [
+      {
+        "file": "src/main/__tests__/ipc-security.test.ts",
+        "line": 448,
+        "column": 30,
+        "code": "TS2532",
+        "message": "Object is possibly 'undefined'."
+      },
+      {
+        "file": "src/main/__tests__/ipc-security.test.ts",
+        "line": 448,
+        "column": 72,
+        "code": "TS2532",
+        "message": "Object is possibly 'undefined'."
+      },
+      {
+        "file": "src/main/__tests__/ipc-security.test.ts",
+        "line": 740,
+        "column": 28,
+        "code": "TS2532",
+        "message": "Object is possibly 'undefined'."
+      },
+      {
+        "file": "src/main/__tests__/ipc-security.test.ts",
+        "line": 740,
+        "column": 57,
+        "code": "TS2532",
+        "message": "Object is possibly 'undefined'."
+      },
+      {
+        "file": "src/main/index.ts",
+        "line": 700,
+        "column": 9,
+        "code": "TS2532",
+        "message": "Object is possibly 'undefined'."
+      },
+      {
+        "file": "src/main/index.ts",
+        "line": 700,
+        "column": 35,
+        "code": "TS2532",
+        "message": "Object is possibly 'undefined'."
+      },
+      {
+        "file": "src/main/index.ts",
+        "line": 701,
+        "column": 5,
+        "code": "TS2532",
+        "message": "Object is possibly 'undefined'."
+      },
+      {
+        "file": "src/main/security/security-monitor.ts",
+        "line": 55,
+        "column": 28,
+        "code": "TS2532",
+        "message": "Object is possibly 'undefined'."
+      },
+      {
+        "file": "src/main/security/security-monitor.ts",
+        "line": 55,
+        "column": 78,
+        "code": "TS2532",
+        "message": "Object is possibly 'undefined'."
+      },
+      {
+        "file": "src/main/security/security-monitor.ts",
+        "line": 102,
+        "column": 26,
+        "code": "TS2532",
+        "message": "Object is possibly 'undefined'."
+      },
+      {
+        "file": "src/main/security/security-monitor.ts",
+        "line": 102,
+        "column": 54,
+        "code": "TS2532",
+        "message": "Object is possibly 'undefined'."
+      },
+      {
+        "file": "src/main/utils/heap-snapshot-analyzer.ts",
+        "line": 252,
+        "column": 15,
+        "code": "TS2532",
+        "message": "Object is possibly 'undefined'."
+      },
+      {
+        "file": "src/renderer/src/components/recovery/RecoveryDashboard.tsx",
+        "line": 249,
+        "column": 11,
+        "code": "TS2532",
+        "message": "Object is possibly 'undefined'."
+      },
+      {
+        "file": "src/renderer/src/components/task/TaskCard.tsx",
+        "line": 163,
+        "column": 11,
+        "code": "TS2532",
+        "message": "Object is possibly 'undefined'."
+      },
+      {
+        "file": "src/renderer/src/components/ui/CommandPalette.tsx",
+        "line": 150,
+        "column": 5,
+        "code": "TS2532",
+        "message": "Object is possibly 'undefined'."
+      },
+      {
+        "file": "src/renderer/src/components/views/PerformanceDashboard.tsx",
+        "line": 288,
+        "column": 50,
+        "code": "TS2532",
+        "message": "Object is possibly 'undefined'."
+      },
+      {
+        "file": "src/renderer/src/components/views/PerformanceDashboard.tsx",
+        "line": 334,
+        "column": 31,
+        "code": "TS2532",
+        "message": "Object is possibly 'undefined'."
+      },
+      {
+        "file": "src/renderer/src/hooks/useAppState.ts",
+        "line": 247,
+        "column": 27,
+        "code": "TS2532",
+        "message": "Object is possibly 'undefined'."
+      },
+      {
+        "file": "src/renderer/src/store/__tests__/errorHandling.test.ts",
+        "line": 191,
+        "column": 12,
+        "code": "TS2532",
+        "message": "Object is possibly 'undefined'."
+      },
+      {
+        "file": "src/renderer/src/store/__tests__/errorHandling.test.ts",
+        "line": 192,
+        "column": 12,
+        "code": "TS2532",
+        "message": "Object is possibly 'undefined'."
+      },
+      {
+        "file": "src/renderer/src/store/__tests__/errorHandling.test.ts",
+        "line": 256,
+        "column": 12,
+        "code": "TS2532",
+        "message": "Object is possibly 'undefined'."
+      },
+      {
+        "file": "src/renderer/src/store/__tests__/errorHandling.test.ts",
+        "line": 359,
+        "column": 12,
+        "code": "TS2532",
+        "message": "Object is possibly 'undefined'."
+      },
+      {
+        "file": "src/renderer/src/store/__tests__/errorHandling.test.ts",
+        "line": 360,
+        "column": 12,
+        "code": "TS2532",
+        "message": "Object is possibly 'undefined'."
+      },
+      {
+        "file": "src/renderer/src/store/__tests__/errorHandling.test.ts",
+        "line": 441,
+        "column": 12,
+        "code": "TS2532",
+        "message": "Object is possibly 'undefined'."
+      },
+      {
+        "file": "src/renderer/src/store/__tests__/errorHandling.test.ts",
+        "line": 442,
+        "column": 12,
+        "code": "TS2532",
+        "message": "Object is possibly 'undefined'."
+      },
+      {
+        "file": "src/renderer/src/store/__tests__/useTaskStore.test.ts",
+        "line": 72,
+        "column": 14,
+        "code": "TS2532",
+        "message": "Object is possibly 'undefined'."
+      },
+      {
+        "file": "src/renderer/src/store/__tests__/useTaskStore.test.ts",
+        "line": 73,
+        "column": 14,
+        "code": "TS2532",
+        "message": "Object is possibly 'undefined'."
+      },
+      {
+        "file": "src/renderer/src/store/__tests__/useTaskStore.test.ts",
+        "line": 74,
+        "column": 14,
+        "code": "TS2532",
+        "message": "Object is possibly 'undefined'."
+      },
+      {
+        "file": "src/renderer/src/store/__tests__/useTaskStore.test.ts",
+        "line": 86,
+        "column": 22,
+        "code": "TS2532",
+        "message": "Object is possibly 'undefined'."
+      },
+      {
+        "file": "src/renderer/src/store/__tests__/useTaskStore.test.ts",
+        "line": 116,
+        "column": 22,
+        "code": "TS2532",
+        "message": "Object is possibly 'undefined'."
+      },
+      {
+        "file": "src/renderer/src/store/__tests__/useTaskStore.test.ts",
+        "line": 138,
+        "column": 26,
+        "code": "TS2532",
+        "message": "Object is possibly 'undefined'."
+      },
+      {
+        "file": "src/renderer/src/store/__tests__/useTaskStore.test.ts",
+        "line": 151,
+        "column": 50,
+        "code": "TS2532",
+        "message": "Object is possibly 'undefined'."
+      },
+      {
+        "file": "src/renderer/src/store/__tests__/useTaskStore.test.ts",
+        "line": 168,
+        "column": 22,
+        "code": "TS2532",
+        "message": "Object is possibly 'undefined'."
+      },
+      {
+        "file": "src/renderer/src/store/__tests__/useTaskStore.test.ts",
+        "line": 187,
+        "column": 14,
+        "code": "TS2532",
+        "message": "Object is possibly 'undefined'."
+      },
+      {
+        "file": "src/renderer/src/store/__tests__/useTaskStore.test.ts",
+        "line": 204,
+        "column": 25,
+        "code": "TS2532",
+        "message": "Object is possibly 'undefined'."
+      },
+      {
+        "file": "src/renderer/src/store/__tests__/useTaskStore.test.ts",
+        "line": 237,
+        "column": 25,
+        "code": "TS2532",
+        "message": "Object is possibly 'undefined'."
+      },
+      {
+        "file": "src/renderer/src/store/__tests__/useTaskStore.test.ts",
+        "line": 287,
+        "column": 14,
+        "code": "TS2532",
+        "message": "Object is possibly 'undefined'."
+      },
+      {
+        "file": "src/renderer/src/store/__tests__/useTaskStore.test.ts",
+        "line": 290,
+        "column": 14,
+        "code": "TS2532",
+        "message": "Object is possibly 'undefined'."
+      },
+      {
+        "file": "src/renderer/src/store/__tests__/useTaskStore.test.ts",
+        "line": 293,
+        "column": 14,
+        "code": "TS2532",
+        "message": "Object is possibly 'undefined'."
+      },
+      {
+        "file": "src/renderer/src/store/__tests__/useTaskStore.test.ts",
+        "line": 317,
+        "column": 14,
+        "code": "TS2532",
+        "message": "Object is possibly 'undefined'."
+      },
+      {
+        "file": "src/renderer/src/store/__tests__/useTaskStore.test.ts",
+        "line": 332,
+        "column": 14,
+        "code": "TS2532",
+        "message": "Object is possibly 'undefined'."
+      },
+      {
+        "file": "src/renderer/src/store/__tests__/useTaskStore.test.ts",
+        "line": 446,
+        "column": 14,
+        "code": "TS2532",
+        "message": "Object is possibly 'undefined'."
+      },
+      {
+        "file": "src/renderer/src/store/__tests__/useTaskStore.test.ts",
+        "line": 447,
+        "column": 14,
+        "code": "TS2532",
+        "message": "Object is possibly 'undefined'."
+      },
+      {
+        "file": "src/renderer/src/store/__tests__/useTaskStore.test.ts",
+        "line": 465,
+        "column": 14,
+        "code": "TS2532",
+        "message": "Object is possibly 'undefined'."
+      },
+      {
+        "file": "src/renderer/src/store/__tests__/useTaskStore.test.ts",
+        "line": 466,
+        "column": 14,
+        "code": "TS2532",
+        "message": "Object is possibly 'undefined'."
+      },
+      {
+        "file": "src/renderer/src/store/__tests__/useTaskStore.test.ts",
+        "line": 524,
+        "column": 14,
+        "code": "TS2532",
+        "message": "Object is possibly 'undefined'."
+      },
+      {
+        "file": "src/renderer/src/store/__tests__/useTaskStore.test.ts",
+        "line": 537,
+        "column": 14,
+        "code": "TS2532",
+        "message": "Object is possibly 'undefined'."
+      },
+      {
+        "file": "src/renderer/src/store/errorStore.ts",
+        "line": 235,
+        "column": 11,
+        "code": "TS2532",
+        "message": "Object is possibly 'undefined'."
+      },
+      {
+        "file": "src/renderer/src/store/errorStore.ts",
+        "line": 296,
+        "column": 13,
+        "code": "TS2532",
+        "message": "Object is possibly 'undefined'."
+      },
+      {
+        "file": "src/renderer/src/store/errorStore.ts",
+        "line": 472,
+        "column": 13,
+        "code": "TS2532",
+        "message": "Object is possibly 'undefined'."
+      }
+    ],
+    "TS7006": [
+      {
+        "file": "src/main/__tests__/lifecycle.test.ts",
+        "line": 134,
+        "column": 52,
+        "code": "TS7006",
+        "message": "Parameter 'call' implicitly has an 'any' type."
+      },
+      {
+        "file": "src/main/__tests__/lifecycle.test.ts",
+        "line": 183,
+        "column": 52,
+        "code": "TS7006",
+        "message": "Parameter 'call' implicitly has an 'any' type."
+      },
+      {
+        "file": "src/main/__tests__/lifecycle.test.ts",
+        "line": 203,
+        "column": 52,
+        "code": "TS7006",
+        "message": "Parameter 'call' implicitly has an 'any' type."
+      },
+      {
+        "file": "src/main/__tests__/lifecycle.test.ts",
+        "line": 224,
+        "column": 52,
+        "code": "TS7006",
+        "message": "Parameter 'call' implicitly has an 'any' type."
+      },
+      {
+        "file": "src/main/__tests__/lifecycle.test.ts",
+        "line": 244,
+        "column": 52,
+        "code": "TS7006",
+        "message": "Parameter 'call' implicitly has an 'any' type."
+      },
+      {
+        "file": "src/main/__tests__/lifecycle.test.ts",
+        "line": 270,
+        "column": 52,
+        "code": "TS7006",
+        "message": "Parameter 'call' implicitly has an 'any' type."
+      },
+      {
+        "file": "src/main/__tests__/lifecycle.test.ts",
+        "line": 319,
+        "column": 52,
+        "code": "TS7006",
+        "message": "Parameter 'call' implicitly has an 'any' type."
+      },
+      {
+        "file": "src/main/__tests__/lifecycle.test.ts",
+        "line": 376,
+        "column": 52,
+        "code": "TS7006",
+        "message": "Parameter 'call' implicitly has an 'any' type."
+      },
+      {
+        "file": "src/main/__tests__/lifecycle.test.ts",
+        "line": 442,
+        "column": 52,
+        "code": "TS7006",
+        "message": "Parameter 'call' implicitly has an 'any' type."
+      },
+      {
+        "file": "src/main/__tests__/lifecycle.test.ts",
+        "line": 473,
+        "column": 57,
+        "code": "TS7006",
+        "message": "Parameter 'call' implicitly has an 'any' type."
+      },
+      {
+        "file": "src/main/__tests__/lifecycle.test.ts",
+        "line": 474,
+        "column": 52,
+        "code": "TS7006",
+        "message": "Parameter 'call' implicitly has an 'any' type."
+      },
+      {
+        "file": "src/main/__tests__/lifecycle.test.ts",
+        "line": 490,
+        "column": 52,
+        "code": "TS7006",
+        "message": "Parameter 'call' implicitly has an 'any' type."
+      },
+      {
+        "file": "src/main/__tests__/mocked-electron-apis.test.ts",
+        "line": 640,
+        "column": 70,
+        "code": "TS7006",
+        "message": "Parameter 'code' implicitly has an 'any' type."
+      },
+      {
+        "file": "src/renderer/src/components/task/__tests__/TaskCard.test.tsx",
+        "line": 40,
+        "column": 33,
+        "code": "TS7006",
+        "message": "Parameter 'props' implicitly has an 'any' type."
+      },
+      {
+        "file": "src/renderer/src/components/task/__tests__/TaskCard.test.tsx",
+        "line": 40,
+        "column": 40,
+        "code": "TS7006",
+        "message": "Parameter 'ref' implicitly has an 'any' type."
+      },
+      {
+        "file": "tests/mocks/mock-update-server.ts",
+        "line": 122,
+        "column": 27,
+        "code": "TS7006",
+        "message": "Parameter 'data' implicitly has an 'any' type."
+      }
+    ],
+    "TS2540": [
+      {
+        "file": "src/main/__tests__/lifecycle.test.ts",
+        "line": 322,
+        "column": 13,
+        "code": "TS2540",
+        "message": "Cannot assign to 'isPackaged' because it is a read-only property."
+      },
+      {
+        "file": "src/renderer/src/components/error/__tests__/ErrorBoundary.test.tsx",
+        "line": 312,
+        "column": 19,
+        "code": "TS2540",
+        "message": "Cannot assign to 'NODE_ENV' because it is a read-only property."
+      },
+      {
+        "file": "src/renderer/src/components/error/__tests__/ErrorBoundary.test.tsx",
+        "line": 328,
+        "column": 19,
+        "code": "TS2540",
+        "message": "Cannot assign to 'NODE_ENV' because it is a read-only property."
+      },
+      {
+        "file": "src/renderer/src/components/error/__tests__/ErrorBoundary.test.tsx",
+        "line": 334,
+        "column": 19,
+        "code": "TS2540",
+        "message": "Cannot assign to 'NODE_ENV' because it is a read-only property."
+      },
+      {
+        "file": "src/renderer/src/components/error/__tests__/ErrorBoundary.test.tsx",
+        "line": 347,
+        "column": 19,
+        "code": "TS2540",
+        "message": "Cannot assign to 'NODE_ENV' because it is a read-only property."
+      }
+    ],
+    "TS2451": [
+      {
+        "file": "src/main/__tests__/memory-leak-detection.test.ts",
+        "line": 216,
+        "column": 15,
+        "code": "TS2451",
+        "message": "Cannot redeclare block-scoped variable 'createWindow'."
+      },
+      {
+        "file": "src/main/__tests__/memory-leak-detection.test.ts",
+        "line": 216,
+        "column": 29,
+        "code": "TS2451",
+        "message": "Cannot redeclare block-scoped variable 'destroyWindow'."
+      },
+      {
+        "file": "src/main/__tests__/memory-leak-detection.test.ts",
+        "line": 219,
+        "column": 13,
+        "code": "TS2451",
+        "message": "Cannot redeclare block-scoped variable 'createWindow'."
+      },
+      {
+        "file": "src/main/__tests__/memory-leak-detection.test.ts",
+        "line": 225,
+        "column": 13,
+        "code": "TS2451",
+        "message": "Cannot redeclare block-scoped variable 'destroyWindow'."
+      },
+      {
+        "file": "src/main/__tests__/memory-leak-detection.test.ts",
+        "line": 305,
+        "column": 15,
+        "code": "TS2451",
+        "message": "Cannot redeclare block-scoped variable 'setupIpcHandlers'."
+      },
+      {
+        "file": "src/main/__tests__/memory-leak-detection.test.ts",
+        "line": 305,
+        "column": 33,
+        "code": "TS2451",
+        "message": "Cannot redeclare block-scoped variable 'cleanupIpcHandlers'."
+      },
+      {
+        "file": "src/main/__tests__/memory-leak-detection.test.ts",
+        "line": 308,
+        "column": 13,
+        "code": "TS2451",
+        "message": "Cannot redeclare block-scoped variable 'setupIpcHandlers'."
+      },
+      {
+        "file": "src/main/__tests__/memory-leak-detection.test.ts",
+        "line": 314,
+        "column": 13,
+        "code": "TS2451",
+        "message": "Cannot redeclare block-scoped variable 'cleanupIpcHandlers'."
+      }
+    ],
+    "TS2307": [
+      {
+        "file": "src/main/__tests__/memory-leak-detection.test.ts",
+        "line": 216,
+        "column": 60,
+        "code": "TS2307",
+        "message": "Cannot find module '../window-manager' or its corresponding type declarations."
+      },
+      {
+        "file": "src/main/__tests__/memory-leak-detection.test.ts",
+        "line": 305,
+        "column": 69,
+        "code": "TS2307",
+        "message": "Cannot find module '../ipc-handlers' or its corresponding type declarations."
+      },
+      {
+        "file": "src/renderer/src/components/error/__tests__/ErrorBoundary.test.tsx",
+        "line": 14,
+        "column": 27,
+        "code": "TS2307",
+        "message": "Cannot find module '@tests/setup' or its corresponding type declarations."
+      },
+      {
+        "file": "src/renderer/src/components/task/__tests__/TaskCard.test.tsx",
+        "line": 16,
+        "column": 27,
+        "code": "TS2307",
+        "message": "Cannot find module '@tests/setup' or its corresponding type declarations."
+      },
+      {
+        "file": "src/renderer/src/components/views/PerformanceDashboard.tsx",
+        "line": 24,
+        "column": 40,
+        "code": "TS2307",
+        "message": "Cannot find module '@/lib/performance-database' or its corresponding type declarations."
+      },
+      {
+        "file": "src/renderer/src/store/__tests__/useTaskStore.test.ts",
+        "line": 13,
+        "column": 27,
+        "code": "TS2307",
+        "message": "Cannot find module '@tests/setup' or its corresponding type declarations."
+      }
+    ],
+    "TS2769": [
+      {
+        "file": "src/main/__tests__/memory-leak-detection.test.ts",
+        "line": 287,
+        "column": 19,
+        "code": "TS2769",
+        "message": "No overload matches this call."
+      },
+      {
+        "file": "src/main/__tests__/memory-leak-detection.test.ts",
+        "line": 288,
+        "column": 19,
+        "code": "TS2769",
+        "message": "No overload matches this call."
+      },
+      {
+        "file": "src/main/__tests__/memory-leaks.test.ts",
+        "line": 484,
+        "column": 16,
+        "code": "TS2769",
+        "message": "No overload matches this call."
+      },
+      {
+        "file": "src/renderer/src/components/views/PerformanceDashboard.tsx",
+        "line": 370,
+        "column": 11,
+        "code": "TS2769",
+        "message": "No overload matches this call."
+      },
+      {
+        "file": "tests/mocks/mock-update-server.ts",
+        "line": 137,
+        "column": 33,
+        "code": "TS2769",
+        "message": "No overload matches this call."
+      },
+      {
+        "file": "tests/mocks/mock-update-server.ts",
+        "line": 149,
+        "column": 37,
+        "code": "TS2769",
+        "message": "No overload matches this call."
+      },
+      {
+        "file": "tests/mocks/mock-update-server.ts",
+        "line": 164,
+        "column": 34,
+        "code": "TS2769",
+        "message": "No overload matches this call."
+      },
+      {
+        "file": "tests/mocks/mock-update-server.ts",
+        "line": 174,
+        "column": 41,
+        "code": "TS2769",
+        "message": "No overload matches this call."
+      },
+      {
+        "file": "tests/mocks/mock-update-server.ts",
+        "line": 209,
+        "column": 59,
+        "code": "TS2769",
+        "message": "No overload matches this call."
+      }
+    ],
+    "TS2741": [
+      {
+        "file": "src/main/__tests__/memory-leak-detection.test.ts",
+        "line": 426,
+        "column": 7,
+        "code": "TS2741",
+        "message": "Property '__promisify__' is missing in type 'Mock<Procedure>' but required in type 'typeof setTimeout'."
+      }
+    ],
+    "TS7031": [
+      {
+        "file": "src/main/__tests__/memory-leaks.test.ts",
+        "line": 306,
+        "column": 45,
+        "code": "TS7031",
+        "message": "Binding element 'channel' implicitly has an 'any' type."
+      },
+      {
+        "file": "src/main/__tests__/memory-leaks.test.ts",
+        "line": 306,
+        "column": 54,
+        "code": "TS7031",
+        "message": "Binding element 'handler' implicitly has an 'any' type."
+      }
+    ],
+    "TS7034": [
+      {
+        "file": "src/main/__tests__/memory-leaks.test.ts",
+        "line": 477,
+        "column": 13,
+        "code": "TS7034",
+        "message": "Variable 'listeners' implicitly has type 'any[]' in some locations where its type cannot be determined."
+      }
+    ],
+    "TS7005": [
+      {
+        "file": "src/main/__tests__/memory-leaks.test.ts",
+        "line": 490,
+        "column": 9,
+        "code": "TS7005",
+        "message": "Variable 'listeners' implicitly has an 'any[]' type."
+      }
+    ],
+    "TS7053": [
+      {
+        "file": "src/main/__tests__/mocked-electron-apis.test.ts",
+        "line": 42,
+        "column": 14,
+        "code": "TS7053",
+        "message": "Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{ home: string; appData: string; userData: string; temp: string; desktop: string; documents: string; downloads: string; music: string; pictures: string; videos: string; logs: string; pepperFlashSystemPlugin: string; }'."
+      }
+    ],
+    "TS18046": [
+      {
+        "file": "src/main/utils/heap-snapshot-analyzer.ts",
+        "line": 145,
+        "column": 68,
+        "code": "TS18046",
+        "message": "'error' is of type 'unknown'."
+      },
+      {
+        "file": "src/renderer/src/hooks/useAppState.ts",
+        "line": 356,
+        "column": 18,
+        "code": "TS18046",
+        "message": "'error' is of type 'unknown'."
+      }
+    ],
+    "TS2538": [
+      {
+        "file": "src/main/utils/heap-snapshot-analyzer.ts",
+        "line": 248,
+        "column": 37,
+        "code": "TS2538",
+        "message": "Type 'undefined' cannot be used as an index type."
+      },
+      {
+        "file": "src/main/utils/heap-snapshot-analyzer.ts",
+        "line": 252,
+        "column": 47,
+        "code": "TS2538",
+        "message": "Type 'undefined' cannot be used as an index type."
+      }
+    ],
+    "TS6192": [
+      {
+        "file": "src/renderer/src/components/error/withIPCErrorHandling.tsx",
+        "line": 14,
+        "column": 1,
+        "code": "TS6192",
+        "message": "All imports in import declaration are unused."
+      },
+      {
+        "file": "src/renderer/src/components/recovery/RecoveryDashboard.tsx",
+        "line": 41,
+        "column": 1,
+        "code": "TS6192",
+        "message": "All imports in import declaration are unused."
+      },
+      {
+        "file": "src/renderer/src/store/__tests__/errorHandling.test.ts",
+        "line": 11,
+        "column": 1,
+        "code": "TS6192",
+        "message": "All imports in import declaration are unused."
+      }
+    ],
+    "TS7030": [
+      {
+        "file": "src/renderer/src/components/recovery/RecoveryNotification.tsx",
+        "line": 84,
+        "column": 13,
+        "code": "TS7030",
+        "message": "Not all code paths return a value."
+      },
+      {
+        "file": "src/renderer/src/components/task/TaskCard.tsx",
+        "line": 96,
+        "column": 15,
+        "code": "TS7030",
+        "message": "Not all code paths return a value."
+      },
+      {
+        "file": "tests/mocks/mock-update-server.ts",
+        "line": 137,
+        "column": 33,
+        "code": "TS7030",
+        "message": "Not all code paths return a value."
+      },
+      {
+        "file": "tests/mocks/mock-update-server.ts",
+        "line": 149,
+        "column": 37,
+        "code": "TS7030",
+        "message": "Not all code paths return a value."
+      },
+      {
+        "file": "tests/mocks/mock-update-server.ts",
+        "line": 164,
+        "column": 34,
+        "code": "TS7030",
+        "message": "Not all code paths return a value."
+      },
+      {
+        "file": "tests/mocks/mock-update-server.ts",
+        "line": 174,
+        "column": 41,
+        "code": "TS7030",
+        "message": "Not all code paths return a value."
+      },
+      {
+        "file": "tests/mocks/mock-update-server.ts",
+        "line": 209,
+        "column": 59,
+        "code": "TS7030",
+        "message": "Not all code paths return a value."
+      }
+    ],
+    "TS2347": [
+      {
+        "file": "src/renderer/src/components/task/__tests__/TaskCard.test.tsx",
+        "line": 40,
+        "column": 5,
+        "code": "TS2347",
+        "message": "Untyped function calls may not accept type arguments."
+      }
+    ],
+    "TS2678": [
+      {
+        "file": "src/renderer/src/config/errorHandling.ts",
+        "line": 320,
+        "column": 10,
+        "code": "TS2678",
+        "message": "Type '\"staging\"' is not comparable to type '\"development\" | \"production\" | \"test\"'."
+      }
+    ],
+    "TS2484": [
+      {
+        "file": "src/renderer/src/hooks/useAppState.ts",
+        "line": 572,
+        "column": 3,
+        "code": "TS2484",
+        "message": "Export declaration conflicts with exported declaration of 'AppState'."
+      },
+      {
+        "file": "src/renderer/src/hooks/useAppState.ts",
+        "line": 573,
+        "column": 3,
+        "code": "TS2484",
+        "message": "Export declaration conflicts with exported declaration of 'StatePreservationResult'."
+      },
+      {
+        "file": "src/renderer/src/hooks/useAppState.ts",
+        "line": 574,
+        "column": 3,
+        "code": "TS2484",
+        "message": "Export declaration conflicts with exported declaration of 'StateRestorationResult'."
+      },
+      {
+        "file": "src/renderer/src/hooks/useAppState.ts",
+        "line": 575,
+        "column": 3,
+        "code": "TS2484",
+        "message": "Export declaration conflicts with exported declaration of 'UseAppStateOptions'."
+      },
+      {
+        "file": "src/renderer/src/hooks/useErrorBoundary.ts",
+        "line": 501,
+        "column": 3,
+        "code": "TS2484",
+        "message": "Export declaration conflicts with exported declaration of 'ErrorBoundaryState'."
+      },
+      {
+        "file": "src/renderer/src/hooks/useErrorBoundary.ts",
+        "line": 502,
+        "column": 3,
+        "code": "TS2484",
+        "message": "Export declaration conflicts with exported declaration of 'ErrorRecoveryStrategy'."
+      },
+      {
+        "file": "src/renderer/src/hooks/useErrorBoundary.ts",
+        "line": 503,
+        "column": 3,
+        "code": "TS2484",
+        "message": "Export declaration conflicts with exported declaration of 'UseErrorBoundaryOptions'."
+      },
+      {
+        "file": "src/renderer/src/lib/config/monitoring.ts",
+        "line": 386,
+        "column": 3,
+        "code": "TS2484",
+        "message": "Export declaration conflicts with exported declaration of 'MonitoringFeatureFlags'."
+      },
+      {
+        "file": "src/renderer/src/lib/config/monitoring.ts",
+        "line": 387,
+        "column": 3,
+        "code": "TS2484",
+        "message": "Export declaration conflicts with exported declaration of 'MonitoringEndpoints'."
+      },
+      {
+        "file": "src/renderer/src/lib/config/monitoring.ts",
+        "line": 388,
+        "column": 3,
+        "code": "TS2484",
+        "message": "Export declaration conflicts with exported declaration of 'SampleRates'."
+      },
+      {
+        "file": "src/renderer/src/lib/config/monitoring.ts",
+        "line": 389,
+        "column": 3,
+        "code": "TS2484",
+        "message": "Export declaration conflicts with exported declaration of 'MonitoringConfig'."
+      },
+      {
+        "file": "src/renderer/src/lib/config/monitoring.ts",
+        "line": 390,
+        "column": 3,
+        "code": "TS2484",
+        "message": "Export declaration conflicts with exported declaration of 'UserMonitoringSettings'."
+      },
+      {
+        "file": "src/renderer/src/lib/config/monitoring.ts",
+        "line": 391,
+        "column": 3,
+        "code": "TS2484",
+        "message": "Export declaration conflicts with exported declaration of 'MonitoringHealthStatus'."
+      },
+      {
+        "file": "src/renderer/src/lib/config/performance-dashboard.ts",
+        "line": 749,
+        "column": 3,
+        "code": "TS2484",
+        "message": "Export declaration conflicts with exported declaration of 'PerformanceMetricConfig'."
+      },
+      {
+        "file": "src/renderer/src/lib/config/performance-dashboard.ts",
+        "line": 750,
+        "column": 3,
+        "code": "TS2484",
+        "message": "Export declaration conflicts with exported declaration of 'AlertThresholdConfig'."
+      },
+      {
+        "file": "src/renderer/src/lib/config/performance-dashboard.ts",
+        "line": 751,
+        "column": 3,
+        "code": "TS2484",
+        "message": "Export declaration conflicts with exported declaration of 'VisualizationConfig'."
+      },
+      {
+        "file": "src/renderer/src/lib/config/performance-dashboard.ts",
+        "line": 752,
+        "column": 3,
+        "code": "TS2484",
+        "message": "Export declaration conflicts with exported declaration of 'DashboardLayoutConfig'."
+      },
+      {
+        "file": "src/renderer/src/lib/config/performance-dashboard.ts",
+        "line": 753,
+        "column": 3,
+        "code": "TS2484",
+        "message": "Export declaration conflicts with exported declaration of 'WidgetConfig'."
+      },
+      {
+        "file": "src/renderer/src/lib/config/performance-dashboard.ts",
+        "line": 754,
+        "column": 3,
+        "code": "TS2484",
+        "message": "Export declaration conflicts with exported declaration of 'RealTimeDataConfig'."
+      },
+      {
+        "file": "src/renderer/src/lib/config/performance-dashboard.ts",
+        "line": 755,
+        "column": 3,
+        "code": "TS2484",
+        "message": "Export declaration conflicts with exported declaration of 'DataRetentionConfig'."
+      },
+      {
+        "file": "src/renderer/src/lib/config/performance-dashboard.ts",
+        "line": 756,
+        "column": 3,
+        "code": "TS2484",
+        "message": "Export declaration conflicts with exported declaration of 'PerformanceDashboardConfig'."
+      },
+      {
+        "file": "src/renderer/src/lib/services/crashRecovery.ts",
+        "line": 737,
+        "column": 3,
+        "code": "TS2484",
+        "message": "Export declaration conflicts with exported declaration of 'CrashRecoveryOptions'."
+      },
+      {
+        "file": "src/renderer/src/lib/services/crashRecovery.ts",
+        "line": 738,
+        "column": 3,
+        "code": "TS2484",
+        "message": "Export declaration conflicts with exported declaration of 'RecoveryStrategy'."
+      },
+      {
+        "file": "src/renderer/src/lib/services/crashRecovery.ts",
+        "line": 739,
+        "column": 3,
+        "code": "TS2484",
+        "message": "Export declaration conflicts with exported declaration of 'RecoveryMethod'."
+      },
+      {
+        "file": "src/renderer/src/lib/services/crashRecovery.ts",
+        "line": 740,
+        "column": 3,
+        "code": "TS2484",
+        "message": "Export declaration conflicts with exported declaration of 'CrashIndicator'."
+      },
+      {
+        "file": "src/renderer/src/lib/services/crashRecovery.ts",
+        "line": 741,
+        "column": 3,
+        "code": "TS2484",
+        "message": "Export declaration conflicts with exported declaration of 'RecoveryAttemptResult'."
+      },
+      {
+        "file": "src/renderer/src/lib/services/crashRecovery.ts",
+        "line": 742,
+        "column": 3,
+        "code": "TS2484",
+        "message": "Export declaration conflicts with exported declaration of 'CrashRecoveryResult'."
+      },
+      {
+        "file": "src/renderer/src/lib/services/crashRecovery.ts",
+        "line": 743,
+        "column": 3,
+        "code": "TS2484",
+        "message": "Export declaration conflicts with exported declaration of 'RecoverySummary'."
+      },
+      {
+        "file": "src/renderer/src/lib/services/crashRecovery.ts",
+        "line": 744,
+        "column": 3,
+        "code": "TS2484",
+        "message": "Export declaration conflicts with exported declaration of 'HealthStatus'."
+      },
+      {
+        "file": "src/renderer/src/lib/services/errorReporting.ts",
+        "line": 563,
+        "column": 15,
+        "code": "TS2484",
+        "message": "Export declaration conflicts with exported declaration of 'ErrorReportingConfig'."
+      },
+      {
+        "file": "src/renderer/src/lib/services/globalErrorHandler.ts",
+        "line": 710,
+        "column": 15,
+        "code": "TS2484",
+        "message": "Export declaration conflicts with exported declaration of 'GlobalErrorHandlerConfig'."
+      },
+      {
+        "file": "src/renderer/src/lib/services/monitoring.ts",
+        "line": 353,
+        "column": 15,
+        "code": "TS2484",
+        "message": "Export declaration conflicts with exported declaration of 'MonitoringServiceManager'."
+      },
+      {
+        "file": "src/renderer/src/lib/services/monitoring.ts",
+        "line": 353,
+        "column": 41,
+        "code": "TS2484",
+        "message": "Export declaration conflicts with exported declaration of 'MonitoringServiceState'."
+      },
+      {
+        "file": "src/renderer/src/lib/services/telemetry.ts",
+        "line": 743,
+        "column": 15,
+        "code": "TS2484",
+        "message": "Export declaration conflicts with exported declaration of 'TelemetryConfig'."
+      },
+      {
+        "file": "src/renderer/src/services/ErrorReportingService.ts",
+        "line": 599,
+        "column": 3,
+        "code": "TS2484",
+        "message": "Export declaration conflicts with exported declaration of 'ErrorContext'."
+      },
+      {
+        "file": "src/renderer/src/services/ErrorReportingService.ts",
+        "line": 600,
+        "column": 3,
+        "code": "TS2484",
+        "message": "Export declaration conflicts with exported declaration of 'ErrorReport'."
+      },
+      {
+        "file": "src/renderer/src/services/ErrorReportingService.ts",
+        "line": 601,
+        "column": 3,
+        "code": "TS2484",
+        "message": "Export declaration conflicts with exported declaration of 'UserFeedback'."
+      },
+      {
+        "file": "src/renderer/src/services/ErrorReportingService.ts",
+        "line": 602,
+        "column": 3,
+        "code": "TS2484",
+        "message": "Export declaration conflicts with exported declaration of 'ErrorReportingConfig'."
+      }
+    ],
+    "TS2305": [
+      {
+        "file": "src/renderer/src/hooks/useErrorBoundary.ts",
+        "line": 17,
+        "column": 10,
+        "code": "TS2305",
+        "message": "Module '\"react-error-boundary\"' has no exported member 'useErrorHandler'."
+      }
+    ],
+    "TS2367": [
+      {
+        "file": "src/renderer/src/lib/services/globalErrorHandler.ts",
+        "line": 300,
+        "column": 20,
+        "code": "TS2367",
+        "message": "This comparison appears to be unintentional because the types 'HTMLElement' and 'Window & typeof globalThis' have no overlap."
+      }
+    ],
+    "TS2686": [
+      {
+        "file": "src/renderer/src/lib/services/monitoring.ts",
+        "line": 321,
+        "column": 29,
+        "code": "TS2686",
+        "message": "'React' refers to a UMD global, but the current file is a module. Consider adding an import instead."
+      },
+      {
+        "file": "src/renderer/src/lib/services/monitoring.ts",
+        "line": 323,
+        "column": 3,
+        "code": "TS2686",
+        "message": "'React' refers to a UMD global, but the current file is a module. Consider adding an import instead."
+      }
+    ],
+    "TS2550": [
+      {
+        "file": "src/renderer/src/services/ErrorReportingService.ts",
+        "line": 266,
+        "column": 22,
+        "code": "TS2550",
+        "message": "Property 'cause' does not exist on type 'Error'. Do you need to change your target library? Try changing the 'lib' compiler option to 'es2022' or later."
+      }
+    ],
+    "TS2739": [
+      {
+        "file": "src/renderer/src/store/__tests__/errorHandling.test.ts",
+        "line": 492,
+        "column": 7,
+        "code": "TS2739",
+        "message": "Type '{ title: string; description: string; status: \"pending\"; priority: \"medium\"; dependencies: never[]; subtasks: never[]; }' is missing the following properties from type 'Omit<Task, \"id\" | \"createdAt\" | \"updatedAt\">': details, testStrategy"
+      }
+    ],
+    "TS6196": [
+      {
+        "file": "src/renderer/src/store/__tests__/useTaskStore.test.ts",
+        "line": 14,
+        "column": 15,
+        "code": "TS6196",
+        "message": "'Task' is declared but never used."
+      },
+      {
+        "file": "src/renderer/src/store/__tests__/useTaskStore.test.ts",
+        "line": 14,
+        "column": 31,
+        "code": "TS6196",
+        "message": "'UserSettings' is declared but never used."
+      }
+    ],
+    "TS2353": [
+      {
+        "file": "src/renderer/src/store/__tests__/useTaskStore.test.ts",
+        "line": 199,
+        "column": 11,
+        "code": "TS2353",
+        "message": "Object literal may only specify known properties, and 'priority' does not exist in type 'Omit<Subtask, \"id\" | \"taskId\">'."
+      },
+      {
+        "file": "src/renderer/src/store/__tests__/useTaskStore.test.ts",
+        "line": 232,
+        "column": 11,
+        "code": "TS2353",
+        "message": "Object literal may only specify known properties, and 'priority' does not exist in type 'Omit<Subtask, \"id\" | \"taskId\">'."
+      }
+    ],
+    "TS2683": [
+      {
+        "file": "src/renderer/src/store/storeErrorWrapper.ts",
+        "line": 396,
+        "column": 21,
+        "code": "TS2683",
+        "message": "'this' implicitly has type 'any' because it does not have a type annotation."
+      },
+      {
+        "file": "tests/mocks/mock-update-server.ts",
+        "line": 123,
+        "column": 9,
+        "code": "TS2683",
+        "message": "'this' implicitly has type 'any' because it does not have a type annotation."
+      },
+      {
+        "file": "tests/mocks/mock-update-server.ts",
+        "line": 129,
+        "column": 34,
+        "code": "TS2683",
+        "message": "'this' implicitly has type 'any' because it does not have a type annotation."
+      }
+    ]
+  },
+  "fixingStrategy": {
+    "phase1": {
+      "name": "Quick Wins - Automated Fixes",
+      "targets": [
+        "TS6133",
+        "TS6192",
+        "TS18047"
+      ],
+      "approach": "Use ESLint auto-fix and TypeScript compiler options"
+    },
+    "phase2": {
+      "name": "Type Definitions",
+      "targets": [
+        "TS2339",
+        "TS7006",
+        "TS7017",
+        "TS7031"
+      ],
+      "approach": "Add missing type definitions and interfaces"
+    },
+    "phase3": {
+      "name": "Module Resolution",
+      "targets": [
+        "TS2307",
+        "TS2304"
+      ],
+      "approach": "Fix import paths and add missing modules"
+    },
+    "phase4": {
+      "name": "Complex Refactoring",
+      "targets": [
+        "TS2345",
+        "TS2451",
+        "TS2540",
+        "TS2554",
+        "TS2769"
+      ],
+      "approach": "Refactor code structure and fix API usage"
+    }
+  }
+}

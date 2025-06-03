@@ -22,17 +22,43 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Start server dev: `npm run server:dev`
 - Start server prod: `npm run server:start`
 
+### Testing Commands
+- All tests: `npm test` or `npm run test` (Playwright E2E)
+- E2E tests: `npm run test:e2e`
+- Visual tests: `npm run test:visual`
+- Performance tests: `npm run test:performance`
+- Accessibility tests: `npm run test:accessibility`
+- Interactive test UI: `npm run test:ui`
+- Debug mode: `npm run test:debug`
+- Headed mode: `npm run test:headed`
+- Test report: `npm run test:report`
+
+### Memory & Performance Testing
+- Memory leak tests: `npm run test:memory`
+- Detailed memory tests: `npm run test:memory:detailed`
+- Performance benchmarks: `npm run test:benchmark`
+- MemLab scenarios: `npm run memlab:all`
+- Individual scenarios: `npm run memlab:task-operations`, `npm run memlab:view-switching`, `npm run memlab:extended-usage`
+
+### Security Testing
+- Security audit: `npm run test:security:full`
+- Dependency vulnerabilities: `npm run test:security:deps`
+- CSP validation: `npm run test:security:csp`
+- Electron security: `npm run test:security:electron`
+- Security baseline: `npm run test:security:baseline`
+
 ### Setup Commands
 - Full setup: `npm run setup` (installs UI + server dependencies)
 - Security audit: `npm run security:audit`
 - CI validation: `npm run ci:validate`
+- Complete CI test suite: `npm run test:ci`
 
 ## Architecture Overview
 
 ### Multi-Process Electron Application
-- **Main Process**: `electron/main.ts` - Handles app lifecycle, window management
-- **Renderer Process**: React app in `src/` - The UI that users interact with
-- **Preload Script**: `electron/preload.ts` - Secure IPC bridge between main and renderer
+- **Main Process**: `src/main/index.ts` - Handles app lifecycle, window management
+- **Renderer Process**: React app in `src/renderer/` - The UI that users interact with
+- **Preload Script**: `src/preload/index.ts` - Secure IPC bridge between main and renderer
 - **File Watcher Server**: Separate Node.js server in `server/` for real-time file monitoring
 
 ### Core Technologies
@@ -40,11 +66,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **TypeScript** with strict configuration
 - **Zustand** for state management (not Redux)
 - **Tailwind CSS** with custom design system
-- **Electron Forge** for packaging/distribution
+- **electron-vite** for unified Electron development
 - **WebSockets** for real-time file watching
+- **Playwright** for comprehensive E2E testing
+- **ApexCharts** for analytics visualization
 
 ### State Management (Zustand)
-The main store is `src/store/useTaskStore.ts`:
+The main store is `src/renderer/src/store/useTaskStore.ts`:
 - Manages all task data, filters, view modes, user settings
 - Uses computed getters for filtered data
 - Generates analytics automatically when tasks change
@@ -52,17 +80,21 @@ The main store is `src/store/useTaskStore.ts`:
 
 ### Component Architecture
 ```
-src/
+src/renderer/src/
 ├── components/
 │   ├── layout/           # Sidebar, Header, MainContent
 │   ├── task/            # TaskCard, TaskDetailPanel
-│   ├── views/           # TaskListView, KanbanView, AnalyticsView
-│   ├── ui/              # CommandPalette, VirtualizedList
+│   ├── views/           # TaskListView, KanbanView, AnalyticsView, CalendarView, TimelineView
+│   ├── ui/              # CommandPalette, VirtualizedList, EmptyState
 │   ├── project/         # ProjectManager, ProjectDiscovery
-│   └── claude/          # Claude configuration components
+│   ├── claude/          # Claude configuration components
+│   ├── error/           # ErrorBoundary components
+│   └── examples/        # AdvancedTypesExample
 ├── hooks/               # Custom React hooks for reusable logic
-├── lib/                 # Utilities and advanced types
-└── types/              # TypeScript type definitions
+├── lib/                 # Utilities, services, and advanced types
+├── store/               # Zustand state management
+├── types/               # TypeScript type definitions
+└── styles/              # Global CSS and styling
 ```
 
 ### File Watching System
@@ -80,13 +112,13 @@ src/
 ## Key Patterns and Conventions
 
 ### Import Aliases
-Use configured path aliases in `vite.config.ts`:
-- `@/` → `./src/`
-- `@components/` → `./src/components/`
-- `@lib/` → `./src/lib/`
-- `@hooks/` → `./src/hooks/`
-- `@types/` → `./src/types/`
-- `@store/` → `./src/store/`
+Use configured path aliases in `electron.vite.config.ts`:
+- `@/` → `./src/renderer/src/`
+- `@components/` → `./src/renderer/src/components/`
+- `@lib/` → `./src/renderer/src/lib/`
+- `@hooks/` → `./src/renderer/src/hooks/`
+- `@types/` → `./src/renderer/src/types/`
+- `@store/` → `./src/renderer/src/store/`
 
 ### Animation Philosophy
 - All animations use Framer Motion with spring physics
@@ -110,7 +142,7 @@ Use configured path aliases in `vite.config.ts`:
 ## Development Workflow
 
 ### Adding New Features
-1. Create types in `src/types/`
+1. Create types in `src/renderer/src/types/`
 2. Add store actions if needed in `useTaskStore.ts`
 3. Build components in appropriate `components/` subdirectory
 4. Use existing design system classes and animations
@@ -144,7 +176,235 @@ Tasks follow the TaskMaster format with:
 - Dependencies for task relationships
 - Automatic timestamps for created/updated dates
 
+### Build System (electron-vite)
+The project uses **electron-vite** for unified development across all Electron processes:
+- **Configuration**: `electron.vite.config.ts` - Main configuration file
+- **Development**: `npm run dev` - Starts all processes with hot reload
+- **Building**: `npm run build` - Builds all processes for production
+- **Preview**: `npm run preview` - Preview built application
+
 ### Known Issues
-- Electron Forge Vite plugin has experimental issues - use shell scripts instead
 - Single instance lock may require killing processes between runs
 - File watcher requires Node.js 18+ for optimal performance
+- Use shell scripts (`./run-dev.sh`, `./run-app.sh`) for reliable Electron startup
+
+## CRITICAL CODE MODIFICATION STANDARDS
+
+**ABSOLUTELY FORBIDDEN**: Using regex (regular expressions) to modify any code files. This is a HUGE violation of coding standards.
+
+**REQUIRED APPROACH**: When modifying TypeScript/JavaScript code:
+- Use AST-based tools like ts-morph, babel, or TypeScript compiler API
+- Use proper parsing and manipulation libraries
+- For simple text processing, use string methods but NEVER regex replacements on code
+
+**PARSING vs MODIFICATION**:
+- Regex is acceptable for PARSING error messages or log output
+- Regex is NEVER acceptable for MODIFYING source code files
+- Always use proper AST manipulation for code changes
+
+**EXAMPLES**:
+- ✅ GOOD: Using ts-morph to remove unused imports
+- ✅ GOOD: Using regex to parse TypeScript error messages  
+- ❌ BAD: Using regex to remove code lines or modify imports
+- ❌ BAD: String replacement on source code files
+
+## MANDATORY GIT WORKFLOW PRACTICES
+
+**CRITICAL**: You MUST follow these Git workflow practices without exception. These are NOT optional guidelines - they are strict requirements for all development work.
+
+### 1. BRANCH MANAGEMENT (MANDATORY)
+
+**NEVER work directly on main/master branch**. You MUST:
+1. Always create a feature branch BEFORE making any changes
+2. Use descriptive branch names following this pattern:
+   - `feature/<description>` for new features (e.g., `feature/add-user-authentication`)
+   - `fix/<issue-or-description>` for bug fixes (e.g., `fix/memory-leak-in-renderer`)
+   - `refactor/<description>` for code refactoring
+   - `docs/<description>` for documentation updates
+   - `test/<description>` for test additions/updates
+   - `chore/<description>` for maintenance tasks
+
+**Branch Creation Commands**:
+```bash
+# Always check current branch first
+git branch --show-current
+
+# Create and switch to new feature branch
+git checkout -b feature/descriptive-feature-name
+
+# For fixes
+git checkout -b fix/issue-description
+```
+
+### 2. COMMIT FREQUENCY AND STANDARDS (MANDATORY)
+
+**You MUST commit changes regularly**:
+- Commit after each logical unit of work (e.g., implementing a function, fixing a bug, adding a test)
+- NEVER accumulate more than 50-100 lines of changes without committing
+- Each commit should be atomic and focused on a single change
+
+**Conventional Commit Format (REQUIRED)**:
+```
+<type>(<scope>): <subject>
+
+[optional body]
+
+[optional footer(s)]
+```
+
+**Allowed Types**:
+- `feat`: New feature (correlates with MINOR in semantic versioning)
+- `fix`: Bug fix (correlates with PATCH in semantic versioning)
+- `docs`: Documentation only changes
+- `style`: Code style changes (formatting, missing semi-colons, etc)
+- `refactor`: Code change that neither fixes a bug nor adds a feature
+- `perf`: Performance improvement
+- `test`: Adding missing tests or correcting existing tests
+- `build`: Changes to build system or dependencies
+- `ci`: Changes to CI configuration files and scripts
+- `chore`: Other changes that don't modify src or test files
+- `revert`: Reverts a previous commit
+
+**Breaking Changes**:
+- Add `!` after type/scope for breaking changes: `feat!: remove deprecated API`
+- OR include `BREAKING CHANGE:` in the footer
+
+**Examples**:
+```bash
+git commit -m "feat(renderer): add dark mode toggle to settings"
+git commit -m "fix(main): resolve memory leak in window management"
+git commit -m "docs: update README with new build instructions"
+git commit -m "feat!: migrate to new config format
+
+BREAKING CHANGE: config files must be updated to v2 format"
+```
+
+### 3. COMMIT WORKFLOW (MANDATORY STEPS)
+
+**Before EVERY commit, you MUST**:
+1. Check git status: `git status`
+2. Review changes: `git diff`
+3. Stage specific files (avoid `git add .`): `git add <specific-files>`
+4. Run linting: `npm run lint`
+5. Run type checking: `npm run typecheck`
+6. Run relevant tests
+7. Make the commit with conventional format
+
+**Commit Checklist Script**:
+```bash
+# Run this before committing
+git status
+npm run lint
+npm run typecheck
+git diff --staged
+# Then commit with conventional format
+```
+
+### 4. PULL REQUEST WORKFLOW (MANDATORY)
+
+**You MUST create a Pull Request for ALL changes**:
+1. Push your feature branch: `git push -u origin feature/your-feature`
+2. Create PR immediately using GitHub CLI:
+```bash
+gh pr create --title "feat: add new feature" --body "$(cat <<'EOF'
+## Summary
+- Added new feature X
+- Improved performance of Y
+- Fixed bug in Z
+
+## Test Plan
+- [ ] Unit tests pass
+- [ ] E2E tests pass
+- [ ] Manual testing completed
+- [ ] No console errors
+
+## Screenshots
+[If applicable]
+
+🤖 Generated with Claude Code
+EOF
+)"
+```
+
+### 5. AUTOMATED COMMIT SCHEDULE
+
+**You MUST commit at these checkpoints**:
+1. After implementing each function/method
+2. After fixing each bug
+3. After adding/updating tests
+4. After refactoring a component/module
+5. Before switching context to a different feature/file
+6. At least every 30 minutes during active development
+7. Before running any destructive commands (rebases, merges, etc.)
+
+### 6. GIT WORKFLOW COMMANDS REFERENCE
+
+```bash
+# Start new work
+git checkout main
+git pull origin main
+git checkout -b feature/new-feature
+
+# Regular commit workflow
+git status
+git add src/specific/file.ts
+npm run lint && npm run typecheck
+git commit -m "feat(component): add new functionality"
+
+# Push and create PR
+git push -u origin feature/new-feature
+gh pr create --title "feat: new feature" --body "..."
+
+# After PR approval
+git checkout main
+git pull origin main
+git branch -d feature/new-feature
+```
+
+### 7. ERROR RECOVERY
+
+If you forget to create a branch before making changes:
+```bash
+# Stash your changes
+git stash
+# Create and switch to new branch
+git checkout -b feature/forgot-to-branch
+# Apply your changes
+git stash pop
+# Continue with normal workflow
+```
+
+### 8. MERGE CONFLICT RESOLUTION
+
+When encountering merge conflicts:
+1. NEVER force push unless explicitly instructed
+2. Always communicate about conflicts
+3. Preserve both changes when unclear
+4. Re-run tests after resolving conflicts
+
+### 9. FORBIDDEN PRACTICES
+
+**You MUST NEVER**:
+- Commit directly to main/master branch
+- Use `git add .` without reviewing changes
+- Make commits without running lint/typecheck
+- Create commits larger than 200 lines without justification
+- Use generic commit messages like "update", "fix", "changes"
+- Force push to shared branches
+- Commit sensitive information (keys, passwords, tokens)
+
+### 10. CONTINUOUS INTEGRATION
+
+**Every commit MUST**:
+- Pass all linting rules
+- Pass all type checks
+- Not break existing tests
+- Include tests for new functionality
+- Update documentation if changing APIs
+
+# important-instruction-reminders
+Do what has been asked; nothing more, nothing less.
+NEVER create files unless they're absolutely necessary for achieving your goal.
+ALWAYS prefer editing an existing file to creating a new one.
+NEVER proactively create documentation files (*.md) or README files. Only create documentation files if explicitly requested by the User.
+ALWAYS follow the MANDATORY GIT WORKFLOW PRACTICES without exception.

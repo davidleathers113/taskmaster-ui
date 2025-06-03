@@ -1,0 +1,21 @@
+
+> taskmaster-ui@1.0.0 typecheck
+> tsc --noEmit
+
+src/main/__tests__/memory-leaks.test.ts(553,7): error TS1005: ',' expected.
+src/main/__tests__/memory-leaks.test.ts(606,1): error TS1128: Declaration or statement expected.
+src/main/__tests__/memory-leaks.test.ts(606,2): error TS1128: Declaration or statement expected.
+src/preload/__tests__/preload-security.test.ts(437,24): error TS1005: ';' expected.
+src/preload/__tests__/preload-security.test.ts(438,32): error TS1005: ';' expected.
+src/preload/__tests__/preload-security.test.ts(439,35): error TS1005: ';' expected.
+src/preload/__tests__/preload-security.test.ts(440,20): error TS1005: ';' expected.
+src/preload/__tests__/preload-security.test.ts(441,36): error TS1005: ';' expected.
+src/preload/__tests__/preload-security.test.ts(442,29): error TS1005: ';' expected.
+src/preload/__tests__/preload-security.test.ts(443,28): error TS1005: ';' expected.
+src/preload/__tests__/preload-security.test.ts(444,19): error TS1005: ';' expected.
+src/preload/__tests__/preload-security.test.ts(445,27): error TS1005: ';' expected.
+src/preload/__tests__/preload-security.test.ts(449,7): error TS1005: ',' expected.
+src/preload/__tests__/preload-security.test.ts(450,7): error TS1005: ',' expected.
+src/preload/__tests__/preload-security.test.ts(451,5): error TS1005: ',' expected.
+src/preload/__tests__/preload-security.test.ts(749,1): error TS1128: Declaration or statement expected.
+src/preload/__tests__/preload-security.test.ts(749,2): error TS1128: Declaration or statement expected.

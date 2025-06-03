@@ -1,0 +1,114 @@
+{
+  "tasks": [
+    {
+      "id": 1,
+      "title": "Setup Project Repository and Build System",
+      "description": "Initialize the project repository with Chrome Manifest V3 structure and configure the build system with Webpack 5.",
+      "details": "Create a new repository with the following structure:\n- `/src`: Source code directory\n  - `/background`: Service worker scripts\n  - `/content`: Content scripts\n  - `/popup`: Extension popup UI\n  - `/options`: Settings page\n  - `/shared`: Shared utilities and types\n- `/public`: Static assets and manifest\n\nSetup Webpack 5 with separate dev/prod configurations:\n- TypeScript compilation with ts-loader\n- SCSS processing with sass-loader\n- Asset optimization for production\n- Hot module replacement for development",
+      "testStrategy": "Verify project structure is correctly set up. Test build process with `npm run build` to ensure it produces valid extension artifacts.",
+      "priority": "high",
+      "dependencies": [],
+      "status": "done",
+      "subtasks": [],
+      "createdAt": "2024-01-01T10:00:00Z",
+      "updatedAt": "2024-01-05T15:30:00Z",
+      "estimatedHours": 8,
+      "actualHours": 6,
+      "tags": ["setup", "webpack", "typescript"],
+      "assignee": "John Doe"
+    },
+    {
+      "id": 2,
+      "title": "Implement Service Worker Architecture",
+      "description": "Create the background service worker to handle AI processing, API calls, and data storage.",
+      "details": "Implement the background service worker (src/background/index.ts) with the following components:\n\n1. Message handling system for communication with content scripts and popup\n2. Chrome Built-in AI integration (Gemini Nano) for local content analysis\n3. Storage service integration for caching results\n4. Error handling and logging system",
+      "testStrategy": "Unit test the service worker initialization, message handling, and storage operations. Mock Chrome Built-in AI API to test AI integration.",
+      "priority": "high",
+      "dependencies": [1],
+      "status": "in-progress",
+      "subtasks": [
+        {
+          "id": 1,
+          "taskId": 2,
+          "title": "Setup message handling system",
+          "description": "Implement communication between service worker and content scripts",
+          "details": "Create robust message passing system",
+          "status": "done"
+        },
+        {
+          "id": 2,
+          "taskId": 2,
+          "title": "Integrate Chrome Built-in AI",
+          "description": "Connect to Gemini Nano for local processing",
+          "details": "Use Chrome's built-in AI capabilities",
+          "status": "in-progress"
+        },
+        {
+          "id": 3,
+          "taskId": 2,
+          "title": "Implement storage service",
+          "description": "Create caching and persistence layer",
+          "details": "Use Chrome storage API for data persistence",
+          "status": "pending"
+        }
+      ],
+      "createdAt": "2024-01-02T09:00:00Z",
+      "updatedAt": "2024-01-08T14:20:00Z",
+      "estimatedHours": 12,
+      "actualHours": 8,
+      "tags": ["service-worker", "ai", "storage"],
+      "assignee": "Jane Smith",
+      "dueDate": "2024-01-15T17:00:00Z"
+    },
+    {
+      "id": 3,
+      "title": "Develop Content Script Infrastructure",
+      "description": "Create the content script architecture to analyze web pages and inject visual indicators.",
+      "details": "Implement the content script infrastructure (src/content/index.ts) with platform detection, content extraction, and visual indicator injection.",
+      "testStrategy": "Test content script initialization on various websites. Verify platform detection accuracy for major sites.",
+      "priority": "medium",
+      "dependencies": [1, 2],
+      "status": "pending",
+      "subtasks": [],
+      "createdAt": "2024-01-03T11:00:00Z",
+      "updatedAt": "2024-01-03T11:00:00Z",
+      "estimatedHours": 10,
+      "tags": ["content-script", "dom", "injection"],
+      "assignee": "Mike Johnson"
+    },
+    {
+      "id": 4,
+      "title": "Create Shared Type Definitions",
+      "description": "Define TypeScript interfaces, types, and utility functions shared across the extension.",
+      "details": "Create comprehensive type system for all data structures and utility functions.",
+      "testStrategy": "Unit test all utility functions with various inputs including edge cases.",
+      "priority": "low",
+      "dependencies": [1],
+      "status": "review",
+      "subtasks": [],
+      "createdAt": "2024-01-04T13:00:00Z",
+      "updatedAt": "2024-01-07T16:45:00Z",
+      "estimatedHours": 4,
+      "actualHours": 3,
+      "tags": ["typescript", "types", "utilities"],
+      "assignee": "Sarah Wilson"
+    },
+    {
+      "id": 5,
+      "title": "Design UI Components",
+      "description": "Create beautiful, responsive UI components for the extension popup and options page.",
+      "details": "Design and implement modern UI components with accessibility in mind.",
+      "testStrategy": "Test components across different screen sizes and ensure WCAG compliance.",
+      "priority": "high",
+      "dependencies": [4],
+      "status": "deferred",
+      "subtasks": [],
+      "createdAt": "2024-01-06T10:00:00Z",
+      "updatedAt": "2024-01-06T10:00:00Z",
+      "estimatedHours": 16,
+      "tags": ["ui", "react", "accessibility"],
+      "assignee": "Alex Chen",
+      "dueDate": "2024-01-20T17:00:00Z"
+    }
+  ]
+}

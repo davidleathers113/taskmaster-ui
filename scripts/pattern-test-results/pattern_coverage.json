@@ -1,0 +1,9 @@
+{
+  "main_process": 3,
+  "preload": 2,
+  "renderer": 68,
+  "test_files": 12,
+  "config_files": 8,
+  "server_files": 2875,
+  "total_coverage": 2968
+}

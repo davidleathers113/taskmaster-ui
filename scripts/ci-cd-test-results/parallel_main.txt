@@ -1,0 +1,42 @@
+
+/Users/davidleathers/taskmaster-ui/src/main/errorReporting.ts
+   45:20  warning  Unexpected any. Specify a different type                                                                                                                            @typescript-eslint/no-explicit-any
+   52:12  warning  Unexpected any. Specify a different type                                                                                                                            @typescript-eslint/no-explicit-any
+   75:27  warning  Unexpected any. Specify a different type                                                                                                                            @typescript-eslint/no-explicit-any
+  163:14  warning  'error' is defined but never used                                                                                                                                   @typescript-eslint/no-unused-vars
+  200:7   error    Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+  209:7   error    Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+  219:7   error    Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+  230:7   error    Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+  241:7   error    Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+  266:53  warning  '_event' is defined but never used                                                                                                                                  @typescript-eslint/no-unused-vars
+  299:39  warning  Unexpected any. Specify a different type                                                                                                                            @typescript-eslint/no-explicit-any
+  353:48  warning  Unexpected any. Specify a different type                                                                                                                            @typescript-eslint/no-explicit-any
+  383:56  warning  Unexpected any. Specify a different type                                                                                                                            @typescript-eslint/no-explicit-any
+  401:48  warning  Unexpected any. Specify a different type                                                                                                                            @typescript-eslint/no-explicit-any
+  403:21  warning  Unexpected any. Specify a different type                                                                                                                            @typescript-eslint/no-explicit-any
+  420:89  warning  Unexpected any. Specify a different type                                                                                                                            @typescript-eslint/no-explicit-any
+  472:24  warning  Unexpected any. Specify a different type                                                                                                                            @typescript-eslint/no-explicit-any
+
+/Users/davidleathers/taskmaster-ui/src/main/index.ts
+   46:61  warning  Unexpected any. Specify a different type                                                                                                                            @typescript-eslint/no-explicit-any
+   63:62  warning  Unexpected any. Specify a different type                                                                                                                            @typescript-eslint/no-explicit-any
+  193:32  error    A `require()` style import is forbidden                                                                                                                             @typescript-eslint/no-require-imports
+  205:9   error    Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+  234:14  warning  Unexpected any. Specify a different type                                                                                                                            @typescript-eslint/no-explicit-any
+  238:22  error    A `require()` style import is forbidden                                                                                                                             @typescript-eslint/no-require-imports
+  326:7   error    Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+  345:7   error    Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+  363:7   error    Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+  387:7   error    Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+  453:5   error    Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+  464:7   error    Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+  470:5   error    Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+  545:5   error    Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+  572:39  warning  Unexpected any. Specify a different type                                                                                                                            @typescript-eslint/no-explicit-any
+  573:18  warning  Unexpected any. Specify a different type                                                                                                                            @typescript-eslint/no-explicit-any
+  592:7   error    Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+  667:1   error    Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+
+✖ 35 problems (18 errors, 17 warnings)
+
