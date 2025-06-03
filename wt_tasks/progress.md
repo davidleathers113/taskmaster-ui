@@ -6,11 +6,19 @@ Last Updated: $(date)
 
 | Task ID | Branch | Status | Errors Fixed | Tests Fixed | Started | Last Activity |
 |---------|--------|--------|--------------|-------------|---------|---------------|
+<<<<<<< HEAD
 | ts-module-errors | fix/ts-module-errors | Setup | 0 | 0 | 2025-06-03 | 14:50 |
 | ts-type-safety | fix/ts-type-safety | Setup | 0 | 0 | 2025-06-03 | 14:50 |
 | test-failure-analysis | test/test-failure-analysis | Setup | 0 | 0 | 2025-06-03 | 14:50 |
 | eslint-analysis | fix/eslint-analysis | Setup | 0 | 0 | 2025-06-03 | 14:50 |
 | ci-cd-setup | docs/ci-cd-setup | Setup | 0 | 0 | 2025-06-03 | 14:50 |
+=======
+| ts-module-errors | fix/ts-module-errors | Setup | 0 | 0 | 2025-06-03 | 19:12 |
+| ts-type-safety | fix/ts-type-safety | Setup | 0 | 0 | 2025-06-03 | 19:12 |
+| test-failure-analysis | test/test-failure-analysis | Setup | 0 | 0 | 2025-06-03 | 19:12 |
+| eslint-analysis | fix/eslint-analysis | Setup | 0 | 0 | 2025-06-03 | 19:12 |
+| ci-cd-setup | docs/ci-cd-setup | Setup | 0 | 0 | 2025-06-03 | 19:12 |
+>>>>>>> feature/advanced-worktree-setup
 
 ## Coordination Notes
 
