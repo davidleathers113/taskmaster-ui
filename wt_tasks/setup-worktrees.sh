@@ -318,16 +318,38 @@ Use conventional commits:
 EOF
     
     # Copy shared files
-    log_info "Copying shared files..."
+    log_info "Copying shared files to worktree..."
+    COPIED_FILES=0
+    SKIPPED_FILES=0
+    
     for file in "${SHARED_FILES[@]}"; do
-        if [ -f "$BASE_DIR/$file" ]; then
+        SOURCE_PATH="$BASE_DIR/$file"
+        TARGET_PATH="$WORKTREE_PATH/$file"
+        
+        if [ -f "$SOURCE_PATH" ]; then
             # Create directory if needed
-            mkdir -p "$WORKTREE_PATH/$(dirname "$file")"
-            cp "$BASE_DIR/$file" "$WORKTREE_PATH/$file"
-        elif [ -d "$BASE_DIR/$file" ]; then
-            cp -r "$BASE_DIR/$file" "$WORKTREE_PATH/$file"
+            mkdir -p "$(dirname "$TARGET_PATH")"
+            if cp "$SOURCE_PATH" "$TARGET_PATH"; then
+                ((COPIED_FILES++))
+            else
+                log_warning "Failed to copy file: $file"
+                ((SKIPPED_FILES++))
+            fi
+        elif [ -d "$SOURCE_PATH" ]; then
+            # Copy directory recursively
+            if cp -r "$SOURCE_PATH" "$TARGET_PATH"; then
+                ((COPIED_FILES++))
+            else
+                log_warning "Failed to copy directory: $file"
+                ((SKIPPED_FILES++))
+            fi
+        else
+            log_warning "Shared file/directory not found: $file"
+            ((SKIPPED_FILES++))
         fi
     done
+    
+    log_info "File copying complete: $COPIED_FILES copied, $SKIPPED_FILES skipped"
     
     # Create environment file for port configuration
     cat > "$WORKTREE_PATH/.env.worktree" << EOF
