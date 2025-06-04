@@ -1,0 +1,11 @@
+{
+  "tasks": [
+    {
+      "id": 35,
+      "title": "Resolve TypeScript Compilation Errors"
+    }
+  ],
+  "metadata": {
+    "version": "1.0"
+  }
+}

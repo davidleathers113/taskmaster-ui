@@ -1,0 +1,13 @@
+{
+  "id": "ts-module-errors",
+  "name": "TypeScript Module Resolution Errors",
+  "description": "Fix TS2307 and TS2484 errors",
+  "errorTypes": [
+    "TS2307",
+    "TS2484"
+  ],
+  "category": "typescript",
+  "metrics": {
+    "errorCount": 76
+  }
+}
