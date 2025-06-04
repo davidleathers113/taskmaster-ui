@@ -135,9 +135,10 @@ export class MockUpdateServer {
 
   private setupRoutes(): void {
     // Latest release endpoint for Windows/Linux
-    this.app.get('/latest.yml', (req: Request, res: Response) => {
+    this.app.get('/latest.yml', (req: Request, res: Response): void => {
       if (this.shouldSimulateError()) {
-        return res.status(500).send('Internal Server Error')
+        res.status(500).send('Internal Server Error')
+        return
       }
       
       const manifest = this.applyStaging(req)
@@ -147,9 +148,10 @@ export class MockUpdateServer {
     })
 
     // Latest release endpoint for macOS
-    this.app.get('/latest-mac.yml', (req: Request, res: Response) => {
+    this.app.get('/latest-mac.yml', (req: Request, res: Response): void => {
       if (this.shouldSimulateError()) {
-        return res.status(500).send('Internal Server Error')
+        res.status(500).send('Internal Server Error')
+        return
       }
       
       const manifest = this.applyStaging(req)
@@ -162,9 +164,10 @@ export class MockUpdateServer {
     })
 
     // JSON endpoint for custom implementations
-    this.app.get('/latest.json', (req: Request, res: Response) => {
+    this.app.get('/latest.json', (req: Request, res: Response): void => {
       if (this.shouldSimulateError()) {
-        return res.status(500).json({ error: 'Internal Server Error' })
+        res.status(500).json({ error: 'Internal Server Error' })
+        return
       }
       
       const manifest = this.applyStaging(req)
@@ -172,11 +175,12 @@ export class MockUpdateServer {
     })
 
     // Download endpoint
-    this.app.get('/download/:filename', (req: Request, res: Response) => {
+    this.app.get('/download/:filename', (req: Request, res: Response): void => {
       const { filename } = req.params
       
       if (this.shouldSimulateError()) {
-        return res.status(503).send('Service Unavailable')
+        res.status(503).send('Service Unavailable')
+        return
       }
 
       // Track download count
@@ -192,13 +196,14 @@ export class MockUpdateServer {
 
       // Simulate partial download support
       const range = req.headers.range
-      if (range) {
+      if (range && typeof range === 'string') {
         const parts = range.replace(/bytes=/, '').split('-')
-        const start = parseInt(parts[0], 10)
-        const end = parts[1] ? parseInt(parts[1], 10) : this.updateManifest.size! - 1
+        const start = parseInt(parts[0] || '0', 10)
+        const fileSize = this.updateManifest.size || 1000000
+        const end = parts[1] ? parseInt(parts[1], 10) : fileSize - 1
         
         res.status(206)
-        res.header('Content-Range', `bytes ${start}-${end}/${this.updateManifest.size}`)
+        res.header('Content-Range', `bytes ${start}-${end}/${fileSize}`)
         res.header('Accept-Ranges', 'bytes')
         res.header('Content-Length', String(end - start + 1))
       }
@@ -207,17 +212,19 @@ export class MockUpdateServer {
     })
 
     // Differential update endpoint
-    this.app.get('/differential/:fromVersion/:toVersion', (req: Request, res: Response) => {
+    this.app.get('/differential/:fromVersion/:toVersion', (req: Request, res: Response): void => {
       const { fromVersion, toVersion } = req.params
       const deltaKey = `${fromVersion}-${toVersion}`
       
       if (this.shouldSimulateError()) {
-        return res.status(404).send('Delta not found')
+        res.status(404).send('Delta not found')
+        return
       }
 
       const delta = this.differentialUpdates.get(deltaKey)
       if (!delta) {
-        return res.status(404).json({ error: 'Differential update not available' })
+        res.status(404).json({ error: 'Differential update not available' })
+        return
       }
 
       const deltaPath = join(this.fixturesPath, delta.deltaPath)
@@ -229,7 +236,7 @@ export class MockUpdateServer {
     })
 
     // Staged rollout configuration endpoint
-    this.app.put('/staging/:version', express.json(), (req: Request, res: Response) => {
+    this.app.put('/staging/:version', express.json(), (req: Request, res: Response): void => {
       const { version } = req.params
       const { percentage } = req.body
       
@@ -242,7 +249,7 @@ export class MockUpdateServer {
     })
 
     // Health check endpoint
-    this.app.get('/health', (req, res) => {
+    this.app.get('/health', (_req: Request, res: Response): void => {
       res.json({
         status: 'healthy',
         uptime: process.uptime(),
