@@ -8,6 +8,20 @@
  */
 
 import React from 'react';
+
+// Global type declarations for test environment
+declare global {
+  const vi: typeof import('vitest').vi
+  interface GlobalThis {
+    __mockElectron?: any
+    __electron?: any
+    electronAPI?: any
+    taskmaster?: any
+    __DEV__?: boolean
+    __TEST__?: boolean
+  }
+}
+
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';

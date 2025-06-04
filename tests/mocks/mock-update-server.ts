@@ -143,6 +143,7 @@ export class MockUpdateServer {
       const yamlContent = this.toYaml(manifest)
       
       res.type('text/yaml').send(yamlContent)
+        return
     })
 
     // Latest release endpoint for macOS
@@ -158,6 +159,7 @@ export class MockUpdateServer {
       }
       
       res.type('text/yaml').send(this.toYaml(macManifest))
+        return
     })
 
     // JSON endpoint for custom implementations
@@ -168,6 +170,7 @@ export class MockUpdateServer {
       
       const manifest = this.applyStaging(req)
       res.json(manifest)
+        return
     })
 
     // Download endpoint
@@ -203,6 +206,7 @@ export class MockUpdateServer {
       }
 
       res.download(filePath)
+        return
     })
 
     // Differential update endpoint
@@ -225,6 +229,7 @@ export class MockUpdateServer {
       }
 
       res.download(deltaPath)
+        return
     })
 
     // Staged rollout configuration endpoint
@@ -248,6 +253,7 @@ export class MockUpdateServer {
         downloads: Array.from(this.downloadCounts.entries()),
         requestCount: this.requestLogs.length
       })
+        return
     })
 
     // Release notes endpoint
@@ -259,6 +265,7 @@ export class MockUpdateServer {
       } else {
         res.status(404).send('Release notes not found')
       }
+        return
     })
 
     // Code signing verification endpoint (mock)
@@ -273,6 +280,7 @@ export class MockUpdateServer {
         issuer: 'DigiCert EV Code Signing CA',
         thumbprint: this.generateMockSha512(filename).substring(0, 40)
       })
+        return
     })
   }
 

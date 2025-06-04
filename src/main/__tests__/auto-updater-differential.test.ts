@@ -6,6 +6,20 @@
  */
 
 import { describe, test, expect, beforeEach, vi, beforeAll, afterAll } from 'vitest'
+
+// Global type declarations for test environment
+declare global {
+  const vi: typeof import('vitest').vi
+  interface GlobalThis {
+    __mockElectron?: any
+    __electron?: any
+    electronAPI?: any
+    taskmaster?: any
+    __DEV__?: boolean
+    __TEST__?: boolean
+  }
+}
+
 import { autoUpdater } from 'electron-updater'
 import { app, dialog } from 'electron'
 import { MockUpdateServer } from '../../../tests/mocks/mock-update-server'
@@ -153,8 +167,10 @@ describe('Differential Updates & Rollback Tests', () => {
           path: `differential/${currentVersion}/${targetVersion}`,
           size: 5000000
         } as MockUpdateInfo,
-        cancellationToken: undefined
-      })
+        cancellationToken: undefined,
+          isUpdateAvailable: true,
+          versionInfo: { version: "2.0.0" }
+    })
       
       const result = await checkForDifferentialUpdate()
       
@@ -395,8 +411,10 @@ describe('Differential Updates & Rollback Tests', () => {
           minimumVersion: rollbackStrategy.brokenVersion,
           releaseNotes: rollbackStrategy.changes
         } as MockUpdateInfo,
-        cancellationToken: undefined
-      })
+        cancellationToken: undefined,
+          isUpdateAvailable: true,
+          versionInfo: { version: "2.0.0" }
+    })
       
       await checkRollbackUpdate('1.0.1') // Broken version gets update
     })
