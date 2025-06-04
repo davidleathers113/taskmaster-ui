@@ -387,7 +387,7 @@ describe('Mocked Electron APIs Tests (2025)', () => {
       expect(app.getPath('temp')).toBe('/tmp')
       
       // Test unknown path
-      expect(app.getPath('unknown')).toBe('/mock/path/unknown')
+      expect(app.getPath('unknown' as any)).toBe('/mock/path/unknown')
     })
 
     test('should mock app info methods', () => {
@@ -637,7 +637,7 @@ describe('Mocked Electron APIs Tests (2025)', () => {
       const window = new BrowserWindow()
       
       // Mock async behavior
-      window.webContents.executeJavaScript.mockImplementation(async (code) => {
+      window.webContents.executeJavaScript.mockImplementation(async (code: string) => {
         if (code.includes('error')) {
           throw new Error('Script error')
         }

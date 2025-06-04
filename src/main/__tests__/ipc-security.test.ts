@@ -50,6 +50,7 @@ vi.mock('../security/security-monitor')
 describe('IPC Security Tests', () => {
   let secureHandler: typeof SecureIPCHandler.prototype
   let rateLimiter: typeof IPCRateLimiter.prototype
+  let securityMonitor: typeof SecurityMonitor.prototype
   
   beforeAll(() => {
     // Initialize security components
@@ -61,7 +62,7 @@ describe('IPC Security Tests', () => {
   beforeEach(() => {
     vi.clearAllMocks()
     // Clear any registered handlers
-    ipcMain._handlers.clear()
+    ;(ipcMain as any)._handlers?.clear?.()
   })
 
   describe('IPC Sender Validation', () => {
@@ -84,7 +85,7 @@ describe('IPC Security Tests', () => {
       }, async () => 'success')
 
       // Mock the handler registration
-      const handler = vi.fn().mockImplementation(async (event) => {
+      const handler = vi.fn().mockImplementation(async (event, ..._args) => {
         const allowedOrigins = ['https://app.taskmaster.com', 'app://taskmaster']
         try {
           const frameUrl = new URL(event.senderFrame.url)
@@ -98,7 +99,7 @@ describe('IPC Security Tests', () => {
       })
 
       ipcMain.handle('secure:operation', handler)
-      ipcMain._handlers.set('secure:operation', handler)
+      ;(ipcMain as any)._handlers?.set?.('secure:operation', handler)
 
       // Test with unauthorized sender
       await expect(handler(mockEvent)).rejects.toThrow('Unauthorized sender')
@@ -143,7 +144,7 @@ describe('IPC Security Tests', () => {
         { webContents: { id: 2 }, id: 2 }
       ]
       
-      BrowserWindow.getAllWindows.mockReturnValue(mockWindows)
+      ;(BrowserWindow.getAllWindows as any).mockReturnValue(mockWindows)
 
       const validateSenderWindow = (senderId: number): boolean => {
         const windows = BrowserWindow.getAllWindows()
@@ -445,7 +446,11 @@ describe('IPC Security Tests', () => {
           if (requests.length < 10) return false
           
           const uniqueChannels = new Set(requests.map(r => r.channel))
-          const timeWindow = requests[requests.length - 1].timestamp - requests[0].timestamp
+          const lastRequest = requests[requests.length - 1]
+          const firstRequest = requests[0]
+          if (!lastRequest || !firstRequest) return false
+          
+          const timeWindow = lastRequest.timestamp - firstRequest.timestamp
           
           // Suspicious if accessing many channels in short time
           return uniqueChannels.size > 5 && timeWindow < 1000
@@ -528,10 +533,10 @@ describe('IPC Security Tests', () => {
 
       // Test safe API
       const safeAPI = {
-        sendMessage: () => {
+        sendMessage: (_channel: string, _data: any) => {
           // Validates channel and data internally
         },
-        onMessage: () => {
+        onMessage: (_channel: string, _callback: Function) => {
           // Filtered listener
         }
       }
@@ -543,7 +548,7 @@ describe('IPC Security Tests', () => {
       const testSerializability = (obj: any): boolean => {
         try {
           // Objects that can't be cloned will throw
-          JSON.stringify(obj)
+          /* const _serialized = */ JSON.stringify(obj)
           
           // Additional check for special objects
           if (obj && typeof obj === 'object') {
@@ -662,7 +667,7 @@ describe('IPC Security Tests', () => {
       ]
 
       const secureAPI = {
-        execute: vi.fn().mockImplementation(() => {
+        execute: vi.fn().mockImplementation((_cmd) => {
           throw new Error('Command execution not allowed')
         }),
         openExternal: vi.fn().mockImplementation((url) => {
@@ -699,7 +704,8 @@ describe('IPC Security Tests', () => {
         const permissions = userPermissions[userRole as keyof typeof userPermissions] || []
         return permissions.some(p => {
           if (p.includes(':all')) {
-            return action.startsWith(p.split(':')[0])
+            const prefix = p.split(':')[0]
+            return prefix ? action.startsWith(prefix) : false
           }
           return p === action
         })
@@ -728,7 +734,7 @@ describe('IPC Security Tests', () => {
             senderGroups.set(p.senderId, (senderGroups.get(p.senderId) || 0) + 1)
           }
           
-          for (const [, count] of senderGroups) {
+          for (const [_sender, count] of senderGroups) {
             if (count > this.patterns.length * 0.8) {
               return { suspicious: true, reason: 'Single sender dominance' }
             }
@@ -737,7 +743,11 @@ describe('IPC Security Tests', () => {
           // Check for timestamp patterns (automated attacks often have regular intervals)
           const intervals = []
           for (let i = 1; i < this.patterns.length; i++) {
-            intervals.push(this.patterns[i].timestamp - this.patterns[i-1].timestamp)
+            const current = this.patterns[i]
+            const previous = this.patterns[i-1]
+            if (current && previous) {
+              intervals.push(current.timestamp - previous.timestamp)
+            }
           }
           
           const avgInterval = intervals.reduce((a, b) => a + b, 0) / intervals.length

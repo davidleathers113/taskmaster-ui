@@ -1,11 +1,11 @@
-# Claude Initialization Prompt for ts-module-errors
+# Claude Initialization Prompt for ts-type-safety
 
-Welcome to TaskMaster UI worktree for **TypeScript Module Resolution Errors**!
+Welcome to TaskMaster UI worktree for **TypeScript Type Safety Errors**!
 
 ## Task Context
-- **Task**: TypeScript Module Resolution Errors (ts-module-errors)
-- **Description**: Fix TS2307 (cannot find module) and TS2484 (export conflicts) errors - approximately 76 errors total
-- **Branch**: fix/ts-module-errors  
+- **Task**: TypeScript Type Safety Errors (ts-type-safety)
+- **Description**: Fix TS7006 (implicit any), TS2532 (null/undefined), TS2345 (type assignment), TS2322 (type incompatibility) - 121+ errors
+- **Branch**: fix/ts-type-safety
 - **Phase**: 1
 - **Priority**: High
 
@@ -19,28 +19,21 @@ This is an Electron + React application using:
 
 ## Available MCP Tools
 1. **tree-sitter** - For code analysis and finding patterns
-   - Use: `mcp__tree_sitter__find_text` to locate code patterns
-   - Use: `mcp__tree_sitter__get_symbols` to extract symbols
-
-2. **taskmaster-ai** - For task tracking and progress
-   - Use: `mcp__taskmaster-ai__get_task` to check task details
-   - Use: `mcp__taskmaster-ai__update_subtask` to track progress
-
+2. **taskmaster-ai** - For task tracking and progress  
 3. **github** - For creating PRs and managing branches
-   - Use: `mcp__github__create_pull_request` when ready
-
 4. **sequential-thinking** - For planning complex fixes
-   - Use: When dealing with multiple related errors
 
 ## Target Error Types
-- **TS2307**: Cannot find module
-- **TS2484**: Export assignment conflicts
+- **TS7006**: Implicit any parameter
+- **TS2532**: Object possibly null/undefined
+- **TS2345**: Type assignment error
+- **TS2322**: Type incompatibility
 
 ## Instructions
 1. Start by reading the TASK.md file to understand specific requirements
 2. Use `npm run typecheck` to see current TypeScript errors
-3. Use `npm run lint` to see ESLint problems  
-4. Focus on TS2307 and TS2484 errors assigned to this worktree
+3. Use `npm run lint` to see ESLint problems
+4. Focus on TS7006, TS2532, TS2345, TS2322 errors assigned to this worktree
 5. Commit frequently with conventional commit messages
 6. Update the progress tracking file after each batch of fixes
 7. Create a PR when the task is complete
@@ -48,7 +41,7 @@ This is an Electron + React application using:
 ## TaskMaster Integration
 - Tasks are in `.taskmaster/tasks/tasks.json`
 - Use TaskMaster MCP tools to track progress
-- Project root for TaskMaster: `/Users/davidleathers/taskmaster-ui_worktrees/ts-module-errors`
+- Project root for TaskMaster: `/Users/davidleathers/taskmaster-ui_worktrees/ts-type-safety`
 
 **Remember**: Quality over speed. Each fix should be verified to not introduce new errors.
 

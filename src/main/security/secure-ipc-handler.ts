@@ -68,7 +68,7 @@ export class SecureIPCHandler {
 
     try {
       // 1. Validate sender
-      const senderValidation = this.validateSender(event.senderFrame, options?.allowedOrigins)
+      const senderValidation = this.validateSender(event.senderFrame as Electron.Renderer.WebFrame | undefined, options?.allowedOrigins)
       if (!senderValidation.valid) {
         this.securityMonitor.logSecurityEvent({
           type: 'unauthorized_sender',
@@ -177,7 +177,7 @@ export class SecureIPCHandler {
     }
   }
 
-  private checkAuthentication(event: IpcMainInvokeEvent): boolean {
+  private checkAuthentication(_event: IpcMainInvokeEvent): boolean {
     // Placeholder for authentication check
     // In production, implement proper authentication
     return true

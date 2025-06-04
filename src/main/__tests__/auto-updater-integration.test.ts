@@ -13,7 +13,7 @@ import { MockUpdateServer } from '../../../tests/mocks/mock-update-server'
 import { existsSync, writeFileSync, mkdirSync } from 'fs'
 import { join } from 'path'
 import { } from 'child_process'
-import yaml from 'yaml'
+import * as yaml from 'yaml'
 import type { MockAutoUpdater } from './mock-types'
 
 

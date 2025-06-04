@@ -165,7 +165,7 @@ class ExtendedTestWindowManager extends TestWindowManager {
     ]
     
     handlers.forEach(channel => {
-      const handler = async (event: any, ...args: any[]) => {
+      const handler = async (_event: any, ...args: any[]) => {
         // Simulate some work
         return { channel, args }
       }
@@ -348,7 +348,7 @@ describe('Memory Leak Detection Tests (2025)', () => {
       const setupSecureHandlers = () => {
         const registeredHandlers = new Set<string>()
         
-        const safeHandle = (channel: string, handler: Function) => {
+        const safeHandle = (channel: string, handler: (event: Electron.IpcMainInvokeEvent, ...args: any[]) => any) => {
           if (registeredHandlers.has(channel)) {
             ipcMain.removeHandler(channel)
           }
