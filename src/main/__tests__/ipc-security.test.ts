@@ -84,7 +84,7 @@ describe('IPC Security Tests', () => {
       }, async () => 'success')
 
       // Mock the handler registration
-      const handler = vi.fn().mockImplementation(async (event, ...args) => {
+      const handler = vi.fn().mockImplementation(async (event, ..._args) => {
         const allowedOrigins = ['https://app.taskmaster.com', 'app://taskmaster']
         try {
           const frameUrl = new URL(event.senderFrame.url)
@@ -528,10 +528,10 @@ describe('IPC Security Tests', () => {
 
       // Test safe API
       const safeAPI = {
-        sendMessage: (channel: string, data: any) => {
+        sendMessage: (_channel: string, _data: any) => {
           // Validates channel and data internally
         },
-        onMessage: (channel: string, callback: Function) => {
+        onMessage: (_channel: string, _callback: Function) => {
           // Filtered listener
         }
       }
@@ -543,7 +543,7 @@ describe('IPC Security Tests', () => {
       const testSerializability = (obj: any): boolean => {
         try {
           // Objects that can't be cloned will throw
-          const serialized = JSON.stringify(obj)
+          const _serialized = JSON.stringify(obj)
           
           // Additional check for special objects
           if (obj && typeof obj === 'object') {
