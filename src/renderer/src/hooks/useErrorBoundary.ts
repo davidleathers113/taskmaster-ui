@@ -495,10 +495,5 @@ function getSeverityFromError(error: Error): 'low' | 'medium' | 'high' | 'critic
   return 'medium';
 }
 
-// Export hook and types
+// Export hook as default
 export default useErrorBoundary;
-export type {
-  ErrorBoundaryState,
-  ErrorRecoveryStrategy,
-  UseErrorBoundaryOptions
-};
