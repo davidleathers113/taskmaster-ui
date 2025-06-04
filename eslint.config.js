@@ -64,6 +64,7 @@ export default tseslint.config(
       // Core ESLint rules handled by TypeScript
       'no-undef': 'off', // TypeScript handles this
       'no-unused-vars': 'off', // Use TypeScript version instead
+      'no-console': 'warn', // Console statements should be warnings, not errors
     },
   },
 
@@ -283,6 +284,10 @@ export default tseslint.config(
       '.taskmaster/**/*.{js,ts,cjs}',
       '**/*.cjs',
       'cleanup-*.js',
+      '**/debug-*.js',
+      '**/test-*.js',
+      '**/build-*.js',
+      '**/*.config.js',
     ],
     languageOptions: {
       globals: {
