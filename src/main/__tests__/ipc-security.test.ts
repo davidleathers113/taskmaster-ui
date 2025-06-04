@@ -58,13 +58,14 @@ describe('IPC Security Tests', () => {
     // Initialize security components
     secureHandler = new (SecureIPCHandler as any)()
     rateLimiter = new (IPCRateLimiter as any)()
-    const _securityMonitor = new (SecurityMonitor as any)()
+    // Security monitor setup for comprehensive testing
+    new (SecurityMonitor as any)()
   })
 
   beforeEach(() => {
     vi.clearAllMocks()
     // Clear any registered handlers
-    (ipcMain as any).handlers.clear()
+    ;(ipcMain as any).handlers.clear()
   })
 
   describe('IPC Sender Validation', () => {
@@ -101,7 +102,7 @@ describe('IPC Security Tests', () => {
       })
 
       ipcMain.handle('secure:operation', handler)
-      (ipcMain as any).handlers.set('secure:operation', handler)
+      ;(ipcMain as any).handlers.set('secure:operation', handler)
 
       // Test with unauthorized sender
       await expect(handler(mockEvent)).rejects.toThrow('Unauthorized sender')
@@ -141,12 +142,12 @@ describe('IPC Security Tests', () => {
     })
 
     test('should validate sender ID matches registered window', async () => {
-      const mockWindows = [
+      const mockWindows: Array<{ webContents: { id: number }; id: number }> = [
         { webContents: { id: 1 }, id: 1 },
         { webContents: { id: 2 }, id: 2 }
       ]
       
-      (BrowserWindow.getAllWindows as any).mockReturnValue(mockWindows)
+      ;(BrowserWindow.getAllWindows as any).mockReturnValue(mockWindows)
 
       const validateSenderWindow = (senderId: number): boolean => {
         const windows = BrowserWindow.getAllWindows()
@@ -549,7 +550,8 @@ describe('IPC Security Tests', () => {
       const testSerializability = (obj: any): boolean => {
         try {
           // Objects that can't be cloned will throw
-          const _serialized = JSON.stringify(obj)
+          // Test object serializability  
+        JSON.stringify(obj)
           
           // Additional check for special objects
           if (obj && typeof obj === 'object') {

@@ -7,7 +7,7 @@
 
 import { describe, test, expect, beforeEach, vi } from 'vitest'
 import { ipcMain, BrowserWindow } from 'electron'
-import { } from 'events'
+// Removed empty import
 // import type { MockIpcMain } from './mock-types' // Unused
 
 // Mock electron modules for cross-process testing

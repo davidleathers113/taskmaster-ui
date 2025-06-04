@@ -277,7 +277,9 @@ export function createStateBackup<T>(
         // Update oldest backup age
         if (validBackups.length > 0) {
           const oldest = validBackups[validBackups.length - 1];
-          stats.oldestBackupAge = timestamp - oldest.timestamp;
+          if (oldest) {
+            stats.oldestBackupAge = timestamp - oldest.timestamp;
+          }
         }
         
         // Performance telemetry
