@@ -16,7 +16,7 @@ import {
   type UnusedVariableError,
   type TsMorphConfig 
 } from "./ts-morph-utils";
-import { Project, SourceFile, Node, SyntaxKind, InterfaceDeclaration, TypeAliasDeclaration } from "ts-morph";
+import { SourceFile, Node } from "ts-morph";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -169,7 +169,6 @@ function fixMockProperty(sourceFile: SourceFile, error: PropertyError): boolean 
         return true;
       } else if (Node.isCallExpression(mockNode)) {
         // Replace with object that includes the property
-        const existingArgs = mockNode.getArguments().map(arg => arg.getText()).join(', ');
         mockNode.replaceWithText(`Object.assign(${mockNode.getText()}, { ${propertyName}: jest.fn() })`);
         return true;
       }

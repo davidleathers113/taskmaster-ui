@@ -9,7 +9,7 @@
 import { describe, test, expect, beforeEach, afterEach, vi } from 'vitest'
 import { app, dialog, shell, clipboard, globalShortcut } from 'electron'
 import * as path from 'path'
-import * as fs from 'fs'
+// import * as fs from 'fs' // Not used
 
 // Mock electron modules
 vi.mock('electron', () => ({

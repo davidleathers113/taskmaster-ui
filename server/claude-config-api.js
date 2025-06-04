@@ -1,5 +1,5 @@
 import fs from 'fs'
-import path from 'path'
+// import path from 'path' // Not used
 
 // Add Claude config API endpoint to the existing file watcher server
 export function addClaudeConfigAPI(app) {

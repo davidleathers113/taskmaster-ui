@@ -160,7 +160,7 @@ export class MainProcessErrorReporting {
         // Clean up old backup files
         await this.cleanupOldLogFiles(path.dirname(logPath));
       }
-    } catch (error) {
+    } catch {
       // File doesn't exist or can't be read, that's fine
     }
   }
@@ -263,7 +263,7 @@ export class MainProcessErrorReporting {
     });
 
     // Handle status requests
-    ipcMain.handle('error-reporting:status', async (_event) => {
+    ipcMain.handle('error-reporting:status', async () => {
       return this.getStatus();
     });
 

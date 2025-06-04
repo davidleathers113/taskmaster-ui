@@ -505,7 +505,7 @@ class CSPSecurityTester {
     });
     
     // Deduct points for warnings
-    this.results.warnings.forEach(warning => {
+    this.results.warnings.forEach(() => {
       score -= 3;
     });
     

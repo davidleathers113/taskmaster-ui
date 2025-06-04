@@ -219,8 +219,8 @@ expect.extend({
 
 // Type declarations for global utilities
 declare global {
-  var electronAPI: typeof mockElectronAPI
-  var testUtils: {
+  let electronAPI: typeof mockElectronAPI
+  let testUtils: {
     waitForNextTick: () => Promise<void>
     waitFor: (condition: () => boolean, timeout?: number) => Promise<void>
     advanceTimers: (ms: number) => void

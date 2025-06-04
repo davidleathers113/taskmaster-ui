@@ -6,7 +6,7 @@
  * using ts-morph, following 2025 best practices for performance and safety.
  */
 
-import { Project, SourceFile, Node, SyntaxKind, VariableDeclaration, ImportDeclaration, ScriptTarget, ModuleResolutionKind } from "ts-morph";
+import { Project, SourceFile, Node, ImportDeclaration, ScriptTarget, ModuleResolutionKind } from "ts-morph";
 import { existsSync, readFileSync } from "fs";
 import { join } from "path";
 
@@ -51,7 +51,6 @@ export function createProject(config: TsMorphConfig = {}): Project {
   const {
     tsConfigPath = join(process.cwd(), "tsconfig.json"),
     skipTsConfig = true,
-    projectRoot = process.cwd(),
     useInMemoryFileSystem,
     skipLoadingLibFiles,
     compilerOptions,

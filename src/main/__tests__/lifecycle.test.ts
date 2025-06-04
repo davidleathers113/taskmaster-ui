@@ -534,7 +534,7 @@ describe('Main Process Lifecycle Tests (2025)', () => {
       
       try {
         throw new Error('Simulated error')
-      } catch (error) {
+      } catch {
         // App should remain stable
         expect(app.isReady()).toBe(true)
       }

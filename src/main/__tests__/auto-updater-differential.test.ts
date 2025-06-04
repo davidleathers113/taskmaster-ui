@@ -184,7 +184,7 @@ describe('Differential Updates & Rollback Tests', () => {
       
       try {
         await downloadWithFallback()
-      } catch (error) {
+      } catch {
         // First attempt failed, try full update
         const result = await downloadWithFallback()
         

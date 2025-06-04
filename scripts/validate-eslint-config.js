@@ -80,7 +80,7 @@ class ESLintConfigValidator {
           }
           
           this.log('✅ Legacy config loaded (.eslintrc.cjs.bak)', 'green');
-        } catch (error) {
+        } catch {
           // Fallback: parse manually the known structure
           this.legacyConfig = {
             root: true,

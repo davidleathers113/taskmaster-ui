@@ -32,32 +32,32 @@ const CONFIG = {
 };
 
 // Common Electron security issues to highlight
-const SECURITY_PATTERNS = {
-  contextIsolation: {
-    severity: 'critical',
-    description: 'Context isolation must be enabled to prevent renderer process access to Node.js'
-  },
-  nodeIntegration: {
-    severity: 'critical',
-    description: 'Node integration should be disabled in renderer processes'
-  },
-  webSecurity: {
-    severity: 'high',
-    description: 'Web security should not be disabled'
-  },
-  allowRunningInsecureContent: {
-    severity: 'high',
-    description: 'Running insecure content should not be allowed'
-  },
-  experimentalFeatures: {
-    severity: 'medium',
-    description: 'Experimental features should be disabled in production'
-  },
-  remoteModule: {
-    severity: 'high',
-    description: 'Remote module is deprecated and should not be used'
-  }
-};
+// const SECURITY_PATTERNS = { // Not used currently
+//   contextIsolation: {
+//     severity: 'critical',
+//     description: 'Context isolation must be enabled to prevent renderer process access to Node.js'
+//   },
+//   nodeIntegration: {
+//     severity: 'critical',
+//     description: 'Node integration should be disabled in renderer processes'
+//   },
+//   webSecurity: {
+//     severity: 'high',
+//     description: 'Web security should not be disabled'
+//   },
+//   allowRunningInsecureContent: {
+//     severity: 'high',
+//     description: 'Running insecure content should not be allowed'
+//   },
+//   experimentalFeatures: {
+//     severity: 'medium',
+//     description: 'Experimental features should be disabled in production'
+//   },
+//   remoteModule: {
+//     severity: 'high',
+//     description: 'Remote module is deprecated and should not be used'
+//   }
+// };
 
 class SecurityAuditor {
   constructor() {

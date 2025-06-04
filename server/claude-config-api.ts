@@ -1,7 +1,7 @@
 import { Request, Response, Application } from 'express';
 import { z } from 'zod';
 import fs from 'fs/promises';
-import path from 'path';
+// Removed unused import
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 
@@ -90,7 +90,7 @@ function sanitizeFilePath(inputPath: string): SafeFilePath {
   try {
     const result = ConfigPathSchema.parse({ configPath: inputPath });
     return result.configPath;
-  } catch (error) {
+  } catch {
     throw new Error('Invalid or unauthorized file path');
   }
 }
@@ -122,7 +122,7 @@ async function readConfigFile(filePath: SafeFilePath): Promise<{
     let config: object;
     try {
       config = JSON.parse(fileContent);
-    } catch (parseError) {
+    } catch {
       throw new Error('Invalid JSON format in configuration file');
     }
     

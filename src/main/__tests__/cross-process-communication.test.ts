@@ -87,7 +87,7 @@ describe('Cross-Process Communication Security Tests (2025)', () => {
           }
           
           return { valid: true, origin: frameUrl.origin }
-        } catch (error) {
+        } catch {
           return { valid: false, reason: 'Invalid sender URL' }
         }
       }
