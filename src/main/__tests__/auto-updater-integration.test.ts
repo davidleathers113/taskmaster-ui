@@ -146,7 +146,7 @@ describe('Auto-Updater Integration Tests', () => {
       }
 
       // Set up event handlers
-      const setupUpdateHandlers = (): void => {
+      function setupUpdateHandlers(): void {
         autoUpdater.on('checking-for-update', () => {
           updateLifecycle.checkingForUpdate = true
           autoUpdater.logger?.info('Checking for update...')
@@ -168,7 +168,7 @@ describe('Auto-Updater Integration Tests', () => {
         })
       }
 
-      ;setupUpdateHandlers()
+      setupUpdateHandlers()
 
       // Simulate update check
       (autoUpdater as MockAutoUpdater).checkForUpdates.mockImplementation(() => {
