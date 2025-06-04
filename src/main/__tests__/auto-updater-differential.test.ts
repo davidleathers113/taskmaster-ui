@@ -148,12 +148,18 @@ describe('Differential Updates & Rollback Tests', () => {
       }
       
       (autoUpdater as MockAutoUpdater).checkForUpdates.mockResolvedValue({
+        isUpdateAvailable: true,
+        versionInfo: {
+          version: targetVersion,
+          path: `differential/${currentVersion}/${targetVersion}`,
+          size: 5000000
+        } as MockUpdateInfo,
         updateInfo: {
           version: targetVersion,
           path: `differential/${currentVersion}/${targetVersion}`,
           size: 5000000
         } as MockUpdateInfo,
-        cancellationToken: null
+        cancellationToken: undefined
       })
       
       const result = await checkForDifferentialUpdate()
@@ -390,12 +396,18 @@ describe('Differential Updates & Rollback Tests', () => {
       }
       
       (autoUpdater as MockAutoUpdater).checkForUpdates.mockResolvedValue({
+        isUpdateAvailable: true,
+        versionInfo: {
+          version: rollbackStrategy.rollbackVersion,
+          minimumVersion: rollbackStrategy.brokenVersion,
+          releaseNotes: rollbackStrategy.changes
+        } as MockUpdateInfo,
         updateInfo: {
           version: rollbackStrategy.rollbackVersion,
           minimumVersion: rollbackStrategy.brokenVersion,
           releaseNotes: rollbackStrategy.changes
         } as MockUpdateInfo,
-        cancellationToken: null
+        cancellationToken: undefined
       })
       
       await checkRollbackUpdate('1.0.1') // Broken version gets update

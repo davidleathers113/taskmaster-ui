@@ -6,7 +6,7 @@
  * Following 2025 testing best practices for smoke/baseline testing.
  */
 
-import { describe, test, expect, beforeEach, afterEach } from 'vitest'
+import { describe, test, expect, beforeEach, afterEach, vi } from 'vitest'
 import { app } from 'electron'
 import { createTestWindow, cleanupTestWindows } from '../../../tests/utils/window-manager'
 
