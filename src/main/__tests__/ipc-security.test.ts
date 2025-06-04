@@ -85,11 +85,7 @@ describe('IPC Security Tests', () => {
       }, async () => 'success')
 
       // Mock the handler registration
-<<<<<<< HEAD
-      const handler = vi.fn().mockImplementation(async (event) => {
-=======
       const handler = vi.fn().mockImplementation(async (event, ..._args) => {
->>>>>>> d863a63 (fix(tests): resolve TS6133 unused variable and import errors)
         const allowedOrigins = ['https://app.taskmaster.com', 'app://taskmaster']
         try {
           const frameUrl = new URL(event.senderFrame.url)
@@ -537,17 +533,10 @@ describe('IPC Security Tests', () => {
 
       // Test safe API
       const safeAPI = {
-<<<<<<< HEAD
-        sendMessage: () => {
-          // Validates channel and data internally
-        },
-        onMessage: () => {
-=======
         sendMessage: (_channel: string, _data: any) => {
           // Validates channel and data internally
         },
         onMessage: (_channel: string, _callback: Function) => {
->>>>>>> d863a63 (fix(tests): resolve TS6133 unused variable and import errors)
           // Filtered listener
         }
       }
