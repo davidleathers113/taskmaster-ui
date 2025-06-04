@@ -6,7 +6,7 @@
  * and failure scenarios following 2025 best practices.
  */
 
-import * as express from 'express'
+import express from 'express'
 import { Express, Request, Response } from 'express'
 import { createServer as createHttpsServer, Server as HttpsServer } from 'https'
 import { createServer as createHttpServer, Server as HttpServer } from 'http'

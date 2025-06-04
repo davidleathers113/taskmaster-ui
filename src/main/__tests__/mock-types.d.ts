@@ -31,6 +31,14 @@ export interface MockAutoUpdater extends AppUpdater {
   downloadUpdate: MockedFunction<(cancellationToken?: CancellationToken) => Promise<string[]>>;
   quitAndInstall: MockedFunction<(isSilent?: boolean, isForceRunAfter?: boolean) => void>;
   
+  // Configuration properties
+  autoDownload: boolean;
+  autoInstallOnAppQuit: boolean;
+  allowPrerelease: boolean;
+  allowDowngrade: boolean;
+  channel: string;
+  currentVersion: { version: string };
+  
   // Event methods with mock properties
   on: MockedFunction<<U extends keyof AppUpdaterEvents>(
     event: U,
@@ -68,6 +76,8 @@ export interface MockApp extends App {
   getPath: MockedFunction<(name: string) => string>;
   quit: MockedFunction<() => void>;
   relaunch: MockedFunction<(options?: any) => void>;
+  isReady: MockedFunction<() => boolean>;
+  whenReady: MockedFunction<() => Promise<void>>;
   
   // Event methods with mock properties
   on: MockedFunction<(event: string, listener: Function) => App>;
@@ -92,15 +102,23 @@ export function asMockApp(app: any): MockApp {
 
 // Declare global mock types
 declare global {
-  const mockAutoUpdater: MockAutoUpdater;
-  const mockApp: MockApp;
+  var mockAutoUpdater: MockAutoUpdater;
+  var mockApp: MockApp;
+  var mockElectron: {
+    app: MockApp;
+    BrowserWindow: MockBrowserWindow;
+  };
+  var testWindowManager: import('../../../tests/utils/window-manager').TestWindowManager;
+  var vi: typeof import('vitest').vi;
   
-  namespace globalThis {
-    const mockElectron: {
-      app: MockApp;
-      BrowserWindow: MockBrowserWindow;
-    };
-    const testWindowManager: import('../../../tests/utils/window-manager').TestWindowManager;
-    const vi: typeof import('vitest').vi;
+  namespace NodeJS {
+    interface Global {
+      mockElectron: {
+        app: MockApp;
+        BrowserWindow: MockBrowserWindow;
+      };
+      testWindowManager: import('../../../tests/utils/window-manager').TestWindowManager;
+      vi: typeof import('vitest').vi;
+    }
   }
 }
