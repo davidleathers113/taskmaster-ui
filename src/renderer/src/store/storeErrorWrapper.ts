@@ -277,13 +277,21 @@ function withAsyncErrorHandling<T extends any[], R>(
  * Features half-open state management, metrics collection, and advanced
  * failure detection patterns following 2025 resilience best practices.
  */
+
+interface CircuitBreakerMetrics {
+  totalFailures: number;
+  totalSuccesses: number;
+  averageResponseTime: number;
+  lastStateChange: number;
+}
+
 class CircuitBreaker {
   private failureCount = 0;
   private lastFailureTime = 0;
   private state: 'closed' | 'open' | 'half-open' = 'closed';
   private successCount = 0;
   private totalAttempts = 0;
-  private metrics = {
+  private metrics: CircuitBreakerMetrics = {
     totalFailures: 0,
     totalSuccesses: 0,
     averageResponseTime: 0,
@@ -393,7 +401,7 @@ class CircuitBreaker {
     isOpen: boolean; 
     failureCount: number; 
     lastFailureTime: number;
-    metrics: typeof this.metrics;
+    metrics: CircuitBreakerMetrics;
     totalAttempts: number;
   } {
     return {

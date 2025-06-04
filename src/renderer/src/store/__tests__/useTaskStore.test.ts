@@ -10,8 +10,50 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { act, renderHook } from '@testing-library/react';
 import { useTaskStore } from '../useTaskStore';
-import { testUtils } from '@tests/setup';
-import type { Task, ViewMode, UserSettings } from '@/types';
+// import { testUtils } from '@tests/setup'; // TODO: Fix test setup path
+import type { ViewMode, Task, UserSettings } from '@/types';
+
+// Helper function to create mock tasks
+const createMockTask = (overrides: Partial<Task> = {}): Omit<Task, 'id'> => ({
+  title: 'Test Task',
+  description: 'Test Description',
+  details: '',
+  testStrategy: '',
+  status: 'pending',
+  priority: 'medium',
+  dependencies: [],
+  subtasks: [],
+  ...overrides
+});
+
+// Helper function to create mock user settings
+const createMockUserSettings = (overrides: Partial<UserSettings> = {}): UserSettings => ({
+  uiPreferences: {
+    theme: 'dark',
+    colorScheme: 'blue',
+    animations: true,
+    sounds: true,
+    compactMode: false,
+    showSubtasks: true,
+    showDependencies: true,
+    defaultView: 'list',
+    sidebarCollapsed: false
+  },
+  notificationSettings: {
+    dueDateReminders: true,
+    statusChanges: true,
+    newAssignments: true,
+    dependencies: true,
+    email: false,
+    push: false,
+    sound: true
+  },
+  privacy: {
+    shareAnalytics: false,
+    shareUsageData: false
+  },
+  ...overrides
+});
 
 // Mock analytics generation
 vi.mock('@/lib/utils', () => ({
@@ -52,7 +94,7 @@ describe('useTaskStore', () => {
   describe('Task CRUD Operations', () => {
     it('should add a task successfully', () => {
       const store = useTaskStore.getState();
-      const mockTask = testUtils.createMockTask({
+      const mockTask = createMockTask({
         title: 'New Task',
         description: 'Test task creation'
       });
@@ -76,7 +118,7 @@ describe('useTaskStore', () => {
 
     it('should update a task successfully', () => {
       const store = useTaskStore.getState();
-      const mockTask = testUtils.createMockTask();
+      const mockTask = createMockTask();
 
       // Add task first
       act(() => {
@@ -105,7 +147,7 @@ describe('useTaskStore', () => {
 
     it('should delete a task successfully', () => {
       const store = useTaskStore.getState();
-      const mockTask = testUtils.createMockTask();
+      const mockTask = createMockTask();
 
       // Add task first
       act(() => {
@@ -126,7 +168,7 @@ describe('useTaskStore', () => {
 
     it('should duplicate a task with new ID', () => {
       const store = useTaskStore.getState();
-      const mockTask = testUtils.createMockTask({
+      const mockTask = createMockTask({
         title: 'Original Task'
       });
 
@@ -157,7 +199,7 @@ describe('useTaskStore', () => {
 
     beforeEach(() => {
       const store = useTaskStore.getState();
-      const parentTask = testUtils.createMockTask({
+      const parentTask = createMockTask({
         title: 'Parent Task'
       });
 
@@ -254,17 +296,17 @@ describe('useTaskStore', () => {
       
       // Add sample tasks with different properties
       const tasks = [
-        testUtils.createMockTask({ 
+        createMockTask({ 
           title: 'High Priority Task', 
           priority: 'high', 
           status: 'pending' 
         }),
-        testUtils.createMockTask({ 
+        createMockTask({ 
           title: 'Completed Task', 
           priority: 'medium', 
           status: 'done' 
         }),
-        testUtils.createMockTask({ 
+        createMockTask({ 
           title: 'In Progress Task', 
           priority: 'low', 
           status: 'in-progress' 
@@ -369,7 +411,7 @@ describe('useTaskStore', () => {
     it('should update user settings', () => {
       const store = useTaskStore.getState();
       
-      const newSettings = testUtils.createMockUserSettings({
+      const newSettings = createMockUserSettings({
         ui: { theme: 'dark', density: 'compact' },
         notifications: { enabled: false }
       });
@@ -388,7 +430,7 @@ describe('useTaskStore', () => {
       
       // Add multiple tasks
       const tasks = Array.from({ length: 5 }, (_, i) => 
-        testUtils.createMockTask({ 
+        createMockTask({ 
           title: `Task ${i + 1}`,
           status: i % 2 === 0 ? 'pending' : 'done'
         })
@@ -435,8 +477,8 @@ describe('useTaskStore', () => {
       
       // Add sample tasks
       act(() => {
-        store.addTask(testUtils.createMockTask({ title: 'Export Test 1' }));
-        store.addTask(testUtils.createMockTask({ title: 'Export Test 2' }));
+        store.addTask(createMockTask({ title: 'Export Test 1' }));
+        store.addTask(createMockTask({ title: 'Export Test 2' }));
       });
 
       const exportData = store.exportToJSON();
@@ -452,8 +494,8 @@ describe('useTaskStore', () => {
       
       const importData = {
         tasks: [
-          testUtils.createMockTask({ title: 'Imported Task 1' }),
-          testUtils.createMockTask({ title: 'Imported Task 2' })
+          createMockTask({ title: 'Imported Task 1' }),
+          createMockTask({ title: 'Imported Task 2' })
         ]
       };
 
@@ -471,7 +513,7 @@ describe('useTaskStore', () => {
       
       // Add some data
       act(() => {
-        store.addTask(testUtils.createMockTask());
+        store.addTask(createMockTask());
         store.setSearchQuery('test');
         store.setSelectedTask(1);
       });
@@ -499,9 +541,9 @@ describe('useTaskStore', () => {
       
       // Create tasks with dependencies
       const tasks = [
-        testUtils.createMockTask({ title: 'Task A', dependencies: [] }),
-        testUtils.createMockTask({ title: 'Task B', dependencies: [] }),
-        testUtils.createMockTask({ title: 'Task C', dependencies: [] })
+        createMockTask({ title: 'Task A', dependencies: [] }),
+        createMockTask({ title: 'Task B', dependencies: [] }),
+        createMockTask({ title: 'Task C', dependencies: [] })
       ];
 
       act(() => {
@@ -546,7 +588,7 @@ describe('useTaskStore', () => {
       // Add many tasks
       act(() => {
         for (let i = 0; i < 1000; i++) {
-          store.addTask(testUtils.createMockTask({ 
+          store.addTask(createMockTask({ 
             title: `Performance Test Task ${i}`
           }));
         }
@@ -564,9 +606,9 @@ describe('useTaskStore', () => {
       
       // Add tasks with different statuses
       act(() => {
-        store.addTask(testUtils.createMockTask({ status: 'pending' }));
-        store.addTask(testUtils.createMockTask({ status: 'done' }));
-        store.addTask(testUtils.createMockTask({ status: 'in-progress' }));
+        store.addTask(createMockTask({ status: 'pending' }));
+        store.addTask(createMockTask({ status: 'done' }));
+        store.addTask(createMockTask({ status: 'in-progress' }));
       });
 
       const analytics = store.analytics;
@@ -584,7 +626,7 @@ describe('useTaskStore', () => {
       expect(result.current.tasks).toEqual([]);
       expect(typeof result.current.addTask).toBe('function');
       
-      const mockTask = testUtils.createMockTask();
+      const mockTask = createMockTask();
       
       act(() => {
         result.current.addTask(mockTask);
@@ -605,7 +647,7 @@ describe('useTaskStore', () => {
       expect(result.current).toBe(0);
       
       act(() => {
-        useTaskStore.getState().addTask(testUtils.createMockTask());
+        useTaskStore.getState().addTask(createMockTask());
       });
       
       expect(renderCount).toBe(2);

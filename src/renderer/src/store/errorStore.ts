@@ -205,7 +205,7 @@ const shouldAutoCleanup = (state: ErrorStoreState): boolean => {
 export const useErrorStore = create<ErrorStore>()(
   persist(
     subscribeWithSelector(
-      immer<ErrorStore>((set, get) => ({
+      immer((set, get) => ({
         ...initialState,
         
         // Error management
@@ -232,7 +232,7 @@ export const useErrorStore = create<ErrorStore>()(
           // Update metrics
           state.metrics.totalErrors++;
           state.metrics.errorsByStore[error.store] = (state.metrics.errorsByStore[error.store] || 0) + 1;
-          state.metrics.errorsBySeverity[error.severity]++;
+          state.metrics.errorsBySeverity[error.severity] = (state.metrics.errorsBySeverity[error.severity] || 0) + 1;
           state.metrics.lastErrorTime = error.timestamp;
           
           if (error.severity === 'critical') {
@@ -293,7 +293,7 @@ export const useErrorStore = create<ErrorStore>()(
             state.metrics.errorsByStore[store] = (state.metrics.errorsByStore[store] || 0) + count;
           });
           Object.entries(errorsBySeverity).forEach(([severity, count]) => {
-            state.metrics.errorsBySeverity[severity] += count;
+            state.metrics.errorsBySeverity[severity] = (state.metrics.errorsBySeverity[severity] || 0) + count;
           });
           state.metrics.criticalErrorCount += criticalCount;
           state.metrics.lastErrorTime = newErrors[0]?.timestamp || new Date();
@@ -335,7 +335,7 @@ export const useErrorStore = create<ErrorStore>()(
         }),
         
         // Recovery actions
-        startRecovery: async (strategy: string) => {
+        startRecovery: async (_strategy: string) => {
           set((state) => {
             state.isRecovering = true;
             state.recoveryProgress = 0;
@@ -469,10 +469,10 @@ export const useErrorStore = create<ErrorStore>()(
           
           errors.forEach((error: StoreError) => {
             state.metrics.errorsByStore[error.store] = (state.metrics.errorsByStore[error.store] || 0) + 1;
-            state.metrics.errorsBySeverity[error.severity]++;
+            state.metrics.errorsBySeverity[error.severity] = (state.metrics.errorsBySeverity[error.severity] || 0) + 1;
           });
           
-          state.metrics.criticalErrorCount = state.metrics.errorsBySeverity.critical;
+          state.metrics.criticalErrorCount = state.metrics.errorsBySeverity.critical || 0;
           
           const recoveredErrors = errors.filter(e => e.recovered).length;
           state.metrics.recoverySuccessRate = errors.length > 0 ? (recoveredErrors / errors.length) * 100 : 100;
