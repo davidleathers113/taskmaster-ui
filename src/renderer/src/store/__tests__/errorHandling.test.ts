@@ -54,7 +54,7 @@ const mockIndexedDB = {
     const mockStore = {
       storage: new Map(),
       put: vi.fn((data) => {
-        const request = { onsuccess: null, onerror: null };
+        const request = { onsuccess: null as any, onerror: null as any };
         // Immediate async resolution to prevent timeouts
         Promise.resolve().then(() => {
           mockStore.storage.set(data.id, data);
@@ -63,7 +63,7 @@ const mockIndexedDB = {
         return request;
       }),
       get: vi.fn((key) => {
-        const request = { result: mockStore.storage.get(key) || null, onsuccess: null, onerror: null };
+        const request = { result: mockStore.storage.get(key) || null, onsuccess: null as any, onerror: null as any };
         // Immediate async resolution
         Promise.resolve().then(() => {
           if (request.onsuccess) request.onsuccess();
@@ -71,7 +71,7 @@ const mockIndexedDB = {
         return request;
       }),
       delete: vi.fn((key) => {
-        const request = { onsuccess: null, onerror: null };
+        const request = { onsuccess: null as any, onerror: null as any };
         Promise.resolve().then(() => {
           mockStore.storage.delete(key);
           if (request.onsuccess) request.onsuccess();
@@ -79,14 +79,14 @@ const mockIndexedDB = {
         return request;
       }),
       getAllKeys: vi.fn(() => {
-        const request = { result: Array.from(mockStore.storage.keys()), onsuccess: null, onerror: null };
+        const request = { result: Array.from(mockStore.storage.keys()), onsuccess: null as any, onerror: null as any };
         Promise.resolve().then(() => {
           if (request.onsuccess) request.onsuccess();
         });
         return request;
       }),
       clear: vi.fn(() => {
-        const request = { onsuccess: null, onerror: null };
+        const request = { onsuccess: null as any, onerror: null as any };
         Promise.resolve().then(() => {
           mockStore.storage.clear();
           if (request.onsuccess) request.onsuccess();
@@ -105,9 +105,9 @@ const mockIndexedDB = {
           createIndex: vi.fn()
         }))
       },
-      onsuccess: null,
-      onerror: null,
-      onupgradeneeded: null
+      onsuccess: null as any,
+      onerror: null as any,
+      onupgradeneeded: null as any
     };
     
     // Fast async connection simulation

@@ -6,36 +6,47 @@
  */
 
 import { describe, test, expect, beforeEach, vi } from 'vitest'
-import { ipcMain, BrowserWindow } from 'electron'
-// Removed empty import
-// import type { MockIpcMain } from './mock-types' // Unused
+import type { IpcMain, BrowserWindow as ElectronBrowserWindow } from 'electron'
 
 // Mock electron modules for cross-process testing (2025 pattern)
-vi.mock('electron', () => ({
-    ipcMain: {
-      handle: vi.fn(),
-      on: vi.fn(),
-      once: vi.fn(),
-      removeHandler: vi.fn(),
-      removeAllListeners: vi.fn(),
-      removeListener: vi.fn(),
-      _handlers: new Map(),
-      _listeners: new Map()
-    },
-    BrowserWindow: {
-      getAllWindows: vi.fn().mockReturnValue([]),
-      getFocusedWindow: vi.fn(),
-      fromWebContents: vi.fn()
-    },
-    webContents: {
-      getAllWebContents: vi.fn().mockReturnValue([]),
-      fromId: vi.fn()
-    },
-    app: {
-      isPackaged: false,
-      getPath: vi.fn().mockImplementation((name) => `/mock/path/${name}`)
-    }
-  }))
+vi.mock('electron', () => {
+  const mockIpcMain: Partial<IpcMain> = {
+    handle: vi.fn() as any,
+    on: vi.fn() as any,
+    once: vi.fn() as any,
+    removeHandler: vi.fn() as any,
+    removeAllListeners: vi.fn() as any,
+    removeListener: vi.fn() as any,
+    _handlers: new Map() as any,
+    _listeners: new Map() as any
+  }
+
+  const mockBrowserWindow = {
+    getAllWindows: vi.fn().mockReturnValue([]) as any,
+    getFocusedWindow: vi.fn() as any,
+    fromWebContents: vi.fn() as any
+  }
+
+  const mockWebContents = {
+    getAllWebContents: vi.fn().mockReturnValue([]) as any,
+    fromId: vi.fn() as any
+  }
+
+  const mockApp = {
+    isPackaged: false,
+    getPath: vi.fn().mockImplementation((name) => `/mock/path/${name}`) as any
+  }
+
+  return {
+    ipcMain: mockIpcMain,
+    BrowserWindow: mockBrowserWindow,
+    webContents: mockWebContents,
+    app: mockApp
+  }
+})
+
+// Import mocked modules after vi.mock
+import { ipcMain, BrowserWindow } from 'electron'
 
 // Mock URL for sender validation
 (global as any).URL = class MockURL {

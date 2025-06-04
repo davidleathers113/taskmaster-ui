@@ -48,43 +48,56 @@ const CI_ENVIRONMENTS = {
   isAzureDevOps: !!process.env.TF_BUILD
 }
 
-// Mock modules
-vi.mock('electron', () => ({
-  app: {
-    isPackaged: true,
-    getVersion: vi.fn().mockReturnValue('1.0.0'),
-    getPath: vi.fn().mockImplementation((name) => `/mock/path/${name}`),
-    getName: vi.fn().mockReturnValue('TaskMaster'),
-    quit: vi.fn(),
-    relaunch: vi.fn()
-  },
-  BrowserWindow: {
-    getAllWindows: vi.fn().mockReturnValue([]),
-    getFocusedWindow: vi.fn().mockReturnValue({ id: 1 })
-  }
-}))
+// Import actual types for explicit typing
+import type { App as ElectronApp, BrowserWindow as ElectronBrowserWindow } from 'electron'
 
-vi.mock('electron-updater', () => ({
-  autoUpdater: {
-    checkForUpdates: vi.fn(),
-    checkForUpdatesAndNotify: vi.fn(),
-    downloadUpdate: vi.fn(),
-    quitAndInstall: vi.fn(),
-    setFeedURL: vi.fn(),
-    on: vi.fn(),
-    once: vi.fn(),
-    removeAllListeners: vi.fn(),
+// Mock modules with explicit typing
+vi.mock('electron', () => {
+  const mockApp: Partial<ElectronApp> = {
+    isPackaged: true,
+    getVersion: vi.fn().mockReturnValue('1.0.0') as any,
+    getPath: vi.fn().mockImplementation((name) => `/mock/path/${name}`) as any,
+    getName: vi.fn().mockReturnValue('TaskMaster') as any,
+    quit: vi.fn() as any,
+    relaunch: vi.fn() as any
+  }
+
+  const mockBrowserWindow = {
+    getAllWindows: vi.fn().mockReturnValue([]) as any,
+    getFocusedWindow: vi.fn().mockReturnValue({ id: 1 }) as any
+  }
+
+  return {
+    app: mockApp,
+    BrowserWindow: mockBrowserWindow
+  }
+})
+
+vi.mock('electron-updater', () => {
+  const mockAutoUpdater: Partial<MockAutoUpdater> = {
+    checkForUpdates: vi.fn() as any,
+    checkForUpdatesAndNotify: vi.fn() as any,
+    downloadUpdate: vi.fn() as any,
+    quitAndInstall: vi.fn() as any,
+    setFeedURL: vi.fn() as any,
+    on: vi.fn() as any,
+    once: vi.fn() as any,
+    removeAllListeners: vi.fn() as any,
     logger: {
-      info: vi.fn(),
-      warn: vi.fn(),
-      error: vi.fn(),
-      debug: vi.fn()
-    },
-    currentVersion: { version: '1.0.0' },
+      info: vi.fn() as any,
+      warn: vi.fn() as any,
+      error: vi.fn() as any,
+      debug: vi.fn() as any
+    } as any,
+    currentVersion: { version: '1.0.0' } as any,
     channel: 'latest',
     allowPrerelease: false
   }
-}))
+
+  return {
+    autoUpdater: mockAutoUpdater
+  }
+})
 
 describe('Auto-Updater Integration Tests', () => {
   let mockServer: MockUpdateServer
