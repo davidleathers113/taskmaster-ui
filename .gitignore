@@ -235,9 +235,11 @@ logs
 .taskmaster/tasks/tasks.json
 wt_tasks/
 .claude/
-CLAUDE.md
+# Don't ignore root CLAUDE.md but ignore others
+/*/CLAUDE.md
 claude.md
 CLAUDE_*.md
+!CLAUDE.md
 
 # Worktree specific
 .env.worktree
