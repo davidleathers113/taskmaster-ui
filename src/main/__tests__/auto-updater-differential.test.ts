@@ -148,12 +148,18 @@ describe('Differential Updates & Rollback Tests', () => {
       }
       
       (autoUpdater as MockAutoUpdater).checkForUpdates.mockResolvedValue({
+        isUpdateAvailable: true,
         updateInfo: {
           version: targetVersion,
           path: `differential/${currentVersion}/${targetVersion}`,
           size: 5000000
         } as MockUpdateInfo,
-        cancellationToken: null
+        versionInfo: {
+          version: targetVersion,
+          path: `differential/${currentVersion}/${targetVersion}`,
+          size: 5000000
+        } as MockUpdateInfo,
+        cancellationToken: undefined
       })
       
       const result = await checkForDifferentialUpdate()
@@ -390,12 +396,18 @@ describe('Differential Updates & Rollback Tests', () => {
       }
       
       (autoUpdater as MockAutoUpdater).checkForUpdates.mockResolvedValue({
+        isUpdateAvailable: true,
         updateInfo: {
           version: rollbackStrategy.rollbackVersion,
           minimumVersion: rollbackStrategy.brokenVersion,
           releaseNotes: rollbackStrategy.changes
         } as MockUpdateInfo,
-        cancellationToken: null
+        versionInfo: {
+          version: rollbackStrategy.rollbackVersion,
+          minimumVersion: rollbackStrategy.brokenVersion,
+          releaseNotes: rollbackStrategy.changes
+        } as MockUpdateInfo,
+        cancellationToken: undefined
       })
       
       await checkRollbackUpdate('1.0.1') // Broken version gets update
@@ -456,7 +468,7 @@ describe('Differential Updates & Rollback Tests', () => {
         }
         
         return false
-      }
+      };
       
       const updateInfo = {
         version: '2.0.1',
@@ -552,7 +564,7 @@ describe('Differential Updates & Rollback Tests', () => {
     })
 
     test('should validate update after recovery', async () => {
-      const validateRecoveredUpdate = async () => {
+      const validateRecoveredUpdate = async (filePath: string, expectedHash: string) => {
         // After recovering from failure, validate the complete file
         const validations = {
           hashValid: false,
@@ -625,7 +637,7 @@ describe('Differential Updates & Rollback Tests', () => {
     })
 
     test('should clean up failed updates', async () => {
-      const cleanupFailedUpdate = async () => {
+      const cleanupFailedUpdate = async (updatePath: string) => {
         const cleanup = {
           tempFilesDeleted: 0,
           partialDownloadsDeleted: 0,
