@@ -50,6 +50,7 @@ vi.mock('../security/security-monitor')
 describe('IPC Security Tests', () => {
   let secureHandler: typeof SecureIPCHandler.prototype
   let rateLimiter: typeof IPCRateLimiter.prototype
+  let securityMonitor: typeof SecurityMonitor.prototype
   
   beforeAll(() => {
     // Initialize security components
@@ -84,7 +85,11 @@ describe('IPC Security Tests', () => {
       }, async () => 'success')
 
       // Mock the handler registration
+<<<<<<< HEAD
       const handler = vi.fn().mockImplementation(async (event) => {
+=======
+      const handler = vi.fn().mockImplementation(async (event, ..._args) => {
+>>>>>>> d863a63 (fix(tests): resolve TS6133 unused variable and import errors)
         const allowedOrigins = ['https://app.taskmaster.com', 'app://taskmaster']
         try {
           const frameUrl = new URL(event.senderFrame.url)
@@ -528,10 +533,17 @@ describe('IPC Security Tests', () => {
 
       // Test safe API
       const safeAPI = {
+<<<<<<< HEAD
         sendMessage: () => {
           // Validates channel and data internally
         },
         onMessage: () => {
+=======
+        sendMessage: (_channel: string, _data: any) => {
+          // Validates channel and data internally
+        },
+        onMessage: (_channel: string, _callback: Function) => {
+>>>>>>> d863a63 (fix(tests): resolve TS6133 unused variable and import errors)
           // Filtered listener
         }
       }
@@ -543,7 +555,11 @@ describe('IPC Security Tests', () => {
       const testSerializability = (obj: any): boolean => {
         try {
           // Objects that can't be cloned will throw
+<<<<<<< HEAD
           JSON.stringify(obj)
+=======
+          const _serialized = JSON.stringify(obj)
+>>>>>>> d863a63 (fix(tests): resolve TS6133 unused variable and import errors)
           
           // Additional check for special objects
           if (obj && typeof obj === 'object') {
