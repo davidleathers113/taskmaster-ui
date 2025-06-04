@@ -699,7 +699,7 @@ describe('IPC Security Tests', () => {
         const permissions = userPermissions[userRole as keyof typeof userPermissions] || []
         return permissions.some(p => {
           if (p.includes(':all')) {
-            return action.startsWith(p.split(':')[0])
+            return action.startsWith(p.split(':')[0] || '')
           }
           return p === action
         })
