@@ -6,15 +6,29 @@
  * Following 2025 testing best practices for smoke/baseline testing.
  */
 
-import { describe, test, expect, beforeEach, afterEach, vi } from 'vitest'
+import { describe, test, expect, beforeEach, afterEach } from 'vitest'
+
+// Global type declarations for test environment
+declare global {
+  const vi: typeof import('vitest').vi
+  interface GlobalThis {
+    __mockElectron?: any
+    __electron?: any
+    electronAPI?: any
+    taskmaster?: any
+    __DEV__?: boolean
+    __TEST__?: boolean
+  }
+}
+
 import { app } from 'electron'
 import { createTestWindow, cleanupTestWindows } from '../../../tests/utils/window-manager'
 
 describe('Main Process Baseline Validation', () => {
   beforeEach(() => {
     // Reset mock state before each test
-    ;(global as any).mockElectron.app.isReady.mockReturnValue(true)
-    ;(global as any).mockElectron.app.whenReady.mockResolvedValue(undefined)
+    global.mockElectron.app.isReady.mockReturnValue(true)
+    global.mockElectron.app.whenReady.mockResolvedValue(undefined)
   })
   
   afterEach(async () => {
@@ -90,11 +104,11 @@ describe('Main Process Baseline Validation', () => {
       const window3 = createTestWindow({ id: 'window-3' })
       
       // Use global test window manager if available
-      if ((global as any).testWindowManager) {
-        expect((global as any).testWindowManager.getWindowCount()).toBe(3)
-        expect((global as any).testWindowManager.getWindow('window-1')).toBe(window1)
-        expect((global as any).testWindowManager.getWindow('window-2')).toBe(window2)
-        expect((global as any).testWindowManager.getWindow('window-3')).toBe(window3)
+      if (global.testWindowManager) {
+        expect(global.testWindowManager.getWindowCount()).toBe(3)
+        expect(global.testWindowManager.getWindow('window-1')).toBe(window1)
+        expect(global.testWindowManager.getWindow('window-2')).toBe(window2)
+        expect(global.testWindowManager.getWindow('window-3')).toBe(window3)
       }
     })
   })

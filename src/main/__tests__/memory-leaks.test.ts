@@ -7,6 +7,20 @@
  */
 
 import { describe, test, expect, beforeEach, afterEach, vi } from 'vitest'
+
+// Global type declarations for test environment
+declare global {
+  const vi: typeof import('vitest').vi
+  interface GlobalThis {
+    __mockElectron?: any
+    __electron?: any
+    electronAPI?: any
+    taskmaster?: any
+    __DEV__?: boolean
+    __TEST__?: boolean
+  }
+}
+
 import { app, BrowserWindow, ipcMain, webContents, session } from 'electron'
 import { EventEmitter } from 'events'
 import { TestWindowManager, cleanupTestWindows } from '../../../tests/utils/window-manager'
@@ -68,7 +82,14 @@ vi.mock('electron', () => ({
   },
   session: {
     defaultSession: {
-      getAllExtensions: vi.fn().mockReturnValue({}),
+      getAllExtensions: vi.fn().mockReturnValue({
+                    on: vi.fn(),
+                    off: vi.fn(),
+                    once: vi.fn(),
+                    addListener: vi.fn(),
+                    removeListener: vi.fn(),
+                    webContents: { send: vi.fn() }
+                  } as any),
       removeExtension: vi.fn(),
       clearCache: vi.fn().mockResolvedValue(undefined)
     }

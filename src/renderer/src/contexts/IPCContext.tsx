@@ -37,7 +37,7 @@ export interface IPCContextState {
 }
 
 // Default context state
-const defaultContextState: IPCContextState = {
+const _defaultContextState: IPCContextState = {
   isAvailable: false,
   isHealthy: false,
   availableMethods: [],
@@ -56,7 +56,7 @@ const defaultContextState: IPCContextState = {
 };
 
 // Create context
-const IPCContext = createContext<IPCContextState>(defaultContextState);
+const IPCContext = createContext<IPCContextState>(_defaultContextState);
 
 // Provider props
 interface IPCProviderProps {

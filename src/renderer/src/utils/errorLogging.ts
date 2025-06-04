@@ -35,7 +35,7 @@ export interface ErrorContext {
 
 // Error reporting throttling to prevent spam
 const errorReportingThrottle = new Map<string, number>();
-const THROTTLE_DURATION = 5000; // 5 seconds
+const _THROTTLE_DURATION = 5000; // 5 seconds
 
 /**
  * Creates a standardized AppError with proper categorization
@@ -81,7 +81,7 @@ export function logError(
   
   // Throttle identical errors
   const lastReported = errorReportingThrottle.get(errorKey);
-  if (lastReported && Date.now() - lastReported < THROTTLE_DURATION) {
+  if (lastReported && Date.now() - lastReported < _THROTTLE_DURATION) {
     return;
   }
   

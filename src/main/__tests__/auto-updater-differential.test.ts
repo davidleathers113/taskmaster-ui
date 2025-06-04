@@ -6,6 +6,20 @@
  */
 
 import { describe, test, expect, beforeEach, vi, beforeAll, afterAll } from 'vitest'
+
+// Global type declarations for test environment
+declare global {
+  const vi: typeof import('vitest').vi
+  interface GlobalThis {
+    __mockElectron?: any
+    __electron?: any
+    electronAPI?: any
+    taskmaster?: any
+    __DEV__?: boolean
+    __TEST__?: boolean
+  }
+}
+
 import { autoUpdater } from 'electron-updater'
 import { app, dialog } from 'electron'
 import { MockUpdateServer } from '../../../tests/mocks/mock-update-server'
@@ -148,19 +162,15 @@ describe('Differential Updates & Rollback Tests', () => {
       }
       
       (autoUpdater as MockAutoUpdater).checkForUpdates.mockResolvedValue({
-        isUpdateAvailable: true,
-        versionInfo: {
-          version: targetVersion,
-          path: `differential/${currentVersion}/${targetVersion}`,
-          size: 5000000
-        } as MockUpdateInfo,
         updateInfo: {
           version: targetVersion,
           path: `differential/${currentVersion}/${targetVersion}`,
           size: 5000000
         } as MockUpdateInfo,
-        cancellationToken: undefined
-      })
+        cancellationToken: undefined,
+          isUpdateAvailable: true,
+          versionInfo: { version: "2.0.0" }
+    })
       
       const result = await checkForDifferentialUpdate()
       
@@ -190,7 +200,7 @@ describe('Differential Updates & Rollback Tests', () => {
       
       try {
         await downloadWithFallback()
-      } catch {
+      } catch (error) {
         // First attempt failed, try full update
         const result = await downloadWithFallback()
         
@@ -396,19 +406,15 @@ describe('Differential Updates & Rollback Tests', () => {
       }
       
       (autoUpdater as MockAutoUpdater).checkForUpdates.mockResolvedValue({
-        isUpdateAvailable: true,
-        versionInfo: {
-          version: rollbackStrategy.rollbackVersion,
-          minimumVersion: rollbackStrategy.brokenVersion,
-          releaseNotes: rollbackStrategy.changes
-        } as MockUpdateInfo,
         updateInfo: {
           version: rollbackStrategy.rollbackVersion,
           minimumVersion: rollbackStrategy.brokenVersion,
           releaseNotes: rollbackStrategy.changes
         } as MockUpdateInfo,
-        cancellationToken: undefined
-      })
+        cancellationToken: undefined,
+          isUpdateAvailable: true,
+          versionInfo: { version: "2.0.0" }
+    })
       
       await checkRollbackUpdate('1.0.1') // Broken version gets update
     })
@@ -451,7 +457,7 @@ describe('Differential Updates & Rollback Tests', () => {
           autoUpdater.logger?.warn('Mandatory update detected')
           
           // Show non-dismissible dialog
-          await vi.mocked(dialog).showMessageBox({
+          await dialog.showMessageBox({
             type: 'warning',
             title: 'Critical Update Required',
             message: 'A critical security update must be installed.',
@@ -470,14 +476,18 @@ describe('Differential Updates & Rollback Tests', () => {
         return false
       }
       
-      const testUpdateInfo = { version: '2.0.1', mandatoryUpdate: true, releaseNotes: 'CRITICAL: Security vulnerability fix' };
+      const updateInfo = {
+        version: '2.0.1',
+        mandatoryUpdate: true,
+        releaseNotes: 'CRITICAL: Security vulnerability fix'
+      }
       
       (autoUpdater as MockAutoUpdater).downloadUpdate.mockResolvedValue([])
       
-      const wasMandatory = await handleMandatoryUpdate(testUpdateInfo)
+      const wasMandatory = await handleMandatoryUpdate(updateInfo)
       
       expect(wasMandatory).toBe(true)
-      expect(vi.mocked(dialog).showMessageBox).toHaveBeenCalledWith(
+      expect(dialog.showMessageBox).toHaveBeenCalledWith(
         expect.objectContaining({
           type: 'warning',
           buttons: ['Install Now'] // No cancel option
@@ -584,7 +594,7 @@ describe('Differential Updates & Rollback Tests', () => {
         return validations
       }
       
-      const result = await validateRecoveredUpdate()
+      const result = await validateRecoveredUpdate('/tmp/update.exe', 'expected-hash')
       
       expect(result.hashValid).toBe(true)
       expect(result.sizeValid).toBe(true)
@@ -653,7 +663,7 @@ describe('Differential Updates & Rollback Tests', () => {
         return cleanup
       }
       
-      const result = await cleanupFailedUpdate()
+      const result = await cleanupFailedUpdate('/tmp/updates')
       
       expect(result.tempFilesDeleted).toBeGreaterThan(0)
       expect(result.cacheCleared).toBe(true)

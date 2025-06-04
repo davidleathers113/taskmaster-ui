@@ -110,7 +110,7 @@ interface MUIErrorDialogProps {
   enableDetailedReporting?: boolean;
 }
 
-const MUIErrorDialog: React.FC<MUIErrorDialogProps> = ({
+const _MUIErrorDialog: React.FC<MUIErrorDialogProps> = ({
   open,
   error,
   errorInfo,
@@ -395,7 +395,7 @@ interface MUIErrorSnackbarProps {
   autoHideDuration?: number;
 }
 
-const MUIErrorSnackbar: React.FC<MUIErrorSnackbarProps> = ({
+const _MUIErrorSnackbar: React.FC<MUIErrorSnackbarProps> = ({
   notification,
   onClose,
   autoHideDuration = 6000
@@ -431,7 +431,7 @@ const MUIErrorSnackbar: React.FC<MUIErrorSnackbarProps> = ({
 /**
  * MUI Error Fallback Component
  */
-const MUIErrorFallback: React.FC<ErrorFallbackProps & MUIErrorBoundaryProps> = ({
+const _MUIErrorFallback: React.FC<ErrorFallbackProps & MUIErrorBoundaryProps> = ({
   error,
   resetErrorBoundary,
   retryCount = 0,
@@ -555,7 +555,7 @@ const MUIErrorFallback: React.FC<ErrorFallbackProps & MUIErrorBoundaryProps> = (
   return (
     <>
       {/* Error Dialog */}
-      <MUIErrorDialog
+      <_MUIErrorDialog
         open={dialogOpen}
         error={error}
         onClose={() => setDialogOpen(false)}
@@ -571,7 +571,7 @@ const MUIErrorFallback: React.FC<ErrorFallbackProps & MUIErrorBoundaryProps> = (
       />
 
       {/* Error Notification */}
-      <MUIErrorSnackbar
+      <_MUIErrorSnackbar
         notification={notification}
         onClose={handleNotificationClose}
       />
@@ -647,7 +647,7 @@ export const MUIErrorBoundary: React.FC<MUIErrorBoundaryProps> = ({
   return (
     <ReactErrorBoundary
       FallbackComponent={(fallbackProps) => (
-        <MUIErrorFallback
+        <_MUIErrorFallback
           {...fallbackProps}
           showDialog={showDialog}
           showSnackbar={showSnackbar}

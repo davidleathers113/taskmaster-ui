@@ -8,6 +8,20 @@
  */
 
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+
+// Global type declarations for test environment
+declare global {
+  const vi: typeof import('vitest').vi
+  interface GlobalThis {
+    __mockElectron?: any
+    __electron?: any
+    electronAPI?: any
+    taskmaster?: any
+    __DEV__?: boolean
+    __TEST__?: boolean
+  }
+}
+
 import { act, renderHook } from '@testing-library/react';
 import { useErrorStore } from '../errorStore';
 import { backupService, BackupService } from '../backupService';
@@ -49,7 +63,7 @@ Object.defineProperty(window, 'localStorage', {
 });
 
 // Optimized IndexedDB Mock (2025 best practices)
-const mockIndexedDB = {
+const _mockIndexedDB = {
   open: vi.fn(() => {
     const mockStore = {
       storage: new Map(),
@@ -143,7 +157,7 @@ const withTimeout = async <T>(
 };
 
 Object.defineProperty(window, 'indexedDB', {
-  value: mockIndexedDB,
+  value: _mockIndexedDB,
   writable: true
 });
 
