@@ -8,6 +8,18 @@
  */
 
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
+
+// Global type declarations for test environment
+declare global {
+  interface GlobalThis {
+    __mockElectron?: any
+    __electron?: any
+    electronAPI?: any
+    taskmaster?: any
+    __DEV__?: boolean
+    __TEST__?: boolean
+  }
+}
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ErrorBoundary } from '../ErrorBoundary';
@@ -27,14 +39,14 @@ vi.mock('@/services/ErrorReportingService', () => ({
 }));
 
 // Mock console.error to prevent noise in test output
-const originalConsoleError = console.error;
+const _originalConsoleError = console.error;
 beforeEach(() => {
   console.error = vi.fn();
   vi.clearAllMocks();
 });
 
 afterEach(() => {
-  console.error = originalConsoleError;
+  console.error = _originalConsoleError;
 });
 
 describe('ErrorBoundary', () => {

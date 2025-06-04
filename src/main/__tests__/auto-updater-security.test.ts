@@ -6,7 +6,21 @@
  * and vulnerability regression testing following 2025 security standards.
  */
 
+import { createMockAutoUpdater, createMockUpdateCheckResult } from '../../test-utils/mock-factories'
 import { describe, test, expect, beforeEach, vi, beforeAll, afterAll } from 'vitest'
+
+// Global type declarations for test environment
+declare global {
+  interface GlobalThis {
+    __mockElectron?: any
+    __electron?: any
+    electronAPI?: any
+    taskmaster?: any
+    __DEV__?: boolean
+    __TEST__?: boolean
+  }
+}
+
 import { session } from 'electron'
 import { MockUpdateServer } from '../../../tests/mocks/mock-update-server'
 import { createHash } from 'crypto'

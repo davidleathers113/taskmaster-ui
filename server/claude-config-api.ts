@@ -82,6 +82,7 @@ function validateRequest<T extends z.ZodTypeAny>(schema: T) {
       });
       return;
     }
+      return
   };
 }
 
@@ -221,6 +222,7 @@ export function addClaudeConfigAPI(app: Application): void {
           sendErrorResponse(res, 500, 'Internal server error', error);
         }
       }
+        return
     }
   );
   
@@ -272,6 +274,7 @@ export function addClaudeConfigAPI(app: Application): void {
         sendErrorResponse(res, 500, 'Internal server error', error);
       }
     }
+      return
   });
   
   // Health check endpoint
@@ -281,6 +284,7 @@ export function addClaudeConfigAPI(app: Application): void {
       timestamp: new Date().toISOString(),
       version: '2.0.0'
     });
+      return
   });
 }
 

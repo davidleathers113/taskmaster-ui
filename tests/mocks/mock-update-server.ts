@@ -96,7 +96,7 @@ export class MockUpdateServer {
 
   private setupMiddleware(): void {
     // Request logging
-    this.app.use((req, res, next) => {
+    this.app.use((req: Request, res: Response, next) => {
       if (this.enableLogging) {
         console.log(`[MockUpdateServer] ${req.method} ${req.path}`)
       }
@@ -118,7 +118,7 @@ export class MockUpdateServer {
     })
 
     // Request tracking
-    this.app.use((req, res, next) => {
+    this.app.use((req: Request, res: Response, next) => {
       const originalSend = res.send
       res.send = function(data: any) {
         this.requestLogs.push({
@@ -130,6 +130,7 @@ export class MockUpdateServer {
         return originalSend.call(this, data)
       }.bind(this)
       next()
+        return
     })
   }
 
@@ -144,6 +145,7 @@ export class MockUpdateServer {
       const yamlContent = this.toYaml(manifest)
       
       res.type('text/yaml').send(yamlContent)
+        return
     })
 
     // Latest release endpoint for macOS
@@ -159,6 +161,7 @@ export class MockUpdateServer {
       }
       
       res.type('text/yaml').send(this.toYaml(macManifest))
+        return
     })
 
     // JSON endpoint for custom implementations
@@ -169,6 +172,7 @@ export class MockUpdateServer {
       
       const manifest = this.applyStaging(req)
       res.json(manifest)
+        return
     })
 
     // Download endpoint
@@ -204,6 +208,7 @@ export class MockUpdateServer {
       }
 
       res.download(filePath)
+        return
     })
 
     // Differential update endpoint
@@ -226,6 +231,7 @@ export class MockUpdateServer {
       }
 
       res.download(deltaPath)
+        return
     })
 
     // Staged rollout configuration endpoint
@@ -239,6 +245,7 @@ export class MockUpdateServer {
       } else {
         res.status(404).json({ error: 'Version not found' })
       }
+        return
     })
 
     // Health check endpoint
@@ -249,10 +256,11 @@ export class MockUpdateServer {
         downloads: Array.from(this.downloadCounts.entries()),
         requestCount: this.requestLogs.length
       })
+        return
     })
 
     // Release notes endpoint
-    this.app.get('/notes/:version', (req, res) => {
+    this.app.get('/notes/:version', (req: Request, res: Response) => {
       const { version } = req.params
       
       if (version === this.updateManifest.version) {
@@ -260,10 +268,11 @@ export class MockUpdateServer {
       } else {
         res.status(404).send('Release notes not found')
       }
+        return
     })
 
     // Code signing verification endpoint (mock)
-    this.app.get('/verify/:filename', (req, res) => {
+    this.app.get('/verify/:filename', (req: Request, res: Response) => {
       const { filename } = req.params
       
       // Simulate signature verification
@@ -274,6 +283,7 @@ export class MockUpdateServer {
         issuer: 'DigiCert EV Code Signing CA',
         thumbprint: this.generateMockSha512(filename).substring(0, 40)
       })
+        return
     })
   }
 

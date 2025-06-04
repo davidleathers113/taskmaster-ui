@@ -73,7 +73,7 @@ interface HealthMetrics {
 /**
  * Main recovery dashboard component
  */
-export const RecoveryDashboard: React.FC<RecoveryDashboardProps> = ({ 
+export const _RecoveryDashboard: React.FC<RecoveryDashboardProps> = ({ 
   onClose, 
   className = '' 
 }) => {
@@ -717,4 +717,4 @@ const SettingsTab: React.FC<{ backupManagers: Record<string, StateBackupManager>
   </motion.div>
 );
 
-export default RecoveryDashboard;
+export default _RecoveryDashboard;

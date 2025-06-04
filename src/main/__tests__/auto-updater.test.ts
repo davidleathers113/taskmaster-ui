@@ -6,7 +6,21 @@
  * and security validation following 2025 best practices.
  */
 
+import { createMockAutoUpdater, createMockUpdateCheckResult } from '../../test-utils/mock-factories'
 import { describe, test, expect, beforeEach, afterEach, vi } from 'vitest'
+
+// Global type declarations for test environment
+declare global {
+  interface GlobalThis {
+    __mockElectron?: any
+    __electron?: any
+    electronAPI?: any
+    taskmaster?: any
+    __DEV__?: boolean
+    __TEST__?: boolean
+  }
+}
+
 import { autoUpdater } from 'electron-updater'
 import { app, BrowserWindow, dialog } from 'electron'
 import type { MockAutoUpdater } from './mock-types'
@@ -21,7 +35,9 @@ vi.mock('electron-updater', () => ({
         releaseDate: new Date().toISOString(),
         releaseNotes: 'New features and bug fixes'
       },
-      cancellationToken: null
+      cancellationToken: undefined,
+        isUpdateAvailable: true,
+        versionInfo: { version: "2.0.0" }
     }),
     checkForUpdatesAndNotify: vi.fn().mockResolvedValue(undefined),
     downloadUpdate: vi.fn().mockResolvedValue(undefined),
@@ -278,7 +294,7 @@ describe('Auto-Updater Tests (2025)', () => {
         const error = new Error('Update failed')
         eventCallback(error)
         
-        expect(autoUpdater.logger?.error).toHaveBeenCalledWith('Auto-updater error:', error)
+        expect(autoUpdater.logger?.error).toHaveBeenCalledWith('Auto-updater error: ' + error.message)
       }
     })
 
@@ -480,8 +496,10 @@ describe('Auto-Updater Tests (2025)', () => {
       
       autoUpdater.checkForUpdates = vi.fn().mockResolvedValue({
         updateInfo: { version: '2.0.0' },
-        cancellationToken
-      })
+        cancellationToken,
+          isUpdateAvailable: true,
+          versionInfo: { version: "2.0.0" }
+    })
       
       // In a real scenario, you would cancel the download
       cancellationToken.cancel()

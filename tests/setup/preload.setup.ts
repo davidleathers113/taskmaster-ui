@@ -13,6 +13,7 @@
  */
 
 import { vi, beforeEach, afterEach } from 'vitest'
+import { createMockIpcRenderer } from '../mocks/electron'
 
 // Mock contextBridge for preload script testing
 const mockContextBridge = {
@@ -53,6 +54,9 @@ const mockContextBridge = {
   })
 }
 
+// Create IPC renderer mock
+const ipcRendererMock = createMockIpcRenderer()
+
 // Mock ipcRenderer for preload script testing
 const mockIpcRenderer = {
   invoke: vi.fn().mockImplementation((channel: string, ..._args: any[]) => {
@@ -81,7 +85,7 @@ const mockIpcRenderer = {
     }
   }),
   
-  send: vi.fn().mockImplementation((channel: string, ..._args: any[]) => {
+  send: vi.fn().mockImplementation((channel: string, ...args: any[]) => {
     // Log send operations for test verification
     console.debug(`IPC send: ${channel}`, args)
   }),
@@ -104,7 +108,7 @@ const mockIpcRenderer = {
   
   once: vi.fn().mockImplementation((channel: string, listener: Function) => {
     // Mock once behavior
-    const wrappedListener = (..._args: any[]) => {
+    const wrappedListener = (...args: any[]) => {
       listener(...args)
       mockIpcRenderer.removeListener(channel, wrappedListener)
     }
@@ -186,7 +190,14 @@ vi.mock('electron', () => ({
     getUploadedReports: vi.fn().mockReturnValue([]),
     addExtraParameter: vi.fn(),
     removeExtraParameter: vi.fn(),
-    getParameters: vi.fn().mockReturnValue({})
+    getParameters: vi.fn().mockReturnValue({
+                  on: vi.fn(),
+                  off: vi.fn(),
+                  once: vi.fn(),
+                  addListener: vi.fn(),
+                  removeListener: vi.fn(),
+                  webContents: { send: vi.fn() }
+                } as any)
   }
 }))
 
@@ -239,16 +250,10 @@ export const validateAPIExposure = (key: string, expectedAPI: any) => {
   return true
 }
 
-export const simulateMainWorldMessage = (channel: string, ..._args: any[]) => {
+export const simulateMainWorldMessage = (channel: string, ...args: any[]) => {
   // Simulate a message from the main process for testing
-  const listeners = global.mockPreloadListeners?.get(channel) || []
-  listeners.forEach(listener => {
-    try {
-      listener(null, ...args) // First arg is typically the event object
-    } catch (error) {
-      console.error(`Error in preload listener for ${channel}:`, error)
-    }
-  })
+  const event = new Event('ipc-message')
+  ;(mockIpcRenderer as any)._triggerListener(channel, event, ...args)
 }
 
 export const validateSecureAPI = (api: any) => {
@@ -279,8 +284,8 @@ beforeEach(() => {
   // Clear all mocks before each test
   vi.clearAllMocks()
   
-  // Clear listener storage
-  global.mockPreloadListeners?.clear()
+  // Clear IPC renderer listeners
+  mockIpcRenderer.removeAllListeners()
   
   // Reset context bridge state
   if (typeof global !== 'undefined') {
@@ -296,7 +301,7 @@ beforeEach(() => {
   memoryBaseline = process.memoryUsage().heapUsed
   
   // Reset mock implementations
-  mockIpcRenderer.invoke.mockImplementation((channel: string, ..._args: any[]) => {
+  mockIpcRenderer.invoke = vi.fn().mockImplementation((channel: string) => {
     switch (channel) {
       case 'app:get-version':
         return Promise.resolve('1.0.0-test')
@@ -310,7 +315,7 @@ beforeEach(() => {
 
 afterEach(() => {
   // Clean up listeners
-  global.mockPreloadListeners?.clear()
+  mockIpcRenderer.removeAllListeners()
   
   // Check for memory leaks in preload scripts
   const currentMemory = process.memoryUsage().heapUsed
@@ -343,4 +348,4 @@ declare global {
   var mockPreloadListeners: Map<string, Function[]>
 }
 
-export { mockContextBridge, mockIpcRenderer }
+export { mockContextBridge, mockIpcRenderer, ipcRendererMock }

@@ -72,7 +72,7 @@ export interface RecoveryNotificationManagerProps {
 /**
  * Individual notification component
  */
-export const RecoveryNotification: React.FC<RecoveryNotificationProps> = ({
+export const _RecoveryNotification: React.FC<RecoveryNotificationProps> = ({
   notification,
   onDismiss,
   onActionClick
@@ -273,7 +273,7 @@ export const RecoveryNotification: React.FC<RecoveryNotificationProps> = ({
 /**
  * Notification manager component
  */
-export const RecoveryNotificationManager: React.FC<RecoveryNotificationManagerProps> = ({
+export const _RecoveryNotificationManager: React.FC<RecoveryNotificationManagerProps> = ({
   maxNotifications = 5,
   defaultDuration = 5000,
   position = 'top-right',
@@ -381,7 +381,7 @@ export const RecoveryNotificationManager: React.FC<RecoveryNotificationManagerPr
       <div className="space-y-3 pointer-events-auto">
         <AnimatePresence>
           {notifications.map(notification => (
-            <RecoveryNotification
+            <_RecoveryNotification
               key={notification.id}
               notification={notification}
               onDismiss={removeNotification}
@@ -428,4 +428,4 @@ export const createRecoveryNotification = (
 });
 
 
-export default RecoveryNotificationManager;
+export default _RecoveryNotificationManager;

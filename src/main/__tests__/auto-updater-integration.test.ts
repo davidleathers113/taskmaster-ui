@@ -6,7 +6,21 @@
  * scenario simulation following 2025 best practices.
  */
 
+import { createMockAutoUpdater, createMockUpdateCheckResult } from '../../test-utils/mock-factories'
 import { describe, test, expect, beforeEach, vi, beforeAll, afterAll } from 'vitest'
+
+// Global type declarations for test environment
+declare global {
+  interface GlobalThis {
+    __mockElectron?: any
+    __electron?: any
+    electronAPI?: any
+    taskmaster?: any
+    __DEV__?: boolean
+    __TEST__?: boolean
+  }
+}
+
 import { autoUpdater } from 'electron-updater'
 import { app } from 'electron'
 import { MockUpdateServer } from '../../../tests/mocks/mock-update-server'
@@ -182,7 +196,7 @@ describe('Auto-Updater Integration Tests', () => {
         
         return Promise.resolve({
           updateInfo: { version: '2.0.0' },
-          cancellationToken: null
+          cancellationToken: undefined
         })
       })
 
@@ -508,7 +522,7 @@ describe('Auto-Updater Integration Tests', () => {
         if (callCount < 2) {
           throw new Error('Server timeout')
         }
-        return Promise.resolve({ updateInfo: { version: '2.0.0' }, cancellationToken: null })
+        return Promise.resolve({ updateInfo: { version: '2.0.0' }, cancellationToken: undefined })
       })
 
       const result = await attemptUpdateWithRetry()

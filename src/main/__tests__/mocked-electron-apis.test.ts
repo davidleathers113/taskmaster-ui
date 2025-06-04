@@ -6,6 +6,19 @@
  */
 
 import { describe, test, expect, beforeEach, vi } from 'vitest'
+
+// Global type declarations for test environment
+declare global {
+  interface GlobalThis {
+    __mockElectron?: any
+    __electron?: any
+    electronAPI?: any
+    taskmaster?: any
+    __DEV__?: boolean
+    __TEST__?: boolean
+  }
+}
+
 import { app, BrowserWindow, dialog, shell, clipboard, nativeImage, Menu, Tray, globalShortcut, screen, powerMonitor, systemPreferences } from 'electron'
 import { } from 'url'
 

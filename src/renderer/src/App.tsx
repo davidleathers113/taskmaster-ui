@@ -12,19 +12,19 @@ import { DebugPanel } from '@/components/DebugPanel'
 import { cn } from '@/lib/utils'
 
 // Lazy load components for better performance and to demonstrate Suspense
-const TaskDetailPanel = lazy(() => 
+const _TaskDetailPanel = lazy(() => 
   import('@/components/task/TaskDetailPanel').then(module => ({ 
     default: module.TaskDetailPanel 
   }))
 )
 
-const CommandPalette = lazy(() => 
+const _CommandPalette = lazy(() => 
   import('@/components/ui/CommandPalette').then(module => ({ 
     default: module.CommandPalette 
   }))
 )
 
-const ProjectManager = lazy(() => 
+const _ProjectManager = lazy(() => 
   import('@/components/project/ProjectManager').then(module => ({ 
     default: module.ProjectManager 
   }))
@@ -175,7 +175,7 @@ function App() {
                 >
                   <ErrorBoundary level="component">
                     <SuspenseWrapper level="component" name="Task Detail Panel">
-                      <TaskDetailPanel />
+                      <_TaskDetailPanel />
                     </SuspenseWrapper>
                   </ErrorBoundary>
                 </motion.div>
@@ -188,14 +188,14 @@ function App() {
       {/* Command Palette */}
       <ErrorBoundary level="component">
         <SuspenseWrapper level="component" name="Command Palette">
-          <CommandPalette />
+          <_CommandPalette />
         </SuspenseWrapper>
       </ErrorBoundary>
 
       {/* Project Manager */}
       <ErrorBoundary level="component">
         <SuspenseWrapper level="component" name="Project Manager">
-          <ProjectManager />
+          <_ProjectManager />
         </SuspenseWrapper>
       </ErrorBoundary>
 

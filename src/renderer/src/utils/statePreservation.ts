@@ -13,8 +13,8 @@ export interface StatePreservationOptions {
   maxSize?: number; // Maximum size in bytes
 }
 
-const DEFAULT_TTL = 24 * 60 * 60 * 1000; // 24 hours
-const DEFAULT_MAX_SIZE = 1024 * 1024; // 1MB
+const _DEFAULT_TTL = 24 * 60 * 60 * 1000; // 24 hours
+const _DEFAULT_MAX_SIZE = 1024 * 1024; // 1MB
 const STATE_VERSION = '1.0.0';
 
 /**
@@ -26,9 +26,9 @@ export function saveViewState(
   options: StatePreservationOptions = {}
 ): boolean {
   const {
-    ttl = DEFAULT_TTL,
+    ttl = _DEFAULT_TTL,
     version = STATE_VERSION,
-    maxSize = DEFAULT_MAX_SIZE
+    maxSize = _DEFAULT_MAX_SIZE
   } = options;
 
   try {

@@ -19,7 +19,7 @@ import {
 import { useTaskStore } from '@/store/useTaskStore'
 import { cn } from '@/lib/utils'
 
-const ViewTypeButton = ({ 
+const _ViewTypeButton = ({ 
   icon: Icon, 
   label, 
   isActive, 
@@ -118,7 +118,7 @@ export function Header() {
         <div className="flex items-center space-x-4">
           <div className="flex items-center space-x-2 p-1 bg-muted/30 rounded-lg">
             {viewTypes.map((view) => (
-              <ViewTypeButton
+              <_ViewTypeButton
                 key={view.type}
                 icon={view.icon}
                 label={view.label}
