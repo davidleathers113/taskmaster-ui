@@ -143,7 +143,7 @@ describe('Cross-Process Communication Security Tests (2025)', () => {
         { id: 3, webContents: { id: 103 } }
       ]
       
-      BrowserWindow.getAllWindows.mockReturnValue(mockWindows)
+      ;(BrowserWindow.getAllWindows as any).mockReturnValue(mockWindows)
       
       const validateSenderWindow = (senderId: number) => {
         const windows = BrowserWindow.getAllWindows()
@@ -476,8 +476,10 @@ describe('Cross-Process Communication Security Tests (2025)', () => {
       // Verify no access to sensitive properties
       const callArgs = userCallback.mock.calls[0]
       expect(callArgs).toEqual([safeData])
-      expect(callArgs[0]).not.toHaveProperty('sender')
-      expect(callArgs[0]).not.toHaveProperty('senderFrame')
+      if (callArgs && callArgs[0]) {
+        expect(callArgs[0]).not.toHaveProperty('sender')
+        expect(callArgs[0]).not.toHaveProperty('senderFrame')
+      }
     })
 
     test('should validate event data structure before passing to callbacks', () => {

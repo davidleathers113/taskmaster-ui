@@ -12,9 +12,8 @@ import { app } from 'electron'
 import { MockUpdateServer } from '../../../tests/mocks/mock-update-server'
 import { existsSync, writeFileSync, mkdirSync } from 'fs'
 import { join } from 'path'
-import { } from 'child_process'
-import yaml from 'yaml'
 import type { MockAutoUpdater } from './mock-types'
+import yaml from 'yaml'
 
 
 // Platform-specific test configurations
@@ -147,23 +146,23 @@ describe('Auto-Updater Integration Tests', () => {
       }
 
       // Set up event handlers
-      const setupUpdateHandlers = () => {
+      const setupUpdateHandlers = (): void => {
         autoUpdater.on('checking-for-update', () => {
           updateLifecycle.checkingForUpdate = true
           autoUpdater.logger?.info('Checking for update...')
         })
 
-        autoUpdater.on('update-available', (info) => {
+        autoUpdater.on('update-available', (info: any) => {
           updateLifecycle.updateAvailable = true
           autoUpdater.logger?.info(`Update available: ${info.version}`)
         })
 
-        autoUpdater.on('update-downloaded', (info) => {
+        autoUpdater.on('update-downloaded', (info: any) => {
           updateLifecycle.updateDownloaded = true
           autoUpdater.logger?.info(`Update downloaded: ${info.version}`)
         })
 
-        autoUpdater.on('error', (error) => {
+        autoUpdater.on('error', (error: Error) => {
           updateLifecycle.errors.push(error)
           autoUpdater.logger?.error('Update error: ' + error.message)
         })
