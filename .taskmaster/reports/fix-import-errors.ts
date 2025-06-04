@@ -16,7 +16,7 @@ import {
   type UnusedVariableError,
   type TsMorphConfig 
 } from "./ts-morph-utils";
-import { Project, SourceFile, Node, SyntaxKind, ScriptTarget, ModuleResolutionKind } from "ts-morph";
+import { SourceFile, Node, ScriptTarget, ModuleResolutionKind } from "ts-morph";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);

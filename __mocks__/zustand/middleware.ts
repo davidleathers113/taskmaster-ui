@@ -24,7 +24,7 @@ export const immer = vi.fn((stateCreator) => {
 });
 
 // Mock persist middleware to avoid localStorage complications
-export const persist = vi.fn((stateCreator, options) => {
+export const persist = vi.fn((stateCreator) => {
   return stateCreator;
 });
 

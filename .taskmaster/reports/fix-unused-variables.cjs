@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const { Project, SyntaxKind } = require("ts-morph");
+const { Project } = require("ts-morph");
 const fs = require("fs");
 const path = require("path");
 

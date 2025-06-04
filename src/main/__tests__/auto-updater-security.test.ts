@@ -10,7 +10,7 @@ import { describe, test, expect, beforeEach, vi, beforeAll, afterAll } from 'vit
 import { session } from 'electron'
 import { MockUpdateServer } from '../../../tests/mocks/mock-update-server'
 import { createHash } from 'crypto'
-import type { MockAutoUpdater } from './mock-types'
+// import type { MockAutoUpdater } from './mock-types' // Not used
 
 
 // Mock security utilities
@@ -55,7 +55,7 @@ vi.mock('electron-updater', () => ({
 
 describe('Auto-Updater Security Tests', () => {
   let mockServer: MockUpdateServer
-  let serverUrl: string
+  // let serverUrl: string // Not used
 
   beforeAll(async () => {
     mockServer = new MockUpdateServer({

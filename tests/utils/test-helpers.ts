@@ -74,7 +74,7 @@ export const createAsyncMock = <T = any>(
   resolveValue?: T,
   delay: number = 0
 ): MockedFunction<(...args: any[]) => Promise<T>> => {
-  return vi.fn().mockImplementation((...args: any[]) => 
+  return vi.fn().mockImplementation((..._args: any[]) => 
     new Promise((resolve) => 
       setTimeout(() => resolve(resolveValue as T), delay)
     )

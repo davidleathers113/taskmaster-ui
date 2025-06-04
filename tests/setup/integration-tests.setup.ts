@@ -275,7 +275,7 @@ global.mockFS = mockFileSystem
 
 // Type declarations
 declare global {
-  var integrationUtils: {
+  let integrationUtils: {
     waitForAsync: <T>(operation: () => Promise<T>, timeout?: number, interval?: number) => Promise<T>
     mockService: <T extends object>(service: T, overrides?: Partial<T>) => T
     createTestFile: (filePath: string, content: string) => Promise<void>
@@ -292,8 +292,8 @@ declare global {
     }
   }
   
-  var mockElectron: typeof mockElectronServices
-  var mockFS: typeof mockFileSystem
+  let mockElectron: typeof mockElectronServices
+  let mockFS: typeof mockFileSystem
   
   namespace jest {
     interface Matchers<R> {

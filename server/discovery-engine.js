@@ -1,10 +1,7 @@
 import { readdir, stat, access } from 'fs/promises';
-import { join, dirname, basename, resolve } from 'path';
+import { join, dirname, basename } from 'path';
 import { homedir, platform } from 'os';
-import { exec } from 'child_process';
-import { promisify } from 'util';
-
-const execAsync = promisify(exec);
+// Removed unused imports
 
 export class ProjectDiscoveryEngine {
   constructor() {
@@ -209,7 +206,7 @@ export class ProjectDiscoveryEngine {
         try {
           const subRepos = await this.findGitRepositories(fullPath, maxDepth, currentDepth + 1);
           gitRepos.push(...subRepos);
-        } catch (error) {
+        } catch {
           // Skip directories we can't read
           continue;
         }
@@ -233,7 +230,7 @@ export class ProjectDiscoveryEngine {
     this.emitProgress({ phase: 'Full System Discovery (This may take a while)', current: 0, total: 0 });
 
     const searchPaths = startPaths || this.getSystemSearchPaths();
-    let totalScanned = 0;
+    // let totalScanned = 0; // Not used
 
     for (const searchPath of searchPaths) {
       if (!(await this.pathExists(searchPath))) continue;
@@ -291,7 +288,7 @@ export class ProjectDiscoveryEngine {
         // Recurse into subdirectory
         await this.recursiveFullScan(fullPath, maxDepth, currentDepth + 1, skipHidden, skipSystem);
       }
-    } catch (error) {
+    } catch {
       // Skip directories we can't read
       return;
     }

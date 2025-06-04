@@ -324,7 +324,7 @@ class UnifiedTestRunner {
     })
   }
 
-  private async collectPerformanceMetrics(suite: TestSuite): Promise<TestResult['performance']> {
+  private async collectPerformanceMetrics(): Promise<TestResult['performance']> {
     // Mock implementation - would integrate with actual performance monitoring
     const memoryUsage = process.memoryUsage()
     return {

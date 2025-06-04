@@ -84,7 +84,7 @@ describe('IPC Security Tests', () => {
       }, async () => 'success')
 
       // Mock the handler registration
-      const handler = vi.fn().mockImplementation(async (event, ...args) => {
+      const handler = vi.fn().mockImplementation(async (event) => {
         const allowedOrigins = ['https://app.taskmaster.com', 'app://taskmaster']
         try {
           const frameUrl = new URL(event.senderFrame.url)
@@ -528,10 +528,10 @@ describe('IPC Security Tests', () => {
 
       // Test safe API
       const safeAPI = {
-        sendMessage: (channel: string, data: any) => {
+        sendMessage: () => {
           // Validates channel and data internally
         },
-        onMessage: (channel: string, callback: Function) => {
+        onMessage: () => {
           // Filtered listener
         }
       }
@@ -543,7 +543,7 @@ describe('IPC Security Tests', () => {
       const testSerializability = (obj: any): boolean => {
         try {
           // Objects that can't be cloned will throw
-          const serialized = JSON.stringify(obj)
+          JSON.stringify(obj)
           
           // Additional check for special objects
           if (obj && typeof obj === 'object') {
@@ -662,7 +662,7 @@ describe('IPC Security Tests', () => {
       ]
 
       const secureAPI = {
-        execute: vi.fn().mockImplementation((cmd) => {
+        execute: vi.fn().mockImplementation(() => {
           throw new Error('Command execution not allowed')
         }),
         openExternal: vi.fn().mockImplementation((url) => {
@@ -728,7 +728,7 @@ describe('IPC Security Tests', () => {
             senderGroups.set(p.senderId, (senderGroups.get(p.senderId) || 0) + 1)
           }
           
-          for (const [sender, count] of senderGroups) {
+          for (const [, count] of senderGroups) {
             if (count > this.patterns.length * 0.8) {
               return { suspicious: true, reason: 'Single sender dominance' }
             }
