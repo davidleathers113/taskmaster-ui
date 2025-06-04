@@ -30,6 +30,8 @@
     "release": "npm run build && electron-builder -p onTagOrDraft",
     "lint": "eslint . --max-warnings 0 --no-warn-ignored --fix",
     "typecheck": "tsc --noEmit",
+    "typecheck:all": "npm run typecheck && cd server && npx tsc --noEmit",
+    "typecheck:ci": "npm run typecheck:all 2>&1 | tee typescript-errors.log",
     "server:install": "cd server && npm install",
     "server:dev": "cd server && npm run dev",
     "server:start": "cd server && npm start",
