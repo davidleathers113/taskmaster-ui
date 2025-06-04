@@ -5,6 +5,7 @@
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
+    "types": ["vitest/globals"],
 
     /* Bundler mode */
     "moduleResolution": "bundler",
@@ -37,6 +38,6 @@
       "@utils/*": ["./src/renderer/src/utils/*"]
     }
   },
-  "include": ["src", "electron.vite.config.ts"],
+  "include": ["src", "src/**/__tests__/**/*", "tests", "electron.vite.config.ts", "vitest.config.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
