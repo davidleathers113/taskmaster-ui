@@ -95,7 +95,7 @@ export class MockUpdateServer {
 
   private setupMiddleware(): void {
     // Request logging
-    this.app.use((req, res, next) => {
+    this.app.use((req, _res, next) => {
       if (this.enableLogging) {
         console.log(`[MockUpdateServer] ${req.method} ${req.path}`)
       }
@@ -109,7 +109,7 @@ export class MockUpdateServer {
     })
 
     // CORS headers
-    this.app.use((req, res, next) => {
+    this.app.use((_req, res, next) => {
       res.header('Access-Control-Allow-Origin', '*')
       res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
       res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization')
@@ -118,16 +118,16 @@ export class MockUpdateServer {
 
     // Request tracking
     this.app.use((req, res, next) => {
-      const originalSend = res.send
-      res.send = function(data) {
+      const originalSend = res.send.bind(res)
+      res.send = (data: any) => {
         this.requestLogs.push({
           timestamp: new Date(),
           method: req.method,
           path: req.path,
           status: res.statusCode
         })
-        return originalSend.call(this, data)
-      }.bind(this)
+        return originalSend(data)
+      }
       next()
     })
   }
@@ -136,7 +136,8 @@ export class MockUpdateServer {
     // Latest release endpoint for Windows/Linux
     this.app.get('/latest.yml', (req, res) => {
       if (this.shouldSimulateError()) {
-        return res.status(500).send('Internal Server Error')
+        res.status(500).send('Internal Server Error')
+        return
       }
       
       const manifest = this.applyStaging(req)
@@ -148,7 +149,8 @@ export class MockUpdateServer {
     // Latest release endpoint for macOS
     this.app.get('/latest-mac.yml', (req, res) => {
       if (this.shouldSimulateError()) {
-        return res.status(500).send('Internal Server Error')
+        res.status(500).send('Internal Server Error')
+        return
       }
       
       const manifest = this.applyStaging(req)
@@ -163,7 +165,8 @@ export class MockUpdateServer {
     // JSON endpoint for custom implementations
     this.app.get('/latest.json', (req, res) => {
       if (this.shouldSimulateError()) {
-        return res.status(500).json({ error: 'Internal Server Error' })
+        res.status(500).json({ error: 'Internal Server Error' })
+        return
       }
       
       const manifest = this.applyStaging(req)
@@ -175,7 +178,8 @@ export class MockUpdateServer {
       const { filename } = req.params
       
       if (this.shouldSimulateError()) {
-        return res.status(503).send('Service Unavailable')
+        res.status(503).send('Service Unavailable')
+        return
       }
 
       // Track download count
@@ -193,7 +197,7 @@ export class MockUpdateServer {
       const range = req.headers.range
       if (range) {
         const parts = range.replace(/bytes=/, '').split('-')
-        const start = parseInt(parts[0], 10)
+        const start = parseInt(parts[0] || '0', 10)
         const end = parts[1] ? parseInt(parts[1], 10) : this.updateManifest.size! - 1
         
         res.status(206)
@@ -211,12 +215,14 @@ export class MockUpdateServer {
       const deltaKey = `${fromVersion}-${toVersion}`
       
       if (this.shouldSimulateError()) {
-        return res.status(404).send('Delta not found')
+        res.status(404).send('Delta not found')
+        return
       }
 
       const delta = this.differentialUpdates.get(deltaKey)
       if (!delta) {
-        return res.status(404).json({ error: 'Differential update not available' })
+        res.status(404).json({ error: 'Differential update not available' })
+        return
       }
 
       const deltaPath = join(this.fixturesPath, delta.deltaPath)
@@ -241,7 +247,7 @@ export class MockUpdateServer {
     })
 
     // Health check endpoint
-    this.app.get('/health', (req, res) => {
+    this.app.get('/health', (_req, res) => {
       res.json({
         status: 'healthy',
         uptime: process.uptime(),
@@ -303,7 +309,7 @@ export class MockUpdateServer {
     }
 
     // Use client ID or IP for consistent staging
-    const clientId = req.headers['x-client-id'] || req.ip
+    const clientId = String(req.headers['x-client-id'] || req.ip || 'default')
     const hash = createHash('md5').update(clientId).digest('hex')
     const bucket = parseInt(hash.substring(0, 8), 16) % 100
 
