@@ -8,6 +8,7 @@
 import { describe, test, expect, beforeEach, vi } from 'vitest'
 import { ipcMain, BrowserWindow } from 'electron'
 import { } from 'events'
+import type { MockIpcMain } from './mock-types'
 
 // Mock electron modules for cross-process testing
 vi.mock('electron', () => ({
@@ -64,8 +65,8 @@ vi.mock('electron', () => ({
 describe('Cross-Process Communication Security Tests (2025)', () => {
   beforeEach(() => {
     vi.clearAllMocks()
-    ipcMain._handlers.clear()
-    ipcMain._listeners.clear()
+    ;(ipcMain as any)._handlers.clear()
+    ;(ipcMain as any)._listeners.clear()
   })
 
   describe('IPC Sender Validation', () => {
