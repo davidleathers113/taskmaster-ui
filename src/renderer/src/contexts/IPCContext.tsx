@@ -127,12 +127,17 @@ export function IPCProvider({
         try {
           // Try a lightweight method that should always work
           const testMethod = methods.includes('getVersion') ? 'getVersion' : methods[0];
-          const response: IPCResponse = await ipcWrapper.invoke(testMethod);
-          healthy = response.success;
-          
-          if (!healthy && response.error) {
-            setLastError(`Health check failed: ${response.error.message}`);
-            setErrorCount(prev => prev + 1);
+          if (testMethod) {
+            const response: IPCResponse = await ipcWrapper.invoke(testMethod);
+            healthy = response.success;
+            
+            if (!healthy && response.error) {
+              setLastError(`Health check failed: ${response.error.message}`);
+              setErrorCount(prev => prev + 1);
+            }
+          } else {
+            healthy = false;
+            setLastError('No IPC methods available for health check');
           }
         } catch (error) {
           healthy = false;

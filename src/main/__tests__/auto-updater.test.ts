@@ -6,11 +6,11 @@
  * and security validation following 2025 best practices.
  */
 
+import { createMockAutoUpdater, createMockUpdateCheckResult } from '../../test-utils/mock-factories'
 import { describe, test, expect, beforeEach, afterEach, vi } from 'vitest'
 
 // Global type declarations for test environment
 declare global {
-  const vi: typeof import('vitest').vi
   interface GlobalThis {
     __mockElectron?: any
     __electron?: any
@@ -294,7 +294,7 @@ describe('Auto-Updater Tests (2025)', () => {
         const error = new Error('Update failed')
         eventCallback(error)
         
-        expect(autoUpdater.logger?.error).toHaveBeenCalledWith('Auto-updater error:', error)
+        expect(autoUpdater.logger?.error).toHaveBeenCalledWith('Auto-updater error: ' + error.message)
       }
     })
 
@@ -336,31 +336,11 @@ describe('Auto-Updater Tests (2025)', () => {
 
   describe('User Interaction', () => {
     test('should prompt user when update is available', async () => {
-      const mockWindow = {} as any
+      const mockWindow = {} as BrowserWindow
       BrowserWindow.getFocusedWindow = vi.fn().mockReturnValue(mockWindow)
       
       const promptUserForUpdate = async (info: { version: string }) => {
-        const result = await dialog.showMessageBox({
-                      id: 1,
-                      webContents: {
-                        send: vi.fn(),
-                        on: vi.fn(),
-                        once: vi.fn(),
-                        removeListener: vi.fn()
-                      },
-                      on: vi.fn(),
-                      off: vi.fn(),
-                      once: vi.fn(),
-                      addListener: vi.fn(),
-                      removeListener: vi.fn(),
-                      show: vi.fn(),
-                      hide: vi.fn(),
-                      close: vi.fn(),
-                      destroy: vi.fn(),
-                      isDestroyed: vi.fn().mockReturnValue(false),
-                      focus: vi.fn(),
-                      blur: vi.fn()
-                    } as any, {
+        const result = await dialog.showMessageBox(mockWindow, {
           type: 'info',
           title: 'Update Available',
           message: 'A new version is available. Would you like to download it now?',
@@ -390,27 +370,8 @@ describe('Auto-Updater Tests (2025)', () => {
       dialog.showMessageBox = vi.fn().mockResolvedValue({ response: 1 }) // User clicks "Later"
       
       const promptUserForUpdate = async (info: { version: string }) => {
-        const result = await dialog.showMessageBox({
-                      id: 1,
-                      webContents: {
-                        send: vi.fn(),
-                        on: vi.fn(),
-                        once: vi.fn(),
-                        removeListener: vi.fn()
-                      },
-                      on: vi.fn(),
-                      off: vi.fn(),
-                      once: vi.fn(),
-                      addListener: vi.fn(),
-                      removeListener: vi.fn(),
-                      show: vi.fn(),
-                      hide: vi.fn(),
-                      close: vi.fn(),
-                      destroy: vi.fn(),
-                      isDestroyed: vi.fn().mockReturnValue(false),
-                      focus: vi.fn(),
-                      blur: vi.fn()
-                    } as any, {
+        const window = BrowserWindow.getFocusedWindow() || ({} as BrowserWindow)
+        const result = await dialog.showMessageBox(window, {
           type: 'info',
           title: 'Update Available',
           message: 'A new version is available. Would you like to download it now?',
@@ -430,27 +391,8 @@ describe('Auto-Updater Tests (2025)', () => {
 
     test('should prompt for restart after download', async () => {
       const promptUserToInstall = async () => {
-        const result = await dialog.showMessageBox({
-                      id: 1,
-                      webContents: {
-                        send: vi.fn(),
-                        on: vi.fn(),
-                        once: vi.fn(),
-                        removeListener: vi.fn()
-                      },
-                      on: vi.fn(),
-                      off: vi.fn(),
-                      once: vi.fn(),
-                      addListener: vi.fn(),
-                      removeListener: vi.fn(),
-                      show: vi.fn(),
-                      hide: vi.fn(),
-                      close: vi.fn(),
-                      destroy: vi.fn(),
-                      isDestroyed: vi.fn().mockReturnValue(false),
-                      focus: vi.fn(),
-                      blur: vi.fn()
-                    } as any, {
+        const window = BrowserWindow.getFocusedWindow() || ({} as BrowserWindow)
+        const result = await dialog.showMessageBox(window, {
           type: 'info',
           title: 'Update Ready',
           message: 'Update downloaded. Restart the application to apply the update.',

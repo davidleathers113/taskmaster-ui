@@ -282,11 +282,11 @@ export class FailsafeCleanupManager extends EventEmitter {
             // Can't wait for promises in sync context
             this.log(`Warning: Async handler ${handler.name} skipped in sync cleanup`)
           }
-        } catch (error) {
+        } catch (_error) {
           // Ignore errors in sync cleanup
         }
       }
-    } catch (error) {
+    } catch (_error) {
       // Ignore all errors in sync cleanup
     }
   }

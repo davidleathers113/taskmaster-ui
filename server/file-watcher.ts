@@ -606,7 +606,7 @@ app.post('/api/discovery/add-selected', validateInput(ProjectIdsSchema), async (
         
         results.push({ id: projectId, success: true });
         console.log(`📊 Auto-added project: ${discoveredProject.name}`);
-      } catch (error) {
+      } catch {
         results.push({ 
           id: projectId, 
           success: false, 
@@ -637,7 +637,7 @@ app.get('/api/health', (req: Request, res: Response) => {
 addClaudeConfigAPI(app);
 
 // Global error handler
-app.use((error: any, req: Request, res: Response, next: NextFunction) => {
+app.use((error: any, req: Request, res: Response) => {
   handleError(error, req, res);
 });
 

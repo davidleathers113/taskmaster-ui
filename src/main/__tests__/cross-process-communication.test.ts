@@ -9,7 +9,6 @@ import { describe, test, expect, beforeEach, vi } from 'vitest'
 
 // Global type declarations for test environment
 declare global {
-  const vi: typeof import('vitest').vi
   interface GlobalThis {
     __mockElectron?: any
     __electron?: any
@@ -78,8 +77,8 @@ vi.mock('electron', () => ({
 describe('Cross-Process Communication Security Tests (2025)', () => {
   beforeEach(() => {
     vi.clearAllMocks()
-    ipcMain._handlers.clear()
-    ipcMain._listeners.clear()
+    ;(ipcMain as any)._handlers?.clear?.()
+    ;(ipcMain as any)._listeners?.clear?.()
   })
 
   describe('IPC Sender Validation', () => {
@@ -101,7 +100,7 @@ describe('Cross-Process Communication Security Tests (2025)', () => {
           }
           
           return { valid: true, origin: frameUrl.origin }
-        } catch (error) {
+        } catch {
           return { valid: false, reason: 'Invalid sender URL' }
         }
       }
@@ -156,7 +155,7 @@ describe('Cross-Process Communication Security Tests (2025)', () => {
         { id: 3, webContents: { id: 103 } }
       ]
       
-      BrowserWindow.getAllWindows.mockReturnValue(mockWindows)
+      ;(BrowserWindow.getAllWindows as any).mockReturnValue(mockWindows)
       
       const validateSenderWindow = (senderId: number) => {
         const windows = BrowserWindow.getAllWindows()
@@ -460,7 +459,7 @@ describe('Cross-Process Communication Security Tests (2025)', () => {
     test('should prevent event object leakage in renderer callbacks', () => {
       // Simulate secure event wrapper
       const createSecureCallback = (userCallback: Function) => {
-        return (event: any, ...data: any[]) => {
+        return (_event: any, ...data: any[]) => {
           // Never pass the event object to user callback
           // Only pass the actual data
           userCallback(...data)
@@ -488,14 +487,15 @@ describe('Cross-Process Communication Security Tests (2025)', () => {
       
       // Verify no access to sensitive properties
       const callArgs = userCallback.mock.calls[0]
+      expect(callArgs).toBeDefined()
       expect(callArgs).toEqual([safeData])
-      expect(callArgs[0]).not.toHaveProperty('sender')
-      expect(callArgs[0]).not.toHaveProperty('senderFrame')
+      expect(callArgs?.[0]).not.toHaveProperty('sender')
+      expect(callArgs?.[0]).not.toHaveProperty('senderFrame')
     })
 
     test('should validate event data structure before passing to callbacks', () => {
       const createValidatingCallback = (userCallback: Function, validator: Function) => {
-        return (event: any, data: any) => {
+        return (_event: any, data: any) => {
           if (validator(data)) {
             userCallback(data)
           } else {

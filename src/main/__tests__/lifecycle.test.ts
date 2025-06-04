@@ -10,7 +10,6 @@ import { describe, test, expect, beforeEach, afterEach, vi } from 'vitest'
 
 // Global type declarations for test environment
 declare global {
-  const vi: typeof import('vitest').vi
   interface GlobalThis {
     __mockElectron?: any
     __electron?: any
@@ -126,9 +125,10 @@ describe('Main Process Lifecycle Tests (2025)', () => {
     }
     
     // Mock the createWindow function
-    createWindow = vi.fn().mockImplementation(() => {
+    const mockCreateWindow = vi.fn().mockImplementation(() => {
       return mockWindow
     })
+    ;(global as any).createWindow = mockCreateWindow
   })
 
   afterEach(() => {
@@ -145,7 +145,7 @@ describe('Main Process Lifecycle Tests (2025)', () => {
       expect(app.on).toHaveBeenCalledWith('will-finish-launching', mockCallback)
       
       // Trigger the event manually for testing
-      const eventCallback = app.on.mock.calls.find(call => call[0] === 'will-finish-launching')?.[1]
+      const eventCallback = (app.on as any).mock.calls.find((call: any[]) => call[0] === 'will-finish-launching')?.[1]
       if (eventCallback) {
         eventCallback()
         expect(mockCallback).toHaveBeenCalled()
@@ -194,7 +194,7 @@ describe('Main Process Lifecycle Tests (2025)', () => {
       expect(app.on).toHaveBeenCalledWith('activate', mockCallback)
       
       // Simulate activation with no windows
-      const eventCallback = app.on.mock.calls.find(call => call[0] === 'activate')?.[1]
+      const eventCallback = (app.on as any).mock.calls.find((call: any[]) => call[0] === 'activate')?.[1]
       if (eventCallback) {
         eventCallback()
         expect(mockCallback).toHaveBeenCalled()
@@ -214,7 +214,7 @@ describe('Main Process Lifecycle Tests (2025)', () => {
         preventDefault: vi.fn()
       }
       
-      const eventCallback = app.on.mock.calls.find(call => call[0] === 'before-quit')?.[1]
+      const eventCallback = (app.on as any).mock.calls.find((call: any[]) => call[0] === 'before-quit')?.[1]
       if (eventCallback) {
         eventCallback(preventableEvent)
         expect(mockCallback).toHaveBeenCalledWith(preventableEvent)
@@ -235,7 +235,7 @@ describe('Main Process Lifecycle Tests (2025)', () => {
       expect(app.on).toHaveBeenCalledWith('quit', mockCallback)
       
       // Simulate quit with exit code
-      const eventCallback = app.on.mock.calls.find(call => call[0] === 'quit')?.[1]
+      const eventCallback = (app.on as any).mock.calls.find((call: any[]) => call[0] === 'quit')?.[1]
       if (eventCallback) {
         eventCallback({}, 0) // Normal exit
         expect(mockCallback).toHaveBeenCalledWith({}, 0)
@@ -255,7 +255,7 @@ describe('Main Process Lifecycle Tests (2025)', () => {
       app.on('window-all-closed', mockCallback)
       
       // Simulate window-all-closed event
-      const eventCallback = app.on.mock.calls.find(call => call[0] === 'window-all-closed')?.[1]
+      const eventCallback = (app.on as any).mock.calls.find((call: any[]) => call[0] === 'window-all-closed')?.[1]
       if (eventCallback) {
         eventCallback()
         expect(mockCallback).toHaveBeenCalled()
@@ -281,7 +281,7 @@ describe('Main Process Lifecycle Tests (2025)', () => {
       app.on('window-all-closed', mockCallback)
       
       // Simulate window-all-closed event
-      const eventCallback = app.on.mock.calls.find(call => call[0] === 'window-all-closed')?.[1]
+      const eventCallback = (app.on as any).mock.calls.find((call: any[]) => call[0] === 'window-all-closed')?.[1]
       if (eventCallback) {
         eventCallback()
         expect(mockCallback).toHaveBeenCalled()
@@ -330,10 +330,10 @@ describe('Main Process Lifecycle Tests (2025)', () => {
       const certificate = {}
       const mockCertCallback = vi.fn()
       
-      const eventCallback = app.on.mock.calls.find(call => call[0] === 'certificate-error')?.[1]
+      const eventCallback = (app.on as any).mock.calls.find((call: any[]) => call[0] === 'certificate-error')?.[1]
       if (eventCallback) {
         // Test dev environment (isPackaged = false)
-        app.isPackaged = false
+        Object.defineProperty(app, "isPackaged", { value: false })
         eventCallback(mockEvent, mockWebContents, localhostUrl, error, certificate, mockCertCallback)
         expect(mockCallback).toHaveBeenCalled()
       }
@@ -387,7 +387,7 @@ describe('Main Process Lifecycle Tests (2025)', () => {
       expect(app.on).toHaveBeenCalledWith('second-instance', mockCallback)
       
       // Simulate second instance
-      const eventCallback = app.on.mock.calls.find(call => call[0] === 'second-instance')?.[1]
+      const eventCallback = (app.on as any).mock.calls.find((call: any[]) => call[0] === 'second-instance')?.[1]
       if (eventCallback) {
         eventCallback()
         expect(mockCallback).toHaveBeenCalled()
@@ -453,7 +453,7 @@ describe('Main Process Lifecycle Tests (2025)', () => {
       app.on('before-quit', mockCallback)
       
       // Simulate cleanup on quit
-      const eventCallback = app.on.mock.calls.find(call => call[0] === 'before-quit')?.[1]
+      const eventCallback = (app.on as any).mock.calls.find((call: any[]) => call[0] === 'before-quit')?.[1]
       if (eventCallback) {
         eventCallback({ preventDefault: vi.fn() })
         expect(mockCallback).toHaveBeenCalled()
@@ -484,8 +484,8 @@ describe('Main Process Lifecycle Tests (2025)', () => {
       app.on('ready', readyHandler)
       
       // Simulate event firing order
-      const willFinishCallback = app.on.mock.calls.find(call => call[0] === 'will-finish-launching')?.[1]
-      const readyCallback = app.on.mock.calls.find(call => call[0] === 'ready')?.[1]
+      const willFinishCallback = (app.on as any).mock.calls.find((call: any[]) => call[0] === 'will-finish-launching')?.[1]
+      const readyCallback = (app.on as any).mock.calls.find((call: any[]) => call[0] === 'ready')?.[1]
       
       if (willFinishCallback && readyCallback) {
         willFinishCallback()
@@ -501,7 +501,7 @@ describe('Main Process Lifecycle Tests (2025)', () => {
       app.on('activate', mockCallback)
       
       // Simulate rapid activate events
-      const eventCallback = app.on.mock.calls.find(call => call[0] === 'activate')?.[1]
+      const eventCallback = (app.on as any).mock.calls.find((call: any[]) => call[0] === 'activate')?.[1]
       if (eventCallback) {
         eventCallback()
         eventCallback()
@@ -521,7 +521,7 @@ describe('Main Process Lifecycle Tests (2025)', () => {
         }
       }
       
-      const crashHandler = vi.fn((event, details) => {
+      const crashHandler = vi.fn((_event, details) => {
         // Simulate recovery action
         if (details.reason === 'crashed') {
           mockWindow.webContents.reload()
@@ -548,10 +548,23 @@ describe('Main Process Lifecycle Tests (2025)', () => {
       
       try {
         throw new Error('Simulated error')
-      } catch (error) {
+      } catch {
         // App should remain stable
         expect(app.isReady()).toBe(true)
       }
     })
   })
 })
+
+// Export for testing purposes
+export async function createWindow(): Promise<any> {
+  const win = new BrowserWindow({
+    width: 800,
+    height: 600,
+    webPreferences: {
+      nodeIntegration: false,
+      contextIsolation: true
+    }
+  })
+  return win
+}

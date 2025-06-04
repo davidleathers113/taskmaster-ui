@@ -9,7 +9,6 @@ import { describe, test, expect, beforeEach, vi } from 'vitest'
 
 // Global type declarations for test environment
 declare global {
-  const vi: typeof import('vitest').vi
   interface GlobalThis {
     __mockElectron?: any
     __electron?: any
@@ -247,7 +246,7 @@ vi.mock('electron', () => ({
       resize: vi.fn().mockReturnThis(),
       crop: vi.fn().mockReturnThis()
     }),
-    createFromPath: vi.fn().mockImplementation((path) => ({
+    createFromPath: vi.fn().mockImplementation(() => ({
       isEmpty: vi.fn().mockReturnValue(false),
       getSize: vi.fn().mockReturnValue({ width: 100, height: 100 }),
       getAspectRatio: vi.fn().mockReturnValue(1),
@@ -283,7 +282,7 @@ vi.mock('electron', () => ({
     checked: options.checked || false
   })),
   
-  Tray: vi.fn().mockImplementation((icon) => ({
+  Tray: vi.fn().mockImplementation(() => ({
     setImage: vi.fn(),
     setPressedImage: vi.fn(),
     setToolTip: vi.fn(),
@@ -401,7 +400,7 @@ describe('Mocked Electron APIs Tests (2025)', () => {
       expect(app.getPath('temp')).toBe('/tmp')
       
       // Test unknown path
-      expect(app.getPath('unknown')).toBe('/mock/path/unknown')
+      expect(app.getPath('unknown' as any)).toBe('/mock/path/unknown')
     })
 
     test('should mock app info methods', () => {
@@ -651,7 +650,7 @@ describe('Mocked Electron APIs Tests (2025)', () => {
       const window = new BrowserWindow()
       
       // Mock async behavior
-      window.webContents.executeJavaScript.mockImplementation(async (code) => {
+      window.webContents.executeJavaScript.mockImplementation(async (code: string) => {
         if (code.includes('error')) {
           throw new Error('Script error')
         }

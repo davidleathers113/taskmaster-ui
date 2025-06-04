@@ -6,10 +6,9 @@
  * and cleanup following 2025 standards.
  */
 
-import { BrowserWindow, app } from 'electron'
-import { TestWindowManager, globalWindowManager } from './window-manager'
-import { FailsafeCleanupManager, globalCleanup, registerDefaultCleanupHandlers } from './failsafe-cleanup'
-import { vi } from 'vitest'
+import { BrowserWindow } from 'electron'
+import { TestWindowManager } from './window-manager'
+import { FailsafeCleanupManager, registerDefaultCleanupHandlers } from './failsafe-cleanup'
 
 interface TestHelperOptions {
   windowTimeout?: number

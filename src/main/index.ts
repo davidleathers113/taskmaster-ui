@@ -696,7 +696,7 @@ app.setAsDefaultProtocolClient('taskmaster');
 app.on('second-instance', () => {
   // Someone tried to run a second instance, focus our window instead
   const windows = BrowserWindow.getAllWindows();
-  if (windows.length > 0) {
+  if (windows.length > 0 && windows[0]) {
     if (windows[0].isMinimized()) windows[0].restore();
     windows[0].focus();
   }

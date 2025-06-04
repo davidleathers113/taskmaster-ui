@@ -6,13 +6,14 @@
  * and failure scenarios following 2025 best practices.
  */
 
-import express, { Express, Request } from 'express'
+import * as express from 'express'
+import { Express, Request, Response } from 'express'
 import { createServer as createHttpsServer, Server as HttpsServer } from 'https'
 import { createServer as createHttpServer, Server as HttpServer } from 'http'
 import { readFileSync, existsSync, mkdirSync, writeFileSync } from 'fs'
 import { join, dirname } from 'path'
 import { createHash } from 'crypto'
-import yaml from 'yaml'
+import * as yaml from 'yaml'
 
 interface UpdateManifest {
   version: string
@@ -95,7 +96,7 @@ export class MockUpdateServer {
 
   private setupMiddleware(): void {
     // Request logging
-    this.app.use((req, res, next) => {
+    this.app.use((req: Request, res: Response, next) => {
       if (this.enableLogging) {
         console.log(`[MockUpdateServer] ${req.method} ${req.path}`)
       }
@@ -109,7 +110,7 @@ export class MockUpdateServer {
     })
 
     // CORS headers
-    this.app.use((req, res, next) => {
+    this.app.use((_req, res, next) => {
       res.header('Access-Control-Allow-Origin', '*')
       res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
       res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization')
@@ -117,9 +118,9 @@ export class MockUpdateServer {
     })
 
     // Request tracking
-    this.app.use((req, res, next) => {
+    this.app.use((req: Request, res: Response, next) => {
       const originalSend = res.send
-      res.send = function(data) {
+      res.send = function(data: any) {
         this.requestLogs.push({
           timestamp: new Date(),
           method: req.method,
@@ -129,12 +130,13 @@ export class MockUpdateServer {
         return originalSend.call(this, data)
       }.bind(this)
       next()
+        return
     })
   }
 
   private setupRoutes(): void {
     // Latest release endpoint for Windows/Linux
-    this.app.get('/latest.yml', (req, res) => {
+    this.app.get('/latest.yml', (req: Request, res: Response) => {
       if (this.shouldSimulateError()) {
         return res.status(500).send('Internal Server Error')
       }
@@ -147,7 +149,7 @@ export class MockUpdateServer {
     })
 
     // Latest release endpoint for macOS
-    this.app.get('/latest-mac.yml', (req, res) => {
+    this.app.get('/latest-mac.yml', (req: Request, res: Response) => {
       if (this.shouldSimulateError()) {
         return res.status(500).send('Internal Server Error')
       }
@@ -163,7 +165,7 @@ export class MockUpdateServer {
     })
 
     // JSON endpoint for custom implementations
-    this.app.get('/latest.json', (req, res) => {
+    this.app.get('/latest.json', (req: Request, res: Response) => {
       if (this.shouldSimulateError()) {
         return res.status(500).json({ error: 'Internal Server Error' })
       }
@@ -174,7 +176,7 @@ export class MockUpdateServer {
     })
 
     // Download endpoint
-    this.app.get('/download/:filename', (req, res) => {
+    this.app.get('/download/:filename', (req: Request, res: Response) => {
       const { filename } = req.params
       
       if (this.shouldSimulateError()) {
@@ -210,7 +212,7 @@ export class MockUpdateServer {
     })
 
     // Differential update endpoint
-    this.app.get('/differential/:fromVersion/:toVersion', (req, res) => {
+    this.app.get('/differential/:fromVersion/:toVersion', (req: Request, res: Response) => {
       const { fromVersion, toVersion } = req.params
       const deltaKey = `${fromVersion}-${toVersion}`
       
@@ -233,7 +235,7 @@ export class MockUpdateServer {
     })
 
     // Staged rollout configuration endpoint
-    this.app.put('/staging/:version', express.json(), (req, res) => {
+    this.app.put('/staging/:version', express.json(), (req: Request, res: Response) => {
       const { version } = req.params
       const { percentage } = req.body
       
@@ -243,10 +245,11 @@ export class MockUpdateServer {
       } else {
         res.status(404).json({ error: 'Version not found' })
       }
+        return
     })
 
     // Health check endpoint
-    this.app.get('/health', (req, res) => {
+    this.app.get('/health', (_req, res) => {
       res.json({
         status: 'healthy',
         uptime: process.uptime(),
@@ -257,7 +260,7 @@ export class MockUpdateServer {
     })
 
     // Release notes endpoint
-    this.app.get('/notes/:version', (req, res) => {
+    this.app.get('/notes/:version', (req: Request, res: Response) => {
       const { version } = req.params
       
       if (version === this.updateManifest.version) {
@@ -269,7 +272,7 @@ export class MockUpdateServer {
     })
 
     // Code signing verification endpoint (mock)
-    this.app.get('/verify/:filename', (req, res) => {
+    this.app.get('/verify/:filename', (req: Request, res: Response) => {
       const { filename } = req.params
       
       // Simulate signature verification
@@ -311,8 +314,9 @@ export class MockUpdateServer {
     }
 
     // Use client ID or IP for consistent staging
-    const clientId = req.headers['x-client-id'] || req.ip
-    const hash = createHash('md5').update(clientId).digest('hex')
+    const clientIdRaw = req.headers['x-client-id'] || req.ip
+    const clientId = Array.isArray(clientIdRaw) ? clientIdRaw[0] : clientIdRaw
+    const hash = createHash('md5').update(clientId || '').digest('hex')
     const bucket = parseInt(hash.substring(0, 8), 16) % 100
 
     if (bucket < stagingPercentage) {

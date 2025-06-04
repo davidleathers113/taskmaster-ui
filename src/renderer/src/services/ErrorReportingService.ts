@@ -594,10 +594,4 @@ export const errorReportingService = new ErrorReportingService();
 // Export service class for custom instances
 export { ErrorReportingService };
 
-// Export types
-export type {
-  ErrorContext,
-  ErrorReport,
-  UserFeedback,
-  ErrorReportingConfig
-};
+// Types are already exported as interfaces above

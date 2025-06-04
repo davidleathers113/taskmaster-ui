@@ -14,7 +14,7 @@
 const fs = require('fs').promises;
 const path = require('path');
 const EventEmitter = require('events');
-const { spawn } = require('child_process');
+// const { spawn } = require('child_process'); // Not used
 
 class PerformanceMonitor extends EventEmitter {
   constructor(config = {}) {
@@ -369,7 +369,7 @@ class PerformanceMonitor extends EventEmitter {
   /**
    * Get dynamic threshold or fallback to static
    */
-  getDynamicThreshold(metric, currentValue) {
+  getDynamicThreshold(metric) {
     if (this.config.enableDynamicThresholds && this.dynamicThresholds.has(metric)) {
       return this.dynamicThresholds.get(metric);
     }
@@ -403,7 +403,7 @@ class PerformanceMonitor extends EventEmitter {
   /**
    * Update dynamic thresholds with new data
    */
-  updateDynamicThresholds(metrics) {
+  updateDynamicThresholds() {
     // Only update every 100 collections to avoid constant recalculation
     if (this.history.length % 100 !== 0) return;
     
@@ -452,7 +452,7 @@ class PerformanceMonitor extends EventEmitter {
     const p50 = sorted[Math.floor(length * 0.5)];
     const p75 = sorted[Math.floor(length * 0.75)];
     const p90 = sorted[Math.floor(length * 0.9)];
-    const p95 = sorted[Math.floor(length * 0.95)];
+    // const p95 = sorted[Math.floor(length * 0.95)]; // Not used
     
     // Calculate mean and standard deviation
     const mean = values.reduce((sum, val) => sum + val, 0) / values.length;

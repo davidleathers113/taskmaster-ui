@@ -159,7 +159,7 @@ const _TaskCardComponent = ({
       case 'Enter':
       case ' ':
         e.preventDefault()
-        if (focusedOptionIndex >= 0) {
+        if (focusedOptionIndex >= 0 && dropdownItems[focusedOptionIndex]) {
           dropdownItems[focusedOptionIndex].action()
         }
         break

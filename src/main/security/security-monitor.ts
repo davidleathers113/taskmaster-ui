@@ -52,7 +52,11 @@ export class SecurityMonitor {
         
         const recentEvents = events.slice(-20)
         const channels = new Set(recentEvents.map(e => e.details?.channel).filter(Boolean))
-        const timeWindow = recentEvents[recentEvents.length - 1].timestamp - recentEvents[0].timestamp
+        const lastEvent = recentEvents[recentEvents.length - 1]
+        const firstEvent = recentEvents[0]
+        if (!lastEvent || !firstEvent) return false
+        
+        const timeWindow = lastEvent.timestamp - firstEvent.timestamp
         
         return channels.size > 10 && timeWindow < 5000 // 10+ channels in 5 seconds
       }
@@ -99,7 +103,11 @@ export class SecurityMonitor {
         const intervals: number[] = []
         
         for (let i = 1; i < recentEvents.length; i++) {
-          intervals.push(recentEvents[i].timestamp - recentEvents[i-1].timestamp)
+          const current = recentEvents[i]
+          const previous = recentEvents[i-1]
+          if (current && previous) {
+            intervals.push(current.timestamp - previous.timestamp)
+          }
         }
         
         const avgInterval = intervals.reduce((a, b) => a + b, 0) / intervals.length

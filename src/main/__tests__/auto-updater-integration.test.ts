@@ -6,11 +6,11 @@
  * scenario simulation following 2025 best practices.
  */
 
+import { createMockAutoUpdater, createMockUpdateCheckResult } from '../../test-utils/mock-factories'
 import { describe, test, expect, beforeEach, vi, beforeAll, afterAll } from 'vitest'
 
 // Global type declarations for test environment
 declare global {
-  const vi: typeof import('vitest').vi
   interface GlobalThis {
     __mockElectron?: any
     __electron?: any
@@ -27,7 +27,7 @@ import { MockUpdateServer } from '../../../tests/mocks/mock-update-server'
 import { existsSync, writeFileSync, mkdirSync } from 'fs'
 import { join } from 'path'
 import { } from 'child_process'
-import yaml from 'yaml'
+import * as yaml from 'yaml'
 import type { MockAutoUpdater } from './mock-types'
 
 

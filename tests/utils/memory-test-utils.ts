@@ -16,7 +16,7 @@
 import { Page } from '@playwright/test';
 import * as fs from 'fs/promises';
 import * as path from 'path';
-import { Browser } from '@memlab/api';
+// Removed unused import
 
 /**
  * Memory metrics interface

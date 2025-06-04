@@ -160,8 +160,8 @@ describe('Preload Process Baseline Validation', () => {
         
         // IPC communication
         invoke: (channel: string, ...args: any[]) => ipcRenderer.invoke(channel, ...args),
-        on: (channel: string, callback: Function) => ipcRenderer.on(channel, callback),
-        off: (channel: string, callback?: Function) => {
+        on: (channel: string, callback: (event: Electron.IpcRendererEvent, ...args: any[]) => void) => ipcRenderer.on(channel, callback),
+        off: (channel: string, callback?: (event: Electron.IpcRendererEvent, ...args: any[]) => void) => {
           if (callback) {
             ipcRenderer.removeListener(channel, callback)
           } else {

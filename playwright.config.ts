@@ -15,13 +15,11 @@
  */
 
 import { defineConfig, devices } from '@playwright/test';
-import { join, resolve } from 'path';
 
 /**
  * Environment Detection and Configuration
  */
 const isCI = !!process.env.CI;
-const isDev = process.env.NODE_ENV === 'development';
 const isDebug = !!process.env.PLAYWRIGHT_DEBUG;
 
 /**

@@ -566,11 +566,5 @@ function restoreFormData(formData: Record<string, any>): void {
   }
 }
 
-// Export hook and types
+// Export hook as default
 export default useAppState;
-export type {
-  AppState,
-  StatePreservationResult,
-  StateRestorationResult,
-  UseAppStateOptions
-};

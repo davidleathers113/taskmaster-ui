@@ -227,3 +227,32 @@ logs
 *.sw?
 # OS specific
 # Task files
+
+# ===================================
+# Workspace Specific Files
+# ===================================
+# Taskmaster specific
+.taskmaster/tasks/tasks.json
+wt_tasks/
+.claude/
+# Don't ignore root CLAUDE.md but ignore others
+/*/CLAUDE.md
+claude.md
+CLAUDE_*.md
+!CLAUDE.md
+
+# Worktree specific
+.env.worktree
+*_worktrees/
+
+# Test results that change frequently
+test-results/
+playwright-report/
+
+# Generated server files
+server/dist/
+
+# Temporary and monitoring files
+add-desktop-automation-mcp.sh
+cleanup-worktrees.sh
+server/nodemon.json

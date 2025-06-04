@@ -1,0 +1,17 @@
+{
+  "name": "ts-morph-fixes",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@types/node": "^22.15.29",
+    "ts-morph": "^26.0.0",
+    "typescript": "^5.8.3"
+  }
+}
