@@ -1,12 +1,12 @@
 {
   "meta": {
-    "generatedAt": "2025-06-03T11:23:22.270Z",
-    "tasksAnalyzed": 4,
+    "generatedAt": "2025-06-03T17:04:49.949Z",
+    "tasksAnalyzed": 3,
     "totalTasks": 37,
     "analysisCount": 20,
     "thresholdScore": 5,
     "projectName": "Taskmaster",
-    "usedResearch": true
+    "usedResearch": false
   },
   "complexityAnalysis": [
     {
@@ -148,26 +148,26 @@
     {
       "taskId": 35,
       "taskTitle": "Resolve TypeScript Compilation Errors",
-      "complexityScore": 9,
-      "recommendedSubtasks": 13,
-      "expansionPrompt": "Expand this task into subtasks for each error category (TS6133, TS2339, TS18047, TS7006, TS2307, TS2683), setting up error tracking, implementing fixes, updating type safety patterns, optimizing React and Zustand typings, automating type checks, documenting best practices, and conducting final verification.",
-      "reasoning": "Fixing 200+ TypeScript errors across multiple categories in a large codebase is highly complex. It requires systematic tracking, deep understanding of TypeScript, coordinated refactoring, and ensuring no regressions. Each error type may require a different approach, and the work spans code, configuration, and documentation."
+      "complexityScore": 8,
+      "recommendedSubtasks": 24,
+      "expansionPrompt": "Break down the task of resolving 450+ TypeScript errors into specific subtasks organized by error type (TS6133, TS2339, TS18047, etc.). For each error type, create subtasks for analysis, categorization, and implementation of fixes. Include subtasks for implementing stricter TypeScript configuration, optimizing React and Zustand typings, and documenting best practices.",
+      "reasoning": "This task has high complexity due to the large number of TypeScript errors (450+) across multiple categories requiring deep TypeScript knowledge. The task involves systematic analysis, categorization, and resolution of various error types, plus implementing stricter TypeScript configurations and modern type safety patterns. The existing 24 subtasks are appropriate given the technical depth and breadth required."
     },
     {
       "taskId": 36,
       "taskTitle": "Stabilize Test Suite and Fix Failing Tests",
-      "complexityScore": 8,
-      "recommendedSubtasks": 8,
-      "expansionPrompt": "Decompose the task into subtasks for analyzing failure patterns, implementing fixes by category, refactoring tests using best practices, improving coverage, optimizing the test suite, setting up CI, documenting the testing strategy, and reviewing/refactoring the final suite.",
-      "reasoning": "With 40 out of 51 tests failing, this task involves significant debugging, root cause analysis, and broad test refactoring. It also requires improving coverage, optimizing performance, and updating documentation and CI, making it a complex and multi-faceted effort."
+      "complexityScore": 7,
+      "recommendedSubtasks": 12,
+      "expansionPrompt": "Create a comprehensive plan to fix 40 failing tests out of 51 total. Include subtasks for analyzing failure patterns, implementing fixes for different categories of failures, refactoring tests using 2025 best practices, improving test coverage, optimizing test performance, setting up CI integration, and documenting the testing strategy. Add specific subtasks for addressing timeouts, assertion errors, and setup issues.",
+      "reasoning": "This task involves fixing a significant number of failing tests (40 out of 51) and implementing modern testing best practices. The complexity comes from the need to analyze diverse failure patterns, implement fixes, refactor tests, and improve overall test architecture. While the current 8 subtasks provide a good framework, expanding to 12 would allow for more specific categorization of test failures and targeted solutions."
     },
     {
       "taskId": 37,
       "taskTitle": "Systematically Clean ESLint Warnings and Improve Code Quality",
-      "complexityScore": 7,
-      "recommendedSubtasks": 9,
-      "expansionPrompt": "Expand into subtasks for analyzing and categorizing warnings, researching ESLint best practices, implementing automated and manual fixes, updating configuration, establishing code quality standards, optimizing performance, conducting developer training, monitoring/reporting, and reviewing documentation.",
-      "reasoning": "Addressing over 1400 ESLint warnings is a large-scale code quality initiative. It involves both automated and manual work, configuration changes, team coordination, and ongoing process improvements. While not as technically deep as TypeScript error resolution, the breadth and organizational impact make it moderately complex."
+      "complexityScore": 6,
+      "recommendedSubtasks": 10,
+      "expansionPrompt": "Develop a structured approach to address 1405 ESLint warnings by creating subtasks for: analyzing and categorizing warnings by type, researching ESLint 9.x best practices, implementing automated fixes, manually addressing complex warnings, updating ESLint configuration files, establishing code quality standards, conducting developer training, implementing CI/CD integration, and setting up ongoing monitoring processes. Include a subtask for performance optimization of the linting process.",
+      "reasoning": "This task involves addressing a large volume of ESLint warnings (1405) but is somewhat less complex than the TypeScript task as many warnings can likely be fixed automatically. The current 9 subtasks cover the essential aspects, but adding one more for performance optimization would be beneficial given the large codebase. The complexity score of 6 reflects the systematic nature of the work and the need for both automated and manual fixes."
     }
   ]
 }

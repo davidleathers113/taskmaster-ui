@@ -114,6 +114,7 @@ export default defineConfig(({ command, mode }) => {
           '@types': resolve(__dirname, './src/types'),
           '@store': resolve(__dirname, './src/store'),
           '@utils': resolve(__dirname, './src/utils'),
+          '@tests': resolve(__dirname, './tests'),
         },
       },
       define: {
@@ -165,6 +166,7 @@ export default defineConfig(({ command, mode }) => {
           '@types': resolve(__dirname, './src/types'),
           '@store': resolve(__dirname, './src/store'),
           '@utils': resolve(__dirname, './src/utils'),
+          '@tests': resolve(__dirname, './tests'),
         },
       },
     },
@@ -274,6 +276,7 @@ export default defineConfig(({ command, mode }) => {
           '@types': resolve(__dirname, './src/renderer/src/types'),
           '@store': resolve(__dirname, './src/renderer/src/store'),
           '@utils': resolve(__dirname, './src/renderer/src/utils'),
+          '@tests': resolve(__dirname, './tests'),
         },
       },
       server: isServe ? {
