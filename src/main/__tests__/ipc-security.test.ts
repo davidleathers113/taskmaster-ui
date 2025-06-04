@@ -17,30 +17,33 @@ import { SecureIPCHandler } from '../security/secure-ipc-handler'
 import { SecurityMonitor } from '../security/security-monitor'
 
 // Mock Electron modules
-vi.mock('electron', () => ({
-  ipcMain: {
-    handle: vi.fn(),
-    on: vi.fn(),
-    removeHandler: vi.fn(),
-    removeAllListeners: vi.fn(),
-    _handlers: new Map()
-  },
-  BrowserWindow: {
-    getAllWindows: vi.fn().mockReturnValue([]),
-    getFocusedWindow: vi.fn(),
-    fromWebContents: vi.fn()
-  },
+vi.mock('electron', () => {
+  const handlers = new Map()
+  return {
+    ipcMain: {
+      handle: vi.fn(),
+      on: vi.fn(),
+      removeHandler: vi.fn(),
+      removeAllListeners: vi.fn(),
+      get handlers() { return handlers }
+    },
+    BrowserWindow: {
+      getAllWindows: vi.fn().mockReturnValue([]),
+      getFocusedWindow: vi.fn(),
+      fromWebContents: vi.fn()
+    },
   app: {
     getPath: vi.fn().mockImplementation((name) => `/mock/path/${name}`),
     isPackaged: true
   },
-  session: {
-    defaultSession: {
-      setPermissionRequestHandler: vi.fn(),
-      setCertificateVerifyProc: vi.fn()
+    session: {
+      defaultSession: {
+        setPermissionRequestHandler: vi.fn(),
+        setCertificateVerifyProc: vi.fn()
+      }
     }
   }
-}))
+})
 
 // Mock security utilities
 vi.mock('../security/ipc-rate-limiter')
@@ -55,13 +58,13 @@ describe('IPC Security Tests', () => {
     // Initialize security components
     secureHandler = new (SecureIPCHandler as any)()
     rateLimiter = new (IPCRateLimiter as any)()
-    securityMonitor = new (SecurityMonitor as any)()
+    const securityMonitor = new (SecurityMonitor as any)()
   })
 
   beforeEach(() => {
     vi.clearAllMocks()
     // Clear any registered handlers
-    ipcMain._handlers.clear()
+    (ipcMain as any).handlers.clear()
   })
 
   describe('IPC Sender Validation', () => {
@@ -84,7 +87,7 @@ describe('IPC Security Tests', () => {
       }, async () => 'success')
 
       // Mock the handler registration
-      const handler = vi.fn().mockImplementation(async (event, ...args) => {
+      const handler = vi.fn().mockImplementation(async (event) => {
         const allowedOrigins = ['https://app.taskmaster.com', 'app://taskmaster']
         try {
           const frameUrl = new URL(event.senderFrame.url)
@@ -98,7 +101,7 @@ describe('IPC Security Tests', () => {
       })
 
       ipcMain.handle('secure:operation', handler)
-      ipcMain._handlers.set('secure:operation', handler)
+      (ipcMain as any).handlers.set('secure:operation', handler)
 
       // Test with unauthorized sender
       await expect(handler(mockEvent)).rejects.toThrow('Unauthorized sender')
@@ -143,7 +146,7 @@ describe('IPC Security Tests', () => {
         { webContents: { id: 2 }, id: 2 }
       ]
       
-      BrowserWindow.getAllWindows.mockReturnValue(mockWindows)
+      (BrowserWindow.getAllWindows as any).mockReturnValue(mockWindows)
 
       const validateSenderWindow = (senderId: number): boolean => {
         const windows = BrowserWindow.getAllWindows()
@@ -445,7 +448,10 @@ describe('IPC Security Tests', () => {
           if (requests.length < 10) return false
           
           const uniqueChannels = new Set(requests.map(r => r.channel))
-          const timeWindow = requests[requests.length - 1].timestamp - requests[0].timestamp
+          const lastRequest = requests[requests.length - 1]
+          const firstRequest = requests[0]
+          if (!lastRequest || !firstRequest) return false
+          const timeWindow = lastRequest.timestamp - firstRequest.timestamp
           
           // Suspicious if accessing many channels in short time
           return uniqueChannels.size > 5 && timeWindow < 1000
@@ -528,10 +534,10 @@ describe('IPC Security Tests', () => {
 
       // Test safe API
       const safeAPI = {
-        sendMessage: (channel: string, data: any) => {
+        sendMessage: (_channel: string, _data: any) => {
           // Validates channel and data internally
         },
-        onMessage: (channel: string, callback: Function) => {
+        onMessage: (_channel: string, _callback: Function) => {
           // Filtered listener
         }
       }
