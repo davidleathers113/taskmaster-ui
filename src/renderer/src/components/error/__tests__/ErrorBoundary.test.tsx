@@ -27,14 +27,14 @@ vi.mock('@/services/ErrorReportingService', () => ({
 }));
 
 // Mock console.error to prevent noise in test output
-const originalConsoleError = console.error;
+const _originalConsoleError = console.error;
 beforeEach(() => {
   console.error = vi.fn();
   vi.clearAllMocks();
 });
 
 afterEach(() => {
-  console.error = originalConsoleError;
+  console.error = _originalConsoleError;
 });
 
 describe('ErrorBoundary', () => {

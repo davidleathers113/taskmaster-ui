@@ -23,7 +23,7 @@ const LoadingSpinner: React.FC<{ size?: number }> = ({ size = 24 }) => (
   </motion.div>
 );
 
-const ComponentLevelFallback: React.FC<{ name?: string }> = ({ name }) => (
+const _ComponentLevelFallback: React.FC<{ name?: string }> = ({ name }) => (
   <motion.div
     initial={{ opacity: 0, scale: 0.95 }}
     animate={{ opacity: 1, scale: 1 }}
@@ -40,7 +40,7 @@ const ComponentLevelFallback: React.FC<{ name?: string }> = ({ name }) => (
   </motion.div>
 );
 
-const RouteLevelFallback: React.FC<{ name?: string }> = ({ name }) => (
+const _RouteLevelFallback: React.FC<{ name?: string }> = ({ name }) => (
   <motion.div
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
@@ -94,7 +94,7 @@ const RouteLevelFallback: React.FC<{ name?: string }> = ({ name }) => (
   </motion.div>
 );
 
-const AppLevelFallback: React.FC<{ name?: string }> = ({ name }) => (
+const _AppLevelFallback: React.FC<{ name?: string }> = ({ name }) => (
   <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
     {/* Animated background elements */}
     <div className="fixed inset-0 overflow-hidden pointer-events-none">
@@ -208,12 +208,12 @@ export const SuspenseWrapper: React.FC<SuspenseWrapperProps> = ({
     
     switch (level) {
       case 'app':
-        return <AppLevelFallback name={name} />;
+        return <_AppLevelFallback name={name} />;
       case 'route':
-        return <RouteLevelFallback name={name} />;
+        return <_RouteLevelFallback name={name} />;
       case 'component':
       default:
-        return <ComponentLevelFallback name={name} />;
+        return <_ComponentLevelFallback name={name} />;
     }
   };
 

@@ -153,7 +153,7 @@ describe('Differential Updates & Rollback Tests', () => {
           path: `differential/${currentVersion}/${targetVersion}`,
           size: 5000000
         } as MockUpdateInfo,
-        cancellationToken: null
+        cancellationToken: undefined
       })
       
       const result = await checkForDifferentialUpdate()
@@ -395,7 +395,7 @@ describe('Differential Updates & Rollback Tests', () => {
           minimumVersion: rollbackStrategy.brokenVersion,
           releaseNotes: rollbackStrategy.changes
         } as MockUpdateInfo,
-        cancellationToken: null
+        cancellationToken: undefined
       })
       
       await checkRollbackUpdate('1.0.1') // Broken version gets update

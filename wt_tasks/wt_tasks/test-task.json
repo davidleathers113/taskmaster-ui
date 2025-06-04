@@ -1,0 +1,12 @@
+{
+  "id": "test",
+  "name": "Test Task",
+  "description": "Test description",
+  "errorTypes": [
+    "TS2307"
+  ],
+  "category": "typescript",
+  "metrics": {
+    "errorCount": 10
+  }
+}

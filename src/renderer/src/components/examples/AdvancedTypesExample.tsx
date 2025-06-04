@@ -92,7 +92,7 @@ const StatusBadge: React.FC<{
 };
 
 // Main example component
-export const AdvancedTypesExample: React.FC = () => {
+export const _AdvancedTypesExample: React.FC = () => {
   const [selectedTaskId, setSelectedTaskId] = useState<TaskId | null>(null);
   const [selectedProjectId, setSelectedProjectId] = useState<ProjectId | null>(null);
   const [apiClient] = useState(() => new TypeSafeAPIClient());
@@ -257,4 +257,4 @@ export const AdvancedTypesExample: React.FC = () => {
   );
 };
 
-export default AdvancedTypesExample;
+export default _AdvancedTypesExample;

@@ -30,7 +30,7 @@ interface TaskCardProps {
   isDraggable?: boolean
 }
 
-const TaskCardComponent = ({ 
+const _TaskCardComponent = ({ 
   task, 
   index = 0, 
   density = 'comfortable',
@@ -548,7 +548,7 @@ const TaskCardComponent = ({
 }
 
 // Custom prop comparison for React.memo (2025 high-performance version)
-const arePropsEqual = (prevProps: TaskCardProps, nextProps: TaskCardProps) => {
+const _arePropsEqual = (prevProps: TaskCardProps, nextProps: TaskCardProps) => {
   // Quick reference equality check first - most performant path
   if (prevProps === nextProps) {
     return true;
@@ -580,7 +580,7 @@ const arePropsEqual = (prevProps: TaskCardProps, nextProps: TaskCardProps) => {
 }
 
 // Create memoized version with custom comparison
-const TaskCard = React.memo(TaskCardComponent, arePropsEqual)
+const TaskCard = React.memo(_TaskCardComponent, _arePropsEqual)
 TaskCard.displayName = 'TaskCard'
 
 export { TaskCard }

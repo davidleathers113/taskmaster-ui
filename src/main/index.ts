@@ -28,28 +28,28 @@ log.transports.file.archiveLogFn = (oldLogFile) => {
 // Override console methods to also log to file
 Object.assign(console, log.functions);
 
-const DEBUG_MODE = true;
-const DEBUG_PREFIX = '🔍 [TASKMASTER DEBUG]';
+const _DEBUG_MODE = true;
+const _DEBUG_PREFIX = '🔍 [TASKMASTER DEBUG]';
 const ERROR_PREFIX = '❌ [TASKMASTER ERROR]';
 const SUCCESS_PREFIX = '✅ [TASKMASTER SUCCESS]';
-const WARNING_PREFIX = '⚠️  [TASKMASTER WARNING]';
+const _WARNING_PREFIX = '⚠️  [TASKMASTER WARNING]';
 const INFO_PREFIX = 'ℹ️  [TASKMASTER INFO]';
 
 // Performance timing
-const startTime = Date.now();
+const _startTime = Date.now();
 const timingLog = (message: string) => {
-  const elapsed = Date.now() - startTime;
+  const elapsed = Date.now() - _startTime;
   console.log(`⏱️  [${elapsed}ms] ${message}`);
 };
 
 // Enhanced logging with stack traces
 const debugLog = (category: string, message: string, data?: any) => {
-  if (!DEBUG_MODE) return;
+  if (!_DEBUG_MODE) return;
   
   const timestamp = new Date().toISOString();
   const stack = new Error().stack?.split('\n')[2]?.trim() || 'unknown';
   
-  console.log(`\n${DEBUG_PREFIX} [${timestamp}]`);
+  console.log(`\n${_DEBUG_PREFIX} [${timestamp}]`);
   console.log(`📁 Category: ${category}`);
   console.log(`💬 Message: ${message}`);
   console.log(`📍 Location: ${stack}`);
@@ -253,7 +253,7 @@ if (!app.isPackaged) {
     });
     
     mainWatcher.on('change', (filePath: string) => {
-      console.log(`${WARNING_PREFIX} Main/Preload file changed: ${filePath}`);
+      console.log(`${_WARNING_PREFIX} Main/Preload file changed: ${filePath}`);
       console.log('🔥 electron-vite will handle the restart automatically');
     });
     

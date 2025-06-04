@@ -68,7 +68,14 @@ vi.mock('electron', () => ({
   },
   session: {
     defaultSession: {
-      getAllExtensions: vi.fn().mockReturnValue({}),
+      getAllExtensions: vi.fn().mockReturnValue({
+                    on: vi.fn(),
+                    off: vi.fn(),
+                    once: vi.fn(),
+                    addListener: vi.fn(),
+                    removeListener: vi.fn(),
+                    webContents: { send: vi.fn() }
+                  } as any),
       removeExtension: vi.fn(),
       clearCache: vi.fn().mockResolvedValue(undefined)
     }

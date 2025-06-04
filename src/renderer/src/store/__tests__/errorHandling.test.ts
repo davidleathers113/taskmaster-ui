@@ -49,7 +49,7 @@ Object.defineProperty(window, 'localStorage', {
 });
 
 // Optimized IndexedDB Mock (2025 best practices)
-const mockIndexedDB = {
+const _mockIndexedDB = {
   open: vi.fn(() => {
     const mockStore = {
       storage: new Map(),
@@ -143,7 +143,7 @@ const withTimeout = async <T>(
 };
 
 Object.defineProperty(window, 'indexedDB', {
-  value: mockIndexedDB,
+  value: _mockIndexedDB,
   writable: true
 });
 

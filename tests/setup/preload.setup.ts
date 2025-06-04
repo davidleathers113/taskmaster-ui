@@ -186,7 +186,14 @@ vi.mock('electron', () => ({
     getUploadedReports: vi.fn().mockReturnValue([]),
     addExtraParameter: vi.fn(),
     removeExtraParameter: vi.fn(),
-    getParameters: vi.fn().mockReturnValue({})
+    getParameters: vi.fn().mockReturnValue({
+                  on: vi.fn(),
+                  off: vi.fn(),
+                  once: vi.fn(),
+                  addListener: vi.fn(),
+                  removeListener: vi.fn(),
+                  webContents: { send: vi.fn() }
+                } as any)
   }
 }))
 

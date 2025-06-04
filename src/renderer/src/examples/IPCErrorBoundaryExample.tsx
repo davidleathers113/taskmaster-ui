@@ -21,7 +21,7 @@ import { ipcCritical } from '@/lib/ipcRetry';
 /**
  * Example component using HOC pattern
  */
-const AppInfoDisplayHOC = withIPCErrorHandling(
+const _AppInfoDisplayHOC = withIPCErrorHandling(
   function AppInfoDisplay() {
     const [appInfo, setAppInfo] = useState<{
       version?: string;
@@ -392,7 +392,7 @@ export function IPCErrorBoundaryExample() {
 
           {/* Grid of examples */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <AppInfoDisplayHOC />
+            <_AppInfoDisplayHOC />
             <FileSystemExplorer />
             <CriticalOperationExample />
             <BatchOperationExample />

@@ -85,14 +85,14 @@ export type EventName<T extends string> = `on${Capitalize<T>}`;
 export type TaskEventName = EventName<'create' | 'update' | 'delete' | 'complete'>;
 
 // Const context for event handlers
-export const TASK_EVENTS = {
+export const _TASK_EVENTS = {
   onCreate: 'onCreate' as const,
   onUpdate: 'onUpdate' as const,
   onDelete: 'onDelete' as const,
   onComplete: 'onComplete' as const,
 } as const;
 
-export type TaskEvents = typeof TASK_EVENTS;
+export type TaskEvents = typeof _TASK_EVENTS;
 export type TaskEventKeys = keyof TaskEvents;
 export type TaskEventValues = TaskEvents[TaskEventKeys];
 
@@ -195,9 +195,9 @@ export const createTaskQuery = () =>
     .build();
 
 // Type-safe configuration pattern with const contexts
-export const createConfig = <T extends Record<string, any>>(config: T) => config;
+export const _createConfig = <T extends Record<string, any>>(config: T) => config;
 
-export const APP_CONFIG = createConfig({
+export const APP_CONFIG = _createConfig({
   api: {
     baseUrl: 'http://localhost:3001',
     timeout: 5000,
@@ -241,12 +241,12 @@ export const isProjectId = (value: string): value is ProjectId =>
   typeof value === 'string' && value.length > 0;
 
 // Advanced const assertion pattern for creating immutable data structures
-export const createImmutableTaskData = <T extends Record<string, any>>(data: T) => {
+export const _createImmutableTaskData = <T extends Record<string, any>>(data: T) => {
   return Object.freeze(data) as Readonly<T>;
 };
 
 // Example usage
-export const DEFAULT_TASK = createImmutableTaskData({
+export const _DEFAULT_TASK = _createImmutableTaskData({
   title: '',
   description: '',
   priority: 'medium' as const,
@@ -255,4 +255,4 @@ export const DEFAULT_TASK = createImmutableTaskData({
   updatedAt: Date.now(),
 });
 
-export type DefaultTask = typeof DEFAULT_TASK;
+export type DefaultTask = typeof _DEFAULT_TASK;

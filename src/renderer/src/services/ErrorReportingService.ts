@@ -96,7 +96,7 @@ export interface ErrorReportingConfig {
 }
 
 // Default configuration
-const defaultConfig: Required<ErrorReportingConfig> = {
+const _defaultConfig: Required<ErrorReportingConfig> = {
   apiEndpoint: process.env.REACT_APP_ERROR_REPORTING_API || '/api/errors',
   apiKey: process.env.REACT_APP_ERROR_REPORTING_KEY || '',
   enableErrorReporting: process.env.NODE_ENV === 'production',
@@ -129,7 +129,7 @@ class ErrorReportingService {
   private sessionId: string;
 
   constructor(config: Partial<ErrorReportingConfig> = {}) {
-    this.config = { ...defaultConfig, ...config };
+    this.config = { ..._defaultConfig, ...config };
     this.sessionId = this.generateSessionId();
     
     // Initialize service

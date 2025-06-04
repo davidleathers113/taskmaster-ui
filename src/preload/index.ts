@@ -4,13 +4,13 @@ import { contextBridge, ipcRenderer } from 'electron';
 // 🔍 PRELOAD SCRIPT DEBUG LOGGING - 2025 🔍
 // ============================================
 const PRELOAD_DEBUG = true;
-const DEBUG_PREFIX = '🔌 [PRELOAD DEBUG]';
+const _DEBUG_PREFIX = '🔌 [PRELOAD DEBUG]';
 const SUCCESS_PREFIX = '✅ [PRELOAD SUCCESS]';
-const ERROR_PREFIX = '❌ [PRELOAD ERROR]';
+const _ERROR_PREFIX = '❌ [PRELOAD ERROR]';
 
 const preloadLog = (message: string, data?: any) => {
   if (!PRELOAD_DEBUG) return;
-  console.log(`${DEBUG_PREFIX} ${message}`);
+  console.log(`${_DEBUG_PREFIX} ${message}`);
   if (data) {
     console.log('  📊 Data:', data);
   }
@@ -86,11 +86,11 @@ class RateLimiter {
   }
 }
 
-const rateLimiter = new RateLimiter();
+const _rateLimiter = new RateLimiter();
 
 // Security: Wrapped IPC invoke with rate limiting and error handling
 const secureIpcInvoke = async (channel: string, ...args: any[]): Promise<any> => {
-  if (!rateLimiter.canMakeCall(channel)) {
+  if (!_rateLimiter.canMakeCall(channel)) {
     throw new Error(`Rate limit exceeded for ${channel}`);
   }
   
@@ -174,7 +174,7 @@ try {
   }
   
 } catch (error) {
-  console.error(`${ERROR_PREFIX} Failed to expose electronAPI via contextBridge!`);
+  console.error(`${_ERROR_PREFIX} Failed to expose electronAPI via contextBridge!`);
   console.error('Error details:', error);
   console.error('Stack trace:', (error as Error).stack);
 }

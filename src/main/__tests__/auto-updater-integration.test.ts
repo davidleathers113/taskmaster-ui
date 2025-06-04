@@ -182,7 +182,7 @@ describe('Auto-Updater Integration Tests', () => {
         
         return Promise.resolve({
           updateInfo: { version: '2.0.0' },
-          cancellationToken: null
+          cancellationToken: undefined
         })
       })
 
@@ -508,7 +508,7 @@ describe('Auto-Updater Integration Tests', () => {
         if (callCount < 2) {
           throw new Error('Server timeout')
         }
-        return Promise.resolve({ updateInfo: { version: '2.0.0' }, cancellationToken: null })
+        return Promise.resolve({ updateInfo: { version: '2.0.0' }, cancellationToken: undefined })
       })
 
       const result = await attemptUpdateWithRetry()

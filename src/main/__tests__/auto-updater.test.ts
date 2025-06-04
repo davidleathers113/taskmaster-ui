@@ -21,7 +21,7 @@ vi.mock('electron-updater', () => ({
         releaseDate: new Date().toISOString(),
         releaseNotes: 'New features and bug fixes'
       },
-      cancellationToken: null
+      cancellationToken: undefined
     }),
     checkForUpdatesAndNotify: vi.fn().mockResolvedValue(undefined),
     downloadUpdate: vi.fn().mockResolvedValue(undefined),

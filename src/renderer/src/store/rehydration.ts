@@ -80,7 +80,7 @@ export interface VersionedState<T = any> {
 }
 
 // Default rehydration options
-const defaultRehydrationOptions: Required<Omit<RehydrationOptions, 'migrate' | 'onRehydrateStorage' | 'onFinishHydration' | 'fallbackStrategies'>> = {
+const _defaultRehydrationOptions: Required<Omit<RehydrationOptions, 'migrate' | 'onRehydrateStorage' | 'onFinishHydration' | 'fallbackStrategies'>> = {
   storageKey: 'app_state',
   version: 0,
   storage: localStorage,
@@ -100,7 +100,7 @@ export function withRehydration<T>(
   storeCreator: StateCreator<T>,
   options: RehydrationOptions<T> = {}
 ): StateCreator<T> {
-  const config = { ...defaultRehydrationOptions, ...options };
+  const config = { ..._defaultRehydrationOptions, ...options };
   
   return (set, get, api) => {
     const storeState = storeCreator(set, get, api);

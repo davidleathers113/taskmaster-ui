@@ -60,7 +60,7 @@ export interface UseErrorBoundaryOptions {
 }
 
 // Default options
-const defaultOptions: Required<UseErrorBoundaryOptions> = {
+const _defaultOptions: Required<UseErrorBoundaryOptions> = {
   enableAutoRecovery: errorHandlingConfig.errorBoundary.enableAutoRecovery,
   enableUserFeedback: errorHandlingConfig.userFeedback.enableUserReporting,
   enableStatePreservation: errorHandlingConfig.errorBoundary.enableStatePreservation,
@@ -78,8 +78,8 @@ const defaultOptions: Required<UseErrorBoundaryOptions> = {
 /**
  * Error Boundary Hook
  */
-export const useErrorBoundary = (options: UseErrorBoundaryOptions = {}) => {
-  const config = { ...defaultOptions, ...options };
+export const _useErrorBoundary = (options: UseErrorBoundaryOptions = {}) => {
+  const config = { ..._defaultOptions, ...options };
   
   // Hooks
   const reactErrorHandler = useErrorHandler();
@@ -496,7 +496,7 @@ function getSeverityFromError(error: Error): 'low' | 'medium' | 'high' | 'critic
 }
 
 // Export hook and types
-export default useErrorBoundary;
+export default _useErrorBoundary;
 export type {
   ErrorBoundaryState,
   ErrorRecoveryStrategy,
