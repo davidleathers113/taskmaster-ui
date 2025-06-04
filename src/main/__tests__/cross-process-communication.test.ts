@@ -11,8 +11,7 @@ import { ipcMain, BrowserWindow } from 'electron'
 // import type { MockIpcMain } from './mock-types' // Unused
 
 // Mock electron modules for cross-process testing (2025 pattern)
-vi.mock('electron', () => {
-  return {
+vi.mock('electron', () => ({
     ipcMain: {
       handle: vi.fn(),
       on: vi.fn(),
@@ -36,8 +35,7 @@ vi.mock('electron', () => {
       isPackaged: false,
       getPath: vi.fn().mockImplementation((name) => `/mock/path/${name}`)
     }
-  }
-})
+  }))
 
 // Mock URL for sender validation
 (global as any).URL = class MockURL {

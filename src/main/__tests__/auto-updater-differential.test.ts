@@ -474,7 +474,7 @@ describe('Differential Updates & Rollback Tests', () => {
         version: '2.0.1',
         mandatoryUpdate: true,
         releaseNotes: 'CRITICAL: Security vulnerability fix'
-      }
+      } as const
       
       (autoUpdater as MockAutoUpdater).downloadUpdate.mockResolvedValue([])
       
