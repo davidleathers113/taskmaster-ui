@@ -10,32 +10,34 @@ import { ipcMain, BrowserWindow } from 'electron'
 // Removed empty import
 // import type { MockIpcMain } from './mock-types' // Unused
 
-// Mock electron modules for cross-process testing
-vi.mock('electron', () => ({
-  ipcMain: {
-    handle: vi.fn(),
-    on: vi.fn(),
-    once: vi.fn(),
-    removeHandler: vi.fn(),
-    removeAllListeners: vi.fn(),
-    removeListener: vi.fn(),
-    _handlers: new Map(),
-    _listeners: new Map()
-  },
-  BrowserWindow: {
-    getAllWindows: vi.fn().mockReturnValue([]),
-    getFocusedWindow: vi.fn(),
-    fromWebContents: vi.fn()
-  },
-  webContents: {
-    getAllWebContents: vi.fn().mockReturnValue([]),
-    fromId: vi.fn()
-  },
-  app: {
-    isPackaged: false,
-    getPath: vi.fn().mockImplementation((name) => `/mock/path/${name}`)
+// Mock electron modules for cross-process testing (2025 pattern)
+vi.mock('electron', () => {
+  return {
+    ipcMain: {
+      handle: vi.fn(),
+      on: vi.fn(),
+      once: vi.fn(),
+      removeHandler: vi.fn(),
+      removeAllListeners: vi.fn(),
+      removeListener: vi.fn(),
+      _handlers: new Map(),
+      _listeners: new Map()
+    },
+    BrowserWindow: {
+      getAllWindows: vi.fn().mockReturnValue([]),
+      getFocusedWindow: vi.fn(),
+      fromWebContents: vi.fn()
+    },
+    webContents: {
+      getAllWebContents: vi.fn().mockReturnValue([]),
+      fromId: vi.fn()
+    },
+    app: {
+      isPackaged: false,
+      getPath: vi.fn().mockImplementation((name) => `/mock/path/${name}`)
+    }
   }
-}))
+})
 
 // Mock URL for sender validation
 (global as any).URL = class MockURL {
