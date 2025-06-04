@@ -7,7 +7,7 @@
 
 const fs = require('fs').promises;
 const path = require('path');
-const crypto = require('crypto');
+// const crypto = require('crypto'); // Not used
 const { execSync } = require('child_process');
 
 // Import security test modules
@@ -98,7 +98,7 @@ class SecurityBaselineManager {
       const baselineData = await fs.readFile(BASELINE_CONFIG.baselineFile, 'utf8');
       this.baseline = JSON.parse(baselineData);
       console.log('📋 Loaded security baseline from', new Date(this.baseline.timestamp).toLocaleDateString());
-    } catch (error) {
+    } catch {
       console.log('ℹ️  No existing baseline found, will create new one');
       this.baseline = null;
     }
@@ -220,7 +220,7 @@ class SecurityBaselineManager {
       });
       
       // Parse test results
-      const passed = stdout.includes('passed');
+      // const passed = stdout.includes('passed'); // Not used
       const failedTests = (stdout.match(/failed/g) || []).length;
       
       return {

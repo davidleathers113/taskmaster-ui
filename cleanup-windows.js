@@ -19,7 +19,7 @@ if (typeof BrowserWindow === 'undefined') {
   console.log('\nAttempting to kill Electron processes...');
   
   // Kill Electron processes on macOS/Linux
-  exec('pkill -f "electron"', (error, stdout, stderr) => {
+  exec('pkill -f "electron"', (error) => {
     if (error) {
       console.log('No Electron processes found or unable to kill them.');
     } else {

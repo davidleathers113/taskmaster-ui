@@ -26,6 +26,10 @@ export default tseslint.config(
       'debug-logs/**',
       'server/dist/**',
       'server/node_modules/**',
+      '**/*.sh', // Shell scripts should not be linted by ESLint
+      'src.backup.ts6133/**', // Backup directory should be ignored
+      '*.backup/**', // Any backup directories
+      '.taskmaster/**', // TaskMaster utility scripts
     ],
   },
 
@@ -244,6 +248,28 @@ export default tseslint.config(
       // Configuration files can be more permissive
       '@typescript-eslint/no-explicit-any': 'off',
       'no-console': 'off',
+    },
+  },
+
+  // Script files and utilities (Node.js environment)
+  {
+    files: [
+      'scripts/**/*.{js,ts,mjs,cjs}',
+      'wt_tasks/**/*.{js,ts,mjs}',
+      '.taskmaster/**/*.{js,ts,cjs}',
+      '**/*.cjs',
+      'cleanup-*.js',
+    ],
+    languageOptions: {
+      globals: {
+        ...globals.node,
+      },
+    },
+    rules: {
+      // Scripts can use console and require
+      'no-console': 'off',
+      '@typescript-eslint/no-require-imports': 'off',
+      '@typescript-eslint/no-explicit-any': 'off',
     },
   },
 );

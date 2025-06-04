@@ -303,7 +303,7 @@ describe('Memory Leak Detection Tests (2025)', () => {
         
         // Simulate IPC calls
         const mockEvent = { sender: { id: 1 } }
-        ipcMain.handle.mock.calls.forEach(([channel, handler]) => {
+        ipcMain.handle.mock.calls.forEach(([, handler]) => {
           handler(mockEvent, 'test-data')
         })
         
@@ -459,7 +459,7 @@ describe('Memory Leak Detection Tests (2025)', () => {
       const cleanupDebugger = () => {
         try {
           debuggerApi.detach()
-        } catch (error) {
+        } catch {
           // Ignore errors if already detached
         }
       }

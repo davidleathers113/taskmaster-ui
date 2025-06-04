@@ -233,7 +233,7 @@ vi.mock('electron', () => ({
       resize: vi.fn().mockReturnThis(),
       crop: vi.fn().mockReturnThis()
     }),
-    createFromPath: vi.fn().mockImplementation((path) => ({
+    createFromPath: vi.fn().mockImplementation(() => ({
       isEmpty: vi.fn().mockReturnValue(false),
       getSize: vi.fn().mockReturnValue({ width: 100, height: 100 }),
       getAspectRatio: vi.fn().mockReturnValue(1),
@@ -269,7 +269,7 @@ vi.mock('electron', () => ({
     checked: options.checked || false
   })),
   
-  Tray: vi.fn().mockImplementation((icon) => ({
+  Tray: vi.fn().mockImplementation(() => ({
     setImage: vi.fn(),
     setPressedImage: vi.fn(),
     setToolTip: vi.fn(),
