@@ -182,7 +182,7 @@ describe('Auto-Updater Integration Tests', () => {
         
         return Promise.resolve({
           updateInfo: { version: '2.0.0' },
-          cancellationToken: null
+          cancellationToken: undefined
         })
       })
 
@@ -316,7 +316,7 @@ describe('Auto-Updater Integration Tests', () => {
         }
 
         // Check if signing tools are available
-        const isSigningAvailable = await checkSigningTool(config.signatureTool)
+        const isSigningAvailable = await checkSigningTool()
         
         if (!isSigningAvailable && CI_ENVIRONMENTS.isGitHubActions) {
           throw new Error(`Code signing required in CI but ${config.signatureTool} not found`)

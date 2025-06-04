@@ -153,7 +153,15 @@ describe('Differential Updates & Rollback Tests', () => {
           path: `differential/${currentVersion}/${targetVersion}`,
           size: 5000000
         } as MockUpdateInfo,
-        cancellationToken: null
+        cancellationToken: undefined,
+        isUpdateAvailable: true,
+        versionInfo: {
+          version: targetVersion,
+          files: [],
+          path: `differential/${targetVersion}`,
+          sha512: 'mock-sha512-hash',
+          releaseDate: new Date().toISOString()
+        }
       })
       
       const result = await checkForDifferentialUpdate()
@@ -395,7 +403,15 @@ describe('Differential Updates & Rollback Tests', () => {
           minimumVersion: rollbackStrategy.brokenVersion,
           releaseNotes: rollbackStrategy.changes
         } as MockUpdateInfo,
-        cancellationToken: null
+        cancellationToken: undefined,
+        isUpdateAvailable: true,
+        versionInfo: {
+          version: rollbackStrategy.rollbackVersion,
+          files: [],
+          path: `rollback/${rollbackStrategy.rollbackVersion}`,
+          sha512: 'mock-sha512-hash',
+          releaseDate: new Date().toISOString()
+        }
       })
       
       await checkRollbackUpdate('1.0.1') // Broken version gets update
@@ -439,7 +455,7 @@ describe('Differential Updates & Rollback Tests', () => {
           autoUpdater.logger?.warn('Mandatory update detected')
           
           // Show non-dismissible dialog
-          await dialog.showMessageBox({
+          await dialog.showMessageBox(null, {
             type: 'warning',
             title: 'Critical Update Required',
             message: 'A critical security update must be installed.',
@@ -576,7 +592,7 @@ describe('Differential Updates & Rollback Tests', () => {
         return validations
       }
       
-      const result = await validateRecoveredUpdate('/tmp/update.exe', 'expected-hash')
+      const result = await validateRecoveredUpdate()
       
       expect(result.hashValid).toBe(true)
       expect(result.sizeValid).toBe(true)
@@ -645,7 +661,7 @@ describe('Differential Updates & Rollback Tests', () => {
         return cleanup
       }
       
-      const result = await cleanupFailedUpdate('/tmp/updates')
+      const result = await cleanupFailedUpdate()
       
       expect(result.tempFilesDeleted).toBeGreaterThan(0)
       expect(result.cacheCleared).toBe(true)

@@ -62,7 +62,7 @@ const mockElectronAPI = {
     }
   }),
   
-  on: vi.fn().mockImplementation((channel: string, callback: Function) => {
+  on: vi.fn().mockImplementation((channel: string, callback: (event: any, ...args: any[]) => void) => {
     // Store listeners for potential cleanup
     if (!global.mockIPCListeners) {
       global.mockIPCListeners = new Map()
@@ -84,7 +84,7 @@ const mockElectronAPI = {
     }
   }),
   
-  off: vi.fn().mockImplementation((channel: string, callback?: Function) => {
+  off: vi.fn().mockImplementation((channel: string, callback?: (event: any, ...args: any[]) => void) => {
     if (!global.mockIPCListeners) return
     
     if (callback) {
@@ -377,7 +377,7 @@ declare global {
     electron: typeof mockElectronAPI
   }
   
-  var mockIPCListeners: Map<string, Function[]>
+  var mockIPCListeners: Map<string, ((event: any, ...args: any[]) => void)[]>
   
   namespace Vi {
     interface JestAssertion<T = any> {

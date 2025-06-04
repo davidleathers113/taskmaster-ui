@@ -43,7 +43,7 @@ export class SecureIPCHandler {
     this.securityMonitor = new SecurityMonitor()
   }
 
-  handle(channel: string, options: SecureHandlerOptions, handler: Function): void {
+  handle(channel: string, options: SecureHandlerOptions, handler: (event: any, ...args: any[]) => any): void {
     // Block internal Electron channels
     if (this.internalChannels.some(internal => channel.startsWith(internal))) {
       throw new Error('Cannot register handler for internal channel')

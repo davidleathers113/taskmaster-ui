@@ -6,7 +6,7 @@
  * IPC communication correctly. Following 2025 security best practices.
  */
 
-import { describe, test, expect, beforeEach } from 'vitest'
+import { describe, test, expect, beforeEach, vi } from 'vitest'
 import { contextBridge, ipcRenderer } from 'electron'
 import { 
   validateContextIsolation, 

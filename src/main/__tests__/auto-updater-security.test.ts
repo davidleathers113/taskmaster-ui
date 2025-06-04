@@ -10,7 +10,7 @@ import { describe, test, expect, beforeEach, vi, beforeAll, afterAll } from 'vit
 import { session } from 'electron'
 import { MockUpdateServer } from '../../../tests/mocks/mock-update-server'
 import { createHash } from 'crypto'
-import type { MockAutoUpdater } from './mock-types'
+// import type { MockAutoUpdater } from './mock-types' // Currently unused
 
 
 // Mock security utilities
@@ -55,7 +55,7 @@ vi.mock('electron-updater', () => ({
 
 describe('Auto-Updater Security Tests', () => {
   let mockServer: MockUpdateServer
-  let serverUrl: string
+  // let serverUrl: string // Currently unused
 
   beforeAll(async () => {
     mockServer = new MockUpdateServer({
@@ -63,7 +63,7 @@ describe('Auto-Updater Security Tests', () => {
       useHttps: true,
       enableLogging: false
     })
-    serverUrl = await mockServer.start()
+    await mockServer.start() // serverUrl not used
   })
 
   afterAll(async () => {
@@ -239,7 +239,7 @@ describe('Auto-Updater Security Tests', () => {
         return { valid: true, chain }
       }
       
-      const result = await validateCertificateChain({})
+      const result = await validateCertificateChain()
       expect(result.valid).toBe(true)
       expect(result.chain).toHaveLength(3)
     })
@@ -256,7 +256,7 @@ describe('Auto-Updater Security Tests', () => {
         return { valid: true, revoked: false }
       }
       
-      const result = await checkRevocationStatus({})
+      const result = await checkRevocationStatus()
       expect(result.valid).toBe(true)
       expect(result.revoked).toBe(false)
     })

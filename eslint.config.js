@@ -26,6 +26,7 @@ export default tseslint.config(
       'debug-logs/**',
       'server/dist/**',
       'server/node_modules/**',
+      '.taskmaster/**',
     ],
   },
 

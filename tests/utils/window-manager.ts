@@ -15,7 +15,7 @@ interface TrackedWindow {
   window: BrowserWindow
   createdAt: Date
   timeout?: NodeJS.Timeout
-  listeners: Map<string, Function>
+  listeners: Map<string, (...args: any[]) => void>
   metadata?: Record<string, any>
 }
 
@@ -318,7 +318,7 @@ export class TestWindowManager extends EventEmitter {
   public addWindowListener(
     id: string, 
     event: string, 
-    listener: Function
+    listener: (...args: any[]) => void
   ): void {
     const tracked = this.windows.get(id)
     if (!tracked) {

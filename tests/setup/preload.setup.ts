@@ -86,7 +86,7 @@ const mockIpcRenderer = {
     console.debug(`IPC send: ${channel}`, args)
   }),
   
-  on: vi.fn().mockImplementation((channel: string, listener: Function) => {
+  on: vi.fn().mockImplementation((channel: string, listener: (event: any, ...args: any[]) => void) => {
     // Store listeners for cleanup and testing
     if (!global.mockPreloadListeners) {
       global.mockPreloadListeners = new Map()
@@ -102,7 +102,7 @@ const mockIpcRenderer = {
     return listener
   }),
   
-  once: vi.fn().mockImplementation((channel: string, listener: Function) => {
+  once: vi.fn().mockImplementation((channel: string, listener: (event: any, ...args: any[]) => void) => {
     // Mock once behavior
     const wrappedListener = (...args: any[]) => {
       listener(...args)
@@ -112,7 +112,7 @@ const mockIpcRenderer = {
     return mockIpcRenderer.on(channel, wrappedListener)
   }),
   
-  removeListener: vi.fn().mockImplementation((channel: string, listener: Function) => {
+  removeListener: vi.fn().mockImplementation((channel: string, listener: (event: any, ...args: any[]) => void) => {
     if (!global.mockPreloadListeners) return
     
     const listeners = global.mockPreloadListeners.get(channel) || []
@@ -340,7 +340,7 @@ afterEach(() => {
 
 // Type declarations for global additions
 declare global {
-  var mockPreloadListeners: Map<string, Function[]>
+  var mockPreloadListeners: Map<string, ((event: any, ...args: any[]) => void)[]>
 }
 
 export { mockContextBridge, mockIpcRenderer }

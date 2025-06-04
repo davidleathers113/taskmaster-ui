@@ -64,8 +64,8 @@ vi.mock('electron', () => ({
 describe('Cross-Process Communication Security Tests (2025)', () => {
   beforeEach(() => {
     vi.clearAllMocks()
-    ipcMain._handlers.clear()
-    ipcMain._listeners.clear()
+    (ipcMain as any)._handlers?.clear()
+    (ipcMain as any)._listeners?.clear()
   })
 
   describe('IPC Sender Validation', () => {
@@ -270,7 +270,7 @@ describe('Cross-Process Communication Security Tests (2025)', () => {
           return { valid: true }
         }
         
-        secureHandle(channel: string, handler: Function) {
+        secureHandle(channel: string, handler: (event: any, ...args: any[]) => any) {
           const secureHandler = async (event: any, ...args: any[]) => {
             const validation = this.validateRequest(channel, event)
             if (!validation.valid) {
@@ -445,7 +445,7 @@ describe('Cross-Process Communication Security Tests (2025)', () => {
   describe('Event Object Security', () => {
     test('should prevent event object leakage in renderer callbacks', () => {
       // Simulate secure event wrapper
-      const createSecureCallback = (userCallback: Function) => {
+      const createSecureCallback = (userCallback: (...args: any[]) => any) => {
         return (event: any, ...data: any[]) => {
           // Never pass the event object to user callback
           // Only pass the actual data
@@ -480,7 +480,7 @@ describe('Cross-Process Communication Security Tests (2025)', () => {
     })
 
     test('should validate event data structure before passing to callbacks', () => {
-      const createValidatingCallback = (userCallback: Function, validator: Function) => {
+      const createValidatingCallback = (userCallback: (...args: any[]) => any, validator: (...args: any[]) => boolean) => {
         return (event: any, data: any) => {
           if (validator(data)) {
             userCallback(data)

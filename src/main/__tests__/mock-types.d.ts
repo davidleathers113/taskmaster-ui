@@ -70,8 +70,8 @@ export interface MockApp extends App {
   relaunch: MockedFunction<(options?: any) => void>;
   
   // Event methods with mock properties
-  on: MockedFunction<(event: string, listener: Function) => App>;
-  once: MockedFunction<(event: string, listener: Function) => App>;
+  on: MockedFunction<(event: string, listener: (...args: any[]) => void) => App>;
+  once: MockedFunction<(event: string, listener: (...args: any[]) => void) => App>;
 }
 
 // Extended BrowserWindow type
