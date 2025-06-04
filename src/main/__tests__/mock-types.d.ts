@@ -94,4 +94,13 @@ export function asMockApp(app: any): MockApp {
 declare global {
   const mockAutoUpdater: MockAutoUpdater;
   const mockApp: MockApp;
+  
+  namespace globalThis {
+    const mockElectron: {
+      app: MockApp;
+      BrowserWindow: MockBrowserWindow;
+    };
+    const testWindowManager: import('../../../tests/utils/window-manager').TestWindowManager;
+    const vi: typeof import('vitest').vi;
+  }
 }
