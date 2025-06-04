@@ -102,9 +102,9 @@ describe('ErrorBoundary', () => {
       
       unmount();
 
-      // Page level error
+      // Route level error
       render(
-        <ErrorBoundary level="page">
+        <ErrorBoundary level="route">
           <ErrorThrowingComponent />
         </ErrorBoundary>
       );
@@ -193,7 +193,7 @@ describe('ErrorBoundary', () => {
       const ErrorThrowingComponent = testUtils.createErrorThrowingComponent();
 
       render(
-        <ErrorBoundary level="component" componentName="TestComponent">
+        <ErrorBoundary level="component" viewType="TestComponent">
           <ErrorThrowingComponent />
         </ErrorBoundary>
       );
@@ -213,7 +213,7 @@ describe('ErrorBoundary', () => {
       const ErrorThrowingComponent = testUtils.createErrorThrowingComponent();
 
       render(
-        <ErrorBoundary level="page" componentName="PageComponent">
+        <ErrorBoundary level="route" viewType="PageComponent">
           <ErrorThrowingComponent />
         </ErrorBoundary>
       );
@@ -295,7 +295,7 @@ describe('ErrorBoundary', () => {
       const ErrorThrowingComponent = testUtils.createErrorThrowingComponent();
 
       render(
-        <ErrorBoundary level="page">
+        <ErrorBoundary level="route">
           <ErrorThrowingComponent />
         </ErrorBoundary>
       );
@@ -316,7 +316,7 @@ describe('ErrorBoundary', () => {
       );
 
       render(
-        <ErrorBoundary level="component" showDetailedError={true}>
+        <ErrorBoundary level="component" enableStatePreservation={true}>
           <ErrorThrowingComponent />
         </ErrorBoundary>
       );
@@ -351,7 +351,7 @@ describe('ErrorBoundary', () => {
       const ErrorThrowingComponent = testUtils.createErrorThrowingComponent();
 
       render(
-        <ErrorBoundary level="component" componentName="DebugComponent">
+        <ErrorBoundary level="component" viewType="DebugComponent">
           <ErrorThrowingComponent />
         </ErrorBoundary>
       );

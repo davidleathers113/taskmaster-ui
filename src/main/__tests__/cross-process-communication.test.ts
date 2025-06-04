@@ -142,7 +142,7 @@ describe('Cross-Process Communication Security Tests (2025)', () => {
         { id: 3, webContents: { id: 103 } }
       ]
       
-      BrowserWindow.getAllWindows.mockReturnValue(mockWindows)
+      ;(BrowserWindow.getAllWindows as any).mockReturnValue(mockWindows)
       
       const validateSenderWindow = (senderId: number) => {
         const windows = BrowserWindow.getAllWindows()

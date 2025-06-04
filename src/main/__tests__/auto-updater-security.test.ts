@@ -54,7 +54,7 @@ vi.mock('electron-updater', () => ({
 
 describe('Auto-Updater Security Tests', () => {
   let mockServer: MockUpdateServer
-  let _serverUrl: string
+  // let _serverUrl: string
 
   beforeAll(async () => {
     mockServer = new MockUpdateServer({
@@ -62,7 +62,7 @@ describe('Auto-Updater Security Tests', () => {
       useHttps: true,
       enableLogging: false
     })
-    _serverUrl = await mockServer.start()
+    /* _serverUrl = */ await mockServer.start()
   })
 
   afterAll(async () => {

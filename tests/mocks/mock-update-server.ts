@@ -120,7 +120,7 @@ export class MockUpdateServer {
     // Request tracking
     this.app.use((req, res, next) => {
       const originalSend = res.send
-      res.send = function(data) {
+      res.send = function(data: any) {
         this.requestLogs.push({
           timestamp: new Date(),
           method: req.method,
