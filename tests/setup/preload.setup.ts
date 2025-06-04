@@ -55,7 +55,7 @@ const mockContextBridge = {
 
 // Mock ipcRenderer for preload script testing
 const mockIpcRenderer = {
-  invoke: vi.fn().mockImplementation((channel: string, ...args: any[]) => {
+  invoke: vi.fn().mockImplementation((channel: string, ..._args: any[]) => {
     // Mock responses based on channel for testing
     switch (channel) {
       case 'app:get-version':
@@ -81,7 +81,7 @@ const mockIpcRenderer = {
     }
   }),
   
-  send: vi.fn().mockImplementation((channel: string, ...args: any[]) => {
+  send: vi.fn().mockImplementation((channel: string, ..._args: any[]) => {
     // Log send operations for test verification
     console.debug(`IPC send: ${channel}`, args)
   }),
@@ -104,7 +104,7 @@ const mockIpcRenderer = {
   
   once: vi.fn().mockImplementation((channel: string, listener: Function) => {
     // Mock once behavior
-    const wrappedListener = (...args: any[]) => {
+    const wrappedListener = (..._args: any[]) => {
       listener(...args)
       mockIpcRenderer.removeListener(channel, wrappedListener)
     }
@@ -133,7 +133,7 @@ const mockIpcRenderer = {
   }),
   
   // Security-related methods for testing
-  sendSync: vi.fn().mockImplementation((channel: string, ...args: any[]) => {
+  sendSync: vi.fn().mockImplementation((channel: string, ..._args: any[]) => {
     console.warn(`sendSync called in test (should be avoided): ${channel}`)
     return null
   }),
@@ -239,7 +239,7 @@ export const validateAPIExposure = (key: string, expectedAPI: any) => {
   return true
 }
 
-export const simulateMainWorldMessage = (channel: string, ...args: any[]) => {
+export const simulateMainWorldMessage = (channel: string, ..._args: any[]) => {
   // Simulate a message from the main process for testing
   const listeners = global.mockPreloadListeners?.get(channel) || []
   listeners.forEach(listener => {
@@ -296,7 +296,7 @@ beforeEach(() => {
   memoryBaseline = process.memoryUsage().heapUsed
   
   // Reset mock implementations
-  mockIpcRenderer.invoke.mockImplementation((channel: string, ...args: any[]) => {
+  mockIpcRenderer.invoke.mockImplementation((channel: string, ..._args: any[]) => {
     switch (channel) {
       case 'app:get-version':
         return Promise.resolve('1.0.0-test')

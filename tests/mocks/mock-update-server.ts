@@ -110,7 +110,7 @@ export class MockUpdateServer {
     })
 
     // CORS headers
-    this.app.use((req, res, next) => {
+    this.app.use((_req, res, next) => {
       res.header('Access-Control-Allow-Origin', '*')
       res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
       res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization')
@@ -242,7 +242,7 @@ export class MockUpdateServer {
     })
 
     // Health check endpoint
-    this.app.get('/health', (req, res) => {
+    this.app.get('/health', (_req, res) => {
       res.json({
         status: 'healthy',
         uptime: process.uptime(),
