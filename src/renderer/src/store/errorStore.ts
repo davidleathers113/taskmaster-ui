@@ -335,7 +335,7 @@ export const useErrorStore = create<ErrorStore>()(
         }),
         
         // Recovery actions
-        startRecovery: async (strategy: string) => {
+        startRecovery: async (_strategy: string) => {
           set((state) => {
             state.isRecovering = true;
             state.recoveryProgress = 0;

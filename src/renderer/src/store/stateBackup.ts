@@ -156,7 +156,7 @@ export function createStateBackup<T>(
     if (!config.enableCompression) return data;
     
     try {
-      return data.replace(/(.)\*(\d+)/g, (match, char, count) => {
+      return data.replace(/(.)\*(\d+)/g, (_match, char, count) => {
         return char.repeat(parseInt(count));
       });
     } catch (error) {

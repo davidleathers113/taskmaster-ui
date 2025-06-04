@@ -10,7 +10,7 @@ import { describe, test, expect, beforeEach, vi, beforeAll, afterAll } from 'vit
 import { session } from 'electron'
 import { MockUpdateServer } from '../../../tests/mocks/mock-update-server'
 import { createHash } from 'crypto'
-import type { MockAutoUpdater } from './mock-types'
+// import type { MockAutoUpdater } from './mock-types' // Unused
 
 
 // Mock security utilities

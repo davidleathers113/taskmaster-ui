@@ -564,7 +564,7 @@ describe('Differential Updates & Rollback Tests', () => {
     })
 
     test('should validate update after recovery', async () => {
-      const validateRecoveredUpdate = async (filePath: string, expectedHash: string) => {
+      const validateRecoveredUpdate = async (_filePath: string, _expectedHash: string) => {
         // After recovering from failure, validate the complete file
         const validations = {
           hashValid: false,
@@ -637,7 +637,7 @@ describe('Differential Updates & Rollback Tests', () => {
     })
 
     test('should clean up failed updates', async () => {
-      const cleanupFailedUpdate = async (updatePath: string) => {
+      const cleanupFailedUpdate = async (_updatePath: string) => {
         const cleanup = {
           tempFilesDeleted: 0,
           partialDownloadsDeleted: 0,

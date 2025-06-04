@@ -8,7 +8,7 @@
 import { describe, test, expect, beforeEach, vi } from 'vitest'
 import { ipcMain, BrowserWindow } from 'electron'
 import { } from 'events'
-import type { MockIpcMain } from './mock-types'
+// import type { MockIpcMain } from './mock-types' // Unused
 
 // Mock electron modules for cross-process testing
 vi.mock('electron', () => ({
@@ -447,7 +447,7 @@ describe('Cross-Process Communication Security Tests (2025)', () => {
     test('should prevent event object leakage in renderer callbacks', () => {
       // Simulate secure event wrapper
       const createSecureCallback = (userCallback: Function) => {
-        return (event: any, ...data: any[]) => {
+        return (_event: any, ...data: any[]) => {
           // Never pass the event object to user callback
           // Only pass the actual data
           userCallback(...data)
@@ -482,7 +482,7 @@ describe('Cross-Process Communication Security Tests (2025)', () => {
 
     test('should validate event data structure before passing to callbacks', () => {
       const createValidatingCallback = (userCallback: Function, validator: Function) => {
-        return (event: any, data: any) => {
+        return (_event: any, data: any) => {
           if (validator(data)) {
             userCallback(data)
           } else {

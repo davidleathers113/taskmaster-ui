@@ -58,7 +58,7 @@ describe('IPC Security Tests', () => {
     // Initialize security components
     secureHandler = new (SecureIPCHandler as any)()
     rateLimiter = new (IPCRateLimiter as any)()
-    const securityMonitor = new (SecurityMonitor as any)()
+    const _securityMonitor = new (SecurityMonitor as any)()
   })
 
   beforeEach(() => {
@@ -549,7 +549,7 @@ describe('IPC Security Tests', () => {
       const testSerializability = (obj: any): boolean => {
         try {
           // Objects that can't be cloned will throw
-          const serialized = JSON.stringify(obj)
+          const _serialized = JSON.stringify(obj)
           
           // Additional check for special objects
           if (obj && typeof obj === 'object') {
@@ -668,7 +668,7 @@ describe('IPC Security Tests', () => {
       ]
 
       const secureAPI = {
-        execute: vi.fn().mockImplementation((cmd) => {
+        execute: vi.fn().mockImplementation((_cmd) => {
           throw new Error('Command execution not allowed')
         }),
         openExternal: vi.fn().mockImplementation((url) => {
@@ -734,7 +734,7 @@ describe('IPC Security Tests', () => {
             senderGroups.set(p.senderId, (senderGroups.get(p.senderId) || 0) + 1)
           }
           
-          for (const [sender, count] of senderGroups) {
+          for (const [_sender, count] of senderGroups) {
             if (count > this.patterns.length * 0.8) {
               return { suspicious: true, reason: 'Single sender dominance' }
             }
