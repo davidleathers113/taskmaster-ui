@@ -6,13 +6,14 @@
  * and failure scenarios following 2025 best practices.
  */
 
-import express, { Express, Request } from 'express'
+import * as express from 'express'
+import { Express, Request, Response } from 'express'
 import { createServer as createHttpsServer, Server as HttpsServer } from 'https'
 import { createServer as createHttpServer, Server as HttpServer } from 'http'
 import { readFileSync, existsSync, mkdirSync, writeFileSync } from 'fs'
 import { join, dirname } from 'path'
 import { createHash } from 'crypto'
-import yaml from 'yaml'
+import * as yaml from 'yaml'
 
 interface UpdateManifest {
   version: string
@@ -134,7 +135,7 @@ export class MockUpdateServer {
 
   private setupRoutes(): void {
     // Latest release endpoint for Windows/Linux
-    this.app.get('/latest.yml', (req, res) => {
+    this.app.get('/latest.yml', (req: Request, res: Response) => {
       if (this.shouldSimulateError()) {
         return res.status(500).send('Internal Server Error')
       }
@@ -146,7 +147,7 @@ export class MockUpdateServer {
     })
 
     // Latest release endpoint for macOS
-    this.app.get('/latest-mac.yml', (req, res) => {
+    this.app.get('/latest-mac.yml', (req: Request, res: Response) => {
       if (this.shouldSimulateError()) {
         return res.status(500).send('Internal Server Error')
       }
@@ -161,7 +162,7 @@ export class MockUpdateServer {
     })
 
     // JSON endpoint for custom implementations
-    this.app.get('/latest.json', (req, res) => {
+    this.app.get('/latest.json', (req: Request, res: Response) => {
       if (this.shouldSimulateError()) {
         return res.status(500).json({ error: 'Internal Server Error' })
       }
@@ -171,7 +172,7 @@ export class MockUpdateServer {
     })
 
     // Download endpoint
-    this.app.get('/download/:filename', (req, res) => {
+    this.app.get('/download/:filename', (req: Request, res: Response) => {
       const { filename } = req.params
       
       if (this.shouldSimulateError()) {
@@ -206,7 +207,7 @@ export class MockUpdateServer {
     })
 
     // Differential update endpoint
-    this.app.get('/differential/:fromVersion/:toVersion', (req, res) => {
+    this.app.get('/differential/:fromVersion/:toVersion', (req: Request, res: Response) => {
       const { fromVersion, toVersion } = req.params
       const deltaKey = `${fromVersion}-${toVersion}`
       
@@ -228,7 +229,7 @@ export class MockUpdateServer {
     })
 
     // Staged rollout configuration endpoint
-    this.app.put('/staging/:version', express.json(), (req, res) => {
+    this.app.put('/staging/:version', express.json(), (req: Request, res: Response) => {
       const { version } = req.params
       const { percentage } = req.body
       
@@ -303,8 +304,9 @@ export class MockUpdateServer {
     }
 
     // Use client ID or IP for consistent staging
-    const clientId = req.headers['x-client-id'] || req.ip
-    const hash = createHash('md5').update(clientId).digest('hex')
+    const clientIdRaw = req.headers['x-client-id'] || req.ip
+    const clientId = Array.isArray(clientIdRaw) ? clientIdRaw[0] : clientIdRaw
+    const hash = createHash('md5').update(clientId || '').digest('hex')
     const bucket = parseInt(hash.substring(0, 8), 16) % 100
 
     if (bucket < stagingPercentage) {

@@ -474,9 +474,10 @@ describe('Cross-Process Communication Security Tests (2025)', () => {
       
       // Verify no access to sensitive properties
       const callArgs = userCallback.mock.calls[0]
+      expect(callArgs).toBeDefined()
       expect(callArgs).toEqual([safeData])
-      expect(callArgs[0]).not.toHaveProperty('sender')
-      expect(callArgs[0]).not.toHaveProperty('senderFrame')
+      expect(callArgs?.[0]).not.toHaveProperty('sender')
+      expect(callArgs?.[0]).not.toHaveProperty('senderFrame')
     })
 
     test('should validate event data structure before passing to callbacks', () => {

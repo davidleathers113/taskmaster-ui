@@ -451,7 +451,7 @@ describe('Differential Updates & Rollback Tests', () => {
           autoUpdater.logger?.warn('Mandatory update detected')
           
           // Show non-dismissible dialog
-          await dialog.showMessageBox({
+          await vi.mocked(dialog).showMessageBox({
             type: 'warning',
             title: 'Critical Update Required',
             message: 'A critical security update must be installed.',
@@ -470,18 +470,14 @@ describe('Differential Updates & Rollback Tests', () => {
         return false
       }
       
-      const updateInfo = {
-        version: '2.0.1',
-        mandatoryUpdate: true,
-        releaseNotes: 'CRITICAL: Security vulnerability fix'
-      }
+      const testUpdateInfo = { version: '2.0.1', mandatoryUpdate: true, releaseNotes: 'CRITICAL: Security vulnerability fix' };
       
       (autoUpdater as MockAutoUpdater).downloadUpdate.mockResolvedValue([])
       
-      const wasMandatory = await handleMandatoryUpdate(updateInfo)
+      const wasMandatory = await handleMandatoryUpdate(testUpdateInfo)
       
       expect(wasMandatory).toBe(true)
-      expect(dialog.showMessageBox).toHaveBeenCalledWith(
+      expect(vi.mocked(dialog).showMessageBox).toHaveBeenCalledWith(
         expect.objectContaining({
           type: 'warning',
           buttons: ['Install Now'] // No cancel option
@@ -588,7 +584,7 @@ describe('Differential Updates & Rollback Tests', () => {
         return validations
       }
       
-      const result = await validateRecoveredUpdate('/tmp/update.exe', 'expected-hash')
+      const result = await validateRecoveredUpdate()
       
       expect(result.hashValid).toBe(true)
       expect(result.sizeValid).toBe(true)
@@ -657,7 +653,7 @@ describe('Differential Updates & Rollback Tests', () => {
         return cleanup
       }
       
-      const result = await cleanupFailedUpdate('/tmp/updates')
+      const result = await cleanupFailedUpdate()
       
       expect(result.tempFilesDeleted).toBeGreaterThan(0)
       expect(result.cacheCleared).toBe(true)
