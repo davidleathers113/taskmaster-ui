@@ -1,0 +1,60 @@
+
+/Users/davidleathers/taskmaster-ui/src/preload/errorReporting.ts
+   20:29  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   28:11  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   38:32  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   42:76  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   45:39  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   46:43  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   53:13  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   64:7   warning  Unexpected console statement              no-console
+   74:7   warning  Unexpected console statement              no-console
+   84:7   warning  Unexpected console statement              no-console
+   99:7   warning  Unexpected console statement              no-console
+  105:31  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  105:47  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  119:31  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  119:44  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  136:7   warning  Unexpected console statement              no-console
+  167:5   warning  Unexpected console statement              no-console
+  169:5   warning  Unexpected console statement              no-console
+  172:3   warning  Unexpected console statement              no-console
+  194:9   warning  Unexpected console statement              no-console
+  217:37  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  235:5   warning  Unexpected console statement              no-console
+  250:50  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  251:39  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  252:47  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  270:7   warning  Unexpected console statement              no-console
+  272:7   warning  Unexpected console statement              no-console
+  279:3   warning  Unexpected console statement              no-console
+  306:7   warning  Unexpected console statement              no-console
+
+/Users/davidleathers/taskmaster-ui/src/preload/index.ts
+   11:45  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   13:3   warning  Unexpected console statement              no-console
+   15:5   warning  Unexpected console statement              no-console
+   19:1   warning  Unexpected console statement              no-console
+   20:1   warning  Unexpected console statement              no-console
+   21:1   warning  Unexpected console statement              no-console
+   28:26  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   29:28  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   50:45  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   58:32  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   92:58  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   92:74  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  100:5   warning  Unexpected console statement              no-console
+  106:40  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  106:55  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  128:45  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  135:41  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  135:56  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  167:3   warning  Unexpected console statement              no-console
+  177:3   warning  Unexpected console statement              no-console
+  178:3   warning  Unexpected console statement              no-console
+  179:3   warning  Unexpected console statement              no-console
+  191:3   warning  Unexpected console statement              no-console
+  192:3   warning  Unexpected console statement              no-console
+
+✖ 53 problems (27 errors, 26 warnings)
+

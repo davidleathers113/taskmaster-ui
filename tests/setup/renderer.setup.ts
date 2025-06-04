@@ -16,6 +16,7 @@ import { vi, beforeEach, afterEach, expect } from 'vitest'
 import { cleanup } from '@testing-library/react'
 import { configure } from '@testing-library/react'
 import '@testing-library/jest-dom'
+import { createMockIpcRenderer } from '../mocks/electron'
 
 // Import Zustand mock and resetAllStores directly
 import { resetAllStores } from '../../__mocks__/zustand'
@@ -34,116 +35,35 @@ configure({
   }
 })
 
-// Mock the contextBridge API exposed to renderer process
+// Create IPC renderer mock
+const ipcRendererMock = createMockIpcRenderer()
+
+// Mock window.electron API
 const mockElectronAPI = {
-  // IPC Communication
-  invoke: vi.fn().mockImplementation((channel: string, ...args: any[]) => {
-    // Mock common IPC responses based on channel
-    switch (channel) {
-      case 'app:get-version':
-        return Promise.resolve('1.0.0-test')
-      case 'app:get-platform':
-        return Promise.resolve('darwin')
-      case 'dialog:show-open':
-        return Promise.resolve({ 
-          canceled: false, 
-          filePaths: ['/mock/test.json'] 
-        })
-      case 'tasks:get-all':
-        return Promise.resolve([])
-      case 'tasks:save':
-        return Promise.resolve(true)
-      case 'window:minimize':
-        return Promise.resolve()
-      case 'window:close':
-        return Promise.resolve()
-      default:
-        return Promise.resolve(null)
-    }
-  }),
-  
-  on: vi.fn().mockImplementation((channel: string, callback: Function) => {
-    // Store listeners for potential cleanup
-    if (!global.mockIPCListeners) {
-      global.mockIPCListeners = new Map()
-    }
-    
-    if (!global.mockIPCListeners.has(channel)) {
-      global.mockIPCListeners.set(channel, [])
-    }
-    
-    global.mockIPCListeners.get(channel)!.push(callback)
-    
-    // Return cleanup function
-    return () => {
-      const listeners = global.mockIPCListeners.get(channel) || []
-      const index = listeners.indexOf(callback)
-      if (index > -1) {
-        listeners.splice(index, 1)
-      }
-    }
-  }),
-  
-  off: vi.fn().mockImplementation((channel: string, callback?: Function) => {
-    if (!global.mockIPCListeners) return
-    
-    if (callback) {
-      const listeners = global.mockIPCListeners.get(channel) || []
-      const index = listeners.indexOf(callback)
-      if (index > -1) {
-        listeners.splice(index, 1)
-      }
-    } else {
-      global.mockIPCListeners.delete(channel)
-    }
-  }),
-  
-  send: vi.fn(),
-  
-  // File system operations
-  showOpenDialog: vi.fn().mockResolvedValue({
-    canceled: false,
-    filePaths: ['/mock/selected/file.json']
-  }),
-  
-  showSaveDialog: vi.fn().mockResolvedValue({
-    canceled: false,
-    filePath: '/mock/save/location.json'
-  }),
-  
-  readFile: vi.fn().mockResolvedValue('{"tasks": []}'),
-  writeFile: vi.fn().mockResolvedValue(true),
-  
-  // Window operations
-  minimize: vi.fn().mockResolvedValue(undefined),
-  maximize: vi.fn().mockResolvedValue(undefined),
-  close: vi.fn().mockResolvedValue(undefined),
-  
-  // App information
-  getVersion: vi.fn().mockResolvedValue('1.0.0-test'),
-  getPlatform: vi.fn().mockResolvedValue('darwin'),
-  
-  // Development tools
-  openDevTools: vi.fn().mockResolvedValue(undefined),
-  
-  // Security validation
-  validateOrigin: vi.fn().mockReturnValue(true),
-  
-  // Theme management
-  getTheme: vi.fn().mockResolvedValue('light'),
-  setTheme: vi.fn().mockResolvedValue(undefined),
-  
-  // Notifications
-  showNotification: vi.fn().mockResolvedValue(undefined),
-  
-  // Analytics and telemetry (for testing)
-  trackEvent: vi.fn().mockResolvedValue(undefined),
-  
-  // Performance monitoring
-  getPerformanceMetrics: vi.fn().mockResolvedValue({
-    memory: { used: 1024 * 1024 * 50, total: 1024 * 1024 * 100 },
-    cpu: { usage: 15.5 }
-  })
+  ipcRenderer: ipcRendererMock,
+  platform: 'darwin' as const,
+  versions: {
+    node: '18.0.0',
+    chrome: '110.0.0',
+    electron: '20.0.0'
+  },
+  // TaskMaster specific APIs
+  tasks: {
+    getTasks: vi.fn().mockResolvedValue([]),
+    updateTask: vi.fn().mockResolvedValue({ success: true }),
+    createTask: vi.fn().mockResolvedValue({ success: true, id: '1' }),
+    deleteTask: vi.fn().mockResolvedValue({ success: true })
+  },
+  projects: {
+    getProjects: vi.fn().mockResolvedValue([]),
+    addProject: vi.fn().mockResolvedValue({ success: true }),
+    removeProject: vi.fn().mockResolvedValue({ success: true })
+  },
+  claude: {
+    getConfig: vi.fn().mockResolvedValue({}),
+    updateConfig: vi.fn().mockResolvedValue({ success: true }),
+    testConnection: vi.fn().mockResolvedValue({ success: true })
+  }
 }
 
 // Expose Electron API to renderer process (simulating contextBridge)
@@ -263,11 +183,11 @@ beforeEach(() => {
   // Clear all mocks before each test
   vi.clearAllMocks()
   
-  // Clear IPC listeners
-  global.mockIPCListeners?.clear()
+  // Reset IPC renderer mock
+  ipcRendererMock.removeAllListeners()
   
-  // Reset mock implementations to default state
-  mockElectronAPI.invoke.mockImplementation((channel: string, ...args: any[]) => {
+  // Reset mock implementations
+  ipcRendererMock.invoke = vi.fn().mockImplementation((channel: string) => {
     switch (channel) {
       case 'app:get-version':
         return Promise.resolve('1.0.0-test')
@@ -300,8 +220,8 @@ afterEach(() => {
   // Clean up React Testing Library
   cleanup()
   
-  // Clean up any remaining listeners
-  global.mockIPCListeners?.clear()
+  // Clean up IPC mock
+  ipcRendererMock.removeAllListeners()
   
   // Log slow tests (threshold: 1000ms)
   const renderTime = performance.now() - renderStartTime
@@ -318,7 +238,7 @@ afterEach(() => {
 
 // Utility functions for tests
 export const mockIPCResponse = (channel: string, response: any) => {
-  mockElectronAPI.invoke.mockImplementation((ch: string, ...args: any[]) => {
+  ipcRendererMock.invoke = vi.fn().mockImplementation((ch: string) => {
     if (ch === channel) {
       return Promise.resolve(response)
     }
@@ -327,8 +247,8 @@ export const mockIPCResponse = (channel: string, response: any) => {
 }
 
 export const triggerIPCEvent = (channel: string, ...args: any[]) => {
-  const listeners = global.mockIPCListeners?.get(channel) || []
-  listeners.forEach(callback => callback(...args))
+  const event = new Event('ipc-message')
+  ;(ipcRendererMock as any)._triggerListener(channel, event, ...args)
 }
 
 export const waitForIPCCall = (channel: string, timeout = 5000) => {
@@ -337,8 +257,8 @@ export const waitForIPCCall = (channel: string, timeout = 5000) => {
       reject(new Error(`IPC call to ${channel} not received within ${timeout}ms`))
     }, timeout)
     
-    const originalInvoke = mockElectronAPI.invoke
-    mockElectronAPI.invoke.mockImplementation((ch: string, ...args: any[]) => {
+    const originalInvoke = ipcRendererMock.invoke as any
+    ipcRendererMock.invoke = vi.fn().mockImplementation((ch: string, ...args: any[]) => {
       if (ch === channel) {
         clearTimeout(timer)
         resolve(args)
@@ -377,8 +297,6 @@ declare global {
     electron: typeof mockElectronAPI
   }
   
-  var mockIPCListeners: Map<string, Function[]>
-  
   namespace Vi {
     interface JestAssertion<T = any> {
       toHaveBeenCalledWithIPC(channel: string, ...args: any[]): T
@@ -386,4 +304,4 @@ declare global {
   }
 }
 
-export { mockElectronAPI }
+export { mockElectronAPI, ipcRendererMock }

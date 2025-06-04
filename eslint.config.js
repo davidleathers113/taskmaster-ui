@@ -30,6 +30,8 @@ export default tseslint.config(
       'src.backup.ts6133/**', // Backup directory should be ignored
       '*.backup/**', // Any backup directories
       '.taskmaster/**', // TaskMaster utility scripts
+      '.backup-duplicates/**',
+      'playwright-report/**',
     ],
   },
 
@@ -177,27 +179,6 @@ export default tseslint.config(
     },
   },
 
-  // Test files configuration
-  {
-    files: [
-      '**/*.test.{js,ts,jsx,tsx}',
-      '**/*.spec.{js,ts,jsx,tsx}',
-      'tests/**/*.{js,ts,jsx,tsx}',
-      '**/__tests__/**/*.{js,ts,jsx,tsx}',
-    ],
-    languageOptions: {
-      globals: {
-        ...globals.browser,
-        ...globals.node,
-        ...globals.jest,
-      },
-    },
-    rules: {
-      // More relaxed rules for test files
-      '@typescript-eslint/no-explicit-any': 'off',
-      'no-console': 'off',
-    },
-  },
 
   // Server files configuration (separate Node.js server)
   {
@@ -229,15 +210,18 @@ export default tseslint.config(
     },
   },
 
-  // Configuration files
+  // Configuration files and CommonJS files
   {
     files: [
-      '*.config.{js,ts,mjs}',
-      '**/*.config.{js,ts,mjs}',
+      '*.config.{js,ts,mjs,cjs}',
+      '**/*.config.{js,ts,mjs,cjs}',
       'vite.*.config.{js,ts}',
       'electron.vite.config.{js,ts}',
       'vitest.config.{js,ts}',
       'tailwind.config.{js,ts}',
+      '**/*.cjs',
+      '.taskmaster/**/*.{js,cjs,ts}',
+      'scripts/**/*.{js,cjs,ts}',
     ],
     languageOptions: {
       globals: {
@@ -247,7 +231,47 @@ export default tseslint.config(
     rules: {
       // Configuration files can be more permissive
       '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-require-imports': 'off',
       'no-console': 'off',
+      'no-undef': 'off', // Node.js globals should be available
+    },
+  },
+
+  // Vitest test files specific configuration
+  {
+    files: [
+      '**/*.test.{js,ts,jsx,tsx}',
+      '**/*.spec.{js,ts,jsx,tsx}',
+      'tests/**/*.{js,ts,jsx,tsx}',
+      '**/__tests__/**/*.{js,ts,jsx,tsx}',
+      '**/setup/**/*.{js,ts}',
+      '**/mocks/**/*.{js,ts}',
+    ],
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+        // Vitest globals
+        vi: 'readonly',
+        describe: 'readonly',
+        it: 'readonly',
+        test: 'readonly',
+        expect: 'readonly',
+        beforeEach: 'readonly',
+        afterEach: 'readonly',
+        beforeAll: 'readonly',
+        afterAll: 'readonly',
+        // Additional testing globals
+        global: 'readonly',
+      },
+    },
+    rules: {
+      // More relaxed rules for test files
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-unused-vars': 'off',
+      '@typescript-eslint/no-require-imports': 'off',
+      'no-console': 'off',
+      'no-undef': 'off',
     },
   },
 

@@ -63,7 +63,7 @@ if (import.meta.hot) {
 }
 
 // Error handler for app-level errors
-const handleAppError = (error: Error, errorInfo: React.ErrorInfo) => {
+const _handleAppError = (error: Error, errorInfo: React.ErrorInfo) => {
   // In development, log detailed error information
   if (import.meta.env.DEV) {
     console.group('🚨 App-Level Error');
@@ -83,7 +83,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <ErrorBoundary 
       level="app" 
-      onError={handleAppError}
+      onError={_handleAppError}
     >
       <SuspenseWrapper 
         level="app" 

@@ -77,7 +77,7 @@ export interface UseAppStateOptions {
 }
 
 // Default options
-const defaultOptions: Required<UseAppStateOptions> = {
+const _defaultOptions: Required<UseAppStateOptions> = {
   enableAutoPreservation: true,
   enablePeriodicBackup: false,
   backupInterval: 30000, // 30 seconds
@@ -91,7 +91,7 @@ const defaultOptions: Required<UseAppStateOptions> = {
  * Application State Management Hook
  */
 export const useAppState = (options: UseAppStateOptions = {}) => {
-  const config = { ...defaultOptions, ...options };
+  const config = { ..._defaultOptions, ...options };
   
   // Store references
   // Get the actual store instance for getState/setState access

@@ -175,7 +175,7 @@ if (process.contextIsolated) {
 // System information utility for renderer process (removed unused function)
 
 // Performance monitoring helpers
-const performanceAPI = {
+const _performanceAPI = {
   // Mark performance milestones
   mark: (name: string) => {
     if ('performance' in globalThis && 'mark' in performance) {
@@ -230,7 +230,7 @@ const performanceAPI = {
 // Expose performance API if context is isolated
 if (process.contextIsolated) {
   try {
-    contextBridge.exposeInMainWorld('electronPerformance', performanceAPI);
+    contextBridge.exposeInMainWorld('electronPerformance', _performanceAPI);
   } catch (error) {
     console.error('Failed to expose performance API:', error);
   }

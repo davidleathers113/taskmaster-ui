@@ -103,7 +103,7 @@ export interface AppErrorHandlingConfig {
 }
 
 // Environment-specific configurations
-const developmentConfig: AppErrorHandlingConfig = {
+const _developmentConfig: AppErrorHandlingConfig = {
   global: {
     enableErrorBoundaries: true,
     enableGlobalErrorHandlers: true,
@@ -266,7 +266,7 @@ const productionConfig: AppErrorHandlingConfig = {
   },
 };
 
-const stagingConfig: AppErrorHandlingConfig = {
+const _stagingConfig: AppErrorHandlingConfig = {
   ...productionConfig,
   userFeedback: {
     ...productionConfig.userFeedback,
@@ -318,10 +318,10 @@ export function getErrorHandlingConfig(): AppErrorHandlingConfig {
     case 'production':
       return productionConfig;
     case 'staging':
-      return stagingConfig;
+      return _stagingConfig;
     case 'development':
     default:
-      return developmentConfig;
+      return _developmentConfig;
   }
 }
 
@@ -381,7 +381,7 @@ export const errorTypes = {
 } as const;
 
 // Custom error messages for specific error types
-export const customErrorMessages: Record<string, string> = {
+export const _customErrorMessages: Record<string, string> = {
   [errorTypes.NETWORK_ERROR]: 'There was a problem connecting to the server. Please check your internet connection and try again.',
   [errorTypes.VALIDATION_ERROR]: 'The data you entered is invalid. Please check your inputs and try again.',
   [errorTypes.AUTHENTICATION_ERROR]: 'Your session has expired. Please log in again to continue.',
@@ -440,7 +440,7 @@ export function classifyError(error: Error): string {
 
 export function getErrorMessage(error: Error): string {
   const errorType = classifyError(error);
-  return customErrorMessages[errorType] || error.message;
+  return _customErrorMessages[errorType] || error.message;
 }
 
 // Export current configuration

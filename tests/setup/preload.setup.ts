@@ -13,6 +13,7 @@
  */
 
 import { vi, beforeEach, afterEach } from 'vitest'
+import { createMockIpcRenderer } from '../mocks/electron'
 
 // Mock contextBridge for preload script testing
 const mockContextBridge = {
@@ -53,102 +54,39 @@ const mockContextBridge = {
   })
 }
 
-// Mock ipcRenderer for preload script testing
-const mockIpcRenderer = {
-  invoke: vi.fn().mockImplementation((channel: string, ..._args: any[]) => {
-    // Mock responses based on channel for testing
-    switch (channel) {
-      case 'app:get-version':
-        return Promise.resolve('1.0.0-test')
-      case 'app:get-platform':
-        return Promise.resolve('darwin')
-      case 'dialog:show-open':
-        return Promise.resolve({ 
-          canceled: false, 
-          filePaths: ['/mock/test.json'] 
-        })
-      case 'tasks:get-all':
-        return Promise.resolve([])
-      case 'tasks:save':
-        return Promise.resolve(true)
-      case 'window:minimize':
-        return Promise.resolve()
-      case 'security:validate-origin':
-        return Promise.resolve(true)
-      default:
-        console.warn(`Unhandled IPC channel in test: ${channel}`)
-        return Promise.resolve(null)
-    }
-  }),
-  
-  send: vi.fn().mockImplementation((channel: string, ..._args: any[]) => {
-    // Log send operations for test verification
-    console.debug(`IPC send: ${channel}`, args)
-  }),
-  
-  on: vi.fn().mockImplementation((channel: string, listener: Function) => {
-    // Store listeners for cleanup and testing
-    if (!global.mockPreloadListeners) {
-      global.mockPreloadListeners = new Map()
-    }
-    
-    if (!global.mockPreloadListeners.has(channel)) {
-      global.mockPreloadListeners.set(channel, [])
-    }
-    
-    global.mockPreloadListeners.get(channel)!.push(listener)
-    
-    // Return the listener for removeListener calls
-    return listener
-  }),
-  
-  once: vi.fn().mockImplementation((channel: string, listener: Function) => {
-    // Mock once behavior
-    const wrappedListener = (..._args: any[]) => {
-      listener(...args)
-      mockIpcRenderer.removeListener(channel, wrappedListener)
-    }
-    
-    return mockIpcRenderer.on(channel, wrappedListener)
-  }),
-  
-  removeListener: vi.fn().mockImplementation((channel: string, listener: Function) => {
-    if (!global.mockPreloadListeners) return
-    
-    const listeners = global.mockPreloadListeners.get(channel) || []
-    const index = listeners.indexOf(listener)
-    if (index > -1) {
-      listeners.splice(index, 1)
-    }
-  }),
-  
-  removeAllListeners: vi.fn().mockImplementation((channel?: string) => {
-    if (!global.mockPreloadListeners) return
-    
-    if (channel) {
-      global.mockPreloadListeners.delete(channel)
-    } else {
-      global.mockPreloadListeners.clear()
-    }
-  }),
-  
-  // Security-related methods for testing
-  sendSync: vi.fn().mockImplementation((channel: string, ..._args: any[]) => {
-    console.warn(`sendSync called in test (should be avoided): ${channel}`)
-    return null
-  }),
-  
-  postMessage: vi.fn(),
-  
-  // For testing frame-to-frame communication
-  sendTo: vi.fn(),
-  sendToHost: vi.fn()
-}
+// Create IPC renderer mock
+const ipcRendererMock = createMockIpcRenderer()
+
+// Set up default mock responses for preload testing
+ipcRendererMock.invoke = vi.fn().mockImplementation((channel: string) => {
+  switch (channel) {
+    case 'app:get-version':
+      return Promise.resolve('1.0.0-test')
+    case 'app:get-platform':
+      return Promise.resolve('darwin')
+    case 'dialog:show-open':
+      return Promise.resolve({ 
+        canceled: false, 
+        filePaths: ['/mock/test.json'] 
+      })
+    case 'tasks:get-all':
+      return Promise.resolve([])
+    case 'tasks:save':
+      return Promise.resolve(true)
+    case 'window:minimize':
+      return Promise.resolve()
+    case 'security:validate-origin':
+      return Promise.resolve(true)
+    default:
+      console.warn(`Unhandled IPC channel in test: ${channel}`)
+      return Promise.resolve(null)
+  }
+})
 
 // Mock the entire Electron module for preload context
 vi.mock('electron', () => ({
   contextBridge: mockContextBridge,
-  ipcRenderer: mockIpcRenderer,
+  ipcRenderer: ipcRendererMock,
   
   // Mock other APIs that might be used in preload scripts
   webFrame: {
@@ -186,7 +124,14 @@ vi.mock('electron', () => ({
     getUploadedReports: vi.fn().mockReturnValue([]),
     addExtraParameter: vi.fn(),
     removeExtraParameter: vi.fn(),
-    getParameters: vi.fn().mockReturnValue({})
+    getParameters: vi.fn().mockReturnValue({
+                  on: vi.fn(),
+                  off: vi.fn(),
+                  once: vi.fn(),
+                  addListener: vi.fn(),
+                  removeListener: vi.fn(),
+                  webContents: { send: vi.fn() }
+                } as any)
   }
 }))
 
@@ -239,16 +184,10 @@ export const validateAPIExposure = (key: string, expectedAPI: any) => {
   return true
 }
 
-export const simulateMainWorldMessage = (channel: string, ..._args: any[]) => {
+export const simulateMainWorldMessage = (channel: string, ...args: any[]) => {
   // Simulate a message from the main process for testing
-  const listeners = global.mockPreloadListeners?.get(channel) || []
-  listeners.forEach(listener => {
-    try {
-      listener(null, ...args) // First arg is typically the event object
-    } catch (error) {
-      console.error(`Error in preload listener for ${channel}:`, error)
-    }
-  })
+  const event = new Event('ipc-message')
+  ;(ipcRendererMock as any)._triggerListener(channel, event, ...args)
 }
 
 export const validateSecureAPI = (api: any) => {
@@ -279,8 +218,8 @@ beforeEach(() => {
   // Clear all mocks before each test
   vi.clearAllMocks()
   
-  // Clear listener storage
-  global.mockPreloadListeners?.clear()
+  // Clear IPC renderer listeners
+  ipcRendererMock.removeAllListeners()
   
   // Reset context bridge state
   if (typeof global !== 'undefined') {
@@ -296,7 +235,7 @@ beforeEach(() => {
   memoryBaseline = process.memoryUsage().heapUsed
   
   // Reset mock implementations
-  mockIpcRenderer.invoke.mockImplementation((channel: string, ..._args: any[]) => {
+  ipcRendererMock.invoke = vi.fn().mockImplementation((channel: string) => {
     switch (channel) {
       case 'app:get-version':
         return Promise.resolve('1.0.0-test')
@@ -310,7 +249,7 @@ beforeEach(() => {
 
 afterEach(() => {
   // Clean up listeners
-  global.mockPreloadListeners?.clear()
+  ipcRendererMock.removeAllListeners()
   
   // Check for memory leaks in preload scripts
   const currentMemory = process.memoryUsage().heapUsed
@@ -343,4 +282,4 @@ declare global {
   var mockPreloadListeners: Map<string, Function[]>
 }
 
-export { mockContextBridge, mockIpcRenderer }
+export { mockContextBridge, ipcRendererMock }

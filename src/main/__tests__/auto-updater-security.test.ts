@@ -7,6 +7,20 @@
  */
 
 import { describe, test, expect, beforeEach, vi, beforeAll, afterAll } from 'vitest'
+
+// Global type declarations for test environment
+declare global {
+  const vi: typeof import('vitest').vi
+  interface GlobalThis {
+    __mockElectron?: any
+    __electron?: any
+    electronAPI?: any
+    taskmaster?: any
+    __DEV__?: boolean
+    __TEST__?: boolean
+  }
+}
+
 import { session } from 'electron'
 import { MockUpdateServer } from '../../../tests/mocks/mock-update-server'
 import { createHash } from 'crypto'

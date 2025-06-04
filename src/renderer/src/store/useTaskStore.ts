@@ -59,7 +59,7 @@ const defaultViewMode: ViewMode = {
   sortOrder: 'asc'
 }
 
-const defaultUserSettings: UserSettings = {
+const _defaultUserSettings: UserSettings = {
   ui: {
     theme: 'system',
     colorScheme: 'blue',
@@ -94,7 +94,7 @@ export const useTaskStore = create<TaskStore>((set, get) => ({
   selectedTask: null,
   filters: {},
   viewMode: defaultViewMode,
-  userSettings: defaultUserSettings,
+  userSettings: _defaultUserSettings,
   analytics: {
     totalTasks: 0,
     completedTasks: 0,

@@ -124,7 +124,7 @@ export interface ErrorStoreActions {
 type ErrorStore = ErrorStoreState & ErrorStoreActions;
 
 // Default recovery strategies
-const defaultRecoveryStrategies: Record<string, RecoveryStrategy> = {
+const _defaultRecoveryStrategies: Record<string, RecoveryStrategy> = {
   'task-operations': {
     type: 'rollback',
     description: 'Rollback to last known good state for task operations',
@@ -178,7 +178,7 @@ const initialState: ErrorStoreState = {
   
   enableDetailedLogging: process.env.NODE_ENV === 'development',
   enableTelemetry: true,
-  recoveryStrategies: defaultRecoveryStrategies
+  recoveryStrategies: _defaultRecoveryStrategies
 };
 
 // Utility functions

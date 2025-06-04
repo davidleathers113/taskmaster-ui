@@ -59,7 +59,7 @@ export interface PreservationOptions {
 }
 
 // Default preservation options
-const defaultOptions: Required<PreservationOptions> = {
+const _defaultOptions: Required<PreservationOptions> = {
   storageBackend: 'localStorage',
   enableCompression: true,
   enableEncryption: false,
@@ -100,7 +100,7 @@ export class SessionPreservationManager {
   private memoryStorage: Map<string, SessionData> = new Map();
 
   constructor(options: Partial<PreservationOptions> = {}) {
-    this.options = { ...defaultOptions, ...options };
+    this.options = { ..._defaultOptions, ...options };
   }
 
   /**

@@ -67,7 +67,7 @@ export interface RecoveryResult {
 }
 
 // Default backup options
-const defaultOptions: Required<BackupOptions> = {
+const _defaultOptions: Required<BackupOptions> = {
   backupInterval: 5000, // 5 seconds
   maxBackups: 5,
   storageKey: 'app_state_backups',
@@ -85,7 +85,7 @@ export function createStateBackup<T>(
   store: StoreApi<T>,
   options: BackupOptions = {}
 ) {
-  const config = { ...defaultOptions, ...options };
+  const config = { ..._defaultOptions, ...options };
   const storeId = config.storageKey.replace('_backups', '');
   
   let isDestroyed = false;
