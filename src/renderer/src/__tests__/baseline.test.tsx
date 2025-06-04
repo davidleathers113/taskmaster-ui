@@ -6,7 +6,7 @@
  * through the contextBridge. Following 2025 testing best practices.
  */
 
-import { describe, test, expect, beforeEach } from 'vitest'
+import { describe, test, expect, beforeEach, vi } from 'vitest'
 import { render, screen, cleanup } from '@testing-library/react'
 import React from 'react'
 
