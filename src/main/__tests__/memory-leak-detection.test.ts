@@ -337,7 +337,7 @@ describe('Memory Leak Detection Tests (2025)', () => {
       const maxQueueSize = 1000
 
       // Mock IPC handler with memory-conscious queue
-      const handleMessage = vi.fn().mockImplementation((event, data) => {
+      const handleMessage = vi.fn().mockImplementation((_event, data) => {
         // Simulate message processing with bounded queue
         if (messageQueue.length >= maxQueueSize) {
           messageQueue.shift() // Remove oldest message

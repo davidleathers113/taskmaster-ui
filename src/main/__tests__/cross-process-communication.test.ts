@@ -64,8 +64,8 @@ vi.mock('electron', () => ({
 describe('Cross-Process Communication Security Tests (2025)', () => {
   beforeEach(() => {
     vi.clearAllMocks()
-    ipcMain._handlers.clear()
-    ipcMain._listeners.clear()
+    ;(ipcMain as any)._handlers?.clear?.()
+    ;(ipcMain as any)._listeners?.clear?.()
   })
 
   describe('IPC Sender Validation', () => {

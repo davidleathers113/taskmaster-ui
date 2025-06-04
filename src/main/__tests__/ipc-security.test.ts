@@ -62,7 +62,7 @@ describe('IPC Security Tests', () => {
   beforeEach(() => {
     vi.clearAllMocks()
     // Clear any registered handlers
-    ipcMain._handlers.clear()
+    ;(ipcMain as any)._handlers?.clear?.()
   })
 
   describe('IPC Sender Validation', () => {
@@ -103,7 +103,7 @@ describe('IPC Security Tests', () => {
       })
 
       ipcMain.handle('secure:operation', handler)
-      ipcMain._handlers.set('secure:operation', handler)
+      ;(ipcMain as any)._handlers?.set?.('secure:operation', handler)
 
       // Test with unauthorized sender
       await expect(handler(mockEvent)).rejects.toThrow('Unauthorized sender')

@@ -165,7 +165,7 @@ class ExtendedTestWindowManager extends TestWindowManager {
     ]
     
     handlers.forEach(channel => {
-      const handler = async (event: any, ...args: any[]) => {
+      const handler = async (_event: any, ...args: any[]) => {
         // Simulate some work
         return { channel, args }
       }
