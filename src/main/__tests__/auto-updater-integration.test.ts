@@ -168,7 +168,7 @@ describe('Auto-Updater Integration Tests', () => {
         })
       }
 
-      setupUpdateHandlers()
+      ;setupUpdateHandlers()
 
       // Simulate update check
       (autoUpdater as MockAutoUpdater).checkForUpdates.mockImplementation(() => {

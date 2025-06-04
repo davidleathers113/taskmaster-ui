@@ -11,7 +11,7 @@ import { ipcMain, BrowserWindow } from 'electron'
 // import type { MockIpcMain } from './mock-types' // Unused
 
 // Mock electron modules for cross-process testing (2025 pattern)
-vi.mock('electron', () => ({
+;vi.mock('electron', () => ({
     ipcMain: {
       handle: vi.fn(),
       on: vi.fn(),
