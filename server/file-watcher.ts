@@ -1,5 +1,7 @@
-import express, { Request, Response, NextFunction } from 'express';
-import { watch, FSWatcher } from 'fs';
+import express from 'express';
+import type { Request, Response, NextFunction } from 'express';
+import chokidar from 'chokidar';
+import type { FSWatcher } from 'chokidar';
 import { readFile, access } from 'fs/promises';
 import path from 'path';
 import cors from 'cors';
@@ -9,34 +11,71 @@ import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import { z } from 'zod';
 import log from 'electron-log';
-// @ts-ignore - Module doesn't have TypeScript declarations
-import { ProjectDiscoveryEngine } from './discovery-engine.js';
-// @ts-ignore - Module doesn't have TypeScript declarations  
-import { addClaudeConfigAPI } from './claude-config-api.js';
+import pino from 'pino';
+import { ProjectDiscoveryEngine } from './discovery-engine';
+import { addClaudeConfigAPI } from './claude-config-api';
 
-// Configure server logging
+// Configure structured logging with Pino
+const logger = pino({
+  level: process.env.LOG_LEVEL || 'info',
+  transport: {
+    target: 'pino-pretty',
+    options: {
+      colorize: true,
+      translateTime: 'SYS:standard',
+      ignore: 'pid,hostname'
+    }
+  },
+  base: {
+    service: 'taskmaster-file-watcher',
+    version: '2.0.0'
+  }
+});
+
+// Keep electron-log as backup transport
 log.transports.file.level = 'debug';
 log.transports.console.level = 'debug';
 log.transports.file.fileName = 'server.log';
 log.transports.file.maxSize = 5 * 1024 * 1024; // 5MB
 
-// Override console for server logging
-Object.assign(console, log.functions);
-
 // Type definitions
-interface Project {
+type DiscoveryMsgKind = 'discoveryProgress' | 'discoveryComplete' | 'discoveryError';
+
+interface TaskData {
+  tasks?: Array<{
+    id: string;
+    title: string;
+    description?: string;
+    status: string;
+    priority?: string;
+    [key: string]: unknown;
+  }>;
+  [key: string]: unknown;
+}
+
+interface Project<T = TaskData> {
   id: string;
   name: string;
   path: string;
   tasksFilePath: string;
-  data: any;
+  data: T;
   lastUpdated: string;
 }
 
 interface DiscoveryProgress {
-  type: 'discoveryProgress' | 'discoveryComplete' | 'discoveryError';
-  progress?: any;
-  projects?: any[];
+  type: DiscoveryMsgKind;
+  progress?: {
+    scannedDirs: number;
+    foundProjects: number;
+    currentPath?: string;
+  };
+  projects?: Array<{
+    id: string;
+    name: string;
+    path: string;
+    tasksFile: string;
+    taskCount: number;
+  }>;
   error?: string;
 }
 
@@ -92,85 +131,135 @@ function validateInput<T>(schema: z.ZodSchema<T>) {
   };
 }
 
-function sanitizeFilePath(filePath: string): string | null {
+function sanitizeFilePath(filePath: string, baseDir?: string): string | null {
   try {
+    // First normalize the path
     const normalizedPath = path.normalize(filePath);
-    
-    // Prevent path traversal
-    if (normalizedPath.includes('..')) {
-      return null;
-    }
     
     // Ensure absolute path
     if (!path.isAbsolute(normalizedPath)) {
       return null;
     }
     
+    // OWASP-recommended path traversal prevention
+    if (baseDir) {
+      const resolvedPath = path.resolve(baseDir, path.basename(normalizedPath));
+      const resolvedBase = path.resolve(baseDir);
+      
+      if (!resolvedPath.startsWith(resolvedBase + path.sep) && resolvedPath !== resolvedBase) {
+        logger.warn({ filePath, baseDir, resolvedPath, resolvedBase }, 'Path traversal attempt blocked');
+        return null;
+      }
+    }
+    
     // Additional security: only allow specific file extensions
     const allowedExtensions = ['.json'];
     const ext = path.extname(normalizedPath);
     if (!allowedExtensions.includes(ext)) {
+      logger.warn({ filePath, extension: ext }, 'Invalid file extension blocked');
+      return null;
+    }
+    
+    // Prevent access to system files and hidden files
+    const basename = path.basename(normalizedPath);
+    if (basename.startsWith('.') && basename !== '.json') {
+      logger.warn({ filePath, basename }, 'Hidden file access blocked');
       return null;
     }
     
     return normalizedPath;
-  } catch {
+  } catch (error) {
+    logger.error({ filePath, error }, 'Path sanitization error');
     return null;
   }
 }
 
-// Enhanced error handler
+// Enhanced error handler with structured logging
 function handleError(error: unknown, req: Request, res: Response): void {
-  console.error('Request error:', {
+  const errorDetails = {
     url: req.url,
     method: req.method,
-    error: error instanceof Error ? error.message : 'Unknown error',
+    ip: req.ip,
+    userAgent: req.get('User-Agent'),
+    error: error instanceof Error ? {
+      name: error.name,
+      message: error.message,
+      stack: error.stack,
+      cause: error.cause
+    } : 'Unknown error',
     timestamp: new Date().toISOString()
-  });
+  };
   
-  // Don't expose internal error details
-  res.status(500).json({
+  logger.error(errorDetails, 'Request error');
+  
+  // Don't expose internal error details in production
+  const publicError = {
     error: 'Internal server error',
-    timestamp: new Date().toISOString()
-  });
+    timestamp: new Date().toISOString(),
+    ...(process.env.NODE_ENV !== 'production' && { details: errorDetails })
+  };
+  
+  res.status(500).json(publicError);
 }
 
 // Initialize Express app with security
 const app = express();
 const server = createServer(app);
 
-// Security headers
-app.use(helmet({
-  contentSecurityPolicy: {
-    directives: {
-      defaultSrc: ["'self'"],
-      connectSrc: ["'self'", "ws://localhost:*", "wss://localhost:*"],
-      scriptSrc: ["'self'", "'unsafe-inline'"],
-      styleSrc: ["'self'", "'unsafe-inline'"],
-      imgSrc: ["'self'", "data:", "blob:"],
-    },
+// Security headers - CSP configured before helmet
+app.use(helmet.contentSecurityPolicy({
+  directives: {
+    defaultSrc: ["'self'"],
+    connectSrc: ["'self'", "ws://localhost:*", "wss://localhost:*"],
+    scriptSrc: ["'self'", "'unsafe-inline'"],
+    styleSrc: ["'self'", "'unsafe-inline'"],
+    imgSrc: ["'self'", "data:", "blob:"],
   },
 }));
 
-// Rate limiting
+// Apply other security headers
+app.use(helmet({
+  crossOriginEmbedderPolicy: false // Allow WebSocket connections
+}));
+
+// Trust proxy for rate limiting behind reverse proxies
+app.set('trust proxy', true);
+
+// Enhanced rate limiting
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 100, // Limit each IP to 100 requests per windowMs
   message: {
     error: 'Too many requests from this IP, please try again later.',
+    retryAfter: '15 minutes'
   },
   standardHeaders: true,
   legacyHeaders: false,
+  // Skip successful requests for file watching endpoints
+  skip: (req) => req.path === '/api/health'
 });
 app.use(limiter);
 
-// CORS with specific origin (in production, replace with actual frontend URL)
+// Enhanced CORS with function for domain validation
 const corsOptions = {
-  origin: process.env.NODE_ENV === 'production' 
-    ? ['https://your-production-domain.com']
-    : ['http://localhost:3000', 'http://localhost:5173', 'http://localhost:4173'],
+  origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
+    const allowedOrigins = process.env.NODE_ENV === 'production'
+      ? [/^https:\/\/[\w.-]+\.your-domain\.com$/] // Regex for production subdomains
+      : ['http://localhost:3000', 'http://localhost:5173', 'http://localhost:4173'];
+    
+    // Allow requests with no origin (mobile apps, Postman, etc.)
+    if (!origin) return callback(null, true);
+    
+    const isAllowed = allowedOrigins.some(allowed => {
+      if (typeof allowed === 'string') return allowed === origin;
+      return allowed.test(origin);
+    });
+    
+    callback(null, isAllowed);
+  },
   credentials: true,
-  optionsSuccessStatus: 200
+  optionsSuccessStatus: 200,
+  maxAge: 86400 // Cache preflight for 24 hours
 };
 app.use(cors(corsOptions));
 
@@ -178,26 +267,66 @@ app.use(cors(corsOptions));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-// Request logging middleware
+// Request logging middleware with structured logging
 app.use((req: Request, res: Response, next: NextFunction) => {
-  console.log(`${new Date().toISOString()} - ${req.method} ${req.url} - IP: ${req.ip}`);
+  const startTime = Date.now();
+  
+  res.on('finish', () => {
+    const duration = Date.now() - startTime;
+    logger.info({
+      method: req.method,
+      url: req.url,
+      statusCode: res.statusCode,
+      userAgent: req.get('User-Agent'),
+      ip: req.ip,
+      duration: `${duration}ms`,
+      contentLength: res.get('Content-Length') || 0
+    }, 'HTTP Request');
+  });
+  
   next();
 });
 
-// WebSocket server with enhanced security
+// WebSocket server with modern upgrade handler
 const wss = new WebSocketServer({ 
-  server,
-  verifyClient: (info: { origin: string; req: any }) => {
-    // Basic origin verification for WebSocket connections
-    const allowedOrigins = corsOptions.origin as string[];
-    const origin = info.origin;
-    
-    if (process.env.NODE_ENV === 'production') {
-      return allowedOrigins.includes(origin);
-    }
-    
-    return true; // Allow all origins in development
+  noServer: true // We'll handle upgrades manually
+});
+
+// Modern WebSocket upgrade handler (replaces deprecated verifyClient)
+server.on('upgrade', (request, socket, head) => {
+  const origin = request.headers.origin;
+  
+  // Enhanced origin verification
+  let isOriginAllowed = false;
+  
+  if (process.env.NODE_ENV === 'production') {
+    // In production, validate against allowed origins
+    const productionOrigins = [/^https:\/\/[\w.-]+\.your-domain\.com$/];
+    isOriginAllowed = origin ? productionOrigins.some(pattern => pattern.test(origin)) : false;
+  } else {
+    // In development, allow localhost origins
+    const devOrigins = ['http://localhost:3000', 'http://localhost:5173', 'http://localhost:4173'];
+    isOriginAllowed = !origin || devOrigins.includes(origin);
   }
+  
+  if (!isOriginAllowed) {
+    logger.warn({ origin, ip: request.socket.remoteAddress }, 'WebSocket upgrade rejected - invalid origin');
+    socket.write('HTTP/1.1 403 Forbidden\r\n\r\n');
+    socket.destroy();
+    return;
+  }
+  
+  // Check connection limits
+  if (connections.size >= 100) {
+    logger.warn({ connectionCount: connections.size }, 'WebSocket upgrade rejected - connection limit reached');
+    socket.write('HTTP/1.1 503 Service Unavailable\r\n\r\n');
+    socket.destroy();
+    return;
+  }
+  
+  wss.handleUpgrade(request, socket, head, (ws) => {
+    wss.emit('connection', ws, request);
+  });
 });
 
 // Secure storage
@@ -208,107 +337,171 @@ const connections = new Set<WebSocket>();
 // Initialize discovery engine
 const discoveryEngine = new ProjectDiscoveryEngine();
 
-// WebSocket connection handling
+// WebSocket connection handling with enhanced monitoring
 wss.on('connection', (ws: WebSocket, req) => {
   const clientIp = req.socket.remoteAddress;
-  console.log(`WebSocket client connected from ${clientIp}`);
+  const connectionId = `${clientIp}-${Date.now()}`;
   
+  logger.info({ clientIp, connectionId }, 'WebSocket client connected');
   connections.add(ws);
   
-  // Set up heartbeat to detect broken connections
+  // Enhanced heartbeat with timeout handling
+  let isAlive = true;
   const heartbeat = setInterval(() => {
-    if (ws.readyState === WebSocket.OPEN) {
-      ws.ping();
+    if (!isAlive || ws.readyState !== WebSocket.OPEN) {
+      clearInterval(heartbeat);
+      connections.delete(ws);
+      ws.terminate();
+      logger.warn({ clientIp, connectionId }, 'WebSocket connection terminated due to inactivity');
+      return;
     }
+    
+    isAlive = false;
+    ws.ping();
   }, 30000);
   
   ws.on('pong', () => {
-    // Connection is alive
+    isAlive = true;
   });
   
-  ws.on('close', () => {
+  ws.on('close', (code: number, reason: Buffer) => {
     connections.delete(ws);
     clearInterval(heartbeat);
-    console.log(`WebSocket client disconnected from ${clientIp}`);
+    logger.info({ 
+      clientIp, 
+      connectionId, 
+      code, 
+      reason: reason.toString() 
+    }, 'WebSocket client disconnected');
   });
   
-  ws.on('error', (error) => {
-    console.error('WebSocket error:', error);
+  ws.on('error', (error: Error) => {
+    logger.error({ clientIp, connectionId, error }, 'WebSocket error');
     connections.delete(ws);
     clearInterval(heartbeat);
   });
 });
 
-// Secure broadcast function
-function broadcastUpdate(projectId: string, data: any): void {
+// Secure broadcast function with error handling
+function broadcastUpdate(projectId: string, data: TaskData): void {
   const message = JSON.stringify({
     type: 'fileUpdate',
-    projectId: projectId,
-    data: data,
+    projectId,
+    data,
     timestamp: new Date().toISOString()
   });
+  
+  let successCount = 0;
+  let errorCount = 0;
   
   connections.forEach(ws => {
     if (ws.readyState === WebSocket.OPEN) {
       try {
         ws.send(message);
+        successCount++;
       } catch (error) {
-        console.error('Error broadcasting to client:', error);
+        errorCount++;
+        logger.error({ projectId, error }, 'Error broadcasting to WebSocket client');
         connections.delete(ws);
       }
+    } else {
+      // Clean up closed connections
+      connections.delete(ws);
     }
   });
+  
+  logger.debug({ 
+    projectId, 
+    successCount, 
+    errorCount, 
+    totalConnections: connections.size 
+  }, 'Broadcast update sent');
 }
 
-// Enhanced file watching with security
+// Enhanced file watching with Chokidar
 function watchTasksFile(projectId: string, filePath: string): void {
-  // Validate file path
-  const sanitizedPath = sanitizeFilePath(filePath);
+  const projectDir = path.dirname(filePath);
+  const sanitizedPath = sanitizeFilePath(filePath, projectDir);
+  
   if (!sanitizedPath) {
     throw new Error('Invalid file path');
   }
   
   // Close existing watcher if any
   if (fileWatchers.has(projectId)) {
-    fileWatchers.get(projectId)?.close();
+    const existingWatcher = fileWatchers.get(projectId);
+    existingWatcher?.close();
+    fileWatchers.delete(projectId);
   }
   
   try {
-    const watcher = watch(sanitizedPath, async (eventType) => {
-      if (eventType === 'change') {
-        try {
-          const content = await readFile(sanitizedPath, 'utf8');
-          
-          // Validate JSON structure
-          let data;
-          try {
-            data = JSON.parse(content);
-          } catch {
-            console.error(`Invalid JSON in file: ${sanitizedPath}`);
-            return;
-          }
-          
-          // Update project data
-          const project = projects.get(projectId);
-          if (project) {
-            projects.set(projectId, {
-              ...project,
-              data,
-              lastUpdated: new Date().toISOString()
-            });
-            
-            // Broadcast to clients
-            broadcastUpdate(projectId, data);
-            console.log(`📊 Updated ${projectId}: ${data.tasks?.length || 0} tasks`);
-          }
-        } catch (error) {
-          console.error(`Error reading ${sanitizedPath}:`, error);
-        }
+    const watcher = chokidar.watch(sanitizedPath, {
+      ignoreInitial: true,
+      persistent: true,
+      usePolling: false,
+      atomic: 500, // Wait for file writes to complete
+      awaitWriteFinish: {
+        stabilityThreshold: 100,
+        pollInterval: 50
       }
     });
     
+    watcher.on('change', async () => {
+      try {
+        const content = await readFile(sanitizedPath, 'utf8');
+        
+        // Validate JSON structure
+        let data: TaskData;
+        try {
+          data = JSON.parse(content);
+        } catch (parseError) {
+          logger.error({ 
+            projectId, 
+            filePath: sanitizedPath, 
+            parseError 
+          }, 'Invalid JSON in tasks file');
+          return;
+        }
+        
+        // Update project data
+        const project = projects.get(projectId);
+        if (project) {
+          const updatedProject: Project = {
+            ...project,
+            data,
+            lastUpdated: new Date().toISOString()
+          };
+          
+          projects.set(projectId, updatedProject);
+          
+          // Broadcast to clients
+          broadcastUpdate(projectId, data);
+          
+          logger.info({ 
+            projectId, 
+            taskCount: data.tasks?.length || 0,
+            filePath: sanitizedPath
+          }, 'Project data updated');
+        }
+      } catch (error) {
+        logger.error({ 
+          projectId, 
+          filePath: sanitizedPath, 
+          error 
+        }, 'Error reading tasks file');
+      }
+    });
+    
+    watcher.on('error', (error) => {
+      logger.error({ projectId, filePath: sanitizedPath, error }, 'File watcher error');
+      fileWatchers.delete(projectId);
+    });
+    
     fileWatchers.set(projectId, watcher);
+    
+    logger.info({ projectId, filePath: sanitizedPath }, 'File watcher started');
   } catch (error) {
+    logger.error({ projectId, filePath: sanitizedPath, error }, 'Failed to start file watcher');
     throw new Error(`Failed to watch file: ${error instanceof Error ? error.message : 'Unknown error'}`);
   }
 }
@@ -467,7 +660,7 @@ app.post('/api/discovery/start', validateInput(DiscoveryOptionsSchema), async (r
     }
 
     // Set up progress broadcasting with error handling
-    discoveryEngine.onProgress((progress: any) => {
+    discoveryEngine.onProgress((progress) => {
       const message: DiscoveryProgress = {
         type: 'discoveryProgress',
         progress
@@ -478,7 +671,7 @@ app.post('/api/discovery/start', validateInput(DiscoveryOptionsSchema), async (r
           try {
             ws.send(JSON.stringify(message));
           } catch (error) {
-            console.error('Error sending progress update:', error);
+            logger.error({ error }, 'Error sending progress update');
             connections.delete(ws);
           }
         }
@@ -621,16 +814,40 @@ app.post('/api/discovery/add-selected', validateInput(ProjectIdsSchema), async (
   }
 });
 
-// Health check endpoint
+// Enhanced health check endpoint
 app.get('/api/health', (req: Request, res: Response) => {
-  res.json({
+  const memUsage = process.memoryUsage();
+  const health = {
     status: 'healthy',
     projectCount: projects.size,
     connections: connections.size,
     discoveryActive: discoveryEngine.isScanning(),
     uptime: process.uptime(),
+    memory: {
+      rss: `${Math.round(memUsage.rss / 1024 / 1024)}MB`,
+      heapUsed: `${Math.round(memUsage.heapUsed / 1024 / 1024)}MB`,
+      heapTotal: `${Math.round(memUsage.heapTotal / 1024 / 1024)}MB`
+    },
+    nodeVersion: process.version,
     timestamp: new Date().toISOString()
-  });
+  };
+  
+  res.json(health);
+});
+
+// Readiness check for orchestration tools
+app.get('/api/readyz', (req: Request, res: Response) => {
+  const isReady = !discoveryEngine.isScanning() && projects.size >= 0;
+  
+  if (isReady) {
+    res.json({ status: 'ready', timestamp: new Date().toISOString() });
+  } else {
+    res.status(503).json({ 
+      status: 'not ready', 
+      reason: 'Discovery engine still scanning',
+      timestamp: new Date().toISOString() 
+    });
+  }
 });
 
 // Add Claude Configuration API
@@ -652,52 +869,194 @@ app.use((req: Request, res: Response) => {
 
 const PORT = process.env.PORT || 3001;
 
-server.listen(PORT, () => {
-  console.log(`🚀 TaskMaster File Watcher Server running on http://localhost:${PORT}`);
-  console.log(`📁 Watching ${projects.size} projects`);
-  console.log(`🔒 Security features enabled: Helmet, CORS, Rate Limiting, Input Validation`);
-});
+// Enhanced server startup with health checks and timeout handling
+async function startServer(): Promise<void> {
+  return new Promise((resolve, reject) => {
+    const serverInstance = server.listen(PORT, () => {
+      logger.info({
+        port: PORT,
+        projectCount: projects.size,
+        nodeVersion: process.version,
+        environment: process.env.NODE_ENV || 'development'
+      }, 'TaskMaster File Watcher Server starting');
+      
+      // Server startup health check with timeout
+      const healthCheckTimeout = setTimeout(() => {
+        reject(new Error('Health check timeout after 5 seconds'));
+      }, 5000);
+      
+      setTimeout(async () => {
+        try {
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => controller.abort(), 3000);
+          
+          const response = await fetch(`http://localhost:${PORT}/api/health`, {
+            signal: controller.signal
+          });
+          
+          clearTimeout(timeoutId);
+          clearTimeout(healthCheckTimeout);
+          
+          if (response.ok) {
+            const healthData = await response.json();
+            logger.info(healthData, 'Server health check passed - Server fully operational');
+            logger.info('WebSocket server ready for connections');
+            resolve();
+          } else {
+            throw new Error(`Health check failed with status: ${response.status}`);
+          }
+        } catch (error) {
+          clearTimeout(healthCheckTimeout);
+          logger.error({ error }, 'Server health check failed');
+          reject(error);
+        }
+      }, 1000); // Give server 1 second to fully initialize
+    });
 
-// Enhanced graceful shutdown
+    serverInstance.on('error', (error: any) => {
+      if (error.code === 'EADDRINUSE') {
+        logger.warn({ port: PORT }, 'Port already in use, trying alternatives');
+        const altPorts = [3002, 3003, 3004, 3005];
+        tryAlternativePorts(altPorts, 0, resolve, reject);
+      } else {
+        logger.error({ error }, 'Server startup error');
+        reject(error);
+      }
+    });
+  });
+}
+
+function tryAlternativePorts(
+  ports: number[], 
+  index: number, 
+  resolve: () => void, 
+  reject: (error: any) => void
+): void {
+  if (index >= ports.length) {
+    reject(new Error('No available ports found'));
+    return;
+  }
+
+  const altPort = ports[index];
+  logger.info({ port: altPort }, 'Trying alternative port');
+  
+  // Create fresh server instance to avoid reuse issues
+  const { createServer } = require('http');
+  const freshServer = createServer(app);
+  
+  const altServerInstance = freshServer.listen(altPort, () => {
+    logger.info({
+      port: altPort,
+      projectCount: projects.size,
+      nodeVersion: process.version
+    }, 'TaskMaster File Watcher Server running on alternative port');
+    
+    // Update PORT for health check
+    process.env.PORT = altPort?.toString() || PORT.toString();
+    
+    setTimeout(async () => {
+      try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 3000);
+        
+        const response = await fetch(`http://localhost:${altPort}/api/health`, {
+          signal: controller.signal
+        });
+        
+        clearTimeout(timeoutId);
+        
+        if (response.ok) {
+          logger.info({ port: altPort }, 'Server health check passed on alternative port');
+          resolve();
+        } else {
+          throw new Error(`Health check failed with status: ${response.status}`);
+        }
+      } catch (error) {
+        logger.error({ port: altPort, error }, 'Server health check failed on alternative port');
+        reject(error);
+      }
+    }, 1000);
+  });
+
+  altServerInstance.on('error', (error: any) => {
+    if (error.code === 'EADDRINUSE') {
+      logger.warn({ port: altPort }, 'Alternative port also in use, trying next');
+      tryAlternativePorts(ports, index + 1, resolve, reject);
+    } else {
+      logger.error({ port: altPort, error }, 'Alternative port startup error');
+      reject(error);
+    }
+  });
+}
+
+// Start the server with robust error handling
+startServer()
+  .then(() => {
+    logger.info('TaskMaster File Watcher Server initialization complete!');
+  })
+  .catch((error) => {
+    logger.error({ error }, 'Failed to start TaskMaster File Watcher Server');
+    process.exit(1);
+  });
+
+// Enhanced graceful shutdown with connection management
 function gracefulShutdown(signal: string) {
-  console.log(`\n🛑 Received ${signal}, shutting down gracefully...`);
+  logger.info({ signal }, 'Graceful shutdown initiated');
   
   // Close all file watchers
-  console.log('📁 Closing file watchers...');
-  fileWatchers.forEach((watcher, projectId) => {
+  logger.info('Closing file watchers');
+  const watcherPromises = Array.from(fileWatchers.entries()).map(([projectId, watcher]) => {
+    return new Promise<void>((resolve) => {
+      try {
+        watcher.close();
+        logger.info({ projectId }, 'File watcher closed');
+        resolve();
+      } catch (error) {
+        logger.error({ projectId, error }, 'Error closing file watcher');
+        resolve(); // Don't block shutdown on watcher errors
+      }
+    });
+  });
+  
+  // Close WebSocket connections gracefully
+  logger.info({ connectionCount: connections.size }, 'Closing WebSocket connections');
+  connections.forEach(ws => {
     try {
-      watcher.close();
-      console.log(`  ✓ Closed watcher for project: ${projectId}`);
+      if (ws.readyState === WebSocket.OPEN) {
+        ws.close(1000, 'Server shutting down');
+      }
     } catch (error) {
-      console.error(`  ✗ Error closing watcher for ${projectId}:`, error);
+      logger.error({ error }, 'Error closing WebSocket connection');
     }
   });
   
-  // Close WebSocket connections
-  console.log('🔌 Closing WebSocket connections...');
-  connections.forEach(ws => {
-    try {
-      ws.close(1000, 'Server shutting down');
-    } catch (error) {
-      console.error('Error closing WebSocket connection:', error);
-    }
-  });
+  // Give clients 2 seconds to close gracefully, then terminate
+  setTimeout(() => {
+    connections.forEach(ws => {
+      if (ws.readyState !== WebSocket.CLOSED) {
+        ws.terminate();
+      }
+    });
+    logger.info('Terminated remaining WebSocket connections');
+  }, 2000);
   
   // Close WebSocket server
   wss.close(() => {
-    console.log('✓ WebSocket server closed');
+    logger.info('WebSocket server closed');
   });
   
-  // Close HTTP server
-  server.close(() => {
-    console.log('✓ HTTP server closed');
-    console.log('🎯 Graceful shutdown complete');
-    process.exit(0);
+  // Wait for watchers to close, then close HTTP server
+  Promise.all(watcherPromises).then(() => {
+    server.close(() => {
+      logger.info('HTTP server closed');
+      logger.info('Graceful shutdown complete');
+      process.exit(0);
+    });
   });
   
   // Force close after timeout
   setTimeout(() => {
-    console.error('❌ Forced shutdown after timeout');
+    logger.error('Forced shutdown after timeout');
     process.exit(1);
   }, 10000);
 }
