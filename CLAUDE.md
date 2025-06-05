@@ -208,6 +208,54 @@ The project uses **electron-vite** for unified development across all Electron p
 - ❌ BAD: Using regex to remove code lines or modify imports
 - ❌ BAD: String replacement on source code files
 
+## TYPESCRIPT DISCOVERIES AND KNOWN ISSUES
+
+### String/Number Constructor Anomalies (TS2349)
+
+**Issue**: TypeScript may report mysterious "Type 'String' has no call signatures" or "Type 'Number' has no call signatures" errors when using inline type assertions like `(autoUpdater as any).property = value`.
+
+**Root Cause**: TypeScript's parser can get confused by inline type assertions followed by property access, especially in test files with complex mock setups.
+
+**Solutions**:
+1. **Use typed references instead of inline assertions**:
+   ```typescript
+   // ❌ BAD - can cause parser confusion
+   (autoUpdater as any).channel = 'beta'
+   
+   // ✅ GOOD - clear type assertion
+   const mockUpdater = autoUpdater as MockAutoUpdater
+   mockUpdater.channel = 'beta'
+   ```
+
+2. **Add explicit type annotations to prevent inference issues**:
+   ```typescript
+   // ❌ BAD - TypeScript might misinterpret
+   let callCount = 0
+   
+   // ✅ GOOD - explicit type
+   let callCount: number = 0
+   ```
+
+3. **Use type assertions after array literals**:
+   ```typescript
+   // ❌ BAD - inline type annotation can confuse parser
+   const mockWindows: Array<{ id: number }> = [...]
+   
+   // ✅ GOOD - type assertion after literal
+   const mockWindows = [...] as Array<{ id: number }>
+   ```
+
+4. **Fix ES module imports**:
+   ```typescript
+   // ❌ BAD - old CommonJS style
+   import * as express from 'express'
+   
+   // ✅ GOOD - ES module default import
+   import express from 'express'
+   ```
+
+**When to Apply**: If you see TS2349 errors claiming String, Number, or other built-in types "have no call signatures", look for inline type assertions and refactor them.
+
 ## MANDATORY GIT WORKFLOW PRACTICES
 
 **CRITICAL**: You MUST follow these Git workflow practices without exception. These are NOT optional guidelines - they are strict requirements for all development work.

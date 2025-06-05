@@ -6,23 +6,23 @@
  * Following 2025 testing best practices for smoke/baseline testing.
  */
 
-import { describe, test, expect, beforeEach, afterEach } from 'vitest'
-
-// Global type declarations for test environment
-declare global {
-  const vi: typeof import('vitest').vi
-  interface GlobalThis {
-    __mockElectron?: any
-    __electron?: any
-    electronAPI?: any
-    taskmaster?: any
-    __DEV__?: boolean
-    __TEST__?: boolean
-  }
-}
-
+import { describe, test, expect, beforeEach, afterEach, vi } from 'vitest'
 import { app } from 'electron'
 import { createTestWindow, cleanupTestWindows } from '../../../tests/utils/window-manager'
+
+// Declare global types for test environment
+declare global {
+  var mockElectron: {
+    app: {
+      isReady: ReturnType<typeof vi.fn>
+      whenReady: ReturnType<typeof vi.fn>
+    }
+  }
+  var testWindowManager: {
+    getWindowCount(): number
+    getWindow(id: string): any
+  } | undefined
+}
 
 describe('Main Process Baseline Validation', () => {
   beforeEach(() => {

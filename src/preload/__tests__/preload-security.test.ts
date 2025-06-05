@@ -7,35 +7,30 @@
  */
 
 import { describe, test, expect, beforeEach, afterEach, vi } from 'vitest'
+import type { ContextBridge, IpcRenderer } from 'electron'
 
-// Global type declarations for test environment
-declare global {
-  const vi: typeof import('vitest').vi
-  interface GlobalThis {
-    __mockElectron?: any
-    __electron?: any
-    electronAPI?: any
-    taskmaster?: any
-    __DEV__?: boolean
-    __TEST__?: boolean
+// Mock electron modules with explicit typing
+vi.mock('electron', () => {
+  const mockContextBridge: Partial<ContextBridge> = {
+    exposeInMainWorld: vi.fn() as any
   }
-}
 
+  const mockIpcRenderer: Partial<IpcRenderer> = {
+    invoke: vi.fn() as any,
+    on: vi.fn() as any,
+    once: vi.fn() as any,
+    removeListener: vi.fn() as any,
+    removeAllListeners: vi.fn() as any
+  }
+
+  return {
+    contextBridge: mockContextBridge,
+    ipcRenderer: mockIpcRenderer
+  }
+})
+
+// Import mocked modules after vi.mock
 import { contextBridge, ipcRenderer } from 'electron'
-
-// Mock electron modules
-vi.mock('electron', () => ({
-  contextBridge: {
-    exposeInMainWorld: vi.fn()
-  },
-  ipcRenderer: {
-    invoke: vi.fn(),
-    on: vi.fn(),
-    once: vi.fn(),
-    removeListener: vi.fn(),
-    removeAllListeners: vi.fn()
-  }
-}))
 
 // Mock process for preload environment
 (global as any).process = {

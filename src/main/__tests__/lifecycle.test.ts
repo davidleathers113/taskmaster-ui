@@ -10,7 +10,7 @@ import { describe, test, expect, beforeEach, afterEach, vi } from 'vitest'
 
 // Global type declarations for test environment
 declare global {
-  const vi: typeof import('vitest').vi
+
   interface GlobalThis {
     __mockElectron?: any
     __electron?: any
@@ -126,9 +126,10 @@ describe('Main Process Lifecycle Tests (2025)', () => {
     }
     
     // Mock the createWindow function
-    createWindow = vi.fn().mockImplementation(() => {
+    const mockCreateWindow = vi.fn().mockImplementation(() => {
       return mockWindow
     })
+    ;(global as any).createWindow = mockCreateWindow
   })
 
   afterEach(() => {
@@ -333,7 +334,7 @@ describe('Main Process Lifecycle Tests (2025)', () => {
       const eventCallback = (app.on as any).mock.calls.find((call: any[]) => call[0] === 'certificate-error')?.[1]
       if (eventCallback) {
         // Test dev environment (isPackaged = false)
-        app.isPackaged = false
+        Object.defineProperty(app, "isPackaged", { value: false })
         eventCallback(mockEvent, mockWebContents, localhostUrl, error, certificate, mockCertCallback)
         expect(mockCallback).toHaveBeenCalled()
       }
@@ -555,3 +556,16 @@ describe('Main Process Lifecycle Tests (2025)', () => {
     })
   })
 })
+
+// Export for testing purposes
+export async function createWindow(): Promise<any> {
+  const win = new BrowserWindow({
+    width: 800,
+    height: 600,
+    webPreferences: {
+      nodeIntegration: false,
+      contextIsolation: true
+    }
+  })
+  return win
+}

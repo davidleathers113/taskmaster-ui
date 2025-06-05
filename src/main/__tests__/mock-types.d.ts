@@ -31,6 +31,14 @@ export interface MockAutoUpdater extends AppUpdater {
   downloadUpdate: MockedFunction<(cancellationToken?: CancellationToken) => Promise<string[]>>;
   quitAndInstall: MockedFunction<(isSilent?: boolean, isForceRunAfter?: boolean) => void>;
   
+  // Configuration properties
+  autoDownload: boolean;
+  autoInstallOnAppQuit: boolean;
+  allowPrerelease: boolean;
+  allowDowngrade: boolean;
+  channel: string;
+  currentVersion: { version: string };
+  
   // Event methods with mock properties
   on: MockedFunction<<U extends keyof AppUpdaterEvents>(
     event: U,
@@ -68,10 +76,12 @@ export interface MockApp extends App {
   getPath: MockedFunction<(name: string) => string>;
   quit: MockedFunction<() => void>;
   relaunch: MockedFunction<(options?: any) => void>;
+  isReady: MockedFunction<() => boolean>;
+  whenReady: MockedFunction<() => Promise<void>>;
   
   // Event methods with mock properties
-  on: MockedFunction<(event: string, listener: Function) => App>;
-  once: MockedFunction<(event: string, listener: Function) => App>;
+  on: MockedFunction<(event: string, listener: (...args: any[]) => void) => App>;
+  once: MockedFunction<(event: string, listener: (...args: any[]) => void) => App>;
 }
 
 // Extended BrowserWindow type
@@ -85,22 +95,33 @@ export function asMockAutoUpdater(updater: any): MockAutoUpdater {
   return updater as MockAutoUpdater;
 }
 
+// Extended IpcMain type with mock methods and private properties
+export interface MockIpcMain {
+  handle: MockedFunction<(channel: string, listener: (event: any, ...args: any[]) => any) => void>;
+  on: MockedFunction<(channel: string, listener: (event: any, ...args: any[]) => void) => void>;
+  once: MockedFunction<(channel: string, listener: (event: any, ...args: any[]) => void) => void>;
+  removeHandler: MockedFunction<(channel: string) => void>;
+  removeAllListeners: MockedFunction<(channel?: string) => void>;
+  removeListener: MockedFunction<(channel: string, listener: (event: any, ...args: any[]) => void) => void>;
+  
+  // Private properties exposed for testing
+  _handlers: Map<string, any>;
+  _listeners: Map<string, any>;
+}
+
 // Helper to cast app to MockApp in tests  
 export function asMockApp(app: any): MockApp {
   return app as MockApp;
+}
+
+// Helper to cast ipcMain to MockIpcMain in tests
+export function asMockIpcMain(ipcMain: any): MockIpcMain {
+  return ipcMain as MockIpcMain;
 }
 
 // Declare global mock types
 declare global {
   const mockAutoUpdater: MockAutoUpdater;
   const mockApp: MockApp;
-  
-  namespace globalThis {
-    const mockElectron: {
-      app: MockApp;
-      BrowserWindow: MockBrowserWindow;
-    };
-    const testWindowManager: import('../../../tests/utils/window-manager').TestWindowManager;
-    const vi: typeof import('vitest').vi;
-  }
+  const mockIpcMain: MockIpcMain;
 }

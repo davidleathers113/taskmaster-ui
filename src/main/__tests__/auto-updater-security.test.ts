@@ -6,11 +6,12 @@
  * and vulnerability regression testing following 2025 security standards.
  */
 
+import { createMockAutoUpdater, createMockUpdateCheckResult } from '../../test-utils/mock-factories'
 import { describe, test, expect, beforeEach, vi, beforeAll, afterAll } from 'vitest'
 
 // Global type declarations for test environment
 declare global {
-  const vi: typeof import('vitest').vi
+
   interface GlobalThis {
     __mockElectron?: any
     __electron?: any
@@ -24,6 +25,7 @@ declare global {
 import { session } from 'electron'
 import { MockUpdateServer } from '../../../tests/mocks/mock-update-server'
 import { createHash } from 'crypto'
+// import type { MockAutoUpdater } from './mock-types' // Unused
 
 
 // Mock security utilities
@@ -68,7 +70,7 @@ vi.mock('electron-updater', () => ({
 
 describe('Auto-Updater Security Tests', () => {
   let mockServer: MockUpdateServer
-  // let _serverUrl: string
+  let _serverUrl: string
 
   beforeAll(async () => {
     mockServer = new MockUpdateServer({
@@ -76,7 +78,7 @@ describe('Auto-Updater Security Tests', () => {
       useHttps: true,
       enableLogging: false
     })
-    /* _serverUrl = */ await mockServer.start()
+    _serverUrl = await mockServer.start()
   })
 
   afterAll(async () => {
@@ -252,7 +254,7 @@ describe('Auto-Updater Security Tests', () => {
         return { valid: true, chain }
       }
       
-      const result = await validateCertificateChain({})
+      const result = await validateCertificateChain()
       expect(result.valid).toBe(true)
       expect(result.chain).toHaveLength(3)
     })
@@ -269,7 +271,7 @@ describe('Auto-Updater Security Tests', () => {
         return { valid: true, revoked: false }
       }
       
-      const result = await checkRevocationStatus({})
+      const result = await checkRevocationStatus()
       expect(result.valid).toBe(true)
       expect(result.revoked).toBe(false)
     })

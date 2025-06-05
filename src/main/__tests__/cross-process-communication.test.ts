@@ -6,49 +6,47 @@
  */
 
 import { describe, test, expect, beforeEach, vi } from 'vitest'
+import type { IpcMain, BrowserWindow as ElectronBrowserWindow } from 'electron'
 
-// Global type declarations for test environment
-declare global {
-  const vi: typeof import('vitest').vi
-  interface GlobalThis {
-    __mockElectron?: any
-    __electron?: any
-    electronAPI?: any
-    taskmaster?: any
-    __DEV__?: boolean
-    __TEST__?: boolean
+// Mock electron modules for cross-process testing (2025 pattern)
+vi.mock('electron', () => {
+  const mockIpcMain: Partial<IpcMain> = {
+    handle: vi.fn() as any,
+    on: vi.fn() as any,
+    once: vi.fn() as any,
+    removeHandler: vi.fn() as any,
+    removeAllListeners: vi.fn() as any,
+    removeListener: vi.fn() as any,
+    _handlers: new Map() as any,
+    _listeners: new Map() as any
   }
-}
 
-import { ipcMain, BrowserWindow } from 'electron'
-import { } from 'events'
+  const mockBrowserWindow = {
+    getAllWindows: vi.fn().mockReturnValue([]) as any,
+    getFocusedWindow: vi.fn() as any,
+    fromWebContents: vi.fn() as any
+  }
 
-// Mock electron modules for cross-process testing
-vi.mock('electron', () => ({
-  ipcMain: {
-    handle: vi.fn(),
-    on: vi.fn(),
-    once: vi.fn(),
-    removeHandler: vi.fn(),
-    removeAllListeners: vi.fn(),
-    removeListener: vi.fn(),
-    _handlers: new Map(),
-    _listeners: new Map()
-  },
-  BrowserWindow: {
-    getAllWindows: vi.fn().mockReturnValue([]),
-    getFocusedWindow: vi.fn(),
-    fromWebContents: vi.fn()
-  },
-  webContents: {
-    getAllWebContents: vi.fn().mockReturnValue([]),
-    fromId: vi.fn()
-  },
-  app: {
+  const mockWebContents = {
+    getAllWebContents: vi.fn().mockReturnValue([]) as any,
+    fromId: vi.fn() as any
+  }
+
+  const mockApp = {
     isPackaged: false,
-    getPath: vi.fn().mockImplementation((name) => `/mock/path/${name}`)
+    getPath: vi.fn().mockImplementation((name) => `/mock/path/${name}`) as any
   }
-}))
+
+  return {
+    ipcMain: mockIpcMain,
+    BrowserWindow: mockBrowserWindow,
+    webContents: mockWebContents,
+    app: mockApp
+  }
+})
+
+// Import mocked modules after vi.mock
+import { ipcMain, BrowserWindow } from 'electron'
 
 // Mock URL for sender validation
 (global as any).URL = class MockURL {
@@ -78,8 +76,8 @@ vi.mock('electron', () => ({
 describe('Cross-Process Communication Security Tests (2025)', () => {
   beforeEach(() => {
     vi.clearAllMocks()
-    ;(ipcMain as any)._handlers?.clear?.()
-    ;(ipcMain as any)._listeners?.clear?.()
+    ;(ipcMain as any)._handlers.clear()
+    ;(ipcMain as any)._listeners.clear()
   })
 
   describe('IPC Sender Validation', () => {
@@ -150,11 +148,11 @@ describe('Cross-Process Communication Security Tests (2025)', () => {
     })
 
     test('should validate sender window registration', () => {
-      const mockWindows = [
+      const testWindows = [
         { id: 1, webContents: { id: 101 } },
         { id: 2, webContents: { id: 102 } },
         { id: 3, webContents: { id: 103 } }
-      ]
+      ] as Array<{ id: number; webContents: { id: number } }>
       
       ;(BrowserWindow.getAllWindows as any).mockReturnValue(mockWindows)
       
@@ -284,7 +282,7 @@ describe('Cross-Process Communication Security Tests (2025)', () => {
           return { valid: true }
         }
         
-        secureHandle(channel: string, handler: Function) {
+        secureHandle(channel: string, handler: (event: any, ...args: any[]) => any) {
           const secureHandler = async (event: any, ...args: any[]) => {
             const validation = this.validateRequest(channel, event)
             if (!validation.valid) {
@@ -490,8 +488,10 @@ describe('Cross-Process Communication Security Tests (2025)', () => {
       const callArgs = userCallback.mock.calls[0]
       expect(callArgs).toBeDefined()
       expect(callArgs).toEqual([safeData])
-      expect(callArgs?.[0]).not.toHaveProperty('sender')
-      expect(callArgs?.[0]).not.toHaveProperty('senderFrame')
+      if (callArgs && callArgs[0]) {
+        expect(callArgs[0]).not.toHaveProperty('sender')
+        expect(callArgs[0]).not.toHaveProperty('senderFrame')
+      }
     })
 
     test('should validate event data structure before passing to callbacks', () => {

@@ -6,11 +6,12 @@
  * scenario simulation following 2025 best practices.
  */
 
+import { createMockAutoUpdater, createMockUpdateCheckResult } from '../../test-utils/mock-factories'
 import { describe, test, expect, beforeEach, vi, beforeAll, afterAll } from 'vitest'
 
 // Global type declarations for test environment
 declare global {
-  const vi: typeof import('vitest').vi
+
   interface GlobalThis {
     __mockElectron?: any
     __electron?: any
@@ -26,9 +27,8 @@ import { app } from 'electron'
 import { MockUpdateServer } from '../../../tests/mocks/mock-update-server'
 import { existsSync, writeFileSync, mkdirSync } from 'fs'
 import { join } from 'path'
-import { } from 'child_process'
-import * as yaml from 'yaml'
 import type { MockAutoUpdater } from './mock-types'
+import yaml from 'yaml'
 
 
 // Platform-specific test configurations
@@ -63,43 +63,56 @@ const CI_ENVIRONMENTS = {
   isAzureDevOps: !!process.env.TF_BUILD
 }
 
-// Mock modules
-vi.mock('electron', () => ({
-  app: {
-    isPackaged: true,
-    getVersion: vi.fn().mockReturnValue('1.0.0'),
-    getPath: vi.fn().mockImplementation((name) => `/mock/path/${name}`),
-    getName: vi.fn().mockReturnValue('TaskMaster'),
-    quit: vi.fn(),
-    relaunch: vi.fn()
-  },
-  BrowserWindow: {
-    getAllWindows: vi.fn().mockReturnValue([]),
-    getFocusedWindow: vi.fn().mockReturnValue({ id: 1 })
-  }
-}))
+// Import actual types for explicit typing
+import type { App as ElectronApp, BrowserWindow as ElectronBrowserWindow } from 'electron'
 
-vi.mock('electron-updater', () => ({
-  autoUpdater: {
-    checkForUpdates: vi.fn(),
-    checkForUpdatesAndNotify: vi.fn(),
-    downloadUpdate: vi.fn(),
-    quitAndInstall: vi.fn(),
-    setFeedURL: vi.fn(),
-    on: vi.fn(),
-    once: vi.fn(),
-    removeAllListeners: vi.fn(),
+// Mock modules with explicit typing
+vi.mock('electron', () => {
+  const mockApp: Partial<ElectronApp> = {
+    isPackaged: true,
+    getVersion: vi.fn().mockReturnValue('1.0.0') as any,
+    getPath: vi.fn().mockImplementation((name) => `/mock/path/${name}`) as any,
+    getName: vi.fn().mockReturnValue('TaskMaster') as any,
+    quit: vi.fn() as any,
+    relaunch: vi.fn() as any
+  }
+
+  const mockBrowserWindow = {
+    getAllWindows: vi.fn().mockReturnValue([]) as any,
+    getFocusedWindow: vi.fn().mockReturnValue({ id: 1 }) as any
+  }
+
+  return {
+    app: mockApp,
+    BrowserWindow: mockBrowserWindow
+  }
+})
+
+vi.mock('electron-updater', () => {
+  const mockAutoUpdater: Partial<MockAutoUpdater> = {
+    checkForUpdates: vi.fn() as any,
+    checkForUpdatesAndNotify: vi.fn() as any,
+    downloadUpdate: vi.fn() as any,
+    quitAndInstall: vi.fn() as any,
+    setFeedURL: vi.fn() as any,
+    on: vi.fn() as any,
+    once: vi.fn() as any,
+    removeAllListeners: vi.fn() as any,
     logger: {
-      info: vi.fn(),
-      warn: vi.fn(),
-      error: vi.fn(),
-      debug: vi.fn()
-    },
-    currentVersion: { version: '1.0.0' },
+      info: vi.fn() as any,
+      warn: vi.fn() as any,
+      error: vi.fn() as any,
+      debug: vi.fn() as any
+    } as any,
+    currentVersion: { version: '1.0.0' } as any,
     channel: 'latest',
     allowPrerelease: false
   }
-}))
+
+  return {
+    autoUpdater: mockAutoUpdater
+  }
+})
 
 describe('Auto-Updater Integration Tests', () => {
   let mockServer: MockUpdateServer
@@ -152,32 +165,40 @@ describe('Auto-Updater Integration Tests', () => {
 
   describe('Full Update Flow Integration', () => {
     test('should complete full update cycle', async () => {
-      const updateLifecycle = {
+      interface UpdateLifecycle {
+        checkingForUpdate: boolean
+        updateAvailable: boolean
+        updateDownloaded: boolean
+        updateInstalled: boolean
+        errors: Error[]
+      }
+      
+      const updateLifecycle: UpdateLifecycle = {
         checkingForUpdate: false,
         updateAvailable: false,
         updateDownloaded: false,
         updateInstalled: false,
-        errors: [] as Error[]
+        errors: []
       }
 
       // Set up event handlers
-      const setupUpdateHandlers = () => {
+      function setupUpdateHandlers(): void {
         autoUpdater.on('checking-for-update', () => {
           updateLifecycle.checkingForUpdate = true
           autoUpdater.logger?.info('Checking for update...')
         })
 
-        autoUpdater.on('update-available', (info) => {
+        autoUpdater.on('update-available', (info: any) => {
           updateLifecycle.updateAvailable = true
           autoUpdater.logger?.info(`Update available: ${info.version}`)
         })
 
-        autoUpdater.on('update-downloaded', (info) => {
+        autoUpdater.on('update-downloaded', (info: any) => {
           updateLifecycle.updateDownloaded = true
           autoUpdater.logger?.info(`Update downloaded: ${info.version}`)
         })
 
-        autoUpdater.on('error', (error) => {
+        autoUpdater.on('error', (error: Error) => {
           updateLifecycle.errors.push(error)
           autoUpdater.logger?.error('Update error: ' + error.message)
         })
@@ -330,7 +351,7 @@ describe('Auto-Updater Integration Tests', () => {
         }
 
         // Check if signing tools are available
-        const isSigningAvailable = await checkSigningTool(config.signatureTool)
+        const isSigningAvailable = await checkSigningTool()
         
         if (!isSigningAvailable && CI_ENVIRONMENTS.isGitHubActions) {
           throw new Error(`Code signing required in CI but ${config.signatureTool} not found`)
@@ -356,8 +377,9 @@ describe('Auto-Updater Integration Tests', () => {
         }
       }
 
-      const checkSigningTool = async (): Promise<boolean> => {
+      const checkSigningTool = async (tool: string): Promise<boolean> => {
         // Mock check - in production would use 'which' or 'where' command
+        console.log(`Checking for signing tool: ${tool}`)
         return true
       }
 
@@ -516,7 +538,7 @@ describe('Auto-Updater Integration Tests', () => {
       }
 
       // Mock intermittent failures
-      let callCount = 0
+      let callCount: number = 0
       (autoUpdater as MockAutoUpdater).checkForUpdates.mockImplementation(() => {
         callCount++
         if (callCount < 2) {

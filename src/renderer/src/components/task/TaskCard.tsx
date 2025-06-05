@@ -92,23 +92,20 @@ const _TaskCardComponent = ({
   ]
 
   // Click outside handler
-  const useClickOutside = useCallback(() => {
-    useEffect(() => {
-      const handleClickOutside = (event: MouseEvent) => {
-        if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-          setIsDropdownOpen(false)
-          setFocusedOptionIndex(-1)
-        }
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false)
+        setFocusedOptionIndex(-1)
       }
+    }
 
-      if (isDropdownOpen) {
-        document.addEventListener('mousedown', handleClickOutside)
-        return () => document.removeEventListener('mousedown', handleClickOutside)
-      }
-    }, [isDropdownOpen])
+    if (isDropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside)
+      return () => document.removeEventListener('mousedown', handleClickOutside)
+    }
+    return undefined;
   }, [isDropdownOpen])
-
-  useClickOutside()
 
   // Status toggle with loading state
   const handleStatusToggle = useCallback(async (e: React.MouseEvent) => {

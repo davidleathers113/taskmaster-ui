@@ -9,7 +9,7 @@ import { describe, test, expect, beforeEach, afterEach, vi, beforeAll, afterAll 
 
 // Global type declarations for test environment
 declare global {
-  const vi: typeof import('vitest').vi
+
   interface GlobalThis {
     __mockElectron?: any
     __electron?: any

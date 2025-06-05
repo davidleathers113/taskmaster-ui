@@ -26,12 +26,7 @@ export default tseslint.config(
       'debug-logs/**',
       'server/dist/**',
       'server/node_modules/**',
-      '**/*.sh', // Shell scripts should not be linted by ESLint
-      'src.backup.ts6133/**', // Backup directory should be ignored
-      '*.backup/**', // Any backup directories
-      '.taskmaster/**', // TaskMaster utility scripts
-      '.backup-duplicates/**',
-      'playwright-report/**',
+      '.taskmaster/**',
     ],
   },
 
@@ -211,7 +206,81 @@ export default tseslint.config(
     },
   },
 
-  // Configuration files and CommonJS files
+  // Analysis tools and scripts (TaskMaster reports)
+  {
+    files: ['.taskmaster/**/*.{js,cjs,ts}'],
+    languageOptions: {
+      globals: {
+        ...globals.node,
+      },
+      sourceType: 'commonjs', // Allow CommonJS for .cjs files
+    },
+    rules: {
+      // Allow CommonJS patterns in analysis tools
+      '@typescript-eslint/no-require-imports': 'off',
+      'no-undef': 'off', // Allow Node.js globals
+      'no-console': 'off', // Allow console in analysis scripts
+      '@typescript-eslint/no-unused-vars': 'off', // Relax for analysis scripts
+      'no-unused-vars': 'off',
+    },
+  },
+
+  // Node.js scripts and utilities
+  {
+    files: ['scripts/**/*.js', '*.js'],
+    languageOptions: {
+      globals: {
+        ...globals.node,
+      },
+      sourceType: 'commonjs',
+    },
+    rules: {
+      '@typescript-eslint/no-require-imports': 'off',
+      'no-undef': 'off',
+      'no-console': 'off',
+      '@typescript-eslint/no-unused-vars': 'warn',
+      'no-unused-vars': 'warn',
+      'no-case-declarations': 'off', // Allow declarations in case blocks for scripts
+      'no-redeclare': 'off', // Allow redeclaration of Node.js globals in scripts
+    },
+  },
+
+  // Analysis and utility files (TaskMaster reports and tools)
+  {
+    files: ['.taskmaster/reports/**/*.{js,ts}', '.taskmaster/utils/**/*.{js,ts}'],
+    languageOptions: {
+      globals: {
+        ...globals.node,
+      },
+    },
+    rules: {
+      // Allow flexible typing for analysis tools
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-unused-vars': 'off',
+      'no-unused-vars': 'off',
+      'no-console': 'off',
+      '@typescript-eslint/no-require-imports': 'off',
+    },
+  },
+
+  // Mock files for testing
+  {
+    files: ['__mocks__/**/*.{js,ts}', '**/__mocks__/**/*.{js,ts}'],
+    languageOptions: {
+      globals: {
+        ...globals.node,
+        ...globals.jest,
+      },
+    },
+    rules: {
+      '@typescript-eslint/no-unused-vars': 'off',
+      'no-unused-vars': 'off',
+      '@typescript-eslint/no-explicit-any': 'off',
+      'no-console': 'off',
+    },
+  },
+
+  // Configuration files
   {
     files: [
       '*.config.{js,ts,mjs,cjs}',
@@ -220,9 +289,7 @@ export default tseslint.config(
       'electron.vite.config.{js,ts}',
       'vitest.config.{js,ts}',
       'tailwind.config.{js,ts}',
-      '**/*.cjs',
-      '.taskmaster/**/*.{js,cjs,ts}',
-      'scripts/**/*.{js,cjs,ts}',
+      'playwright.config.{js,ts}',
     ],
     languageOptions: {
       globals: {
@@ -232,73 +299,11 @@ export default tseslint.config(
     rules: {
       // Configuration files can be more permissive
       '@typescript-eslint/no-explicit-any': 'off',
-      '@typescript-eslint/no-require-imports': 'off',
+      '@typescript-eslint/no-unused-vars': 'off', // Allow unused imports in config files
+      'no-unused-vars': 'off',
       'no-console': 'off',
-      'no-undef': 'off', // Node.js globals should be available
-    },
-  },
-
-  // Vitest test files specific configuration
-  {
-    files: [
-      '**/*.test.{js,ts,jsx,tsx}',
-      '**/*.spec.{js,ts,jsx,tsx}',
-      'tests/**/*.{js,ts,jsx,tsx}',
-      '**/__tests__/**/*.{js,ts,jsx,tsx}',
-      '**/setup/**/*.{js,ts}',
-      '**/mocks/**/*.{js,ts}',
-    ],
-    languageOptions: {
-      globals: {
-        ...globals.browser,
-        ...globals.node,
-        // Vitest globals
-        vi: 'readonly',
-        describe: 'readonly',
-        it: 'readonly',
-        test: 'readonly',
-        expect: 'readonly',
-        beforeEach: 'readonly',
-        afterEach: 'readonly',
-        beforeAll: 'readonly',
-        afterAll: 'readonly',
-        // Additional testing globals
-        global: 'readonly',
-      },
-    },
-    rules: {
-      // More relaxed rules for test files
-      '@typescript-eslint/no-explicit-any': 'off',
-      '@typescript-eslint/no-unused-vars': 'off',
-      '@typescript-eslint/no-require-imports': 'off',
-      'no-console': 'off',
-      'no-undef': 'off',
-    },
-  },
-
-  // Script files and utilities (Node.js environment)
-  {
-    files: [
-      'scripts/**/*.{js,ts,mjs,cjs}',
-      'wt_tasks/**/*.{js,ts,mjs}',
-      '.taskmaster/**/*.{js,ts,cjs}',
-      '**/*.cjs',
-      'cleanup-*.js',
-      '**/debug-*.js',
-      '**/test-*.js',
-      '**/build-*.js',
-      '**/*.config.js',
-    ],
-    languageOptions: {
-      globals: {
-        ...globals.node,
-      },
-    },
-    rules: {
-      // Scripts can use console and require
-      'no-console': 'off',
-      '@typescript-eslint/no-require-imports': 'off',
-      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-namespace': 'off', // Allow namespaces in config files
+      '@typescript-eslint/no-empty-object-type': 'off', // Allow empty interfaces for config
     },
   },
 );
