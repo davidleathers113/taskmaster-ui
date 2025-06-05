@@ -497,6 +497,10 @@ function getSeverityFromError(error: Error): 'low' | 'medium' | 'high' | 'critic
 
 // Export hook and types
 export default _useErrorBoundary;
+<<<<<<< HEAD
+=======
+export const useErrorBoundary = _useErrorBoundary;
+>>>>>>> test/test-failure-analysis
 export type {
   ErrorBoundaryState,
   ErrorRecoveryStrategy,

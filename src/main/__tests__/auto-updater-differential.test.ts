@@ -5,11 +5,12 @@
  * and failure recovery following 2025 best practices for Electron auto-updater.
  */
 
+import { createMockAutoUpdater, createMockUpdateCheckResult } from '../../test-utils/mock-factories'
 import { describe, test, expect, beforeEach, vi, beforeAll, afterAll } from 'vitest'
 
 // Global type declarations for test environment
 declare global {
-  const vi: typeof import('vitest').vi
+
   interface GlobalThis {
     __mockElectron?: any
     __electron?: any
@@ -667,7 +668,7 @@ describe('Differential Updates & Rollback Tests', () => {
       
       expect(result.tempFilesDeleted).toBeGreaterThan(0)
       expect(result.cacheCleared).toBe(true)
-      expect(autoUpdater.logger?.info).toHaveBeenCalledWith('Cleanup completed:', result)
+      expect(autoUpdater.logger?.info).toHaveBeenCalledWith('Cleanup completed: ' + JSON.stringify(result))
     })
   })
 })

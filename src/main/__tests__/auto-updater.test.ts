@@ -6,11 +6,12 @@
  * and security validation following 2025 best practices.
  */
 
+import { createMockAutoUpdater, createMockUpdateCheckResult } from '../../test-utils/mock-factories'
 import { describe, test, expect, beforeEach, afterEach, vi } from 'vitest'
 
 // Global type declarations for test environment
 declare global {
-  const vi: typeof import('vitest').vi
+
   interface GlobalThis {
     __mockElectron?: any
     __electron?: any
@@ -294,7 +295,7 @@ describe('Auto-Updater Tests (2025)', () => {
         const error = new Error('Update failed')
         eventCallback(error)
         
-        expect(autoUpdater.logger?.error).toHaveBeenCalledWith('Auto-updater error:', error)
+        expect(autoUpdater.logger?.error).toHaveBeenCalledWith('Auto-updater error: ' + error.message)
       }
     })
 

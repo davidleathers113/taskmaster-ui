@@ -26,6 +26,8 @@ export default tseslint.config(
       'debug-logs/**',
       'server/dist/**',
       'server/node_modules/**',
+      '.backup-duplicates/**',
+      'playwright-report/**',
       '**/*.sh', // Shell scripts should not be linted by ESLint
       'src.backup.ts6133/**', // Backup directory should be ignored
       '*.backup/**', // Any backup directories

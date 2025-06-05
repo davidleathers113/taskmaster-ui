@@ -96,7 +96,7 @@ export class MockUpdateServer {
 
   private setupMiddleware(): void {
     // Request logging
-    this.app.use((req, res, next) => {
+    this.app.use((req: Request, res: Response, next) => {
       if (this.enableLogging) {
         console.log(`[MockUpdateServer] ${req.method} ${req.path}`)
       }
@@ -118,7 +118,7 @@ export class MockUpdateServer {
     })
 
     // Request tracking
-    this.app.use((req, res, next) => {
+    this.app.use((req: Request, res: Response, next) => {
       const originalSend = res.send
       res.send = function(data: any) {
         this.requestLogs.push({
@@ -130,6 +130,7 @@ export class MockUpdateServer {
         return originalSend.call(this, data)
       }.bind(this)
       next()
+        return
     })
   }
 
@@ -244,6 +245,7 @@ export class MockUpdateServer {
       } else {
         res.status(404).json({ error: 'Version not found' })
       }
+        return
     })
 
     // Health check endpoint
@@ -258,7 +260,7 @@ export class MockUpdateServer {
     })
 
     // Release notes endpoint
-    this.app.get('/notes/:version', (req, res) => {
+    this.app.get('/notes/:version', (req: Request, res: Response) => {
       const { version } = req.params
       
       if (version === this.updateManifest.version) {
@@ -270,7 +272,7 @@ export class MockUpdateServer {
     })
 
     // Code signing verification endpoint (mock)
-    this.app.get('/verify/:filename', (req, res) => {
+    this.app.get('/verify/:filename', (req: Request, res: Response) => {
       const { filename } = req.params
       
       // Simulate signature verification

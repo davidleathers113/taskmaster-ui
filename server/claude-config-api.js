@@ -48,6 +48,7 @@ export function addClaudeConfigAPI(app) {
         })
       }
     }
+      return
   })
 
   // API endpoint to get config file info without parsing (for large files)
@@ -81,5 +82,6 @@ export function addClaudeConfigAPI(app) {
         details: error.message 
       })
     }
+      return
   })
 }
