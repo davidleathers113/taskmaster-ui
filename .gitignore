@@ -243,6 +243,8 @@ CLAUDE_*.md
 
 # Worktree specific
 .env.worktree
+CLAUDE_PROMPT.md
+TASK.md
 *_worktrees/
 
 # Test results that change frequently
