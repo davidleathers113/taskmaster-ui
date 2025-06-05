@@ -25,51 +25,7 @@ declare global {
 import { session } from 'electron'
 import { MockUpdateServer } from '../../../tests/mocks/mock-update-server'
 import { createHash } from 'crypto'
-
-
-// Mock security utilities
-const mockSecurityUtils = {
-  verifySignature: vi.fn(),
-  validateCertificate: vi.fn(),
-  checkCertificatePinning: vi.fn(),
-  validateUpdateIntegrity: vi.fn()
-}
-
-// Mock electron modules with security focus
-vi.mock('electron', () => ({
-  app: {
-    isPackaged: true,
-    getVersion: vi.fn().mockReturnValue('1.0.0'),
-    getPath: vi.fn().mockImplementation((name) => `/mock/path/${name}`)
-  },
-  net: {
-    request: vi.fn()
-  },
-  session: {
-    defaultSession: {
-      setCertificateVerifyProc: vi.fn()
-    }
-  }
-}))
-
-vi.mock('electron-updater', () => ({
-  autoUpdater: {
-    checkForUpdates: vi.fn(),
-    downloadUpdate: vi.fn(),
-    setFeedURL: vi.fn(),
-    getFeedURL: vi.fn(),
-    on: vi.fn(),
-    logger: {
-      info: vi.fn(),
-      warn: vi.fn(),
-      error: vi.fn()
-    }
-  }
-}))
-
-describe('Auto-Updater Security Tests', () => {
-  let mockServer: MockUpdateServer
-  let __serverUrl: string
+  // let serverUrl: string // Currently unused
 
   beforeAll(async () => {
     mockServer = new MockUpdateServer({
@@ -77,7 +33,7 @@ describe('Auto-Updater Security Tests', () => {
       useHttps: true,
       enableLogging: false
     })
-    __serverUrl = await mockServer.start()
+    await mockServer.start() // serverUrl not used
   })
 
   afterAll(async () => {
@@ -253,7 +209,7 @@ describe('Auto-Updater Security Tests', () => {
         return { valid: true, chain }
       }
       
-      const result = await validateCertificateChain({})
+      const result = await validateCertificateChain()
       expect(result.valid).toBe(true)
       expect(result.chain).toHaveLength(3)
     })
@@ -270,7 +226,7 @@ describe('Auto-Updater Security Tests', () => {
         return { valid: true, revoked: false }
       }
       
-      const result = await checkRevocationStatus({})
+      const result = await checkRevocationStatus()
       expect(result.valid).toBe(true)
       expect(result.revoked).toBe(false)
     })

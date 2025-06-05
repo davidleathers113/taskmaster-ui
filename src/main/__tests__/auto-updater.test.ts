@@ -36,9 +36,7 @@ vi.mock('electron-updater', () => ({
         releaseDate: new Date().toISOString(),
         releaseNotes: 'New features and bug fixes'
       },
-      cancellationToken: undefined,
-        isUpdateAvailable: true,
-        versionInfo: { version: "2.0.0" }
+      cancellationToken: undefined
     }),
     checkForUpdatesAndNotify: vi.fn().mockResolvedValue(undefined),
     downloadUpdate: vi.fn().mockResolvedValue(undefined),
@@ -341,8 +339,7 @@ describe('Auto-Updater Tests (2025)', () => {
       BrowserWindow.getFocusedWindow = vi.fn().mockReturnValue(mockWindow)
       
       const promptUserForUpdate = async (info: { version: string }) => {
-        const result = await dialog.showMessageBox({
->>>>>>> fix/ts-type-safety
+        const result = await dialog.showMessageBox(null, {
           type: 'info',
           title: 'Update Available',
           message: 'A new version is available. Would you like to download it now?',
@@ -372,29 +369,8 @@ describe('Auto-Updater Tests (2025)', () => {
       dialog.showMessageBox = vi.fn().mockResolvedValue({ response: 1 }) // User clicks "Later"
       
       const promptUserForUpdate = async (info: { version: string }) => {
-        const result = await dialog.showMessageBox({
-<<<<<<< HEAD
-                      id: 1,
-                      webContents: {
-                        send: vi.fn(),
-                        on: vi.fn(),
-                        once: vi.fn(),
-                        removeListener: vi.fn()
-                      },
-                      on: vi.fn(),
-                      off: vi.fn(),
-                      once: vi.fn(),
-                      addListener: vi.fn(),
-                      removeListener: vi.fn(),
-                      show: vi.fn(),
-                      hide: vi.fn(),
-                      close: vi.fn(),
-                      destroy: vi.fn(),
-                      isDestroyed: vi.fn().mockReturnValue(false),
-                      focus: vi.fn(),
-                      blur: vi.fn()
-                    } as any, {
 =======
+        const result = await dialog.showMessageBox(null, {
           type: 'info',
           title: 'Update Available',
           message: 'A new version is available. Would you like to download it now?',
@@ -414,30 +390,9 @@ describe('Auto-Updater Tests (2025)', () => {
 
     test('should prompt for restart after download', async () => {
       const promptUserToInstall = async () => {
-        const result = await dialog.showMessageBox({
-<<<<<<< HEAD
-                      id: 1,
-                      webContents: {
-                        send: vi.fn(),
-                        on: vi.fn(),
-                        once: vi.fn(),
-                        removeListener: vi.fn()
-                      },
-                      on: vi.fn(),
-                      off: vi.fn(),
-                      once: vi.fn(),
-                      addListener: vi.fn(),
-                      removeListener: vi.fn(),
-                      show: vi.fn(),
-                      hide: vi.fn(),
-                      close: vi.fn(),
-                      destroy: vi.fn(),
-                      isDestroyed: vi.fn().mockReturnValue(false),
-                      focus: vi.fn(),
-                      blur: vi.fn()
-                    } as any, {
-=======
 >>>>>>> fix/ts-type-safety
+=======
+        const result = await dialog.showMessageBox(null, {
           type: 'info',
           title: 'Update Ready',
           message: 'Update downloaded. Restart the application to apply the update.',
@@ -558,7 +513,7 @@ describe('Auto-Updater Tests (2025)', () => {
     test('should handle failed installation gracefully', () => {
       const mockErrorHandler = vi.fn((error) => {
         // Log error and notify user
-        autoUpdater.logger?.error('Installation failed:', error)
+        autoUpdater.logger?.error('Installation failed: ' + error.message)
         dialog.showErrorBox('Update Failed', 'The update could not be installed.')
       })
       

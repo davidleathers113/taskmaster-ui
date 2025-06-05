@@ -80,8 +80,8 @@ export interface MockApp extends App {
   whenReady: MockedFunction<() => Promise<void>>;
   
   // Event methods with mock properties
-  on: MockedFunction<(event: string, listener: Function) => App>;
-  once: MockedFunction<(event: string, listener: Function) => App>;
+  on: MockedFunction<(event: string, listener: (...args: any[]) => void) => App>;
+  once: MockedFunction<(event: string, listener: (...args: any[]) => void) => App>;
 }
 
 // Extended BrowserWindow type

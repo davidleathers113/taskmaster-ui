@@ -263,7 +263,7 @@ describe('Memory Leak Detection Tests (2025)', () => {
 
     test('should clean up event listeners properly', () => {
       const window = windowManager.createWindow()
-      const listeners: Function[] = []
+      const listeners: ((...args: any[]) => void)[] = []
       
       // Add multiple listeners
       for (let i = 0; i < 100; i++) {
@@ -369,7 +369,7 @@ describe('Memory Leak Detection Tests (2025)', () => {
       const setupSecureHandlers = () => {
         const registeredHandlers = new Set<string>()
         
-        const safeHandle = (channel: string, handler: (event: Electron.IpcMainInvokeEvent, ...args: any[]) => any) => {
+        const safeHandle = (channel: string, handler: (event: any, ...args: any[]) => any) => {
           if (registeredHandlers.has(channel)) {
             ipcMain.removeHandler(channel)
           }

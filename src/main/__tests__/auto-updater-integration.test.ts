@@ -337,7 +337,7 @@ describe('Auto-Updater Integration Tests', () => {
         }
 
         // Check if signing tools are available
-        const isSigningAvailable = await checkSigningTool(config.signatureTool)
+        const isSigningAvailable = await checkSigningTool()
         
         if (!isSigningAvailable && CI_ENVIRONMENTS.isGitHubActions) {
           throw new Error(`Code signing required in CI but ${config.signatureTool} not found`)

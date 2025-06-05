@@ -76,7 +76,7 @@ describe('IPC Security Tests', () => {
   beforeEach(() => {
     vi.clearAllMocks()
     // Clear any registered handlers
-    (ipcMain as any)._handlers.clear()
+    (ipcMain as any)._handlers?.clear()
   })
 
   describe('IPC Sender Validation', () => {

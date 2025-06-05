@@ -7,7 +7,6 @@
  */
 
 import { describe, test, expect, beforeEach, afterEach, vi } from 'vitest'
->>>>>>> test/test-failure-analysis
 =======
 import { app } from 'electron'
 import { createTestWindow, cleanupTestWindows } from '../../../tests/utils/window-manager'
