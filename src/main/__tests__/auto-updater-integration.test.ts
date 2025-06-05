@@ -153,38 +153,44 @@ describe('Auto-Updater Integration Tests', () => {
 
   describe('Full Update Flow Integration', () => {
     test('should complete full update cycle', async () => {
-      const updateLifecycle = {
+      interface UpdateLifecycle {
+        checkingForUpdate: boolean
+        updateAvailable: boolean
+        updateDownloaded: boolean
+        updateInstalled: boolean
+        errors: Error[]
+      }
+      
+      const updateLifecycle: UpdateLifecycle = {
         checkingForUpdate: false,
         updateAvailable: false,
         updateDownloaded: false,
         updateInstalled: false,
-        errors: [] as Error[]
+        errors: []
       }
 
       // Set up event handlers
-      const setupUpdateHandlers = () => {
-        autoUpdater.on('checking-for-update', () => {
-          updateLifecycle.checkingForUpdate = true
-          autoUpdater.logger?.info('Checking for update...')
-        })
+      const mockUpdater = autoUpdater as MockAutoUpdater
+      
+      mockUpdater.on('checking-for-update', () => {
+        updateLifecycle.checkingForUpdate = true
+        autoUpdater.logger?.info('Checking for update...')
+      })
 
-        autoUpdater.on('update-available', (info) => {
-          updateLifecycle.updateAvailable = true
-          autoUpdater.logger?.info(`Update available: ${info.version}`)
-        })
+      mockUpdater.on('update-available', (info: any) => {
+        updateLifecycle.updateAvailable = true
+        autoUpdater.logger?.info(`Update available: ${info.version}`)
+      })
 
-        autoUpdater.on('update-downloaded', (info) => {
-          updateLifecycle.updateDownloaded = true
-          autoUpdater.logger?.info(`Update downloaded: ${info.version}`)
-        })
+      mockUpdater.on('update-downloaded', (info: any) => {
+        updateLifecycle.updateDownloaded = true
+        autoUpdater.logger?.info(`Update downloaded: ${info.version}`)
+      })
 
-        autoUpdater.on('error', (error) => {
-          updateLifecycle.errors.push(error)
-          autoUpdater.logger?.error('Update error: ' + error.message)
-        })
-      }
-
-      setupUpdateHandlers()
+      mockUpdater.on('error', (error: Error) => {
+        updateLifecycle.errors.push(error)
+        autoUpdater.logger?.error('Update error: ' + error.message)
+      })
 
       // Simulate update check
       (autoUpdater as MockAutoUpdater).checkForUpdates.mockImplementation(() => {
@@ -357,8 +363,9 @@ describe('Auto-Updater Integration Tests', () => {
         }
       }
 
-      const checkSigningTool = async (): Promise<boolean> => {
+      const checkSigningTool = async (tool: string): Promise<boolean> => {
         // Mock check - in production would use 'which' or 'where' command
+        console.log(`Checking for signing tool: ${tool}`)
         return true
       }
 
@@ -517,8 +524,9 @@ describe('Auto-Updater Integration Tests', () => {
       }
 
       // Mock intermittent failures
-      let callCount = 0
-      (autoUpdater as MockAutoUpdater).checkForUpdates.mockImplementation(() => {
+      let callCount: number = 0
+      const mockUpdater = autoUpdater as MockAutoUpdater
+      mockUpdater.checkForUpdates.mockImplementation(() => {
         callCount++
         if (callCount < 2) {
           throw new Error('Server timeout')

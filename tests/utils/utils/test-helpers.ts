@@ -1,4 +1,14 @@
-import { vi, MockedFunction } from 'vitest'
+/**
+ * Test Helper Utilities (2025)
+ * 
+ * Common utility functions for testing across all test environments.
+ * These helpers provide reusable functionality for mocking, assertions,
+ * and test data management following 2025 best practices.
+ */
+
+import { vi } from 'vitest'
+import type { MockedFunction } from 'vitest'
+
 // Type definitions for better TypeScript support
 export interface MockTask {
   id: number

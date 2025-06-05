@@ -342,26 +342,7 @@ describe('Auto-Updater Tests (2025)', () => {
       
       const promptUserForUpdate = async (info: { version: string }) => {
         const result = await dialog.showMessageBox({
-                      id: 1,
-                      webContents: {
-                        send: vi.fn(),
-                        on: vi.fn(),
-                        once: vi.fn(),
-                        removeListener: vi.fn()
-                      },
-                      on: vi.fn(),
-                      off: vi.fn(),
-                      once: vi.fn(),
-                      addListener: vi.fn(),
-                      removeListener: vi.fn(),
-                      show: vi.fn(),
-                      hide: vi.fn(),
-                      close: vi.fn(),
-                      destroy: vi.fn(),
-                      isDestroyed: vi.fn().mockReturnValue(false),
-                      focus: vi.fn(),
-                      blur: vi.fn()
-                    } as any, {
+>>>>>>> fix/ts-type-safety
           type: 'info',
           title: 'Update Available',
           message: 'A new version is available. Would you like to download it now?',
@@ -392,6 +373,7 @@ describe('Auto-Updater Tests (2025)', () => {
       
       const promptUserForUpdate = async (info: { version: string }) => {
         const result = await dialog.showMessageBox({
+<<<<<<< HEAD
                       id: 1,
                       webContents: {
                         send: vi.fn(),
@@ -412,6 +394,7 @@ describe('Auto-Updater Tests (2025)', () => {
                       focus: vi.fn(),
                       blur: vi.fn()
                     } as any, {
+=======
           type: 'info',
           title: 'Update Available',
           message: 'A new version is available. Would you like to download it now?',
@@ -432,6 +415,7 @@ describe('Auto-Updater Tests (2025)', () => {
     test('should prompt for restart after download', async () => {
       const promptUserToInstall = async () => {
         const result = await dialog.showMessageBox({
+<<<<<<< HEAD
                       id: 1,
                       webContents: {
                         send: vi.fn(),
@@ -452,6 +436,8 @@ describe('Auto-Updater Tests (2025)', () => {
                       focus: vi.fn(),
                       blur: vi.fn()
                     } as any, {
+=======
+>>>>>>> fix/ts-type-safety
           type: 'info',
           title: 'Update Ready',
           message: 'Update downloaded. Restart the application to apply the update.',
@@ -501,11 +487,12 @@ describe('Auto-Updater Tests (2025)', () => {
 
     test('should handle update channel configuration', () => {
       // Test switching to beta channel
-      (autoUpdater as any).channel = 'beta'
-      (autoUpdater as any).allowPrerelease = true
+      const updater = autoUpdater as MockAutoUpdater
+      updater.channel = 'beta'
+      updater.allowPrerelease = true
       
-      expect(autoUpdater.channel).toBe('beta')
-      expect(autoUpdater.allowPrerelease).toBe(true)
+      expect(updater.channel).toBe('beta')
+      expect(updater.allowPrerelease).toBe(true)
     })
   })
 

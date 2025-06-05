@@ -21,7 +21,7 @@ declare global {
 }
 
 import { ipcMain, BrowserWindow } from 'electron'
-import { } from 'events'
+// Events types are available globally in Node.js
 
 // Mock electron modules for cross-process testing
 vi.mock('electron', () => ({
@@ -78,8 +78,8 @@ vi.mock('electron', () => ({
 describe('Cross-Process Communication Security Tests (2025)', () => {
   beforeEach(() => {
     vi.clearAllMocks()
-    ;(ipcMain as any)._handlers?.clear?.()
-    ;(ipcMain as any)._listeners?.clear?.()
+    (ipcMain as any)._handlers.clear()
+    (ipcMain as any)._listeners.clear()
   })
 
   describe('IPC Sender Validation', () => {
@@ -150,13 +150,13 @@ describe('Cross-Process Communication Security Tests (2025)', () => {
     })
 
     test('should validate sender window registration', () => {
-      const mockWindows = [
+      const testWindows = [
         { id: 1, webContents: { id: 101 } },
         { id: 2, webContents: { id: 102 } },
         { id: 3, webContents: { id: 103 } }
-      ]
+      ] as Array<{ id: number; webContents: { id: number } }>
       
-      ;(BrowserWindow.getAllWindows as any).mockReturnValue(mockWindows)
+      (BrowserWindow.getAllWindows as any).mockReturnValue(testWindows)
       
       const validateSenderWindow = (senderId: number) => {
         const windows = BrowserWindow.getAllWindows()

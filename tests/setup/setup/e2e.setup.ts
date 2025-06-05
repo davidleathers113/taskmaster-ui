@@ -1116,3 +1116,7 @@ declare global {
     }
   }
 }
+<<<<<<< HEAD
+=======
+>>>>>>> Stashed changes
+>>>>>>> fix/ts-type-safety

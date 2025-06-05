@@ -89,6 +89,7 @@ export const _RecoveryNotification: React.FC<RecoveryNotificationProps> = ({
 
       return () => clearTimeout(timer);
     }
+    return undefined;
   }, [notification.duration, notification.persistent]);
 
   const handleDismiss = useCallback(() => {

@@ -71,7 +71,7 @@ const _mockIndexedDB = {
     const mockStore = {
       storage: new Map(),
       put: vi.fn((data) => {
-        const request = { onsuccess: null, onerror: null };
+        const request = { onsuccess: null as (() => void) | null, onerror: null as (() => void) | null };
         // Immediate async resolution to prevent timeouts
         Promise.resolve().then(() => {
           mockStore.storage.set(data.id, data);
@@ -80,7 +80,7 @@ const _mockIndexedDB = {
         return request;
       }),
       get: vi.fn((key) => {
-        const request = { result: mockStore.storage.get(key) || null, onsuccess: null, onerror: null };
+        const request = { result: mockStore.storage.get(key) || null, onsuccess: null as (() => void) | null, onerror: null as (() => void) | null };
         // Immediate async resolution
         Promise.resolve().then(() => {
           if (request.onsuccess) request.onsuccess();
@@ -88,7 +88,7 @@ const _mockIndexedDB = {
         return request;
       }),
       delete: vi.fn((key) => {
-        const request = { onsuccess: null, onerror: null };
+        const request = { onsuccess: null as (() => void) | null, onerror: null as (() => void) | null };
         Promise.resolve().then(() => {
           mockStore.storage.delete(key);
           if (request.onsuccess) request.onsuccess();
@@ -103,7 +103,7 @@ const _mockIndexedDB = {
         return request;
       }),
       clear: vi.fn(() => {
-        const request = { onsuccess: null, onerror: null };
+        const request = { onsuccess: null as (() => void) | null, onerror: null as (() => void) | null };
         Promise.resolve().then(() => {
           mockStore.storage.clear();
           if (request.onsuccess) request.onsuccess();
@@ -509,6 +509,8 @@ describe('Integration Tests', () => {
       {
         title: 'Test Task 1',
         description: 'Test description',
+        details: '',
+        testStrategy: '',
         status: 'pending',
         priority: 'medium',
         dependencies: [],

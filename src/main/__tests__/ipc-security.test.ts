@@ -76,7 +76,7 @@ describe('IPC Security Tests', () => {
   beforeEach(() => {
     vi.clearAllMocks()
     // Clear any registered handlers
-    ;(ipcMain as any)._handlers?.clear?.()
+    (ipcMain as any)._handlers.clear()
   })
 
   describe('IPC Sender Validation', () => {
@@ -113,7 +113,7 @@ describe('IPC Security Tests', () => {
       })
 
       ipcMain.handle('secure:operation', handler)
-      ;(ipcMain as any)._handlers?.set?.('secure:operation', handler)
+      (ipcMain as any)._handlers.set('secure:operation', handler)
 
       // Test with unauthorized sender
       await expect(handler(mockEvent)).rejects.toThrow('Unauthorized sender')
@@ -153,12 +153,12 @@ describe('IPC Security Tests', () => {
     })
 
     test('should validate sender ID matches registered window', async () => {
-      const mockWindows = [
+      const testWindows = [
         { webContents: { id: 1 }, id: 1 },
         { webContents: { id: 2 }, id: 2 }
-      ]
+      ] as Array<{ webContents: { id: number }; id: number }>
       
-      ;(BrowserWindow.getAllWindows as any).mockReturnValue(mockWindows)
+      (BrowserWindow.getAllWindows as any).mockReturnValue(testWindows)
 
       const validateSenderWindow = (senderId: number): boolean => {
         const windows = BrowserWindow.getAllWindows()
@@ -562,7 +562,8 @@ describe('IPC Security Tests', () => {
       const testSerializability = (obj: any): boolean => {
         try {
           // Objects that can't be cloned will throw
-          /* const _serialized = */ JSON.stringify(obj)
+          // Check serializability by stringifying
+          JSON.stringify(obj)
           
           // Additional check for special objects
           if (obj && typeof obj === 'object') {
@@ -718,8 +719,7 @@ describe('IPC Security Tests', () => {
         const permissions = userPermissions[userRole as keyof typeof userPermissions] || []
         return permissions.some(p => {
           if (p.includes(':all')) {
-            const prefix = p.split(':')[0]
-            return prefix ? action.startsWith(prefix) : false
+            return action.startsWith(p.split(':')[0] || '')
           }
           return p === action
         })

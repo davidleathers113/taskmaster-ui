@@ -7,22 +7,8 @@
  */
 
 import { describe, test, expect, beforeEach, afterEach, vi } from 'vitest'
-
-// Global type declarations for test environment
-declare global {
-  interface GlobalThis {
-    __mockElectron?: any
-    __electron?: any
-    electronAPI?: any
-    taskmaster?: any
-    __DEV__?: boolean
-    __TEST__?: boolean
-  }
-}
-<<<<<<< HEAD
-
-=======
 >>>>>>> test/test-failure-analysis
+=======
 import { app } from 'electron'
 import { createTestWindow, cleanupTestWindows } from '../../../tests/utils/window-manager'
 

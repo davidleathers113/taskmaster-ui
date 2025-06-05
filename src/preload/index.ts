@@ -52,6 +52,11 @@ interface ElectronAPI {
   
   // Development utilities
   isDev: boolean;
+  
+  // Testing utilities (available in test environment)
+  invoke?: any;
+  on?: any;
+  off?: any;
 }
 
 // Security: Input validation and sanitization
