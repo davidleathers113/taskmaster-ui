@@ -164,25 +164,17 @@ describe('Differential Updates & Rollback Tests', () => {
       
       (autoUpdater as MockAutoUpdater).checkForUpdates.mockResolvedValue({
         isUpdateAvailable: true,
-        versionInfo: {
-          version: targetVersion,
-          path: `differential/${currentVersion}/${targetVersion}`,
-          size: 5000000
-        } as MockUpdateInfo,
         updateInfo: {
           version: targetVersion,
           path: `differential/${currentVersion}/${targetVersion}`,
           size: 5000000
         } as MockUpdateInfo,
-        cancellationToken: undefined,
-        isUpdateAvailable: true,
         versionInfo: {
           version: targetVersion,
-          files: [],
-          path: `differential/${targetVersion}`,
-          sha512: 'mock-sha512-hash',
-          releaseDate: new Date().toISOString()
-        }
+          path: `differential/${currentVersion}/${targetVersion}`,
+          size: 5000000
+        } as MockUpdateInfo,
+        cancellationToken: undefined
       })
       
       const result = await checkForDifferentialUpdate()
@@ -420,25 +412,17 @@ describe('Differential Updates & Rollback Tests', () => {
       
       (autoUpdater as MockAutoUpdater).checkForUpdates.mockResolvedValue({
         isUpdateAvailable: true,
-        versionInfo: {
-          version: rollbackStrategy.rollbackVersion,
-          minimumVersion: rollbackStrategy.brokenVersion,
-          releaseNotes: rollbackStrategy.changes
-        } as MockUpdateInfo,
         updateInfo: {
           version: rollbackStrategy.rollbackVersion,
           minimumVersion: rollbackStrategy.brokenVersion,
           releaseNotes: rollbackStrategy.changes
         } as MockUpdateInfo,
-        cancellationToken: undefined,
-        isUpdateAvailable: true,
         versionInfo: {
           version: rollbackStrategy.rollbackVersion,
-          files: [],
-          path: `rollback/${rollbackStrategy.rollbackVersion}`,
-          sha512: 'mock-sha512-hash',
-          releaseDate: new Date().toISOString()
-        }
+          minimumVersion: rollbackStrategy.brokenVersion,
+          releaseNotes: rollbackStrategy.changes
+        } as MockUpdateInfo,
+        cancellationToken: undefined
       })
       
       await checkRollbackUpdate('1.0.1') // Broken version gets update
@@ -499,9 +483,13 @@ describe('Differential Updates & Rollback Tests', () => {
         }
         
         return false
-      }
+      };
       
-      const testUpdateInfo = { version: '2.0.1', mandatoryUpdate: true, releaseNotes: 'CRITICAL: Security vulnerability fix' };
+      const updateInfo = {
+        version: '2.0.1',
+        mandatoryUpdate: true,
+        releaseNotes: 'CRITICAL: Security vulnerability fix'
+      } as const
       
       (autoUpdater as MockAutoUpdater).downloadUpdate.mockResolvedValue([])
       
@@ -591,7 +579,7 @@ describe('Differential Updates & Rollback Tests', () => {
     })
 
     test('should validate update after recovery', async () => {
-      const validateRecoveredUpdate = async () => {
+      const validateRecoveredUpdate = async (_filePath: string, _expectedHash: string) => {
         // After recovering from failure, validate the complete file
         const validations = {
           hashValid: false,
@@ -664,7 +652,7 @@ describe('Differential Updates & Rollback Tests', () => {
     })
 
     test('should clean up failed updates', async () => {
-      const cleanupFailedUpdate = async () => {
+      const cleanupFailedUpdate = async (_updatePath: string) => {
         const cleanup = {
           tempFilesDeleted: 0,
           partialDownloadsDeleted: 0,

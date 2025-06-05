@@ -442,9 +442,8 @@ describe('Auto-Updater Tests (2025)', () => {
 
     test('should handle update channel configuration', () => {
       // Test switching to beta channel
-      const updater = autoUpdater as MockAutoUpdater
-      updater.channel = 'beta'
-      updater.allowPrerelease = true
+      ;(autoUpdater as any).channel = 'beta'
+      ;(autoUpdater as any).allowPrerelease = true
       
       expect(updater.channel).toBe('beta')
       expect(updater.allowPrerelease).toBe(true)

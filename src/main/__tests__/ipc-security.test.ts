@@ -31,30 +31,33 @@ import { SecureIPCHandler } from '../security/secure-ipc-handler'
 import { SecurityMonitor } from '../security/security-monitor'
 
 // Mock Electron modules
-vi.mock('electron', () => ({
-  ipcMain: {
-    handle: vi.fn(),
-    on: vi.fn(),
-    removeHandler: vi.fn(),
-    removeAllListeners: vi.fn(),
-    _handlers: new Map()
-  },
-  BrowserWindow: {
-    getAllWindows: vi.fn().mockReturnValue([]),
-    getFocusedWindow: vi.fn(),
-    fromWebContents: vi.fn()
-  },
+vi.mock('electron', () => {
+  const handlers = new Map()
+  return {
+    ipcMain: {
+      handle: vi.fn(),
+      on: vi.fn(),
+      removeHandler: vi.fn(),
+      removeAllListeners: vi.fn(),
+      get handlers() { return handlers }
+    },
+    BrowserWindow: {
+      getAllWindows: vi.fn().mockReturnValue([]),
+      getFocusedWindow: vi.fn(),
+      fromWebContents: vi.fn()
+    },
   app: {
     getPath: vi.fn().mockImplementation((name) => `/mock/path/${name}`),
     isPackaged: true
   },
-  session: {
-    defaultSession: {
-      setPermissionRequestHandler: vi.fn(),
-      setCertificateVerifyProc: vi.fn()
+    session: {
+      defaultSession: {
+        setPermissionRequestHandler: vi.fn(),
+        setCertificateVerifyProc: vi.fn()
+      }
     }
   }
-}))
+})
 
 // Mock security utilities
 vi.mock('../security/ipc-rate-limiter')
@@ -70,13 +73,14 @@ describe('IPC Security Tests', () => {
     // Initialize security components
     secureHandler = new (SecureIPCHandler as any)()
     rateLimiter = new (IPCRateLimiter as any)()
-    securityMonitor = new (SecurityMonitor as any)()
+    // Security monitor setup for comprehensive testing
+    new (SecurityMonitor as any)()
   })
 
   beforeEach(() => {
     vi.clearAllMocks()
     // Clear any registered handlers
-    (ipcMain as any)._handlers?.clear()
+    ;(ipcMain as any).handlers.clear()
   })
 
   describe('IPC Sender Validation', () => {
@@ -99,7 +103,7 @@ describe('IPC Security Tests', () => {
       }, async () => 'success')
 
       // Mock the handler registration
-      const handler = vi.fn().mockImplementation(async (event, ..._args) => {
+      const handler = vi.fn().mockImplementation(async (event) => {
         const allowedOrigins = ['https://app.taskmaster.com', 'app://taskmaster']
         try {
           const frameUrl = new URL(event.senderFrame.url)
@@ -113,7 +117,7 @@ describe('IPC Security Tests', () => {
       })
 
       ipcMain.handle('secure:operation', handler)
-      (ipcMain as any)._handlers.set('secure:operation', handler)
+      ;(ipcMain as any).handlers.set('secure:operation', handler)
 
       // Test with unauthorized sender
       await expect(handler(mockEvent)).rejects.toThrow('Unauthorized sender')
@@ -153,12 +157,12 @@ describe('IPC Security Tests', () => {
     })
 
     test('should validate sender ID matches registered window', async () => {
-      const testWindows = [
+      const mockWindows: Array<{ webContents: { id: number }; id: number }> = [
         { webContents: { id: 1 }, id: 1 },
         { webContents: { id: 2 }, id: 2 }
       ] as Array<{ webContents: { id: number }; id: number }>
       
-      (BrowserWindow.getAllWindows as any).mockReturnValue(testWindows)
+      ;(BrowserWindow.getAllWindows as any).mockReturnValue(mockWindows)
 
       const validateSenderWindow = (senderId: number): boolean => {
         const windows = BrowserWindow.getAllWindows()
@@ -463,7 +467,6 @@ describe('IPC Security Tests', () => {
           const lastRequest = requests[requests.length - 1]
           const firstRequest = requests[0]
           if (!lastRequest || !firstRequest) return false
-          
           const timeWindow = lastRequest.timestamp - firstRequest.timestamp
           
           // Suspicious if accessing many channels in short time
@@ -562,8 +565,8 @@ describe('IPC Security Tests', () => {
       const testSerializability = (obj: any): boolean => {
         try {
           // Objects that can't be cloned will throw
-          // Check serializability by stringifying
-          JSON.stringify(obj)
+          // Test object serializability  
+        JSON.stringify(obj)
           
           // Additional check for special objects
           if (obj && typeof obj === 'object') {

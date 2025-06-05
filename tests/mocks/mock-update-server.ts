@@ -96,7 +96,7 @@ export class MockUpdateServer {
 
   private setupMiddleware(): void {
     // Request logging
-    this.app.use((req: Request, res: Response, next) => {
+    this.app.use((req, _res, next) => {
       if (this.enableLogging) {
         console.log(`[MockUpdateServer] ${req.method} ${req.path}`)
       }
@@ -118,17 +118,17 @@ export class MockUpdateServer {
     })
 
     // Request tracking
-    this.app.use((req: Request, res: Response, next) => {
-      const originalSend = res.send
-      res.send = function(data: any) {
+    this.app.use((req, res, next) => {
+      const originalSend = res.send.bind(res)
+      res.send = (data: any) => {
         this.requestLogs.push({
           timestamp: new Date(),
           method: req.method,
           path: req.path,
           status: res.statusCode
         })
-        return originalSend.call(this, data)
-      }.bind(this)
+        return originalSend(data)
+      }
       next()
         return
     })
@@ -203,8 +203,7 @@ export class MockUpdateServer {
       if (range && typeof range === 'string') {
         const parts = range.replace(/bytes=/, '').split('-')
         const start = parseInt(parts[0] || '0', 10)
-        const fileSize = this.updateManifest.size || 1000000
-        const end = parts[1] ? parseInt(parts[1], 10) : fileSize - 1
+        const end = parts[1] ? parseInt(parts[1], 10) : this.updateManifest.size! - 1
         
         res.status(206)
         res.header('Content-Range', `bytes ${start}-${end}/${fileSize}`)
@@ -256,7 +255,7 @@ export class MockUpdateServer {
     })
 
     // Health check endpoint
-    this.app.get('/health', (_req: Request, res: Response): void => {
+    this.app.get('/health', (_req, res) => {
       res.json({
         status: 'healthy',
         uptime: process.uptime(),
@@ -321,9 +320,8 @@ export class MockUpdateServer {
     }
 
     // Use client ID or IP for consistent staging
-    const clientIdRaw = req.headers['x-client-id'] || req.ip
-    const clientId = Array.isArray(clientIdRaw) ? clientIdRaw[0] : clientIdRaw
-    const hash = createHash('md5').update(clientId || '').digest('hex')
+    const clientId = String(req.headers['x-client-id'] || req.ip || 'default')
+    const hash = createHash('md5').update(clientId).digest('hex')
     const bucket = parseInt(hash.substring(0, 8), 16) % 100
 
     if (bucket < stagingPercentage) {

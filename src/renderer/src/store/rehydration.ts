@@ -163,7 +163,7 @@ export function withRehydration<T>(
         }
 
         const deserialized = config.deserialize(stored);
-        const { state, version, metadata } = extractState(deserialized);
+        const { state, version } = extractState(deserialized);
         
         let finalState = state;
         let migrated = false;

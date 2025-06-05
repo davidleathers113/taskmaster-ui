@@ -25,7 +25,52 @@ declare global {
 import { session } from 'electron'
 import { MockUpdateServer } from '../../../tests/mocks/mock-update-server'
 import { createHash } from 'crypto'
-  // let serverUrl: string // Currently unused
+// import type { MockAutoUpdater } from './mock-types' // Unused
+
+
+// Mock security utilities
+const mockSecurityUtils = {
+  verifySignature: vi.fn(),
+  validateCertificate: vi.fn(),
+  checkCertificatePinning: vi.fn(),
+  validateUpdateIntegrity: vi.fn()
+}
+
+// Mock electron modules with security focus
+vi.mock('electron', () => ({
+  app: {
+    isPackaged: true,
+    getVersion: vi.fn().mockReturnValue('1.0.0'),
+    getPath: vi.fn().mockImplementation((name) => `/mock/path/${name}`)
+  },
+  net: {
+    request: vi.fn()
+  },
+  session: {
+    defaultSession: {
+      setCertificateVerifyProc: vi.fn()
+    }
+  }
+}))
+
+vi.mock('electron-updater', () => ({
+  autoUpdater: {
+    checkForUpdates: vi.fn(),
+    downloadUpdate: vi.fn(),
+    setFeedURL: vi.fn(),
+    getFeedURL: vi.fn(),
+    on: vi.fn(),
+    logger: {
+      info: vi.fn(),
+      warn: vi.fn(),
+      error: vi.fn()
+    }
+  }
+}))
+
+describe('Auto-Updater Security Tests', () => {
+  let mockServer: MockUpdateServer
+  let _serverUrl: string
 
   beforeAll(async () => {
     mockServer = new MockUpdateServer({
@@ -33,7 +78,7 @@ import { createHash } from 'crypto'
       useHttps: true,
       enableLogging: false
     })
-    await mockServer.start() // serverUrl not used
+    _serverUrl = await mockServer.start()
   })
 
   afterAll(async () => {

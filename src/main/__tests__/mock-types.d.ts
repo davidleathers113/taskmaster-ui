@@ -95,30 +95,33 @@ export function asMockAutoUpdater(updater: any): MockAutoUpdater {
   return updater as MockAutoUpdater;
 }
 
+// Extended IpcMain type with mock methods and private properties
+export interface MockIpcMain {
+  handle: MockedFunction<(channel: string, listener: (event: any, ...args: any[]) => any) => void>;
+  on: MockedFunction<(channel: string, listener: (event: any, ...args: any[]) => void) => void>;
+  once: MockedFunction<(channel: string, listener: (event: any, ...args: any[]) => void) => void>;
+  removeHandler: MockedFunction<(channel: string) => void>;
+  removeAllListeners: MockedFunction<(channel?: string) => void>;
+  removeListener: MockedFunction<(channel: string, listener: (event: any, ...args: any[]) => void) => void>;
+  
+  // Private properties exposed for testing
+  _handlers: Map<string, any>;
+  _listeners: Map<string, any>;
+}
+
 // Helper to cast app to MockApp in tests  
 export function asMockApp(app: any): MockApp {
   return app as MockApp;
 }
 
+// Helper to cast ipcMain to MockIpcMain in tests
+export function asMockIpcMain(ipcMain: any): MockIpcMain {
+  return ipcMain as MockIpcMain;
+}
+
 // Declare global mock types
 declare global {
-  var mockAutoUpdater: MockAutoUpdater;
-  var mockApp: MockApp;
-  var mockElectron: {
-    app: MockApp;
-    BrowserWindow: MockBrowserWindow;
-  };
-  var testWindowManager: import('../../../tests/utils/window-manager').TestWindowManager;
-  var vi: typeof import('vitest').vi;
-  
-  namespace NodeJS {
-    interface Global {
-      mockElectron: {
-        app: MockApp;
-        BrowserWindow: MockBrowserWindow;
-      };
-      testWindowManager: import('../../../tests/utils/window-manager').TestWindowManager;
-      vi: typeof import('vitest').vi;
-    }
-  }
+  const mockAutoUpdater: MockAutoUpdater;
+  const mockApp: MockApp;
+  const mockIpcMain: MockIpcMain;
 }
