@@ -258,3 +258,7 @@ server/dist/
 add-desktop-automation-mcp.sh
 cleanup-worktrees.sh
 server/nodemon.json
+# Worktree files
+.env.worktree
+CLAUDE_PROMPT.md
+TASK.md
