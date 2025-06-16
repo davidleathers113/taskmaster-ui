@@ -107,7 +107,7 @@
     "electron-log": "^5.4.0",
     "framer-motion": "^12.15.0",
     "immer": "^10.1.1",
-    "lucide-react": "^0.468.0",
+    "lucide-react": "^0.515.0",
     "react": "^18.3.1",
     "react-apexcharts": "^1.7.0",
     "react-dom": "^18.3.1",
